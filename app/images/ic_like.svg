@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="16px" viewBox="0 0 18 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/thumbs up/normal</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M0,13 L2.91,13 L2.91,5.2 L0,5.2 L0,13 Z M16,5.85 C16,5.135 15.345,4.55 14.545,4.55 L9.956,4.55 L10.647,1.58 L10.669,1.371 C10.6652769,1.10625224 10.5488836,0.855642753 10.349,0.682 L9.64817768,0.160110777 L4.792,4.284 C4.522,4.518 4.362,4.843 4.362,5.2 L4.362,11.7 C4.362,12.415 5.017,13 5.817,13 L12.363,13 C12.966,13 13.483,12.675 13.701,12.207 L15.897,7.624 C15.963,7.475 15.999,7.319 15.999,7.15 L15.999,5.908 L16,5.85 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/thumbs-up/normal" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="thumbs-up" transform="translate(1.000000, 2.000000)">
+            <g id="a-link" fill="none" fill-rule="nonzero">
+                <path d="M0,13 L2.91,13 L2.91,5.2 L0,5.2 L0,13 Z M16,5.85 C16,5.135 15.345,4.55 14.545,4.55 L9.956,4.55 L10.647,1.58 L10.669,1.371 C10.6652769,1.10625224 10.5488836,0.855642753 10.349,0.682 L9.58,0 L4.792,4.284 C4.522,4.518 4.362,4.843 4.362,5.2 L4.362,11.7 C4.362,12.415 5.017,13 5.817,13 L12.363,13 C12.966,13 13.483,12.675 13.701,12.207 L15.897,7.624 C15.963,7.475 15.999,7.319 15.999,7.15 L15.999,5.908 L15.992,5.902 L16,5.85 Z" id="a"></path>
+            </g>
+            <g id="Clipped">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="a" stroke="#4E5154" fill="#FFF" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

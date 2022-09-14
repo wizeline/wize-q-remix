@@ -1,0 +1,16 @@
+module.exports = {
+  DEFAULT_DOMAIN: '',
+  DEFAULT_SLACK_NAME: 'WizeQ-bot',
+  SLACK_FALLBACK_STRING: 'New question posted',
+  SLACK_QUESTION_COLOR: '#FF9248',
+  SLACK_QUESTION_EMOJI: ':question:',
+  SLACK_QUESTION_DETAILS: 'see question details in WizeQ',
+  SLACK_QUESTION_HEADER: 'A new question has been posted at WizeQ!',
+  SLACK_QUESTION_SEE_MORE: 'see full question in WizeQ',
+  SLACK_QUESTION_LIMIT: 240,
+  SLACK_ANSWER_COLOR: '#7CD197',
+  SLACK_ANSWER_EMOJI: ':exclamation:',
+  SLACK_ANSWER_HEADER: 'A question has been answered at WizeQ!',
+  SLACK_ANSWER_UPDATED_HEADER: 'An answer has been updated at WizeQ!',
+  SLACK_MAX_MESSAGE_SIZE_IN_BYTES: 7500,
+};

@@ -1,0 +1,15 @@
+module.exports = {
+  NAME: 'name',
+  VALUE: 'value',
+  CODE: 'code',
+  LOCATION: 'Location',
+  TAG: 'Tag',
+  SENTIMENT: 'Sentiment',
+  QUESTION: 'Question',
+  DRAFT: 'Draft',
+  USER: 'User',
+  VOTE: 'Vote',
+  NPS: 'NetPromoterScore',
+  ANSWER: 'Answer',
+  COMMENT: 'Comment',
+};

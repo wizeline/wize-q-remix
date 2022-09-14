@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/comment/normal</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M14.1595833,3.41666667 C14.1595833,2.6375 13.5291667,2 12.75,2 L1.41666667,2 C0.6375,2 0,2.6375 0,3.41666667 L0,11.9166667 C0,12.6958333 0.6375,13.3333333 1.41666667,13.3333333 L11.3333333,13.3333333 L14.1666667,16.1666667 L14.1595833,3.41666667 Z" id="path-1"></path>
+    </defs>
+    <g id="icon/comment/normal" stroke="none" stroke-width="1" fill="#FFF" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <path stroke="#4E5154" d="M13.6659956,14.9588888 L13.6595834,3.41694444 L13.6595833,3.41666667 C13.6595833,2.91151804 13.2509034,2.5 12.75,2.5 L1.41666667,2.5 C0.913642375,2.5 0.5,2.91364237 0.5,3.41666667 L0.5,11.9166667 C0.5,12.419691 0.913642375,12.8333333 1.41666667,12.8333333 L11.5404401,12.8333333 L13.6659956,14.9588888 Z"></path>
+    </g>
+</svg>

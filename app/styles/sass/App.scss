@@ -1,0 +1,285 @@
+@import "MediaQueries";
+
+/* --------------------------------------------
+                    Header
+-------------------------------------------- */
+
+.App {
+  height: 100%;
+}
+
+.App-logo {
+  margin-left: 30px;
+  max-width: 150px;
+  width: 100%;
+}
+
+.modal {
+  display: block;
+}
+
+.navbar-brand {
+  align-items: center;
+  display: flex;
+  padding: 0;
+  @include mobile {
+    padding-right: 40px;
+  }
+  .App-logo {
+    display: inline;
+  }  
+}
+
+.collapsing,
+.collapse {
+  @include mobile {
+    display: none;
+  }
+}
+
+.collapse.in {
+  @include mobile {
+    display: block;
+  }
+}
+
+.modal-word-wrap {
+  word-wrap: break-word;
+}
+
+
+/* --------------------------------------------
+                    Fonts
+-------------------------------------------- */
+
+
+.sm-text {
+  font-size: 1.1em;
+}
+
+/* --------------------------------------------
+                   Navbar
+-------------------------------------------- */
+
+.navbar-default .navbar-nav .active a,
+.navbar-default .navbar-nav .active a:focus,
+.navbar-default .navbar-nav .active a:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.navbar-default .navbar-nav .active a {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.navbar-link {
+  line-height: 20px;
+  margin-left: 30px;
+  padding-top: 0;
+  text-decoration: none;
+  a {
+    line-height: 55px;
+    padding: 0;
+    text-decoration: none;
+    &:hover,
+    &:focus,
+    &:active {
+      color: #aaa;
+    }
+  }
+}
+
+.navbar-default .navbar-nav > .nav-item-admin.open > .dropdown-toggle {
+  background-color: transparent;
+}
+
+.navbar-nav > li > .dropdown-menu {
+  background-color: white;
+  margin-top: 5px;
+}
+
+.navbar-default .navbar-nav li a:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.navbar-link .navbar-button.sub-menu-item a {
+  color: black;
+  font-weight: 400;
+  text-align: left;
+}
+
+.navbar-default .navbar-nav li a {
+  border: none;
+  color: #111;
+  float: none;
+  text-shadow: none;
+}
+
+.navbar-toggle {
+  border: none #111;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #000;
+  height: 3px;
+}
+
+.user-image-wrapper.dropdown-toggle.btn {
+  box-shadow: none;
+}
+
+.btn-default.active,
+.open > .dropdown-toggle.btn-default,
+.open > .dropdown-toggle.btn-default:hover {
+  background: none;
+  color: #333;
+}
+
+.dropdown-menu > .sub-menu-item > a {
+  line-height: 20px;
+  padding: 5px;
+}
+
+.nav-items {
+  margin-right: 15px;
+}
+
+.user-image.sm {
+  width: 40px;
+  height: 40px;
+}
+
+.user-image.lg {
+  width: 57px;
+  height: 57px;
+}
+
+/* --------------------------------------------
+                  Pagination
+-------------------------------------------- */
+
+.pagination li a:focus,
+.pagination li a:hover,
+.pagination li span:focus,
+.pagination li span:hover {
+  background-color: #aaa;
+  border-color: #aaa;
+  color: white;
+}
+
+.pager .pagination li.active a,
+.pagination a:hover {
+  background: #aaa;
+  border-color: #aaa;
+  color: #fff;
+}
+
+.pagination li a {
+  background: white;
+  color: black;
+  margin-left: 2px;
+  margin-right: 2px;
+  outline: none;
+}
+
+.pagination li:first-child a {
+  border-radius: 25px 5px 5px 25px;
+  margin-right: 10px;
+  outline: none;
+}
+
+.pagination li:last-child a {
+  border-radius: 5px 25px 25px 5px;
+  margin-left: 10px;
+  outline: none;
+}
+
+/* --------------------------------------------
+                      Forms
+-------------------------------------------- */
+
+.form-control .text-area,
+.form-text-area {
+  resize: none;
+}
+
+/* --------------------------------------------
+                    Misc
+-------------------------------------------- */
+
+.dropdown-menu a {
+  text-decoration: none;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.profile-picture {
+  margin-left: 0;
+}
+
+.text-area-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  @include mobile {
+    flex-direction: row-reverse;
+  }
+}
+
+.highlighted-text {
+  background-color: rgb(170, 209, 253);
+  display: inline-block;
+  text-decoration: underline;
+  text-decoration-color: rgb(66, 130, 191);
+}
+
+.navbar-link a.profile-dropdown__btn {
+  background-color: var(--color-secondary);
+  border: solid 1px var(--color-secondary);
+  border-radius: 3px;
+  color: #fff;
+  line-height: normal;
+  margin-bottom: 32px;
+  padding: 8px 16px;
+}
+
+.open > .dropdown-menu.arrowed-dropdown__menu {
+  border: solid 1px #e1e5e9;
+  min-width: 280px;
+  overflow: unset;
+  padding: 5px 0 0;
+  width: auto;
+}
+
+.navbar-default .navbar-nav li .arrowed-dropdown__body > a:focus {
+  outline: none;
+}
+
+.navbar-default .navbar-nav li .arrowed-dropdown__body > a {
+  color: black;
+  cursor: default;
+}
+
+.arrowed-dropdown__footer {
+  background-color: #f4f7f9;
+}
+
+.navbar-default .navbar-nav li .arrowed-dropdown__footer > a {
+  color: var(--color-secondary);
+  font-family: "NunitoSans Regular", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 40px;
+  padding-right: 25px;
+  text-align: right;
+}
+
+.arrowed-dropdown__footer:hover {
+  color: black;
+  cursor: pointer;
+}

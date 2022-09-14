@@ -1,0 +1,180 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Admins {
+  email String @id @default("") @db.VarChar(255)
+  name  String @db.VarChar(255)
+}
+
+model Answers {
+  answer_id               Int      @id @default(autoincrement())
+  answer_text             String   @db.VarChar(3000)
+  answered_by_picture     String?  @db.VarChar(255)
+  answer_date             DateTime @db.DateTime(0)
+  answered_by_employee_id Int
+  answered_question_id    Int
+  createdAt               DateTime @default(now()) @db.DateTime(0)
+  updatedAt               DateTime @default(now()) @db.DateTime(0)
+  num_scores              Int?     @default(0)
+  average_score           Float?   @default(0) @db.Float
+  Nps                     Nps[]
+}
+
+model CommentVote {
+  id         Int      @id @default(autoincrement())
+  comment_id Int
+  user       String   @db.VarChar(255)
+  value      Int      @db.SmallInt
+  Comments   Comments @relation(fields: [comment_id], references: [id], onDelete: Cascade, map: "commentvote_ibfk_1")
+
+  @@index([comment_id], map: "comment_id")
+}
+
+model Comments {
+  id          Int           @id @default(autoincrement())
+  comment     String?       @db.VarChar(3000)
+  createdAt   DateTime      @db.DateTime(0)
+  questionId  Int
+  sessionHash String?       @db.VarChar(255)
+  userName    String?       @db.VarChar(255)
+  userEmail   String?       @db.VarChar(255)
+  updatedAt   DateTime?     @db.DateTime(0)
+  Questions   Questions     @relation(fields: [questionId], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_1")
+  CommentVote CommentVote[]
+
+  @@index([questionId], map: "questionId")
+}
+
+model Departments {
+  department_id Int     @id @default(autoincrement())
+  name          String  @db.VarChar(255)
+  is_active     Boolean @default(true)
+}
+
+model DraftAnswers {
+  answer      String    @db.VarChar(3000)
+  employee_id Int       @default(0)
+  question_id Int       @default(0)
+  users       users     @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, map: "DraftAnswers_ibfk_1")
+  Questions   Questions @relation(fields: [question_id], references: [question_id], onDelete: NoAction, map: "DraftAnswers_ibfk_2")
+
+  @@id([employee_id, question_id])
+  @@index([question_id], map: "question_id")
+}
+
+model Employees {
+  name      String  @db.VarChar(255)
+  email     String  @id @db.VarChar(255)
+  is_admin  Boolean
+  job_title String  @db.VarChar(255)
+}
+
+model EmployeesDepartments {
+  id            Int    @id @default(autoincrement())
+  email         String @db.VarChar(255)
+  department_id Int
+  employee_id   Int?
+  users         users? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
+
+  @@index([employee_id], map: "employee_id_foreign_idx")
+}
+
+model Locations {
+  name      String      @unique(map: "name") @db.VarChar(255)
+  code      String      @id @db.VarChar(255)
+  Questions Questions[]
+}
+
+model Nps {
+  answer_id    Int     @default(0)
+  user         String? @db.VarChar(255)
+  score        Int
+  session_hash String  @db.VarChar(255)
+  id           Int     @id @default(autoincrement())
+  Answers      Answers @relation(fields: [answer_id], references: [answer_id], onDelete: NoAction, onUpdate: NoAction, map: "Nps_ibfk_1")
+
+  @@unique([answer_id, user], map: "unique_mail_with_answer")
+}
+
+model QuestionTags {
+  id          Int @id @default(autoincrement())
+  question_id Int
+  tag_id      Int
+}
+
+model Questions {
+  question_id                                    Int            @id @default(autoincrement())
+  question                                       String         @db.VarChar(500)
+  user_hash                                      String         @db.VarChar(255)
+  is_anonymous                                   Boolean
+  createdAt                                      DateTime       @db.DateTime(0)
+  updatedAt                                      DateTime       @db.DateTime(0)
+  location                                       String?        @default("ALL") @db.VarChar(255)
+  last_email_notification_date                   DateTime?      @db.DateTime(0)
+  assigned_department                            Int?
+  created_by_employee_id                         Int?
+  assigned_to_employee_id                        Int?
+  numComments                                    Int?           @default(0)
+  num_votes                                      Int?           @default(0)
+  users_Questions_assigned_to_employee_idTousers users?         @relation("Questions_assigned_to_employee_idTousers", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
+  users_Questions_created_by_employee_idTousers  users?         @relation("Questions_created_by_employee_idTousers", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
+  Locations                                      Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "questions_ibfk_1")
+  Comments                                       Comments[]
+  DraftAnswers                                   DraftAnswers[]
+  Sentiments                                     Sentiments[]
+  Votes                                          Votes[]
+
+  @@index([assigned_to_employee_id], map: "assigned_to_employee_id_foreign_idx")
+  @@index([created_by_employee_id], map: "created_by_employee_id_foreign_idx")
+  @@index([location], map: "location")
+}
+
+model Sentiments {
+  sentiment_id          Int       @id @default(autoincrement())
+  sentiment_question_id Int
+  label                 String    @db.VarChar(255)
+  score                 Decimal   @db.Decimal(10, 9)
+  Questions             Questions @relation(fields: [sentiment_question_id], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "Sentiments_ibfk_1")
+
+  @@index([sentiment_question_id], map: "sentiment_question_id")
+}
+
+model SequelizeMeta {
+  name String @id @unique(map: "SequelizeMeta_name_unique") @db.VarChar(255)
+}
+
+model Tags {
+  tag_id Int    @id @default(autoincrement())
+  name   String @unique(map: "name") @db.VarChar(255)
+}
+
+model Votes {
+  id          Int        @id @default(autoincrement())
+  question_id Int?
+  user        String     @db.VarChar(255)
+  is_upvote   Boolean?
+  Questions   Questions? @relation(fields: [question_id], references: [question_id], onDelete: Cascade, map: "Votes_ibfk_1")
+
+  @@unique([question_id, user], map: "unique_mail_with_question")
+}
+
+model users {
+  employee_id                                        Int                    @id @default(autoincrement())
+  full_name                                          String                 @db.VarChar(255)
+  email                                              String                 @unique(map: "email") @db.VarChar(255)
+  is_admin                                           Boolean                @default(false)
+  job_title                                          String?                @db.VarChar(255)
+  profile_picture                                    String?                @db.VarChar(255)
+  DraftAnswers                                       DraftAnswers[]
+  EmployeesDepartments                               EmployeesDepartments[]
+  Questions_Questions_assigned_to_employee_idTousers Questions[]            @relation("Questions_assigned_to_employee_idTousers")
+  Questions_Questions_created_by_employee_idTousers  Questions[]            @relation("Questions_created_by_employee_idTousers")
+
+  @@index([email], map: "employeeEmail")
+}

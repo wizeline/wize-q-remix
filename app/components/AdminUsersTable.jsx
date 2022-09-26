@@ -1,27 +1,33 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { usePagination, DOTS } from '~/utils/hooks/usePagination';
-import Button from '~/components/Button';
-// import EditUserModal from 'components/Molecules/EditUserModal';
+import Button from '~/components/Atoms/Button/Button';
 import Loader from '~/components/Loader';
 import { PRIMARY_BUTTON, LSPIN_MEDIUM } from '~/utils/constants';
 import logomarkX1 from '~/images/logomark_medium.png';
 import * as Styled from '~/styles/AdminUsersTable.Styled';
-import { useNavigate, useSearchParams } from "@remix-run/react"
+import { useActionData, useSearchParams } from "@remix-run/react"
+import EditUserModal from '~/components/Modals/EditUserModal/EditUserModal';
 
 
 function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm, size}) {
-  const [userList, setUserList] = useState(users || []);
   const [modal, setModal] = useState(false);
   const [currentUser, setCurrenUser] = useState({});
   const quantityRef = useRef(0);
-  const [paginationItems, setPaginationItems] = useState([]);
 
   const paginationRange = usePagination({
     currentPage: (currentPage === 0 ? 1 : currentPage + 1),
     totalPages });
 
-  const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [, setSearchParams] = useSearchParams();
+  
+  const data = useActionData();
+
+  useEffect(() => {
+    if (data && data.success) {
+      setModal(false);
+    }
+  }, [users, data])
 
   const handleModal = (u) => {
     if (!modal) {
@@ -30,11 +36,6 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
     setModal(!modal);
   };
 
-  useEffect(() => {
-    if (users) {
-      setUserList(users);
-    }
-  }, [users]);
 
   const changePage = (page) => {
     setSearchParams({
@@ -67,6 +68,20 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
     </Styled.TablePagination.Item>
   );
 
+  const getPaginationItems = () => {
+    const item = paginationRange.map((__page, idx) => {
+      if (__page === DOTS) {
+        // eslint-disable-next-line react/no-array-index-key
+        return <Styled.TablePagination.Ellipsis key={idx} />;
+      }
+      return createPaginationItem(__page, idx);
+    });
+    return [...item];
+  }
+
+  const paginationItems = getPaginationItems();
+
+
   const renderHeader = () => (
     <thead>
       <Styled.HeaderTable>
@@ -78,16 +93,6 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
       </Styled.HeaderTable>
     </thead>);
 
-  useEffect(() => {
-    const item = paginationRange.map((__page, idx) => {
-      if (__page === DOTS) {
-        // eslint-disable-next-line react/no-array-index-key
-        return <Styled.TablePagination.Ellipsis key={idx} />;
-      }
-      return createPaginationItem(__page, idx);
-    });
-    setPaginationItems([...item]);
-  }, [paginationRange]);
 
   const setQTY = (value) => {
     setSearchParams({
@@ -126,11 +131,11 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
             {renderHeader()}
             <tbody>
               <React.Fragment>
-                {userList.map(user => (
+                {users.map(user => (
                   <Styled.RowTable key={user.employee_id}>
                     <td>
                       <div>
-                        <img src={user.profile_picture} />
+                        <img src={user.profile_picture} alt="" />
                         {user.full_name}
                       </div>
                     </td>
@@ -156,11 +161,11 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
         {!isLoading && (
           <Styled.PaginationContainer>
             <div>
-              Page {currentPage + 1} of {totalPages}
+              Page {currentPage} of {totalPages}
             </div>
 
             <Styled.TablePagination boundarylinks="true">
-              {currentPage > 0 && (
+              {currentPage > 1 && (
                 <Styled.TablePagination.Prev onClick={prevPageHandler} />
               )}
               {paginationItems}
@@ -171,11 +176,10 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
             </Styled.TablePagination>
           </Styled.PaginationContainer>
         )}
-        {/* <EditUserModal
+        { modal ? <EditUserModal
           user={currentUser}
-          show={modal}
-          close={() => handleModal()}
-        /> */}
+          onClose={() => handleModal()}
+        /> : null}
       </Styled.TableContainer>
     </div>
   );

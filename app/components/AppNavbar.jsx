@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '~/images/logo.png';
-// import UserControls from '../../Organisms/UserControl/UserControls';
 import * as Styled from '~/styles/Navbar.Styled';
-import UserControls from '~/components/UserControls';
+import UserControls from '~/components/UserControls/UserControls';
+import { useUser } from '~/utils/hooks/useUser';
 
-const AppNavbar = (props) => {
+const AppNavbar = () => {
   const [expanded, setExpanded] = useState(false);
 
   const toggle = () => {
@@ -21,8 +21,7 @@ const AppNavbar = (props) => {
     }
   };
 
-//   const { profile } = props;
-  const profile = {}
+  const profile = useUser();
 
   return (
     <Styled.AppNav
@@ -30,23 +29,23 @@ const AppNavbar = (props) => {
       expanded={expanded}
       onToggle={toggle}
     >
-      <Navbar.Brand>
         <Navbar.Brand>
-          <Link to="/">
-            <img src={logo} alt="logo" className="App-logo" />
-          </Link>
+          <Navbar.Brand>
+            <Link to="/">
+              <img src={logo} alt="logo" className="App-logo" />
+            </Link>
+          </Navbar.Brand>
         </Navbar.Brand>
-      </Navbar.Brand>
-      <Navbar.Collapse >
-        { profile &&
-          <UserControls
-            name={profile.name}
-            title={profile.title}
-            email={profile.email}
-            picture={profile.picture}
-          />
-        }
-      </Navbar.Collapse>
+        <Navbar.Collapse >
+          { profile &&
+            <UserControls
+              name={profile.full_name}
+              title={profile.job_title}
+              email={profile.email}
+              picture={profile.profile_picture}
+            />
+          }
+        </Navbar.Collapse>
     </Styled.AppNav>
 
   );

@@ -11,7 +11,7 @@ export const LoaderWrapper = styled.div`
 `;
 
 export const LoaderText = styled.span`
-  font-family: "NunitoSans Semibold";
+  font-family: "Nunito";
   font-size: 18px;
   margin: 15px 0;
   text-align: center;

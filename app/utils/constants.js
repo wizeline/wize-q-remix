@@ -300,3 +300,13 @@ export const DANGER_BUTTON = 'danger_button';
 export const TEXT_BUTTON = 'text_button';
 export const CLOSE_BUTTON = 'close_button';
 export const ICON_BUTTON = 'icon_button';
+
+export const DEFAULT_TOAST_CONFIG = {
+  position: 'top-right',
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+};

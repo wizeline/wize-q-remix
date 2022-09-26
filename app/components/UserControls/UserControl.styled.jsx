@@ -1,17 +1,18 @@
 import styled from 'styled-components';
-import { Nav, NavItem } from 'react-bootstrap';
+import { Nav as BootstrapNav, NavItem } from 'react-bootstrap';
 
-export const NavBar = styled(Nav)`
+export const Nav = styled(BootstrapNav)`
   margin-right: 15px;
   justify-content: end;
 `;
 
-export const Navitem = styled(NavItem)`
+export const NavLink = styled(Nav.Link)`
   line-height: 20px;
   margin-left: 30px;
   padding-top: 0;
   text-decoration: none;
   font-size: 1.1em;
+  
   a {
     line-height: 55px;
     padding: 0;
@@ -24,7 +25,7 @@ export const Navitem = styled(NavItem)`
   }
 `;
 
-export const XSNavItem = styled(Navitem)`
+export const XSNavItem = styled(Nav.Link)`
   display: none !important;
 
   @media (max-width: 767px) {

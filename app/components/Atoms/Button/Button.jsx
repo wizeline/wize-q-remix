@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CLOSE_BUTTON } from '~/utils/constants';
-import * as Styled from '~/styles/Button.styled';
+import * as Styled from './Button.Styled';
 
 function Button({
   id,
@@ -57,7 +57,7 @@ Button.defaultProps = {
   title: '',
   onClick: null,
   value: '',
-  form: '',
+  form: null,
   disabled: false,
   children: '',
 };

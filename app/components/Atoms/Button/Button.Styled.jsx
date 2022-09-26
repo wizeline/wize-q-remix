@@ -15,7 +15,7 @@ export const MainButton = styled.button`
   border: none;
   border-radius: 3px;
   cursor: pointer;
-  font-family: "NunitoSans Regular", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
   justify-content: center;
   margin: 0;
@@ -164,7 +164,7 @@ export const MainButton = styled.button`
       }
 
       &.preview-button {
-        font-family: "NunitoSans Semibold", sans-serif;
+        font-family: "Nunito", sans-serif;
         height: 32px;
         padding: 1px 6px;
       }
@@ -172,7 +172,7 @@ export const MainButton = styled.button`
       &.undo-button {
         color: #fff;
         font-size: 14px;
-        font-family: "NunitoSans Semibold", sans-serif;
+        font-family: "Nunito", sans-serif;
         margin: 3px 0;
         position: absolute;
         right: 48px;

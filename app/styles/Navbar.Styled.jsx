@@ -2,9 +2,7 @@ import styled from 'styled-components';
 import { Navbar } from 'react-bootstrap';
 
 // eslint-disable-next-line
-export const AppNav = styled(Navbar).attrs(props => ({
-  fluid: true,
-}))` 
+export const AppNav = styled(Navbar)` 
   background-color: white;
   border-color: white;
   border-radius: 0;

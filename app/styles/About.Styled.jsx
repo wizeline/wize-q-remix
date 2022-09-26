@@ -137,7 +137,7 @@ export const BoxImage = styled.img`
 
 export const BoxBoldText = styled.div`
   color: ${colorDark50};
-  font-family: "NunitoSans Semibold";
+  font-family: "Nunito";
   margin-top: 44px;
   margin: 28px;
   text-align: left;
@@ -186,7 +186,7 @@ export const AboutWHatElseText = styled.div`
 
 export const AboutWHatElseBold = styled.div`
   color: ${colorDark50};
-  font-family: "NunitoSans Semibold";
+  font-family: "Nunito";
   margin-top: 44px;
   margin: 28px;
   text-align: left;

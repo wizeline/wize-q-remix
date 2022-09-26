@@ -116,7 +116,7 @@ export const HeaderTable = styled.tr`
   padding: 1rem 0;
 
   th {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     min-width: 18vw;
     max-width: 18.01vw;
     color: #524f4e;
@@ -179,7 +179,7 @@ export const Alert = styled.div`
   align-items: center;
   background-color: var(--color-secondary-light);
   border-radius: 10px;
-  font-family: "NunitoSans Semibold";
+  font-family: "Nunito";
   font-size: 16px;
   min-height: 50px;
   margin: 15px auto;

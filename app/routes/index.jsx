@@ -1,3 +1,11 @@
+import { json } from "@remix-run/node";
+import { requireAuth } from "~/session.server";
+
+export const loader = async ({ request }) => {
+  await requireAuth(request);
+  return json({});
+}
+
 export default function Index() {
 
   return (

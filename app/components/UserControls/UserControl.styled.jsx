@@ -9,9 +9,10 @@ export const Nav = styled(BootstrapNav)`
 export const NavLink = styled(Nav.Link)`
   line-height: 20px;
   margin-left: 30px;
-  padding-top: 0;
+  padding-top: 15px;
+  padding-bottom: 15px;
   text-decoration: none;
-  font-size: 1.1em;
+  font-size: 1em;
   
   a {
     line-height: 55px;
@@ -23,6 +24,9 @@ export const NavLink = styled(Nav.Link)`
       color: #aaa;
     }
   }
+
+}
+
 `;
 
 export const XSNavItem = styled(Nav.Link)`

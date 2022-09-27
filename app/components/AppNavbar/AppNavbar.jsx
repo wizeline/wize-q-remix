@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '~/images/logo.png';
-import * as Styled from '~/styles/Navbar.Styled';
+import * as Styled from '~/components/AppNavbar/AppNavbar.Styled';
 import UserControls from '~/components/UserControls/UserControls';
 import { useUser } from '~/utils/hooks/useUser';
 
@@ -43,6 +43,7 @@ const AppNavbar = () => {
               title={profile.job_title}
               email={profile.email}
               picture={profile.profile_picture}
+              isAdmin={profile.is_admin}
             />
           }
         </Navbar.Collapse>

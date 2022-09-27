@@ -17,9 +17,7 @@ function UserControls(props) {
     setShowLogoutModal(false);
   };
 
-  const isAdmin = () => true;
-
-  const { name, title, email, picture, } = props;
+  const { name, title, email, picture, isAdmin } = props;
   const location = useLocation();
 
   return (
@@ -36,7 +34,7 @@ function UserControls(props) {
       <Styled.NavLink href="/contact">
         Contact
       </Styled.NavLink>
-      {isAdmin() && (
+      {isAdmin && (
         <Styled.NavLink href="/admin">
          Admin
         </Styled.NavLink>
@@ -74,11 +72,13 @@ UserControls.propTypes = {
   title: PropTypes.string,
   email: PropTypes.string.isRequired,
   picture: PropTypes.string.isRequired,
+  isAdmin: PropTypes.bool,
 };
 
 UserControls.defaultProps = {
   title: '',
   name: '',
+  isAdmin: false,
 };
 
 export default UserControls;

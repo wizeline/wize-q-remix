@@ -19,7 +19,12 @@ const strategyConfig =  {
 
 let auth0Strategy = new Auth0Strategy(strategyConfig,
   async ({ accessToken, refreshToken, extraParams, profile }) => {
-    return findUser(profile.emails[0].value);
+    try {
+      const user = await findUser(profile.emails[0].value)
+      return user;
+    } catch (e) {
+      console.error(e);
+    }
   }
 );
 

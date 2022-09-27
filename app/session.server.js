@@ -1,6 +1,7 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 const USER_SESSION_KEY = "userData";
+const SESSION_SECRET = process.env.SESSION_SECRET || "secret";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -8,7 +9,7 @@ export const sessionStorage = createCookieSessionStorage({
     httpOnly: true,
     path: "/",
     sameSite: "lax",
-    secrets: [process.env.SESSION_SECRET],
+    secrets: [SESSION_SECRET],
     secure: process.env.NODE_ENV === "production",
   },
 });
@@ -45,6 +46,20 @@ export async function requireAuth(request) {
     }
 
     return session;
+}
+
+export async function requireAdminAuth(request) {
+  await requireAuth(request);
+
+  const user = await getAuthenticatedUser(request);
+
+  if (user && user.is_admin) {
+    return;
+  }
+
+  throw new Response("Not Found", {
+    status: 404,
+  });
 }
 
 export async function getAuthenticatedUser(request) {

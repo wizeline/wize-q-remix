@@ -4,7 +4,7 @@ import Button from '~/components/Atoms/Button/Button';
 import Loader from '~/components/Loader';
 import { PRIMARY_BUTTON, LSPIN_MEDIUM } from '~/utils/constants';
 import logomarkX1 from '~/images/logomark_medium.png';
-import * as Styled from '~/styles/AdminUsersTable.Styled';
+import * as Styled from './AdminUsersTable.Styled';
 import { useActionData, useSearchParams } from "@remix-run/react"
 import EditUserModal from '~/components/Modals/EditUserModal/EditUserModal';
 
@@ -170,7 +170,7 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
               )}
               {paginationItems}
 
-              {currentPage + 1 < totalPages && (
+              {currentPage < totalPages && (
                 <Styled.TablePagination.Next onClick={nextPageHandler} />
               )}
             </Styled.TablePagination>

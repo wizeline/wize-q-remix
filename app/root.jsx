@@ -10,10 +10,10 @@ import globalStyle from '~/styles/global.css'
 import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
 import toastify from 'react-toastify/dist/ReactToastify.css';
 
-import AppNavbar from "~/components/AppNavbar";
 import { getAuthenticatedUser } from "~/session.server";
 import { json } from "@remix-run/node";
 import { SSRProvider } from "react-bootstrap";
+import AppNavbar from "~/components/AppNavbar";
 
 const titleSuffix = process.env.NODE_ENV === "development" ? "Local" : ""
 

@@ -13,6 +13,13 @@ import mailIcon from '~/images/ic_email.svg';
 import slackIcon from '~/images/ic_slack.svg';
 import ContactGoto from '~/components/ContactGoto';
 import * as Styled from '~/styles/Contact.Styled';
+import { requireAuth } from '~/session.server';
+import { json } from '@remix-run/node';
+
+export const loader = async ({ request }) => {
+  await requireAuth(request);
+  return json({});
+}
 
 class Contact extends Component {
   constructor(props) {

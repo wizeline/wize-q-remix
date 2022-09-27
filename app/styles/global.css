@@ -179,6 +179,7 @@
     width: 57px;
     height: 57px;
 }
+
 .pagination li a:focus,
 .pagination li a:hover,
 .pagination li span:focus,
@@ -201,13 +202,13 @@
     outline: none;
 }
 .pagination li:first-child a {
-    border-radius: 25px 5px 5px 25px;
-    margin-right: 10px;
+    border-radius: 25px 5px 5px 25px !important;
+    margin-right: 10px !important;
     outline: none;
 }
 .pagination li:last-child a {
-    border-radius: 5px 25px 25px 5px;
-    margin-left: 10px;
+    border-radius: 5px 25px 25px 5px !important;
+    margin-left: 10px !important;
     outline: none;
 }
 .form-control .text-area,

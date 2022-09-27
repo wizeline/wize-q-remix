@@ -3,6 +3,13 @@ import meetingIcon from '~/images/ic_meeting.svg';
 import savingFundIcon from '~/images/ic_saving_fund.svg';
 import dialogueIcon from '~/images/ic_dialogue.svg';
 import anonymousIcon from '~/images/ic_anonymous.svg';
+import { requireAuth } from '~/session.server';
+import { json } from '@remix-run/node';
+
+export const loader = async ({ request }) => {
+  await requireAuth(request);
+  return json({});
+}
 
 const About = () => (
   <Styled.About>

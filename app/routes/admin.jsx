@@ -1,19 +1,16 @@
-// import { useNavigate } from 'react-router-dom';
-
-//  import { isAdmin } from '../../../auth';
-//  import { onAdminEnter } from '../../../routes/routes_callbacks';
 import { json } from '@remix-run/node';
 import { useLoaderData, useSearchParams } from '@remix-run/react';
 import AdminUsersTable from '~/components/AdminUsersTable';
 import Notifications from '~/components/Notifications';
 import UserSearchBar from '~/components/UserSearchBar';
 import { listUsers, updateUser } from '~/controllers/admin';
-import { requireAuth } from '~/session.server';
+import NotFound from '~/routes/$';
+import { requireAdminAuth } from '~/session.server';
 import * as Styled from '~/styles/Admin.Styled';
 
 export const loader = async ({ request }) => {
 
-  await requireAuth(request);
+  await requireAdminAuth(request);
   const url = new URL(request.url);
   const currentPage = url.searchParams.get("page") ?? 1;
   const size = url.searchParams.get("size") ?? 10;
@@ -75,5 +72,12 @@ const Admin = () => {
     </div>
   );
 };
+
+
+export function CatchBoundary() {
+  return (
+    <NotFound />
+  );
+}
 
 export default Admin;

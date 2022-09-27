@@ -171,6 +171,11 @@ export const FilterDropdown = styled(DropdownButton)`
 
 export const TablePagination = styled(Pagination)`
  background-color: white;  
+
+ .active>.page-link {
+  background-color: #337ab7;
+  border-color: #337ab7;
+ }
 `;
 
 export const Alert = styled.div`

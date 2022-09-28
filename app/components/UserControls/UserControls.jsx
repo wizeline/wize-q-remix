@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { LinkContainer } from 'react-router-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
 import * as Styled from '~/components/UserControls/UserControl.styled';
-import { useLocation } from '@remix-run/react';
 import UserDropdown from '~/components/UserDropdown';
 import LogoutConfirmationModal from '~/components/Modals/LogoutConfirmationModal';
 
@@ -18,26 +18,22 @@ function UserControls(props) {
   };
 
   const { name, title, email, picture, isAdmin } = props;
-  const location = useLocation();
 
   return (
-    <Styled.Nav
-      className="justify-content-end flex-grow-1 pe-3"
-      activeKey={location.pathname}
-    >
-      <Styled.NavLink href="/">
-        Home
-      </Styled.NavLink>
-      <Styled.NavLink href="/about">
-        About
-      </Styled.NavLink>
-      <Styled.NavLink href="/contact">
-        Contact
-      </Styled.NavLink>
+    <Styled.NavBar pullRight>
+      <LinkContainer to="/" exact="true">
+        <Styled.Navitem>Home</Styled.Navitem>
+      </LinkContainer>
+      <LinkContainer to="/about">
+        <Styled.Navitem eventKey={1}>About</Styled.Navitem>
+      </LinkContainer>
+      <LinkContainer to="/contact">
+        <Styled.Navitem>Contact</Styled.Navitem>
+      </LinkContainer>
       {isAdmin && (
-        <Styled.NavLink href="/admin">
-         Admin
-        </Styled.NavLink>
+        <LinkContainer to="/admin">
+          <Styled.Navitem>Admin</Styled.Navitem>
+        </LinkContainer>
       )}
       <Styled.NavLi >
         <ButtonToolbar>
@@ -50,20 +46,17 @@ function UserControls(props) {
           />
         </ButtonToolbar>
       </Styled.NavLi>
-{/* 
-      <Styled.XSNavItem
+      {/* <Styled.XSNavItem
         eventKey={2}
         onClick={handleLogoutClick}
       >
         Logout
-      </Styled.XSNavItem>
-       */}
-
+      </Styled.XSNavItem> */}
       <LogoutConfirmationModal
         show={showLogoutModal}
         onClose={handleCancelLogoutClick}
       />
-    </Styled.Nav>
+    </Styled.NavBar>
   );
 }
 

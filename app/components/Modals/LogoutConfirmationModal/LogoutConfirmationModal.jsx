@@ -5,7 +5,7 @@ import { CLOSE_BUTTON, DANGER_BUTTON, SECONDARY_BUTTON } from '~/utils/constants
 import { useUser } from '~/utils/hooks/useUser';
 import * as Styled from './LogoutConfirmationModal.styled';
 
-function LogoutConfirmationModal({ show, onClose, onSubmitSuccess }) {
+function LogoutConfirmationModal({ show, onClose }) {
   const profile = useUser();
 
   if (!show) { return null; }
@@ -36,7 +36,6 @@ function LogoutConfirmationModal({ show, onClose, onSubmitSuccess }) {
 LogoutConfirmationModal.propTypes = {
   show: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSubmitSuccess: PropTypes.func.isRequired,
 };
 
 export default LogoutConfirmationModal;

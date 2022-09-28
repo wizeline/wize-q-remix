@@ -3,7 +3,7 @@ import { Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import logo from '~/images/logo.png';
 import * as Styled from '~/components/AppNavbar/AppNavbar.Styled';
-import UserControls from '~/components/UserControls/UserControls';
+import UserControls from '~/components/UserControls';
 import { useUser } from '~/utils/hooks/useUser';
 
 const AppNavbar = () => {

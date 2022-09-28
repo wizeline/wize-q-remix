@@ -1,19 +1,16 @@
 import styled from 'styled-components';
-import { Nav as BootstrapNav, NavItem } from 'react-bootstrap';
+import { Nav, NavItem } from 'react-bootstrap';
 
-export const Nav = styled(BootstrapNav)`
+export const NavBar = styled(Nav)`
   margin-right: 15px;
-  justify-content: end;
 `;
 
-export const NavLink = styled(Nav.Link)`
+export const Navitem = styled(NavItem)`
   line-height: 20px;
   margin-left: 30px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 0;
   text-decoration: none;
-  font-size: 1em;
-  
+  font-size: 1.1em;
   a {
     line-height: 55px;
     padding: 0;
@@ -24,14 +21,10 @@ export const NavLink = styled(Nav.Link)`
       color: #aaa;
     }
   }
-
-}
-
 `;
 
-export const XSNavItem = styled(Nav.Link)`
+export const XSNavItem = styled(Navitem)`
   display: none !important;
-
   @media (max-width: 767px) {
     display: block !important;
   }
@@ -72,7 +65,6 @@ export const NavLi = styled.li`
       color: #aaa;
     }
   }
-
   @media (max-width: 767px) {
       display: none !important;
   }

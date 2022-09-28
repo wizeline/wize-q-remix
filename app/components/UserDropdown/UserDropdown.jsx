@@ -4,29 +4,29 @@ import UserProfile from '~/components/UserProfile';
 import * as Styled from './UserDropdown.styled';
 
 export default function UserDropdown({ name, title, email, picture, onLogoutClick }) {
-
-  const userImageToggle = (
-    <UserImage src={picture} size="big" alt="user" />
-  );
-
   return (
-    <Styled.NavDropdown title={userImageToggle} id="nav-dropdown">
-        <Styled.UserInfo>
+    <Styled.UDropdown id="userDropdown">
+      <Styled.UDropdown.Toggle noCaret componentClass="a">
+        <UserImage src={picture} size="big" alt="user" />
+      </Styled.UDropdown.Toggle>
+      <Styled.UDropdown.Menu>
+        <Styled.UInfo>
           <UserProfile
             name={name}
             title={title}
             email={email}
             picture={picture}
           />
-        </Styled.UserInfo>
-        <Styled.NavDropdownItem
+        </Styled.UInfo>
+        <Styled.UMenuItem
           footer="true"
           eventKey="1"
           onClick={onLogoutClick}
         >
           Logout
-        </Styled.NavDropdownItem>
-    </Styled.NavDropdown >
+        </Styled.UMenuItem>
+      </Styled.UDropdown.Menu>
+    </Styled.UDropdown>
   );
 }
 

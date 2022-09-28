@@ -7,12 +7,11 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import globalStyle from '~/styles/global.css'
-import bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
+import bootstrap from '~/styles/bootstrap/css/bootstrap.min.css';
 import toastify from 'react-toastify/dist/ReactToastify.css';
 
 import { getAuthenticatedUser } from "~/session.server";
 import { json } from "@remix-run/node";
-import { SSRProvider } from "react-bootstrap";
 import AppNavbar from "~/components/AppNavbar";
 
 const titleSuffix = process.env.NODE_ENV === "development" ? "Local" : ""
@@ -48,13 +47,11 @@ export default function App() {
         {typeof document === "undefined" ? "__STYLES__" : null}
       </head>
       <body>
-        <SSRProvider>
           <AppNavbar />
           <Outlet />
           <ScrollRestoration />
           <Scripts />
           {process.env.NODE_ENV === 'development' && <LiveReload />}
-        </SSRProvider>
       </body>
     </html>
   );

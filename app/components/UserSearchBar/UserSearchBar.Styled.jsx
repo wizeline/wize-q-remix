@@ -39,7 +39,7 @@ export const Input = styled.input`
   ::placeholder,
   ::-webkit-input-placeholder {
     color: rgba(78, 81, 84, 0.65);
-    font-family: "NunitoSans Regular", sans-serif;
+    font-family: "Nunito", sans-serif;
   }
 `;
 

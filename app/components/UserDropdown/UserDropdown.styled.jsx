@@ -1,15 +1,13 @@
-/* eslint-disable import/prefer-default-export */
 import styled, { css } from 'styled-components';
-import { NavDropdown as BootstrapNavDropdown } from 'react-bootstrap';
+import { MenuItem, Dropdown } from 'react-bootstrap';
 
-export const NavDropdown = styled(BootstrapNavDropdown)`
+export const UDropdown = styled(Dropdown)`
   background: none;
   box-shadow: none;
   padding: 0;
-
   .btn-default.active,
-  .open > .dropdown-toggle,
-  .open > .dropdown-toggle:hover {
+  .open > .dropdown-toggle.btn-default,
+  .open > .dropdown-toggle.btn-default:hover {
     background: none;
     color: #333;
   }
@@ -21,33 +19,21 @@ export const NavDropdown = styled(BootstrapNavDropdown)`
     padding: 0;
     margin-top: 5px;
     width: auto;
-
-    left: auto;
-    right: 0;
-    box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
-
     a {
-      line-height: 40px !important;
+      color: #222;
+      line-height: initial;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: var(--color-secondary) !important;
-      padding: 3px 20px;
-      text-align: right;
-      display: block;
     }
-  }
-
-  .dropdown-toggle::after {
-    display: none !important; 
   }
 `;
 
-export const UserInfo = styled.div`
+export const UInfo = styled.div`
   color: black;
   cursor: default;
 `;
 
-export const NavDropdownItem = styled(BootstrapNavDropdown.Item)`
+export const UMenuItem = styled(MenuItem)`
   background: none;
   padding: 0;
   width: auto;

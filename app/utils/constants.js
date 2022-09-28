@@ -310,3 +310,11 @@ export const DEFAULT_TOAST_CONFIG = {
   draggable: true,
   progress: undefined,
 };
+
+// Things to Keep in Mind
+export const RECOMMENDATIONS_QUESTION = [
+  'Strive for constructive open communication. Avoid vagueness.',
+  'Do not demean or degrade others because of their gender, race, age, religion, etc.',
+  'Avoid posting questions that include sexually explicit comments, hate speech, prejudicial remarks, and profanity.',
+  'Do not mock other members, their comments, profiles, threads, or experiences. Remember, what is funny for you may be offensive to others.',
+];

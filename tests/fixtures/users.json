@@ -1,0 +1,26 @@
+[
+  {
+    "employee_id": 1,
+    "full_name": "Patrick Shu",
+    "email": "patrick.shu@wizeline.com",
+    "is_admin": 0,
+    "profile_picture": null,
+    "job_title": null
+  },
+  {
+    "employee_id": 2,
+    "full_name": "John Doe",
+    "email": "john.doe@wizeline.com",
+    "is_admin": 1,
+    "profile_picture": null,
+    "job_title": "Software Engineer"
+  },
+  {
+    "employee_id": 3,
+    "full_name": "Will Smith",
+    "email": "will.smith@wizeline.com",
+    "is_admin": 0,
+    "profile_picture": null,
+    "job_title": "Chief Technology Officer"
+  }
+]

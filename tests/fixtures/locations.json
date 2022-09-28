@@ -1,0 +1,34 @@
+[
+  {
+    "name": "All",
+    "code": "ALL"
+  },
+  {
+    "name": "Bangkok",
+    "code": "BNK"
+  },
+  {
+    "name": "Guadalajara",
+    "code": "GDL"
+  },
+  {
+    "name": "Ho Chi Minh",
+    "code": "HCMC"
+  },
+  {
+    "name": "Mexico City",
+    "code": "CDMX"
+  },
+  {
+    "name": "New York",
+    "code": "NYC"
+  },
+  {
+    "name": "Queretaro",
+    "code": "QRO"
+  },
+  {
+    "name": "San Francisco",
+    "code": "SF"
+  }
+]

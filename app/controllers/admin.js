@@ -46,7 +46,6 @@ export const updateUser = async (query) => {
     const { employee_id, is_admin, job_title } = value;
 
     if (error) {
-        console.error(error);
         return {
             errors: [
                 {
@@ -57,7 +56,7 @@ export const updateUser = async (query) => {
         }
     }
 
-    await db.users.update({
+    const updatedUser = await db.users.update({
         where: {
             employee_id
         },
@@ -68,6 +67,7 @@ export const updateUser = async (query) => {
     });
 
     return {
-        success: 'User has been updated succesfully.'
+        success: 'User has been updated succesfully.',
+        updatedUser: updatedUser,
     };
 }

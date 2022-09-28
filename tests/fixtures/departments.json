@@ -1,0 +1,92 @@
+[
+  {
+    "department_id": 1,
+    "name": "Founders",
+    "is_active": 0
+  },
+  {
+    "department_id": 2,
+    "name": "Academy",
+    "is_active": 1
+  },
+  {
+    "department_id": 3,
+    "name": "Business Operations",
+    "is_active": 1
+  },
+  {
+    "department_id": 4,
+    "name": "Engineering",
+    "is_active": 1
+  },
+  {
+    "department_id": 5,
+    "name": "Facilities",
+    "is_active": 1
+  },
+  {
+    "department_id": 6,
+    "name": "Finance & Accounting",
+    "is_active": 1
+  },
+  {
+    "department_id": 7,
+    "name": "Marketing",
+    "is_active": 1
+  },
+  {
+    "department_id": 8,
+    "name": "People Operations",
+    "is_active": 1
+  },
+  {
+    "department_id": 9,
+    "name": "Product",
+    "is_active": 0
+  },
+  {
+    "department_id": 10,
+    "name": "Sales",
+    "is_active": 1
+  },
+  {
+    "department_id": 11,
+    "name": "UX Design",
+    "is_active": 1
+  },
+  {
+    "department_id": 12,
+    "name": "IT & Security Engineering",
+    "is_active": 1
+  },
+  {
+    "department_id": 13,
+    "name": "CEO / Exec Staff",
+    "is_active": 1
+  },
+  {
+    "department_id": 14,
+    "name": "Delivery",
+    "is_active": 1
+  },
+  {
+    "department_id": 15,
+    "name": "Solutions",
+    "is_active": 1
+  },
+  {
+    "department_id": 16,
+    "name": "User Experience",
+    "is_active": 0
+  },
+  {
+    "department_id": 17,
+    "name": "Wizeline Quesitons Staff",
+    "is_active": 1
+  },
+  {
+    "department_id": 18,
+    "name": "Legal",
+    "is_active": 1
+  }
+]

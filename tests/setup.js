@@ -7,7 +7,6 @@ import departmentsFixture from './fixtures/departments.json';
 
 beforeAll(async () => {
   if (process.env.TEST_MODE === 'integration') {
-
     // Create users
     await db.users.createMany({
       data: usersFixture.map((user) => {

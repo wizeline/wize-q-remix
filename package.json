@@ -8,7 +8,8 @@
     "dev:remix": "remix watch",
     "lint": "eslint '**/*.js'",
     "start": "cross-env NODE_ENV=production node ./server.js",
-    "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh"
+    "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh",
+    "test:unit": "./scripts/unit-test.sh"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",

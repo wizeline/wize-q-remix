@@ -7,7 +7,8 @@
     "dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
     "dev:remix": "remix watch",
     "lint": "eslint '**/*.js'",
-    "start": "cross-env NODE_ENV=production node ./server.js"
+    "start": "cross-env NODE_ENV=production node ./server.js",
+    "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh"
   },
   "dependencies": {
     "@prisma/client": "^4.3.1",
@@ -18,8 +19,10 @@
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
+    "dotenv-cli": "^6.0.0",
     "draft-js": "^0.11.7",
     "express": "^4.18.1",
+    "jest": "^29.1.1",
     "joi": "^17.6.1",
     "markdown-draft-js": "^2.4.0",
     "md5": "^2.3.0",
@@ -42,12 +45,14 @@
     "xss": "^1.0.14"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.19.3",
     "@remix-run/dev": "^1.6.8",
     "@remix-run/eslint-config": "^1.6.8",
+    "babel-jest": "^29.1.0",
     "eslint": "^8.20.0",
     "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",
-    "prisma": "^4.3.1"
+    "prisma": "^4.4.0"
   },
   "engines": {
     "node": ">=14"

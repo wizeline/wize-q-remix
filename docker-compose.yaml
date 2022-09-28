@@ -8,14 +8,29 @@ services:
     restart: unless-stopped
     env_file: ./.env
     environment:
-      - MYSQL_ROOT_PASSWORD=$DB_ROOT_PASSWORD
-      - MYSQL_DATABASE=$DB_NAME
+      - MYSQL_ROOT_PASSWORD=wizeq_password
+      - MYSQL_DATABASE=wizeq
+      - MYSQL_TCP_PORT=3306
     ports:
-      - $DB_PORT:$DB_PORT
+      - 3306:3306
     volumes:
       - db:/var/lib/mysql
-
+  integration-tests-prisma:
+    image: mysql:8.0
+    container_name: integration-tests-prisma
+    platform: linux/amd64
+    restart: unless-stopped
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=wizeq_password
+      - MYSQL_DATABASE=wizeq
+      - MYSQL_TCP_PORT=3307
+    ports:
+      - 3307:3307
+    volumes:
+      - test-db:/var/lib/mysql
 
 volumes: 
-  db:      
+  db:
+  test-db:
 

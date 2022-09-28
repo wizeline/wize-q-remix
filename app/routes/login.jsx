@@ -4,7 +4,6 @@ import { getAuthenticatedUser } from "~/session.server";
 
 export const loader = async ({request}) => {
   const authenticated = await getAuthenticatedUser(request);
-  console.log(authenticated);
 
   if (authenticated) {
     return redirect('/');

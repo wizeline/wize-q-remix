@@ -7,7 +7,7 @@ import QuestionForm from '~/components/QuestionForm';
 import { listLocations } from '~/controllers/locations/list';
 import { json, redirect } from '@remix-run/node';
 import {  useLoaderData, useSubmit } from '@remix-run/react';
-import { getAuthenticatedUser, requireAuth } from '~/session.server';
+import { commitSession, getAuthenticatedUser, getSession, requireAuth } from '~/session.server';
 import { listDepartments } from '~/controllers/departments/list';
 import { useRef } from 'react';
 import { createQuestion } from '~/controllers/questions/create';
@@ -42,7 +42,15 @@ export const action = async ({request}) => {
   const response = await createQuestion(payload);
 
   if (response.success) {
-    return redirect("/", { replace: true });
+    const session = await getSession(request);
+    session.flash("globalSuccess", response.success);
+  
+    return redirect("/", {
+        headers: {
+          "Set-Cookie": await commitSession(session)
+        }
+      },
+    );
   }
 
   return json(response);

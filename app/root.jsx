@@ -12,7 +12,7 @@ import toastify from 'react-toastify/dist/ReactToastify.css';
 import reactDraftWysiwyg from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftJs from "draft-js/dist/Draft.css";
 
-import { getAuthenticatedUser } from "~/session.server";
+import { commitSession, getAuthenticatedUser, getSession } from "~/session.server";
 import { json } from "@remix-run/node";
 import AppNavbar from "~/components/AppNavbar";
 
@@ -36,9 +36,17 @@ export function links() {
 
 export const loader = async ({ request }) => {
   const profile = await getAuthenticatedUser(request);
-
+  const session = await getSession(request);
+  const globalSuccess = session.get("globalSuccess") || null;
+  
   return json({
     profile,
+    globalSuccess
+  },
+  {
+    headers: {
+      "Set-Cookie": await commitSession(session),
+    },
   });
 };
 

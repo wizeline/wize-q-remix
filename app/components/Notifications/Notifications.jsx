@@ -2,11 +2,16 @@ import { useActionData } from "@remix-run/react";
 import { useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { DEFAULT_TOAST_CONFIG } from "~/utils/constants";
+import { useGlobalSuccessMessage } from "~/utils/hooks/useGlobalSuccessMessage";
 
 const Notifications = () => {
+  const globalSuccess = useGlobalSuccessMessage();
   const data = useActionData();
 
   useEffect(() => {
+    if (globalSuccess) {
+      toast.success(globalSuccess, DEFAULT_TOAST_CONFIG);
+    }
     if (!data) return;
     
     const { errors, success, warnings } = data;
@@ -26,7 +31,7 @@ const Notifications = () => {
     if (success) {
       toast.success(success, DEFAULT_TOAST_CONFIG);
     };
-  }, [data]);
+  }, [data, globalSuccess]);
 
   return <ToastContainer />;
 };

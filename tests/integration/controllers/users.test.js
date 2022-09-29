@@ -1,5 +1,5 @@
-import { updateUser } from "~/controllers/admin";
-import { findUser } from "../../../app/controllers/users";
+import { findUser } from "~/controllers/users/find";
+import { updateUser } from "~/controllers/users/update";
 
 describe("user controllers", () => {
   describe("findUser", () => {

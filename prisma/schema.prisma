@@ -112,10 +112,10 @@ model QuestionTags {
 model Questions {
   question_id                                    Int            @id @default(autoincrement())
   question                                       String         @db.VarChar(500)
-  user_hash                                      String         @db.VarChar(255)
+  user_hash                                      String         @default("") @db.VarChar(255)
   is_anonymous                                   Boolean
-  createdAt                                      DateTime       @db.DateTime(0)
-  updatedAt                                      DateTime       @db.DateTime(0)
+  createdAt                                      DateTime       @default(now()) @db.DateTime(0)
+  updatedAt                                      DateTime       @default(now()) @db.DateTime(0)
   location                                       String?        @default("ALL") @db.VarChar(255)
   last_email_notification_date                   DateTime?      @db.DateTime(0)
   assigned_department                            Int?
@@ -123,7 +123,7 @@ model Questions {
   assigned_to_employee_id                        Int?
   numComments                                    Int?           @default(0)
   num_votes                                      Int?           @default(0)
-  is_pinned                                      Boolean
+  is_pinned                                      Boolean        @default(false)
   Locations                                      Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
   users_Questions_assigned_to_employee_idTousers users?         @relation("Questions_assigned_to_employee_idTousers", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
   users_Questions_created_by_employee_idTousers  users?         @relation("Questions_created_by_employee_idTousers", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")

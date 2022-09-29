@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
@@ -61,14 +60,10 @@ const QuestionForm = ({
     askButtonEnabled: false,
   };
 
-  const [navigate, setNavigate] = useState(null);
-
   const [state, setState] = useState(initialState);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createWithContent(convertFromRaw(markdownToDraft(state.inputValue))),
   );
-
-  const setQuestionInputTextRef = (instance) => { this.questionInputText = instance; };
 
   const selectPostingAs = (username) => {
     const isAnonymous = (username === ANONYMOUS_USER.username);
@@ -106,7 +101,6 @@ const QuestionForm = ({
       await postQuestion(question);
       setState(initialState);
       clearTextArea();
-      setNavigate('/');
     } catch (error) {
       throw error;
     }
@@ -251,10 +245,6 @@ const QuestionForm = ({
   const { askButtonClass, locationDropdownClass } =
       getClasses(askButtonEnabled, state.assignedDepartment.department_id);
 
-  if (navigate) {
-    return <Navigate to={navigate} />;
-  }
-
   return (
     <Styled.InputForm className="clearfix">
       <form onSubmit={onSubmit} id="question-submit-form">
@@ -285,9 +275,8 @@ const QuestionForm = ({
               />
             </Styled.Options>
           </Styled.InputTopWrapper>
-          {/* <QuestionInputText
+          <QuestionInputText
             inputValue={state.inputValue}
-            ref={setQuestionInputTextRef}
             editorState={editorState}
             setEditorState={setEditorState}
             onInputChange={onInputChange}
@@ -314,7 +303,7 @@ const QuestionForm = ({
                 </Styled.SubmitTooltip>
               </Styled.Submit>
             }
-          /> */}
+          />
         </Styled.InputContainer>
         <SubmitWithModal
           show={state.showSubmitWithModal}

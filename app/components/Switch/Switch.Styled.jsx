@@ -10,8 +10,11 @@ height: 20px;
     width: 0;
     height: 0;
   }
+  input + span:before {
+    transform: translate(1px, -1px);
+  }
   input:checked + span {
-    background-color: #2196F3;
+    background-color: var(--toastify-color-progress-success);
   }
   
   input:focus + span {
@@ -19,9 +22,9 @@ height: 20px;
   }
   
   input:checked + span:before {
-    -webkit-transform: translateX(16px);
-    -ms-transform: translateX(16px);
-    transform: translateX(16px);
+    -webkit-transform: translate(17px, -1px);
+    -ms-transform: translate(17px, -1px);
+    transform: translate(17px, -1px);
   }
 `;
 

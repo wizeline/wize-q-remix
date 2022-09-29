@@ -9,6 +9,8 @@ import {
 import globalStyle from '~/styles/global.css'
 import bootstrap from '~/styles/bootstrap/css/bootstrap.min.css';
 import toastify from 'react-toastify/dist/ReactToastify.css';
+import reactDraftWysiwyg from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import draftJs from "draft-js/dist/Draft.css";
 
 import { getAuthenticatedUser } from "~/session.server";
 import { json } from "@remix-run/node";
@@ -26,6 +28,8 @@ export function links() {
   return [
     { rel: "stylesheet", href: bootstrap },
     { rel: "stylesheet", href: toastify },
+    { rel: "stylesheet", href: draftJs},
+    { rel: "stylesheet", href: reactDraftWysiwyg },
     { rel: "stylesheet", href: globalStyle },
   ];
 }

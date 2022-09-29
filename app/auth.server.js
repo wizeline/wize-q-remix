@@ -1,7 +1,7 @@
 import { Authenticator } from "remix-auth";
 import { Auth0Strategy } from "remix-auth-auth0";
 import { sessionStorage } from "~/session.server";
-import { findUser } from "~/controllers/users";
+import { findUser } from "~/controllers/users/find";
 
 const callbackURL = `${process.env.BASE_URL}/auth/auth0/callback`;
 const clientID = process.env.AUTH0_CLIENT_ID || "AUTH0_CLIENT_ID must be set";

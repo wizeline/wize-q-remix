@@ -3,7 +3,8 @@ import { useLoaderData, useSearchParams } from '@remix-run/react';
 import AdminUsersTable from '~/components/AdminUsersTable';
 import Notifications from '~/components/Notifications';
 import UserSearchBar from '~/components/UserSearchBar';
-import { listUsers, updateUser } from '~/controllers/admin';
+import { listUsers } from '~/controllers/users/list';
+import { updateUser } from '~/controllers/users/update';
 import NotFound from '~/routes/$';
 import { requireAdminAuth } from '~/session.server';
 import * as Styled from '~/styles/Admin.Styled';
@@ -44,14 +45,6 @@ export const action = async ({ request }) => {
 
 
 const Admin = () => {
-//   useEffect(() => {
-//     onAdminEnter();
-//   }, []);
-
-//   if (!isAdmin()) {
-//     const navigate = useNavigate();
-//     navigate('*');
-//   }
   const  { users, totalPages, currentPage, size } = useLoaderData();
   const [, setSearchParams] = useSearchParams();
 

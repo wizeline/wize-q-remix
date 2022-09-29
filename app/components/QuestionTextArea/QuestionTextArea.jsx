@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
+import { ClientOnly } from "remix-utils";
 import { Editor } from '~/react-draft-wysiwyg.client'
-import 'draft-js/dist/Draft.css';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import bold from '~/images/react-icons/ri/bold.svg';
 import italic from '~/images/react-icons/ri/italic.svg';
 import strikethrough from '~/images/react-icons/ri/strikethrough.svg';
@@ -32,33 +31,38 @@ const QuestionTextArea = ({
     },
   };
 
-  return (<S.QuestionTextAreaWrapper>
-    {/* <Editor
-      placeholder={inputPlaceholder(MINIMUM_QUESTION_LENGTH)}
-      editorState={editorState}
-      onEditorStateChange={setEditorState}
-      wrapperClassName="demo-wrapper"
-      editorClassName="editor-class"
-      toolbarClassName="toolbar-class"
-      toolbar={{
-        options: ['inline', 'blockType'],
-        inline: {
-          inDropdown: false,
-          options: ['bold', 'italic', 'strikethrough', 'monospace'],
-          bold: { icon: bold },
-          italic: { icon: italic },
-          strikethrough: { icon: strikethrough },
-          monospace: { icon: code },
-        },
-        blockType: {
-          inDropdown: false,
-          options: ['Blockquote'],
-        },
-      }}
-      customStyleMap={styleMap}
-    /> */}
-
+  return (
+    <S.QuestionTextAreaWrapper>
+      <ClientOnly>
+      { () => 
+          <Editor
+            placeholder={inputPlaceholder(MINIMUM_QUESTION_LENGTH)}
+            editorState={editorState}
+            onEditorStateChange={setEditorState}
+            wrapperClassName="demo-wrapper"
+            editorClassName="editor-class"
+            toolbarClassName="toolbar-class"
+            toolbar={{
+              options: ['inline', 'blockType'],
+              inline: {
+                inDropdown: false,
+                options: ['bold', 'italic', 'strikethrough', 'monospace'],
+                bold: { icon: bold },
+                italic: { icon: italic },
+                strikethrough: { icon: strikethrough },
+                monospace: { icon: code },
+              },
+              blockType: {
+                inDropdown: false,
+                options: ['Blockquote'],
+              },
+            }}
+            customStyleMap={styleMap}
+          />
+      }
+    </ClientOnly>
   </S.QuestionTextAreaWrapper>
+
   );
 };
 

@@ -30,13 +30,16 @@ export const action = async ({request}) => {
   const form = Object.fromEntries(formData.entries());
 
   const user = await getAuthenticatedUser(request);
+  
+  const parsedDeparment = parseInt(form.assignedDepartment);
 
   const payload = {
     question: form.question,
     created_by_employee_id: user.employee_id,
     is_anonymous: form.isAnonymous === 'true',
-    assigned_department: parseInt(form.assignedDepartment) ?? 1,
+    assigned_department: Number.isNaN(parsedDeparment) ? null : parsedDeparment,
     location: form.location,
+    accessToken: user.accessToken,
   };
 
   const response = await createQuestion(payload);

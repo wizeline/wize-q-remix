@@ -1,14 +1,12 @@
 import { MAXIMUM_QUESTION_LENGTH, MINIMUM_QUESTION_LENGTH } from '~/utils/backend/constants';
 import Joi from 'joi';
 
-export const questionSchema = Joi.object().keys({
+export const createQuestionSchema = Joi.object().keys({
   username: Joi.string().allow(null),
-  user_hash: Joi.string().allow(''),
-  user_email: Joi.string().email().allow(null),
+  accessToken: Joi.string().required(),
   question: Joi.string().min(MINIMUM_QUESTION_LENGTH).max(MAXIMUM_QUESTION_LENGTH).required(),
   is_anonymous: Joi.boolean().required(),
   location: Joi.string().required(),
   created_by_employee_id: Joi.number().integer().min(1).allow(null),
   assigned_department: Joi.number().integer().min(1).allow(null),
-  assigned_to_employee_id: Joi.number().integer().min(1).allow(null),
 });

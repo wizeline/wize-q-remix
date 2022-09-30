@@ -9,6 +9,7 @@
     "lint": "eslint '**/*.js'",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh",
+    "test:integration:watch": "dotenv -e .env.test.integration -- npx jest --runInBand --watchAll --testPathPattern=tests/integration/*",
     "test:unit": "./scripts/unit-test.sh"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "remix-utils": "^3.3.0",
     "sequelize": "^6.21.4",
     "sequelize-cli": "^6.4.1",
+    "slack-notify": "^2.0.3",
     "styled-components": "^5.3.5",
     "xss": "^1.0.14"
   },

@@ -16,5 +16,8 @@ module.exports = {
   DEFAULT_OFFSET: 0,
   MIN_NET_PROMOTER_SCORE: 1,
   MAX_NET_PROMOTER_SCORE: 4,
-  DEFAULT_ERROR_MESSAGE: "An unknown error has occurred with your request."
+  DEFAULT_ERROR_MESSAGE: "An unknown error has occurred with your request.",
+  PIN_QUESTION_ERROR_MESSAGE: 'Error trying to pin/unpin the question.',
+  INVALID_PARAMS_FOR_OPERATION: 'The provided parameters for the operation are not valid',
+  QUESTION_NOT_FOUND: 'The question with the id provided could not be found',
 };

@@ -24,6 +24,7 @@ let auth0Strategy = new Auth0Strategy(strategyConfig,
       return {
         ...user,
         accessToken,
+        id: profile.id,
       };
     } catch (e) {
       console.error(e);

@@ -1,4 +1,4 @@
-import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION, QUESTION_NOT_FOUND } from "~/utils/backend/constants";
+import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE, QUESTION_NOT_FOUND_ERROR_MESSAGE } from "~/utils/constants";
 import { modifyQuestionPinStatusParms } from "~/utils/backend/validators/question";
 import { db } from "~/utils/db.server";
 
@@ -12,7 +12,7 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
     return { 
       error: {
         message: PIN_QUESTION_ERROR_MESSAGE,
-        detail: INVALID_PARAMS_FOR_OPERATION
+        detail: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE
       }  
     };
   }
@@ -31,7 +31,7 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
     return { 
       error: {
         message: PIN_QUESTION_ERROR_MESSAGE,
-        detail: QUESTION_NOT_FOUND
+        detail: QUESTION_NOT_FOUND_ERROR_MESSAGE
       }  
     };
   }

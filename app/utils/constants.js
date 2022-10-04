@@ -318,3 +318,8 @@ export const RECOMMENDATIONS_QUESTION = [
   'Avoid posting questions that include sexually explicit comments, hate speech, prejudicial remarks, and profanity.',
   'Do not mock other members, their comments, profiles, threads, or experiences. Remember, what is funny for you may be offensive to others.',
 ];
+
+// Recurring error messages
+export const PIN_QUESTION_ERROR_MESSAGE = 'Error trying to pin/unpin the question.';
+export const  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE = 'The provided parameters for the operation are not valid';
+export const  QUESTION_NOT_FOUND_ERROR_MESSAGE = 'The question with the id provided could not be found';

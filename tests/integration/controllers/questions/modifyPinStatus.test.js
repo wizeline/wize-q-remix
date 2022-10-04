@@ -3,9 +3,9 @@ import { createQuestion } from "~/controllers/questions/create";
 import { randomAccessToken } from "./../../../utils";
 import {
   PIN_QUESTION_ERROR_MESSAGE,
-  INVALID_PARAMS_FOR_OPERATION,
-  QUESTION_NOT_FOUND,
-} from "~/utils/backend/constants";
+  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+  QUESTION_NOT_FOUND_ERROR_MESSAGE,
+} from "~/utils/constants";
 import { db } from "~/utils/db.server";
 
 describe("questions controller", () => {
@@ -19,7 +19,7 @@ describe("questions controller", () => {
       expect(response.error.message).toBeDefined();
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
-      expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION);
+      expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE);
       expect(response.success).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
@@ -32,7 +32,7 @@ describe("questions controller", () => {
       expect(response.error.message).toBeDefined();
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
-      expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION);
+      expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE);
       expect(response.success).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
@@ -45,7 +45,7 @@ describe("questions controller", () => {
       expect(response.error.message).toBeDefined();
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
-      expect(response.error.detail).toBe(QUESTION_NOT_FOUND);
+      expect(response.error.detail).toBe(QUESTION_NOT_FOUND_ERROR_MESSAGE);
       expect(response.success).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(1);

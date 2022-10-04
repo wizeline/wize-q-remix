@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "question_id": 1,
+    "user": "google-oauth2|111766391199351256706",
+    "is_upvote": null
+  },
+  {
+    "id": 2,
+    "question_id": 2,
+    "user": "google-oauth2|108653070533260305238",
+    "is_upvote": null
+  },
+  {
+    "id": 3,
+    "question_id": 1,
+    "user": "google-oauth2|118197117010308989856",
+    "is_upvote": null
+  }
+]

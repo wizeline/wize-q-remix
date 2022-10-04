@@ -1,9 +1,8 @@
-import { randomAccessToken } from "../../utils";
+import { randomAccessToken } from "../../../utils";
 import { createQuestion } from "~/controllers/questions/create";
 import { db } from "~/utils/db.server";
 import slack from '~/utils/backend/slackNotifications';
 
-describe("question controllers", () => {
   describe("createQuestion", () => {
     const dbCreateSpy = jest.spyOn(db.Questions, 'create');
     const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
@@ -75,6 +74,5 @@ describe("question controllers", () => {
 
       expect(slackSpy).toHaveBeenCalled();
 
-  });
   });
 });

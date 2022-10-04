@@ -13,17 +13,18 @@ model Admins {
 }
 
 model Answers {
-  answer_id               Int      @id @default(autoincrement())
-  answer_text             String   @db.VarChar(3000)
-  answered_by_picture     String?  @db.VarChar(255)
-  answer_date             DateTime @db.DateTime(0)
+  answer_id               Int       @id @default(autoincrement())
+  answer_text             String    @db.VarChar(3000)
+  answered_by_picture     String?   @db.VarChar(255)
+  answer_date             DateTime  @db.DateTime(0)
   answered_by_employee_id Int
   answered_question_id    Int
-  createdAt               DateTime @default(now()) @db.DateTime(0)
-  updatedAt               DateTime @default(now()) @db.DateTime(0)
-  num_scores              Int?     @default(0)
-  average_score           Float?   @default(0) @db.Float
+  createdAt               DateTime  @default(now()) @db.DateTime(0)
+  updatedAt               DateTime  @default(now()) @db.DateTime(0)
+  num_scores              Int?      @default(0)
+  average_score           Float?    @default(0) @db.Float
   Nps                     Nps[]
+  Question                Questions @relation(fields: [answered_question_id], references: [question_id])
 }
 
 model CommentVote {
@@ -110,27 +111,28 @@ model QuestionTags {
 }
 
 model Questions {
-  question_id                                    Int            @id @default(autoincrement())
-  question                                       String         @db.VarChar(500)
-  user_hash                                      String         @default("") @db.VarChar(255)
-  is_anonymous                                   Boolean
-  createdAt                                      DateTime       @default(now()) @db.DateTime(0)
-  updatedAt                                      DateTime       @default(now()) @db.DateTime(0)
-  location                                       String?        @default("ALL") @db.VarChar(255)
-  last_email_notification_date                   DateTime?      @db.DateTime(0)
-  assigned_department                            Int?
-  created_by_employee_id                         Int?
-  assigned_to_employee_id                        Int?
-  numComments                                    Int?           @default(0)
-  num_votes                                      Int?           @default(0)
-  is_pinned                                      Boolean        @default(false)
-  Locations                                      Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
-  users_Questions_assigned_to_employee_idTousers users?         @relation("Questions_assigned_to_employee_idTousers", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
-  users_Questions_created_by_employee_idTousers  users?         @relation("Questions_created_by_employee_idTousers", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
-  Comments                                       Comments[]
-  DraftAnswers                                   DraftAnswers[]
-  Sentiments                                     Sentiments[]
-  Votes                                          Votes[]
+  question_id                  Int            @id @default(autoincrement())
+  question                     String         @db.VarChar(500)
+  user_hash                    String         @default("") @db.VarChar(255)
+  is_anonymous                 Boolean
+  createdAt                    DateTime       @default(now()) @db.DateTime(0)
+  updatedAt                    DateTime       @default(now()) @db.DateTime(0)
+  location                     String?        @default("ALL") @db.VarChar(255)
+  last_email_notification_date DateTime?      @db.DateTime(0)
+  assigned_department          Int?
+  created_by_employee_id       Int?
+  assigned_to_employee_id      Int?
+  numComments                  Int?           @default(0)
+  num_votes                    Int?           @default(0)
+  is_pinned                    Boolean        @default(false)
+  Locations                    Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
+  assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
+  created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
+  Comments                     Comments[]
+  DraftAnswers                 DraftAnswers[]
+  Sentiments                   Sentiments[]
+  Votes                        Votes[]
+  Answers                      Answers[]
 
   @@index([assigned_to_employee_id], map: "assigned_to_employee_id_foreign_idx")
   @@index([created_by_employee_id], map: "created_by_employee_id_foreign_idx")
@@ -163,16 +165,16 @@ model Votes {
 }
 
 model users {
-  employee_id                                        Int                    @id @default(autoincrement())
-  full_name                                          String                 @db.VarChar(255)
-  email                                              String                 @unique(map: "email") @db.VarChar(255)
-  is_admin                                           Boolean                @default(false)
-  profile_picture                                    String?                @db.VarChar(255)
-  job_title                                          String?                @db.VarChar(255)
-  DraftAnswers                                       DraftAnswers[]
-  EmployeesDepartments                               EmployeesDepartments[]
-  Questions_Questions_assigned_to_employee_idTousers Questions[]            @relation("Questions_assigned_to_employee_idTousers")
-  Questions_Questions_created_by_employee_idTousers  Questions[]            @relation("Questions_created_by_employee_idTousers")
+  employee_id          Int                    @id @default(autoincrement())
+  full_name            String                 @db.VarChar(255)
+  email                String                 @unique(map: "email") @db.VarChar(255)
+  is_admin             Boolean                @default(false)
+  profile_picture      String?                @db.VarChar(255)
+  job_title            String?                @db.VarChar(255)
+  DraftAnswers         DraftAnswers[]
+  EmployeesDepartments EmployeesDepartments[]
+  Assigned             Questions[]            @relation("AssignedQuestion")
+  Created              Questions[]            @relation("CreatedQuestion")
 
   @@index([email], map: "users_email")
 }

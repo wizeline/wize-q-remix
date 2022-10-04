@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "comment": "Checking comments",
+    "createdAt": "2021-03-24 23:30:15",
+    "questionId": 1,
+    "sessionHash": null,
+    "userName": "Eduardo Mendoza Garibo",
+    "userEmail": "eduardo.garibo@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 2,
+    "comment": "This is a test comment.",
+    "createdAt": "2021-03-24 23:43:23",
+    "questionId": 2,
+    "sessionHash": null,
+    "userName": "Oscar Sosa",
+    "userEmail": "oscar.sosa@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 3,
+    "comment": "42",
+    "createdAt": "2021-03-25 16:30:17",
+    "questionId": 4,
+    "sessionHash": null,
+    "userName": "Mario Carrillo Maldonado",
+    "userEmail": "mario.carrillo@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 4,
+    "comment": "He's not.",
+    "createdAt": "2021-03-25 16:42:54",
+    "questionId": 7,
+    "sessionHash": null,
+    "userName": "Luis Carbajal",
+    "userEmail": "luis.carbajal@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 5,
+    "comment": "snow man",
+    "createdAt": "2021-03-25 16:45:46",
+    "questionId": 4,
+    "sessionHash": null,
+    "userName": "Denisse Damian Roffe",
+    "userEmail": "denisse.damian@wizeline.com",
+    "updatedAt": "2021-03-25 16:45:54",
+    "approvedBy": null
+  },
+  {
+    "id": 6,
+    "comment": "new comments",
+    "createdAt": "2022-02-10 19:35:12",
+    "questionId": 9,
+    "sessionHash": null,
+    "userName": "Ignacio Cañipa Ariñez",
+    "userEmail": "ignacio.canipa@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 7,
+    "comment": "new comments",
+    "createdAt": "2022-02-10 19:35:26",
+    "questionId": 9,
+    "sessionHash": null,
+    "userName": "Ignacio Cañipa Ariñez",
+    "userEmail": "ignacio.canipa@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 8,
+    "comment": "New commmit",
+    "createdAt": "2022-02-15 17:15:45",
+    "questionId": 9,
+    "sessionHash": null,
+    "userName": "Miguel Cardona Chamorro",
+    "userEmail": "miguel.cardona@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 9,
+    "comment": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
+    "createdAt": "2022-02-15 17:17:30",
+    "questionId": 10,
+    "sessionHash": "00ff85d63547fd3e7c7c08ba771b9713",
+    "userName": null,
+    "userEmail": null,
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 10,
+    "comment": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
+    "createdAt": "2022-02-15 17:17:40",
+    "questionId": 10,
+    "sessionHash": null,
+    "userName": "Miguel Cardona Chamorro",
+    "userEmail": "miguel.cardona@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  }
+]

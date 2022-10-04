@@ -52,6 +52,7 @@ beforeAll(async () => {
           updatedAt: new Date(question.updatedAt),
         }
       }),
+      skipDuplicates: true,
     });
 
     // Create comments

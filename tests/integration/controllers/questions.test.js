@@ -459,6 +459,7 @@ describe("question controllers", () => {
       });
 
       it(`returns questions created between 2021-03-24 and 2021-03-25`, () => {
+        console.log(response);
         expect(response.length).toEqual(8);
       });
     });

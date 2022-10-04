@@ -92,8 +92,8 @@ const buildWhereDateRange = (dateRange) => {
 
     return {
       createdAt: {
-        lte: dateRange.endDate,
-        gte: dateRange.startDate,
+        lte: new Date(dateRange.endDate),
+        gte: new Date(dateRange.startDate),
       }
     }
   }

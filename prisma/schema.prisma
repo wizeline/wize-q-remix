@@ -25,6 +25,7 @@ model Answers {
   average_score           Float?    @default(0) @db.Float
   Nps                     Nps[]
   Question                Questions @relation(fields: [answered_question_id], references: [question_id])
+  user                    users     @relation(fields: [answered_by_employee_id], references: [employee_id], onDelete: Restrict, onUpdate: Cascade)
 }
 
 model CommentVote {
@@ -57,6 +58,7 @@ model Departments {
   department_id Int     @id @default(autoincrement())
   name          String  @db.VarChar(255)
   is_active     Boolean @default(true)
+  questions     Questions[]
 }
 
 model DraftAnswers {
@@ -130,6 +132,7 @@ model Questions {
   created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
   Comments                     Comments[]
   DraftAnswers                 DraftAnswers[]
+  Department                   Departments?   @relation(fields: [assigned_department], references: [department_id])
   Sentiments                   Sentiments[]
   Votes                        Votes[]
   Answers                      Answers[]
@@ -175,6 +178,7 @@ model users {
   EmployeesDepartments EmployeesDepartments[]
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
+  answers              Answers[]
 
   @@index([email], map: "users_email")
 }

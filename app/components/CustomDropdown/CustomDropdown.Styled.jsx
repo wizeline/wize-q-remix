@@ -4,6 +4,7 @@ import { Dropdown, MenuItem } from 'react-bootstrap';
 export const CDropdown = styled(Dropdown)`
   .dropdown-menu {
     top: 98%;
+    background-color: transparent;
   }
   .dropdown-menu > .sub-menu-item > a {
     line-height: 20px;
@@ -11,6 +12,10 @@ export const CDropdown = styled(Dropdown)`
   }
   .dropdown-menu a {
     text-decoration: none;
+    border-radius 10px;
+    &:hover {
+      background-color: #F1F3F6;
+    }
   }
   .dropdown-menu li {
     height: auto;

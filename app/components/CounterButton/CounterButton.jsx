@@ -4,7 +4,7 @@ import * as Styled from './CounterButton.Styled';
 
 const CounterButton = ({ icon, text, count, selected, onClick, notButton }) => {
   const validIcon = React.isValidElement(icon);
-  return (<Styled.CounterButton
+  return (<Styled.ContainerCounterButton
     onClick={onClick}
     selected={selected}
     notButton={notButton}
@@ -15,12 +15,12 @@ const CounterButton = ({ icon, text, count, selected, onClick, notButton }) => {
       {count}
       {
         text &&
-        (<Styled.CounterButtonNotMobile>
+        (<Styled.ContainerCounterButtonNotMobile>
           &nbsp;{text}
-        </Styled.CounterButtonNotMobile>)
+        </Styled.ContainerCounterButtonNotMobile>)
       }
     </span>
-  </Styled.CounterButton>);
+  </Styled.ContainerCounterButton>);
 };
 
 CounterButton.defaultProps = {

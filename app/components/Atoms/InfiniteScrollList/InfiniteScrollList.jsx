@@ -12,19 +12,21 @@ function InfiniteScrollList({ onFetch, children }) {
       onFetch();
     }
   };
-  const observer = new IntersectionObserver(onScroll, {
-    root: scrollContainer,
-    rootMargin: `${fetchScrollLimit}px`,
-    threshold: 0,
-  });
+
+  const observer = useRef();
 
   useEffect(() => {
+    observer.current = new IntersectionObserver(onScroll, {
+      root: scrollContainer,
+      rootMargin: `${fetchScrollLimit}px`,
+      threshold: 0,
+    });
     if (endOfListRef && endOfListRef.current) {
-      observer.observe(endOfListRef.current);
+      observer.current.observe(endOfListRef.current);
     }
     return () => {
       if (endOfListRef && endOfListRef.current) {
-        observer.unobserve(endOfListRef.current);
+        observer.current.unobserve(endOfListRef.current);
       }
     };
   }, [children.props.children.length]);

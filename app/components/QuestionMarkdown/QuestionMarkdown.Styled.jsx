@@ -3,7 +3,7 @@ import Markdown from 'react-markdown';
 
 export const QuestionMarkdown = styled(Markdown)`
   color: var(--color-dark-50);
-  font-family: "NunitoSans Regular";
+  font-family: "Nunito";
   font-size: 14px;
   letter-spacing: 0.6px;
   line-height: 1.71;

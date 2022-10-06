@@ -79,6 +79,7 @@ export const DEPARTMENT_ACCESS_VALUE = 'department_id';
 export const LOCATION_LABEL = 'Location';
 export const DEFAULT_LOCATION = 'ALL';
 export const LOCATION_ACCESS_VALUE = DEFAULT_LOCATION_ACCESS_VALUE;
+export const DEFAULT_LOCATION_OPT = { name: 'All', code: DEFAULT_LOCATION };
 
 export const FILTER_BY_USER_TEXT = 'All questions';
 export const DEFAULT_FILTER_BY_USER = 'ALL_QUESTIONS';

@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types';
-import * as Styled from './QuestionMarkdown.styled';
+import * as Styled from './QuestionMarkdown.Styled';
 import gfm from 'remark-gfm';
 import MarkdownLinkRenderer from '~/components/MarkdownLinkRenderer';
 
 const QuestionMarkdown = props => (
   <Styled.QuestionMarkdown
-    source={props.source}
-    escapeHtml={false}
-    renderers={{
+    children={props.source}
+    components={{
       link: MarkdownLinkRenderer,
     }}
-    plugins={[gfm]}
+    remarkPlugins={[gfm]}
   />
 );
 

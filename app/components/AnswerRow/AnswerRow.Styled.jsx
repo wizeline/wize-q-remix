@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
 
 export const AnswerRow = styled.div` 
-  font-family: 'NunitoSans Regular', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   letter-spacing: 0.6px;
   line-height: 1.71;
@@ -29,7 +29,8 @@ export const AnswerMarkdown = styled(Markdown)`
 
 export const AnswerContainer = styled.div`
   width: 100%;
-  padding: 30px 0 0 50px;
+  margin-top: 20px;
+
   @media screen and (max-width: 480px) {
     margin-top: 20px;
     padding: 0 20px;
@@ -70,11 +71,11 @@ export const AnsweredMetadata = styled.div`
   `}
 `;
 
-export const AnswerMetadataBottom = styled.div`
+export const AnswerRowDate = styled.div`
   color: var(--color-dark-25);
   display: flex;
   flex-direction: column;
-  font-family: "NunitoSans SemiBold",sans-serif;
+  font-family: "Nunio",sans-serif;
   font-size: 12px;
   align-items: end;
   letter-spacing: 0.7px;
@@ -83,6 +84,7 @@ export const AnswerMetadataBottom = styled.div`
 `;
 
 export const AnswerRowLineVertical = styled.div`
+  display: none;
   position: absolute;
   height: 65px;
   border-right: 1px solid var(--color-dark-25);
@@ -97,6 +99,7 @@ export const AnswerRowLineVertical = styled.div`
 `;
 
 export const AnswerRowLineHorizontal = styled.div`
+  display: none;
   position: absolute;
   width: 20px;
   border-top: 1px solid var(--color-dark-25);
@@ -111,7 +114,6 @@ export const AnswerRowLineHorizontal = styled.div`
 `;
 
 export const AnswerRowBorderBottom = styled.div`
-  border-bottom: var(--color-dark-25) solid 1px;
   margin-top: 8px;
   width: 100%;
 `;

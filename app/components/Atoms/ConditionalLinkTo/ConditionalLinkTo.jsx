@@ -1,5 +1,5 @@
+import { Link } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 function ConditionalLinkTo({ children, to, condition }) {
   if (condition) {

@@ -9,7 +9,7 @@ import Button from '~/components/Atoms/Button';
 import AnswerAdminOptions from '~/components/AnswerAdminOptions';
 
 const renderDepartment = department =>
-  (department ? department.departmentName : DEPARTMENT_NOT_ASSIGNED);
+  (department ? department.name : DEPARTMENT_NOT_ASSIGNED);
 
 function shouldRenderAdminButtons(question, isAdmin) {
   return !question.Answer && isAdmin;
@@ -40,8 +40,8 @@ function renderAdminButtons(renderAdminBtnProps) {
 }
 
 function renderAnswer(renderAnswerProps) {
+
   const {
-    question: { Answer },
     isAdmin,
     currentUserEmail,
     onAnswerClick,
@@ -52,6 +52,12 @@ function renderAnswer(renderAnswerProps) {
     isQuestionModalOpen,
     isFromList,
   } = renderAnswerProps;
+
+  let Answer;
+  if (question.Answers.length > 0 ){
+    Answer = question.Answers[0];
+  }
+
   if (!Answer) {
     return null;
   }
@@ -59,6 +65,7 @@ function renderAnswer(renderAnswerProps) {
   if (Answer.numScores <= 1) {
     actionsEnabled = true;
   }
+
   return (
     <AnswerRow
       {...Answer}
@@ -67,6 +74,7 @@ function renderAnswer(renderAnswerProps) {
       isQuestionModalOpen={isQuestionModalOpen}
       questionId={question.question_id}
       isFromList={isFromList}
+      user={Answer.AnsweredBy}
     >
       { isAdmin && Answer.user.email === currentUserEmail && (
         <AnswerAdminOptions

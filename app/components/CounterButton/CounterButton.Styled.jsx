@@ -9,7 +9,7 @@ const handleColorType = (props) => {
   return '#31425a';
 };
 
-export const CounterButton = styled.button`
+export const ContainerCounterButton = styled.button`
   align-items: center;
   background-color: transparent;
   border: none;
@@ -18,7 +18,7 @@ export const CounterButton = styled.button`
   cursor: pointer;
   display: inline-flex;
   flex-direction: row;
-  font-family: "NunitoSans Regular", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
   font-weight: 600;
   justify-content: center;
@@ -40,7 +40,7 @@ export const CounterButton = styled.button`
   }
 `;
 
-export const CounterButtonNotMobile = styled.div`
+export const ContainerCounterButtonNotMobile = styled.div`
   display: unset;
   @media screen and (max-width: 768px) {
     display: none;

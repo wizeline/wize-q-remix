@@ -23,29 +23,83 @@ import {
   LOCATION_LABEL,
   LOCATION_ACCESS_VALUE,
   TEXT_BUTTON,
+  DEFAULT_LOCATION_OPT,
 } from '~/utils/constants';
 import Button from '~/components/Atoms/Button';
 import CustomDropdown from '~/components/CustomDropdown';
+import { useLoaderData, useSearchParams } from '@remix-run/react';
 
 
 function Filters(props) {
-  const { callFetchQuestions, modifyQuery, departments, locations } = props;
+  const { modifyQuery, clearFilters } = props;
 
-  const findDefaultLocation = arrayLocations =>
-  arrayLocations.find(location => location.code === DEFAULT_LOCATION);
+  const { departments, locations } = useLoaderData();
 
-  const [selectedOrderBy, setSelectedOrderBy] = useState(DEFAULT_SORTING_OPT);
-  const [selectedDateRange, setSelectedDateRange] = useState(DEFAULT_DATE_RANGE_OPT);
-  const [selectedStatus, setSelectedStatus] = useState(DEFAULT_STATUS_OPT);
-  const [selectedDepartment, setSelectedDepartment] = useState(DEFAULT_DEPARTMENT_OPT);
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [searchParams] = useSearchParams();
+
+  const getDefaultStatus = () => {
+    const searchParam = searchParams.get("status");
+    if (searchParam) {      
+      const found = STATUS_OPTIONS.find((status) => status.value === searchParam)
+      if (found) return found;
+    }
+
+    return DEFAULT_STATUS_OPT;
+  }
+
+  const getDefaultSortOption = () => {
+    const searchParam = searchParams.get("order");
+    if (searchParam) {
+      const found = SORTING_OPTIONS.find((order) => order.value === searchParam)
+      if (found) return found;
+    }
+
+    return DEFAULT_SORTING_OPT;
+  }
+
+
+  const getDefaultDateRangeOption = () => {
+    const searchParam = searchParams.get("dateRange");
+    if (searchParam) {
+      const found = DATE_RANGE_OPTIONS.find((date) => date.value === searchParam)
+      if (found) return found;
+    }
+
+    return DEFAULT_DATE_RANGE_OPT;
+  }
+
+  const getDefaultDepartmentOption = () => {
+    const searchParam = parseInt(searchParams.get("department"));
+    if (searchParam !== undefined) {
+      const found = DEPARTMENT_OPTIONS.find((option) => option.department_id === searchParam);
+      if (found) return found;
+      const foundInData = departments.find((department) => department.department_id === searchParam);
+      
+      if (foundInData) return foundInData;
+    }
+
+
+    return DEFAULT_DATE_RANGE_OPT;
+  }
+
+  const getDefaultLocationOption = () => {
+    const searchParam = searchParams.get("location");
+    if (searchParam) {
+      const foundInData = locations.find((location) => location.code === searchParam);
+      if (foundInData) return foundInData;
+    }
+
+    return DEFAULT_LOCATION_OPT;
+  }
+
+  const [selectedOrderBy, setSelectedOrderBy] = useState(getDefaultSortOption());
+  const [selectedDateRange, setSelectedDateRange] = useState(getDefaultDateRangeOption());
+  const [selectedStatus, setSelectedStatus] = useState(getDefaultStatus());
+  const [selectedDepartment, setSelectedDepartment] = useState(getDefaultDepartmentOption());
+  const [selectedLocation, setSelectedLocation] = useState(getDefaultLocationOption());
   const [showClearButton, setShowClearButton] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [filtersButtonName, setFiltersButtonName] = useState('Show filters');
-
-  useEffect(() => {
-    setSelectedLocation(findDefaultLocation(locations));
-  }, [locations]);
 
   useEffect(() => {
     if (selectedLocation !== null && selectedLocation !== undefined) {
@@ -62,46 +116,57 @@ function Filters(props) {
     }
   }, [selectedDateRange, selectedStatus, selectedDepartment, selectedLocation]);
 
-  const applyFilters = async () => {
-    await callFetchQuestions();
-  };
-
   const selectOrderByFilter = (selectOrderBy) => {
     setSelectedOrderBy(selectOrderBy);
     modifyQuery('order', selectOrderBy.value);
-    applyFilters();
   };
 
   const selectDateRangeFilter = (selectDateRange, apply = true) => {
     setSelectedDateRange(selectDateRange);
-    modifyQuery('dateRange', selectDateRange.value);
-    if (apply) applyFilters();
+    if (selectDateRange.value === "all") {
+      modifyQuery('dateRange', undefined);
+    } else {
+      modifyQuery('dateRange', selectDateRange.value);
+    }
   };
 
   const selectStatusFilter = (selectStatus, apply = true) => {
     setSelectedStatus(selectStatus);
-    modifyQuery('status', selectStatus.value);
-    if (apply) applyFilters();
+    if (selectStatus.value === "all") {
+      modifyQuery('status', undefined);
+    } else {
+      modifyQuery('status', selectStatus.value);
+    }
   };
 
   const selectDepartmentFilter = (selectDepartment, apply = true) => {
     setSelectedDepartment(selectDepartment);
-    modifyQuery('departmentId', selectDepartment.department_id);
-    if (apply) applyFilters();
+    if (selectDepartment.department_id === -1) {
+      modifyQuery('department', undefined);
+    } else {
+      modifyQuery('department', selectDepartment.department_id);
+    }
   };
 
   const selectLocationFilter = (selectLocation, apply = true) => {
     setSelectedLocation(selectLocation);
     modifyQuery('location', selectLocation.code);
-    if (apply) applyFilters();
   };
 
   const clearAllFilters = () => {
     selectDateRangeFilter(DEFAULT_DATE_RANGE_OPT, false);
     selectStatusFilter(DEFAULT_STATUS_OPT, false);
     selectDepartmentFilter(DEFAULT_DEPARTMENT_OPT, false);
-    selectLocationFilter(findDefaultLocation(locations), false);
-    applyFilters();
+    selectLocationFilter(DEFAULT_LOCATION_OPT, false);
+
+    clearFilters([
+      "location",
+      "department",
+      "status",
+      "dateRange",
+      "location",
+    ]);
+
   };
 
   const selectFilters = () => {
@@ -194,12 +259,11 @@ function Filters(props) {
               <CustomDropdown {...orderByDropdownConfig} />
             </Styled.FiltersField>
           </Styled.FiltersBlock>
-          <Styled.FiltersLine visibility="block" />
           <Styled.FiltersBlock>
             <Styled.FiltersLabel>
                 Filter by:{' '}
               {showClearButton && (
-              <a onClick={clearAllFilters}>Clear All Filters</a>
+              <button onClick={clearAllFilters}>Clear All Filters</button>
                 )}
             </Styled.FiltersLabel>
             <Styled.FiltersField>
@@ -222,21 +286,8 @@ function Filters(props) {
 }
 
 Filters.propTypes = {
-  callFetchQuestions: PropTypes.func.isRequired,
+  clearFilters: PropTypes.func.isRequired,
   modifyQuery: PropTypes.func.isRequired,
-  departments: PropTypes.arrayOf(
-    PropTypes.shape({
-      department_id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-
-  locations: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
 };
 
 export default Filters;

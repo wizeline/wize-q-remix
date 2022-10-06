@@ -52,6 +52,8 @@ export const QuestionCardActions = styled.div`
 export const CounterButtonsWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
+  display: inline-flex;
+
   ${props => props.isAdmin && !props.hasAnswer && css`
     justify-content: flex-start;
   `}

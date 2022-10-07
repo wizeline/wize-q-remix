@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import img from '~/images/header-background-dots-pattern.svg';
+import { Link } from '@remix-run/react';
 
 export const BackgroundDiv = styled.div`
     background-image: url(${img});

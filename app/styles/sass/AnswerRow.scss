@@ -1,0 +1,108 @@
+@import "./MediaQueries";
+
+.question-detail--body .question-comment__options {
+  @include mobile {
+    min-width: fit-content;
+  }
+
+  & > img:first-child {
+    @include mobile {
+      margin-right: 24px;
+    }
+  }
+}
+
+/* --------------------------------------------
+                    Modals
+-------------------------------------------- */
+
+.writeAnswer .modal-content {
+  border-radius: 0;
+}
+
+.writeAnswer .modal-header {
+  border-bottom: 0 none;
+  padding-bottom: 0;
+  padding-left: 24px;
+  padding-top: 24px;
+}
+
+.writeAnswer .modal-body {
+  padding: 0 24px 24px;
+}
+
+.writeAnswer h6 {
+  color: var(--color-dark-50);
+  font-size: 14px;
+  height: 24px;
+  letter-spacing: 0.6px;
+  line-height: 1.71;
+  margin-bottom: 32px;
+  margin-top: 8px;
+  width: 294px;
+}
+
+.writeAnswer h4 {
+  color: var(--color-dark-50);
+  font-family: Nunito, sans-serif;
+  font-size: 16px;
+  height: 19px;
+  width: 311px;
+}
+
+.writeAnswer .text-area-footer span {
+  color: var(--color-dark-50);
+  font-size: 12px;
+  height: 14px;
+  text-align: right;
+  width: 60px;
+}
+
+.writeAnswer .modal-footer {
+  border-top: 0 none;
+  padding-bottom: 24px;
+  padding-right: 24px;
+  padding-top: 24px;
+}
+
+.writeAnswer .form-control {
+  height: 153px;
+  padding: 8px;
+  width: 544px;
+}
+
+.modal-footer__button {
+  border-radius: 3px;
+  box-shadow: none;
+  font-size: 14px;
+  margin-right: 0;
+  outline: none;
+  padding: 8px 16px;
+}
+
+.modal-footer__button--primary {
+  background-color: var(--color-secondary);
+  border: solid 1px var(--color-secondary);
+  color: #fff;
+}
+
+.modal-footer__button--primary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+.modal-footer__button--primary:active {
+  background-color: var(--color-secondary-active);
+  box-shadow: none;
+  outline: none;
+}
+
+.modal-footer__button--secondary {
+  background-color: #fff;
+  border: solid 1px var(--color-secondary);
+  color: var(--color-secondary);
+  margin-right: 15px;
+}
+
+.modal-footer__button--secondary:active {
+  background-color: #ecf7ff;
+}

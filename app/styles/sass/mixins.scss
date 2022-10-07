@@ -1,0 +1,21 @@
+@mixin scrollbar-style (
+  $width: 8px,
+  $border-radius: 10px,
+  $thumb-color: var(--color-secondary),
+  $bg-color: transparent
+) {
+  // chrome & safari
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    border-radius: $border-radius;
+  }
+  &::-webkit-scrollbar-track {
+    background: $bg-color;
+  }
+
+  // firefox
+  scrollbar-color: $thumb-color $bg-color;
+}

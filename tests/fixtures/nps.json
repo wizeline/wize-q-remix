@@ -19,5 +19,12 @@
     "score": 3,
     "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7",
     "id": 7
+  },
+  {
+    "answer_id": 1,
+    "user": "google-oauth2|108653070533260305238",
+    "score": 3,
+    "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7",
+    "id": 8
   }
 ]

@@ -38,7 +38,7 @@ export const QuestionRowOptions = styled.div`
   margin-right: 10px;
   > span:first-child {
     color: #a2abaf;
-    font-family: "NunitoSans Regular", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 12px;
     margin-bottom: 2px;
   }
@@ -58,6 +58,7 @@ export const PinQuestionIconHolder = styled.span`
   }
 `;
 
+
 export const PinActionableIconHolder = styled.img`
   margin-right: 0px;
   margin-top: 0px;
@@ -69,6 +70,27 @@ export const PinActionableIconHolder = styled.img`
   width: 16px;
   filter: invert(28%) sepia(8%) saturate(331%) hue-rotate(169deg) brightness(97%) contrast(82%);
 `;
+
+export const PinTooltipMessage = styled.span`
+  display: none;
+  width: 210px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0px;
+  position: absolute;
+  z-index: 1000;
+  right: 25px;
+  top: -25px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+
+  ${PinQuestionIconHolder}:hover & {
+    display: block;
+  }
+`
+
 
 export const UnpinActionableIconHolder = styled.img`
   margin-right: 0px;
@@ -83,13 +105,13 @@ export const UnpinActionableIconHolder = styled.img`
 `;
 
 export const PinnedIndicator = styled.span`
-  margin-right: 10px;
   float: right;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: fit-content;
+
   > img {
-    margin-top: 4px;
     display: block;
     display: block;
     margin-left: 5px;
@@ -101,9 +123,8 @@ export const PinnedIndicator = styled.span`
   }
   > span {
     min-width: 80px;
-    margin-top: 6px;
     color: var(--color-dark-25);
-    font-family: "NunitoSans SemiBold", sans-serif;
+    font-family: "Nunito", sans-serif;
     font-size: 11px;
     letter-spacing: 0.7px;
     @media screen and (max-width: 480px) {
@@ -114,9 +135,6 @@ export const PinnedIndicator = styled.span`
 
 export const QuestionRowWrapper = styled.div`
     width: 100%;
-    ${props => props.hasAnswer && css`
-        padding-left: 55px;
-    `}
 `;
 
 export const QuestionRowContent = styled.div`
@@ -128,7 +146,7 @@ export const QuestionRowContent = styled.div`
 export const QuestionRowMetadataBottom = styled.div`
   color: var(--color-dark-25);
   display: flex;
-  font-family: "NunitoSans SemiBold", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   justify-content: space-between;
   letter-spacing: 0.7px;
@@ -143,6 +161,7 @@ export const QuestionRowBorderBottom = styled.div`
 `;
 
 export const QuestionRowLine = styled.div`
+    display: none;
     border-right: 1px solid var(--color-dark-25);
     height: 95%;
     left: 22px;
@@ -156,4 +175,31 @@ export const QuestionRowLine = styled.div`
     ${props => (!props.hasAnswer || props.isQuestionModalOpen) && css`
         display: none
     `}
+`;
+
+export const QuestionRowDate = styled.div`
+    display: flex;
+    height: fit-content;
+    color: var(--color-dark-25);
+    font-family: "Nunito", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.7px;
+    margin-bottom: 10px;
+`;
+
+export const RightWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+`;
+
+export const QuestionRowMetadataSectionOne = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
+export const LocationWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
 `;

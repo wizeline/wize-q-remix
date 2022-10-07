@@ -1,32 +1,53 @@
-
-
+import { Link } from '@remix-run/react';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: grid;
+  display: flex;
   background-color: #f4f7f9;
-  grid-template-areas: "top top top" "left center right";
-  grid-template-columns: 25% 50% 25%;
   margin: 0 auto;
-  max-width: 1280px;
   width: 100%;
+  max-width: 1600px;
   padding-top: 40px;
-  @media (min-width: 768px) and (max-width: 1024px) {
-    grid-template-areas: "top top top" "filters filters filters" "left center right";
-    grid-template-columns: 0 100% 0;
+  @media (max-width: 1025px) {
+    flex-direction: column-reverse;
+    align-items: center;
   }
-  @media (max-width: 767px) {
-    grid-template-areas: "top top top" "filters filters filters" "left center right";
-    grid-template-columns: 0 100% 0;
-    padding-top: 10px;
+  @media (max-width: 768px) {
+    padding-top: 20px;
+  }
+`;
+
+export const LeftWrapper = styled.div`
+  flex: 1;
+`;
+
+export const CenterWrapper = styled.div`
+  flex: 2;
+  display: flex;
+  justify-content: center;
+`;
+
+export const RightWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  @media (max-width: 1025px) {
+    width: 100%;
+    display: contents;
+    position: sticky;
   }
 `;
 
 export const SloganWrapper = styled.div`
-  grid-area: left;
+  max-width: 425px;
+  
   @media (max-width: 1025px) {
     display: none;
   }
+`;
+
+export const QuestionsWrapper = styled.div`
+  max-width: 650px;
+  width: 100%;
 `;
 
 export const AskQuestionButtonWrapper = styled.div`
@@ -35,17 +56,15 @@ export const AskQuestionButtonWrapper = styled.div`
   flex-direction: row;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 export const QuestionsTitle = styled.div`
-  font-family: "NunitoSans Bold", sans-serif;
+  align-items: center;
+  display: flex;
+  font-family: "Nunito", sans-serif;
   font-size: 20px;
   letter-spacing: 0.6px;
-  padding-top: 10px;
-`;
-
-export const QuestionsWrapper = styled.div`
-  grid-area: center;
 `;
 
 export const QuestionList = styled.div`
@@ -54,7 +73,6 @@ export const QuestionList = styled.div`
 `;
 
 export const Alert = styled.div`
-  grid-area: center;
   border-radius: 3px;
   margin: 0 auto;
   max-width: 592px;
@@ -66,20 +84,44 @@ export const Alert = styled.div`
 `;
 
 export const FiltersWrapper = styled.div`
-  grid-area: right;
-  background-color: #f4f7f9;
+  width: 100%;
+  max-width: 300px;
   @media (max-width: 1024px) {
-    grid-area: filters;
+    max-width: none;
+    padding: 0 0 20px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: #f4f7f9;
+    border-radius: 18px;
+  }
+  @media (max-width: 767px) {
     padding: 0 0 20px;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
   }
-  @media (max-width: 767px) {
-    grid-area: filters;
-    padding: 0 0 20px;
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+`;
+
+export const AskButton = styled(Link)`
+  align-items: center;
+  background: var(--color-secondary);
+  border: solid 1px transparent;
+  border-radius: 3px;
+  color: #fff;
+  display: flex;
+  height: 33px;
+  justify-content: center;
+  padding: 20px 15px;
+  text-decoration: none;
+  width: 120px;
+  &:disabled {
+    background: #d8d8d8;
+  }
+  &:hover {
+    background-color: white;
+    border: solid 1px var(--color-secondary);
+    color: var(--color-secondary);
+    text-decoration: none;
   }
 `;

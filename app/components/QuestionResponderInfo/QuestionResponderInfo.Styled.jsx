@@ -16,7 +16,7 @@ export const QuestionerResponderContainer = styled.div`
 `;
 
 export const QuestionerResponderInfoContainer = styled.div`
-  font-family: "NunitoSans Regular", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   margin-left: 8px;
 `;
@@ -26,7 +26,7 @@ export const QuestionResponderDepartment = styled.div`
   border-radius: 20px;
   border: 2px solid var(--color-secondary);
   color: var(--color-secondary);
-  font-family: 'NunitoSans Bold', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   line-height: normal;
   margin-top: 5px;
@@ -42,7 +42,7 @@ export const QuestionResponderDepartment = styled.div`
 `;
 
 export const QuestionerResponderName = styled.span`
-  font-family: "NunitoSans Semibold", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 18px;
   letter-spacing: 0.5px;
   @media screen and (max-width: 768px) {

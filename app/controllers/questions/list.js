@@ -160,9 +160,11 @@ export const listQuestions = async (params) => {
       Answers: {
         include: {
           Nps: true,
+          AnsweredBy: true,
         }
       },
       created_by: true,
+      Department: true,
     }
   });
 

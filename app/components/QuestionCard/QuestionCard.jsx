@@ -10,7 +10,7 @@ import {
 import * as Styled from './QuestionCard.Styled';
 import { useNavigate } from 'react-router-dom';
 import QuestionRow from '~/components/QuestionRow';
-import { CounterButton } from '~/components/CounterButton/CounterButton.Styled';
+import CounterButton from '~/components/CounterButton';
 
 const QuestionCard = (props) => {
   const {
@@ -43,12 +43,12 @@ const QuestionCard = (props) => {
     const icon = !question.hasVoted ? likeIcon : likeIconVoted;
 
     return (
-      <Styled.CounterButtonsWrapper className="question-row__counter-buttons--container" isAdmin={false} hasAnswer={hasAnswer}>
+      <Styled.CounterButtonsWrapper isAdmin={false} hasAnswer={hasAnswer}>
         <CounterButton
           selected={question.hasVoted}
           icon={icon}
-          text={addS('Like', question.Votes)}
-          count={question.Votes}
+          text={addS('Like', question.num_votes)}
+          count={question.num_votes}
           onClick={() => onVoteClick(question)}
         />
         <CounterButton
@@ -105,14 +105,12 @@ QuestionCard.propTypes = {
     }),
     createdAt: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    Votes: PropTypes.number.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
   }).isRequired,
   onVoteClick: PropTypes.func.isRequired,
   currentUserEmail: PropTypes.string,
   searchTerm: PropTypes.string,
-  fetchQuestionsList: PropTypes.func.isRequired,
 };
 
 QuestionCard.defaultProps = {

@@ -31,7 +31,7 @@ export const Button = styled.button`
 
 export const Span = styled.span`
   color: #ffffff;
-  font-family: 'NunitoSans Regular', sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.58px;

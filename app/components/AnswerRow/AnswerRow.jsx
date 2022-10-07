@@ -13,21 +13,20 @@ import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
 
 function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
-  const shouldCollapse = () => props.answer.length > COLLAPSED_ANSWER_MIN_LENGTH;
+  const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
   const [collapsed, setCollapsed] = useState(shouldCollapse);
 
   const renderAnswer = () => (
     <Styled.AnswerRow>
       <ConditionalLinkTo to={`/question/${props.questionId}`} condition={props.isFromList}>
         <Styled.AnswerMarkdown
-          source={formatCollapsingText(
-          markdownFormat(props.answer, searchTerm),
+          children={formatCollapsingText(
+          markdownFormat(props.answer_text, searchTerm),
           shouldCollapse(),
           collapsed,
           COLLAPSED_ANSWER_MIN_LENGTH,
         )}
-          escapeHtml={false}
-          renderers={{ link: MarkdownLinkRenderer }}
+          components={{ link: MarkdownLinkRenderer }}
         />
       </ConditionalLinkTo>
       {shouldCollapse() && (
@@ -39,7 +38,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
     </Styled.AnswerRow>
   );
 
-  const { user, answered_at: answeredAt, children } = props;
+  const { user, createdAt, children } = props;
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.AnsweredMetadata isPreview={isPreview}>
@@ -48,26 +47,25 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
         <ConditionalLinkTo to={`/question/${props.questionId}`} condition={props.isFromList}>
           <QuestionResponderInfo department={'Best Answer'} createdBy={user} isAnswer />
         </ConditionalLinkTo>
+        <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
+          {getFormattedDate(createdAt)}
+        </Styled.AnswerRowDate>
         {children}
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}
-      <Styled.AnswerMetadataBottom isQuestionModalOpen={isQuestionModalOpen}>
-        {getFormattedDate(answeredAt)}
-        <Styled.AnswerRowBorderBottom />
-      </Styled.AnswerMetadataBottom>
     </Styled.AnswerContainer>
   );
 }
 
 AnswerRow.propTypes = {
-  answer: PropTypes.string.isRequired,
+  answer_text: PropTypes.string.isRequired,
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
     job_title: PropTypes.string,
   }).isRequired,
-  answered_at: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   searchTerm: PropTypes.string,
   isPreview: PropTypes.bool,

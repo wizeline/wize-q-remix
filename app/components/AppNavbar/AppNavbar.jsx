@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import logo from '~/images/logo.png';
+import { Link } from '@remix-run/react';
 import * as Styled from '~/components/AppNavbar/AppNavbar.Styled';
 import UserControls from '~/components/UserControls';
 import { useUser } from '~/utils/hooks/useUser';

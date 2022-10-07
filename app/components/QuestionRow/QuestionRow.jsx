@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { formatCollapsingText } from '~/utils/stringOperations';
 import { getFormattedDate } from '~/utils/dateFormat';
@@ -10,6 +9,9 @@ import pinIcon from '~/images/ic_pin.svg';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import QuestionMarkdown from '~/components/QuestionMarkdown';
+import { useLoaderData } from '@remix-run/react';
+import { useUser } from '~/utils/hooks/useUser';
+import { getDateData } from '~/utils/timeOperations';
 
 
 const renderLocation = (location, locations) => {
@@ -23,18 +25,18 @@ const renderLocation = (location, locations) => {
 const QuestionRow = (props) => {
   const {
     question,
-    locations,
     isQuestionModalOpen,
     hasAnswer,
     shouldCollapse,
     collapsed,
     children,
-    isAdmin,
-    fetchQuestionsList,
     isFromList,
   } = props;
-  const [isProcessingPinStateChange, setIsProcessingPinStateChange] = useState(false);
+  // const [isProcessingPinStateChange, setIsProcessingPinStateChange] = useState(false);
 
+  const profile = useUser();
+
+  const { locations } = useLoaderData();
   const isUpdated = false;
 
   const clickPinOptionHandler = async (event) => {
@@ -59,25 +61,25 @@ const QuestionRow = (props) => {
     // setIsProcessingPinStateChange(false);
   };
 
-  const adminPinButton = (isAdmin && !question.is_pinned)
+  const adminPinButton = (profile.is_admin && !question.is_pinned)
     ? (
-      <Styled.PinQuestionIconHolder onClick={clickPinOptionHandler} className="pin-tooltip" >
+      <Styled.PinQuestionIconHolder onClick={clickPinOptionHandler} >
         <Styled.PinActionableIconHolder src={pinIcon} alt="Icon" />
-        <span className="pin-tooltip-message">Pin question to the top of the list</span>
+        <Styled.PinTooltipMessage>Pin question to the top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>)
     : (
       <Styled.PinQuestionIconHolder onClick={clickPinOptionHandler} className="pin-tooltip" >
         <Styled.UnpinActionableIconHolder src={pinIcon} alt="Icon" />
-        <span className="pin-tooltip-message">Unpin question from top of the list</span>
+        <Styled.PinTooltipMessage>Unpin question from top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>);
 
-  const nonAdminPinIndicator = (!isAdmin && question.is_pinned) && (
+  const nonAdminPinIndicator = (!profile.is_admin && question.is_pinned) && (
     <Styled.PinnedIndicator>
       <span>Pinned by admin</span> <img src={pinIcon} alt="Icon" />
     </Styled.PinnedIndicator>);
 
   const renderIcon = () => (
-    <div className="question-row--locationIcon">
+    <div>
       <HiOutlineLocationMarker />
     </div>
   );
@@ -88,16 +90,21 @@ const QuestionRow = (props) => {
         <ConditionalLinkTo to={`/question/${question.question_id}`} condition={isFromList}>
           <QuestionResponderInfo
             department={renderDepartment(question.Department)}
-            createdBy={question.created_by_user}
+            createdBy={question.created_by}
           />
         </ConditionalLinkTo>
         <Styled.QuestionRowLine isQuestionModalOpen={isQuestionModalOpen} hasAnswer={hasAnswer} />
-        {isAdmin ? adminPinButton : nonAdminPinIndicator}
-      </Styled.QuestionRowMetadataTop>
+        <Styled.RightWrapper>
+          <Styled.QuestionRowDate>
+            <em>{isUpdated && ' (edited)'}</em>
+            {getDateData(question.createdAt)}
+          </Styled.QuestionRowDate>
+          {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
+        </Styled.RightWrapper>      </Styled.QuestionRowMetadataTop>
       <Styled.QuestionRowWrapper hasAnswer={hasAnswer} isQuestionModalOpen={isQuestionModalOpen}>
-        <ConditionalLinkTo to={`/question/${question.question_id}`} condition={isFromList}>
+        <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
           <Styled.QuestionRowContent>
-            <QuestionMarkdown
+            {<QuestionMarkdown
               source={formatCollapsingText(
                 question.question,
                 shouldCollapse && !isQuestionModalOpen,
@@ -105,18 +112,18 @@ const QuestionRow = (props) => {
                 COLLAPSED_QUESTION_MIN_LENGTH,
               )
             }
-            />
+            />}
           </Styled.QuestionRowContent>
         </ConditionalLinkTo>
         {children}
         <Styled.QuestionRowMetadataBottom>
-          <div className="question-row--metadataWrapper">
-            <div className="question-row--locationWrapper">
+          <Styled.QuestionRowMetadataSectionOne>
+            <Styled.LocationWrapper>
               {renderIcon()}
               {`${renderLocation(question.location, locations)}`}
-            </div>
+            </Styled.LocationWrapper>
             {`| Question ID: Q${question.question_id}`}
-          </div>
+          </Styled.QuestionRowMetadataSectionOne>
           <div>
             <em>{isUpdated && ' (edited)'}</em>
             {getFormattedDate(question.createdAt)}
@@ -129,7 +136,6 @@ const QuestionRow = (props) => {
 };
 
 QuestionRow.propTypes = {
-  isAdmin: PropTypes.bool.isRequired,
   question: PropTypes.shape({
     question_id: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
@@ -147,7 +153,6 @@ QuestionRow.propTypes = {
     }),
     createdAt: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    Votes: PropTypes.number.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
     Answer: PropTypes.shape({
@@ -160,18 +165,11 @@ QuestionRow.propTypes = {
     }),
     mostUpvoted: PropTypes.bool,
   }).isRequired,
-  locations: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
   isQuestionModalOpen: PropTypes.bool.isRequired,
   hasAnswer: PropTypes.bool,
   shouldCollapse: PropTypes.bool,
   collapsed: PropTypes.bool,
   children: PropTypes.node,
-  fetchQuestionsList: PropTypes.func.isRequired,
   isFromList: PropTypes.bool,
 };
 

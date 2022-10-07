@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 
-
 export const Filters = styled.div`
-  background-color: #f4f7f9;
+  background-color: transparent;
   margin: 0 11px;
   position: -webkit-sticky;
   position: sticky;
@@ -60,14 +59,11 @@ export const FiltersWrapper = styled.div`
       width: 248px;
   }
   #sort-toggle.dropdown-toggle.btn {
-    background: #fff;
+    background-color: transparent;
     border: none;
     font-size: 14px;
     height: 56px;
     width: 100%;
-    &:hover {
-      background-color: #ecf7ff;
-    }
   }
 `;
 
@@ -81,11 +77,14 @@ export const FiltersLabel = styled.div`
   font-size: 12px;
   margin: 8px 0 4px;
   width: auto;
-  a {
+  button {
     color: var(--color-secondary);
     float: right;
     font-size: 12px;
     text-decoration: none;
+    background: none!important;
+    border: none;
+    padding: 0!important;
   }
 `;
 
@@ -95,9 +94,7 @@ export const FiltersField = styled.div`
   flex-wrap: wrap;
   font-size: 12px;
   .sort-toggle.dropdown {
-    border: 1px solid #e1e5e9;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
+    border-radius: 10px;
     margin: 8px 0;
     width: 100%;
   }
@@ -115,6 +112,9 @@ export const FiltersField = styled.div`
     -webkit-transform: scale(1, -1);
     transform: scale(1, -1);
   }
+  .dropdown:hover {
+    background-color: transparent;
+  }
   .dropdown .menu-dropdown {
     box-shadow: none;
     margin: 0;
@@ -123,15 +123,7 @@ export const FiltersField = styled.div`
   }
   .dropdown.open .menu-dropdown {
     border: none;
-    box-shadow: 0 3px 6px 0 rgba(225, 229, 233, 0.8);
-    display: inline-table;
-    padding: 5px 0 8.9px;
-    position: unset;
-  }
-  .dropdown.open .menu-dropdown {
-    border: none;
-    box-shadow: 0 3px 6px 0 rgba(225, 229, 233, 0.8);
-    display: inline-table;
+    border-radius: 10px;
     padding: 5px 0 8.9px;
     position: unset;
   }

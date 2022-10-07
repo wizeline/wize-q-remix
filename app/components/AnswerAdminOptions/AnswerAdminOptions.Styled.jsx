@@ -33,7 +33,7 @@ export const AnswerOptions = styled.div`
 `;
 
 export const OptionsTooltip = styled.div`
-  font-family: 'NunitoSans Regular', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background-color: #31425a;
   border-radius: 6px;
   bottom: 150%;

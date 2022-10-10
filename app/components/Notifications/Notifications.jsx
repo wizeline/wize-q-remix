@@ -14,7 +14,13 @@ const Notifications = () => {
     }
     if (!data) return;
     
-    const { errors, success, warnings } = data;
+    const { error, errors, success, warnings } = data;
+
+    if (error) {
+      console.error(error.detail);
+      toast.error(error.message, DEFAULT_TOAST_CONFIG);
+    };
+
     if (errors && Array.isArray(errors)) {
       errors.forEach((error) => {
         console.error(error.detail);

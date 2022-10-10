@@ -2,10 +2,6 @@ import { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import * as Styled from './ListQuestions.Styled';
-import {
-  FILTER_BY_USER_TEXT,
-  FILTER_BY_USER_TYPES,
-} from '~/utils/constants';
 import Slogan from '~/components/Slogan';
 import QuestionCard from '~/components/QuestionCard';
 import { useUser } from '~/utils/hooks/useUser';
@@ -20,6 +16,7 @@ const ListQuestions = ({
   onFetchMore,
 }) => {
   const profile = useUser();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [title, setTitle] = useState('Newest Questions');
@@ -76,6 +73,8 @@ const ListQuestions = ({
     const answeredBy = username ? `Answered by ${username}` : '';
     return answeredBy;
   };
+
+
 
   const renderQuestionsList = () => {
     if (questions.length === 0) { return null; }

@@ -55,7 +55,7 @@ const QuestionCard = (props) => {
           icon={commentIcon}
           text={addS('Comment', question.numComments)}
           count={question.numComments}
-          onClick={() => navigate(`/question/${question.question_id}`)}
+          onClick={() => navigate(`/questions/${question.question_id}`)}
         />
       </Styled.CounterButtonsWrapper>
     );

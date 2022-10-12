@@ -87,7 +87,7 @@ const QuestionRow = (props) => {
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
-        <ConditionalLinkTo to={`/question/${question.question_id}`} condition={isFromList}>
+        <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
           <QuestionResponderInfo
             department={renderDepartment(question.Department)}
             createdBy={question.created_by}

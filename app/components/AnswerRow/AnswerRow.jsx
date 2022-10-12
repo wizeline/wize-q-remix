@@ -18,7 +18,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
 
   const renderAnswer = () => (
     <Styled.AnswerRow>
-      <ConditionalLinkTo to={`/question/${props.questionId}`} condition={props.isFromList}>
+      <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
         <Styled.AnswerMarkdown
           children={formatCollapsingText(
           markdownFormat(props.answer_text, searchTerm),
@@ -44,7 +44,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
       <Styled.AnsweredMetadata isPreview={isPreview}>
         <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
         <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
-        <ConditionalLinkTo to={`/question/${props.questionId}`} condition={props.isFromList}>
+        <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
           <QuestionResponderInfo department={'Best Answer'} createdBy={user} isAnswer />
         </ConditionalLinkTo>
         <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>

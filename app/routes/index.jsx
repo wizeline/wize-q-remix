@@ -10,6 +10,9 @@ import { getAuthenticatedUser, requireAuth } from "~/session.server";
 import * as Styled from '~/styles/Home.Styled';
 import dateRangeConversion from "../utils/dateRangeConversion";
 import { useEffect, useState } from "react";
+import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
+import { ACTIONS } from "~/utils/actions";
+
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
@@ -42,6 +45,21 @@ export const loader = async ({ request }) => {
     locations,
     departments,
   });
+}
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const action = formData.get("action");
+  let response;
+
+  switch (action) {
+    case ACTIONS.PINNIN:
+      const questionId = parseInt(formData.get("questionId"));
+      const value = formData.get("value") !== 'false';
+      response = await modifyPinStatus(questionId, value);
+  }
+
+  return json(response);
 }
 
 export default function Index() {
@@ -79,11 +97,16 @@ export default function Index() {
 
   }, [initialQuestions, searchParams]);
 
+
   return (
     <>
     <Notifications /> 
     <Styled.Container>
-      <ListQuestions type="all" questions={questions} onFetchMore={onFetchMore} />
+      <ListQuestions
+        type="all"
+        questions={questions}
+        onFetchMore={onFetchMore}
+      />
     </Styled.Container>
   </>
   );

@@ -38,7 +38,7 @@ describe("questions controller", () => {
       expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
     });
 
-    it("throws error when question id not found", async () => {
+    it("returns error when question id not found", async () => {
       const response = await modifyPinStatus(1000, true);
 
       expect(response.error).toBeDefined();

@@ -1,18 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import useClickOutside from '~/utils/hooks/useClickOutside';
 import { ICON_BUTTON } from '~/utils/constants';
 import * as Styled from './SearchBarNav.Styled';
 import Button from '~/components/Atoms/Button';
 import SearchBarDropdown from '~/components/SearchBarDropdown';
-import { useFetcher } from '@remix-run/react';
+import { useFetcher, useNavigate } from '@remix-run/react';
 import { debounce } from 'lodash';
-import { useCallback } from 'react';
 
 const SearchBarNav = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const { state: showDropdown, setState: setShowDropdown, wrapperRef } = useClickOutside();
   const [found, setFound] = useState([]);
+  const navigate = useNavigate();
 
   const fetcher = useFetcher();
 
@@ -24,25 +24,26 @@ const SearchBarNav = () => {
 
   }, [fetcher.data]);
 
-  useEffect(() => {
-    return () => {
-      debouncedSearchChangedHnadler.cancel();
-    }
-  }, []);
+  const sendQuery = (value) => {
+    fetcher.load(`/?search=${value}`);
+  };
 
-  const searchUpdated = (e) => {
-    if (!e) return;
-    console.log("Fetching: ", e.target.value)
-    fetcher.load(`/?search=${e.target.value}`);
+  const delayedQuery = useCallback(debounce(value => sendQuery(value), 400), []);
+
+  const onChange = e => {
     setSearchTerm(e.target.value);
+    delayedQuery(e.target.value);
   };
 
-  const debouncedSearchChangedHnadler = useMemo((e) => debounce(searchUpdated(e), 300), [searchUpdated]);
-
-
-  const handleClick = () => {
+  const onClear = () => {
     setSearchTerm('');
-  };
+  }
+
+  const onQuestionClick = (questionId) => {
+    onClear();
+    setShowDropdown(false);
+    navigate(`/questions/${questionId}`);
+  }
 
   return (
     <Styled.SearchField ref={wrapperRef}>
@@ -52,7 +53,7 @@ const SearchBarNav = () => {
       <Styled.Input
         type="search"
         value={searchTerm}
-        onChange={debouncedSearchChangedHnadler}
+        onChange={onChange}
         onFocus={() => setShowDropdown(true)}
         placeholder="Search for…"
       />
@@ -62,13 +63,13 @@ const SearchBarNav = () => {
           className="clear-button"
           title="Clear"
           category={ICON_BUTTON}
-          onClick={handleClick}
+          onClick={onClear}
         >
           <Styled.ClearIcon />
         </Button>
       )}
       {showDropdown && (
-        <SearchBarDropdown searchTerm={searchTerm} questions={found} />
+        <SearchBarDropdown searchTerm={searchTerm} questions={found} onQuestionClick={onQuestionClick} />
       )}
     </Styled.SearchField>
   );

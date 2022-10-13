@@ -15,6 +15,7 @@ import draftJs from "draft-js/dist/Draft.css";
 import { commitSession, getAuthenticatedUser, getSession } from "~/session.server";
 import { json } from "@remix-run/node";
 import AppNavbar from "~/components/AppNavbar";
+import { listQuestions } from "~/controllers/questions/list";
 
 const titleSuffix = process.env.NODE_ENV === "development" ? "Local" : ""
 
@@ -37,11 +38,25 @@ export function links() {
 export const loader = async ({ request }) => {
   const profile = await getAuthenticatedUser(request);
   const session = await getSession(request);
+  const url = new URL(request.url);
+  const search = url.searchParams.get("search");
+  
+  let searchResults = [];
+
+  if (search) {
+    searchResults = await listQuestions({
+      user: profile,
+      limit: 5,
+      search: search,
+    });
+  }
+
   const globalSuccess = session.get("globalSuccess") || null;
   
   return json({
     profile,
-    globalSuccess
+    globalSuccess,
+    searchResults,
   },
   {
     headers: {

@@ -8,6 +8,7 @@ import { addS } from '~/utils/stringOperations';
 import {
     shouldRenderAdminButtons,
     renderAdminButtons,
+    renderAnswer,
   } from '~/utils/questionUtils';
 import {
     PRIMARY_BUTTON,
@@ -26,12 +27,16 @@ function QuestionDetails(props) {
 
   const profile = useUser();
   const isAdmin = profile.is_admin;
+  const currentUserEmail = profile.email;
 
-  const { question,
-    onVoteClick,
-    currentUserEmail } = props;
+  const { question } = props;
 
-
+    const initialState = {
+      showAnswerModal: false,
+      showAssignAnswerModal: false,
+    };
+  
+  const [state, setState] = useState(initialState);
   const [writingCommentOnMobile, setWritingCommentOnMobile] = useState(false);
 
   const { questionId } = useParams();
@@ -49,7 +54,7 @@ function QuestionDetails(props) {
           icon={icon}
           text={addS('Like', question.num_votes)}
           count={question.num_votes}
-          onClick={() => onVoteClick(question, false)}
+          onClick={() => {}}
         />
         <CounterButton
           notButton
@@ -65,6 +70,20 @@ function QuestionDetails(props) {
   answer && (
     <Styled.NumComments>{question.numComments} Comments</Styled.NumComments>
   );
+
+  const openAnswerModal = () => {
+    setState({
+      ...state,
+      showAnswerModal: true,
+    });
+  };
+
+  const openDeleteAnswerModal = () => {
+    setState({
+      ...state,
+      showDeleteAnswerModal: true,
+    });
+  }
 
   const isEmpty = obj => Object.keys(obj).length === 0;
 
@@ -87,6 +106,16 @@ function QuestionDetails(props) {
                       onAssignAnswerClick: () => {},
                     })}
             </QuestionCardActions>
+            {renderAnswer({
+              Answer: question.Answer, 
+              isAdmin, 
+              currentUserEmail, 
+              onAnswerClick: () => { openAnswerModal(question); },
+              openDeleteAnswerModal: () => { openDeleteAnswerModal(question); },
+              question,
+              isQuestionModalOpen: true,
+              isFromList: false,
+            })}
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
             {renderNumCommentsRow(question.Answer)}
@@ -145,12 +174,10 @@ QuestionDetails.propTypes = {
     }),
     mostUpvoted: PropTypes.bool,
   }),
-  currentUserEmail: PropTypes.string,
 };
 
 QuestionDetails.defaultProps = {
   question: null,
-  currentUserEmail: '',
 };
 
 export default QuestionDetails;

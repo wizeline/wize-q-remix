@@ -76,7 +76,7 @@ function renderAnswer(renderAnswerProps) {
       isFromList={isFromList}
       user={Answer.AnsweredBy}
     >
-      { isAdmin && Answer.user.email === currentUserEmail && (
+      { isAdmin && Answer.AnsweredBy.email === currentUserEmail && (
         <AnswerAdminOptions
           isPreview={isPreview}
           isDisabled={!actionsEnabled}

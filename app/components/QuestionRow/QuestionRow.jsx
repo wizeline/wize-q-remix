@@ -9,9 +9,11 @@ import pinIcon from '~/images/ic_pin.svg';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import QuestionMarkdown from '~/components/QuestionMarkdown';
-import { useLoaderData } from '@remix-run/react';
+import { useLoaderData, useSubmit } from '@remix-run/react';
 import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
+import { useRef } from 'react';
+import { ACTIONS } from '~/utils/actions';
 
 
 const renderLocation = (location, locations) => {
@@ -21,6 +23,7 @@ const renderLocation = (location, locations) => {
 
   return locations.find(loc => loc.code === location).name;
 };
+
 
 const QuestionRow = (props) => {
   const {
@@ -32,43 +35,35 @@ const QuestionRow = (props) => {
     children,
     isFromList,
   } = props;
-  // const [isProcessingPinStateChange, setIsProcessingPinStateChange] = useState(false);
 
   const profile = useUser();
 
   const { locations } = useLoaderData();
   const isUpdated = false;
+  const pinForm = useRef();
+  const submit = useSubmit();
 
-  const clickPinOptionHandler = async (event) => {
-    // event.stopPropagation();
-    // if (isProcessingPinStateChange) return;
-    // setIsProcessingPinStateChange(true);
-    // const newPinStatusValue = question.is_pinned ? 'false' : 'true';
-    // try {
-    //   const response = await axios.post(`/api/questions/${question.question_id}/pin-status?pinStatus=${newPinStatusValue}`, {}, axiosConfig());
-    //   if (response.status !== 200) {
-    //     throw new Error('Unexpected status in the response when trying to update the pin status for the question');
-    //   }
-    //   if (response.data.is_pinned === undefined
-    //         || (response.data.is_pinned !== true && response.data.is_pinned !== false)) {
-    //     throw new Error('Unexpected value for is_pinned property in the response of the request');
-    //   }
-    //   // successAlertWithDuration(`The question has been ${response.data.is_pinned ? 'pinned' : 'unpinned'}`, 1000);
-    //   fetchQuestionsList();
-    // } catch (e) {
-    //   // dangerAlertWithDuration('Error trying to pin/unpin the question', 1000);
-    // }
-    // setIsProcessingPinStateChange(false);
-  };
+  const onPinChange = () => {
+    const newPinStatusValue = question.is_pinned ? 'false' : 'true';
+    const data = new FormData(pinForm.current);
+    data.set("action", ACTIONS.PINNIN);
+    data.set("questionId", question.question_id);
+    data.set("value", newPinStatusValue);
+
+    submit(
+      data,
+      { method: "post", action: "/?index"}
+    );
+  }
 
   const adminPinButton = (profile.is_admin && !question.is_pinned)
     ? (
-      <Styled.PinQuestionIconHolder onClick={clickPinOptionHandler} >
+      <Styled.PinQuestionIconHolder onClick={onPinChange} >
         <Styled.PinActionableIconHolder src={pinIcon} alt="Icon" />
         <Styled.PinTooltipMessage>Pin question to the top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>)
     : (
-      <Styled.PinQuestionIconHolder onClick={clickPinOptionHandler} className="pin-tooltip" >
+      <Styled.PinQuestionIconHolder onClick={onPinChange} className="pin-tooltip" >
         <Styled.UnpinActionableIconHolder src={pinIcon} alt="Icon" />
         <Styled.PinTooltipMessage>Unpin question from top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>);
@@ -171,6 +166,7 @@ QuestionRow.propTypes = {
   collapsed: PropTypes.bool,
   children: PropTypes.node,
   isFromList: PropTypes.bool,
+  onPinChange: PropTypes.func.isRequired,
 };
 
 QuestionRow.defaultProps = {

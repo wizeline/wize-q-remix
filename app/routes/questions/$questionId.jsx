@@ -9,6 +9,8 @@ import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION } from '~/utils/con
 import { requireAuth, getAuthenticatedUser } from "~/session.server";
 import { getQuestionById } from "~/controllers/questions/getQuestionById";
 import { listLocations } from "~/controllers/locations/list";
+import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
+import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
 
 
@@ -22,6 +24,22 @@ export const loader = async ({request, params}) => {
     question,
     locations,
   });
+}
+
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const action = formData.get("action");
+  let response;
+
+  switch (action) {
+    case ACTIONS.PINNIN:
+      const questionId = parseInt(formData.get("questionId"));
+      const value = formData.get("value") !== 'false';
+      response = await modifyPinStatus(questionId, value);
+  }
+
+  return json(response);
 }
 
 const QuestionDetailPage = () => {

@@ -44,6 +44,10 @@ const QuestionRow = (props) => {
   const submit = useSubmit();
 
   const onPinChange = () => {
+    let url = "/?index"
+    if(!isFromList){
+      url = `/questions/${question.question_id}`
+    }
     const newPinStatusValue = question.is_pinned ? 'false' : 'true';
     const data = new FormData(pinForm.current);
     data.set("action", ACTIONS.PINNIN);
@@ -52,7 +56,7 @@ const QuestionRow = (props) => {
 
     submit(
       data,
-      { method: "post", action: "/?index"}
+      { method: "post", action: url }
     );
   }
 

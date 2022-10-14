@@ -2,5 +2,13 @@
   "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
   "env": {
     "jest": true
-  }
+  },
+  "overrides": [
+    {
+        "files": ["**/*.js", "**/*.jsx"],
+        "rules": {
+            "react-hooks/exhaustive-deps": "off"
+        }
+    }
+  ]
 }

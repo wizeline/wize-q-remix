@@ -22,13 +22,10 @@ export const getAnswerById = async (answerId, user) => {
   }
 
   try {
-    const answer = await db.Answers.findUnique({
+    const answer = await db.Answers.findUniqueOrThrow({
       where: { answer_id: answerId },
     });
 
-    //TODO: Handle error when the answer is not found
-    // Now if a valid ID is provided but it doesn't exists in DB
-    // returns { success: true, answer: null }
     return {
       success: true,
       answer,

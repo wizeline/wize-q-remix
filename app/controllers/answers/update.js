@@ -12,7 +12,7 @@ export const updateAnswer = async (query) => {
 
   if (error) {
     return {
-      errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }],
+      error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
   }
 

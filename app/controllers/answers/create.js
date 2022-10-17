@@ -12,7 +12,7 @@ export const createAnswer = async (body) => {
 
   if (error) {
     return {
-      errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.message }],
+      error: { message: DEFAULT_ERROR_MESSAGE, detail: error.message },
     };
   }
 

@@ -18,3 +18,7 @@ export const updateAnswerSchema = Joi.object().keys({
     .max(MAXIMUM_ANSWER_LENGTH)
     .required(),
 });
+
+export const deleteAnswerSchema = Joi.object().keys({
+  answer_id: JOI_ID_VALIDATION,
+});

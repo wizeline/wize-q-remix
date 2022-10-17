@@ -4,7 +4,7 @@ describe('updateAnswer', () => {
   it('should validate fields', async () => {
     const response = await updateAnswer({});
     expect(response).toBeDefined();
-    expect(response.errors.length).toBeGreaterThan(0);
+    expect(response.error).toBeDefined();
   });
 
   it('updates answer fields', async () => {

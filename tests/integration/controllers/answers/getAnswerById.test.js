@@ -52,7 +52,7 @@ describe('answers controller', () => {
       });
       expect(response).toBeDefined();
       expect(response.success).toBeDefined();
-      expect(response.success).toBe(true);
+      expect(response.success).toBe('Answer successfully read!');
       expect(response.answer).toBeDefined();
 
       const answer = response.answer;

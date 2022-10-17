@@ -5,6 +5,7 @@ import { ButtonToolbar } from 'react-bootstrap';
 import * as Styled from '~/components/UserControls/UserControl.styled';
 import UserDropdown from '~/components/UserDropdown';
 import LogoutConfirmationModal from '~/components/Modals/LogoutConfirmationModal';
+import SearchBarNav from '~/components/SearchBarNav';
 
 function UserControls(props) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -21,6 +22,9 @@ function UserControls(props) {
 
   return (
     <Styled.NavBar pullRight>
+      <Styled.SearchBarNavContainer>
+        <SearchBarNav />
+      </Styled.SearchBarNavContainer>
       <LinkContainer to="/" exact="true">
         <Styled.Navitem>Home</Styled.Navitem>
       </LinkContainer>

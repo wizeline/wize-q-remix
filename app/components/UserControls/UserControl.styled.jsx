@@ -3,6 +3,8 @@ import { Nav, NavItem } from 'react-bootstrap';
 
 export const NavBar = styled(Nav)`
   margin-right: 15px;
+  display: flex;
+  align-items: center;
 `;
 
 export const Navitem = styled(NavItem)`
@@ -67,5 +69,11 @@ export const NavLi = styled.li`
   }
   @media (max-width: 767px) {
       display: none !important;
+  }
+`;
+
+export const SearchBarNavContainer = styled.div`
+  @media (max-width: 768px) {
+    display: none;
   }
 `;

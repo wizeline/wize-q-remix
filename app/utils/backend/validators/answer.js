@@ -10,3 +10,11 @@ export const createAnswerSchema = Joi.object().keys({
   answered_by_employee_id: JOI_ID_VALIDATION,
   answered_question_id: JOI_ID_VALIDATION,
 });
+
+export const updateAnswerSchema = Joi.object().keys({
+  answer_id: JOI_ID_VALIDATION,
+  answer_text: Joi.string()
+    .min(MINIMUM_ANSWER_LENGTH)
+    .max(MAXIMUM_ANSWER_LENGTH)
+    .required(),
+});

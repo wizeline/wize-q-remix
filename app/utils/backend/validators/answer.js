@@ -2,7 +2,7 @@ import Joi from 'joi';
 import { MAXIMUM_ANSWER_LENGTH, MINIMUM_ANSWER_LENGTH } from '../constants';
 import { JOI_ID_VALIDATION } from '../joiConstants';
 
-export const createAnswerSchema = Joi.object.keys({
+export const createAnswerSchema = Joi.object().keys({
   answer_text: Joi.string()
     .min(MINIMUM_ANSWER_LENGTH)
     .max(MAXIMUM_ANSWER_LENGTH)

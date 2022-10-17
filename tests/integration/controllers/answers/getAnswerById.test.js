@@ -3,7 +3,7 @@ import { db } from '~/utils/db.server';
 
 describe('answers controller', () => {
   describe('getAnswerById', () => {
-    const dbFindUniqueSpy = jest.spyOn(db.Questions, 'findUnique');
+    const dbFindUniqueSpy = jest.spyOn(db.Answers, 'findUnique');
 
     it('returns an error when provided invalid id', async () => {
       const response = await getAnswerById('test', {
@@ -12,13 +12,40 @@ describe('answers controller', () => {
       expect(response).toBeDefined();
       expect(response.error).toBeDefined();
       expect(response.error.message).toBe(
-        'An unknown error has occurred with your request.',
+        'The provided parameters for the operation are not valid',
       );
       expect(response.error.detail).toBe(
-        'An unknown error has occurred with your request.',
+        'The answer id must be an integer not minor to 1',
       );
       expect(dbFindUniqueSpy).toHaveBeenCalledTimes(0);
     });
+
+    it('returns an error when not provided user object', async () => {
+      const response = await getAnswerById(1);
+      expect(response).toBeDefined();
+      expect(response.error).toBeDefined();
+      expect(response.error.message).toBe(
+        'The provided parameters for the operation are not valid',
+      );
+      expect(response.error.detail).toBe('Please provide the user object');
+      expect(dbFindUniqueSpy).toHaveBeenCalledTimes(0);
+    });
+
+    // it('returns an error when the answer is not found', async () => {
+    //   const response = await getAnswerById(1001, {
+    //     id: 'google-oauth2|108653070533260305238',
+    //   });
+    //   console.log(response);
+    //   expect(response).toBeDefined();
+    //   expect(response.error).toBeDefined();
+    //   expect(response.error.message).toBe(
+    //     'An unknown error has occurred with your request.',
+    //   );
+    //   expect(response.error.detail).toBe(
+    //     'An unknown error has occurred with your request.',
+    //   );
+    //   expect(dbFindUniqueSpy).toHaveBeenCalledTimes(1);
+    // });
 
     it('returns answer correctly', async () => {
       const response = await getAnswerById(2, {
@@ -36,6 +63,7 @@ describe('answers controller', () => {
       expect(answer.answered_question_id).toBe(3);
       expect(answer.num_scores).toBe(0);
       expect(answer.average_score).toBe(0);
+      expect(dbFindUniqueSpy).toHaveBeenCalledTimes(1);
     });
   });
 });

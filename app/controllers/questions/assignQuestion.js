@@ -1,5 +1,6 @@
 import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
 import { assignQuestionSchema } from "~/utils/backend/validators/question"
+import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from "~/utils/constants";
 import { db } from "~/utils/db.server";
 
 export const assignQuestion = async (query) => {
@@ -10,6 +11,8 @@ export const assignQuestion = async (query) => {
         return {errors:[{message:DEFAULT_ERROR_MESSAGE, detail:error.details}]}
     }
 
+
+try {
     const assignedQuestion = await db.Questions.update({
         where:{question_id}, 
         data:{
@@ -20,5 +23,13 @@ export const assignQuestion = async (query) => {
     return{
         success:'Department has been assigned successfully',
         assignedQuestion
+    } 
+} catch (error) {
+    return {
+        error: {
+            message: QUESTION_NOT_FOUND_ERROR_MESSAGE,
+            detail: QUESTION_NOT_FOUND_ERROR_MESSAGE,
+        }
     }
+  }
 }

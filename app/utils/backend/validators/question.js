@@ -1,5 +1,6 @@
 import { MAXIMUM_QUESTION_LENGTH, MINIMUM_QUESTION_LENGTH } from '~/utils/backend/constants';
 import Joi from 'joi';
+import { JOI_ID_VALIDATION } from '../joiConstants';
 
 export const createQuestionSchema = Joi.object().keys({
   username: Joi.string().allow(null),
@@ -14,4 +15,9 @@ export const createQuestionSchema = Joi.object().keys({
 export const modifyQuestionPinStatusParms = Joi.object().keys({
   questionId: Joi.number().integer().required().min(1),
   newPinStatus: Joi.boolean().required(),
+});
+
+export const assignQuestionSchema = Joi.object().keys({
+  question_id: JOI_ID_VALIDATION,
+  assigned_department: JOI_ID_VALIDATION,
 });

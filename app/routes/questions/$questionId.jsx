@@ -10,6 +10,7 @@ import { requireAuth, getAuthenticatedUser } from "~/session.server";
 import { getQuestionById } from "~/controllers/questions/getQuestionById";
 import { listLocations } from "~/controllers/locations/list";
 import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
+import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
 
@@ -37,6 +38,10 @@ export const action = async ({ request }) => {
       const questionId = parseInt(formData.get("questionId"));
       const value = formData.get("value") !== 'false';
       response = await modifyPinStatus(questionId, value);
+    case ACTIONS.VOTE_QUESTION:
+      const voteQuestionId = parseInt(formData.get("questionId"));
+      const voteQuestionUser = JSON.parse(formData.get("user"));
+      response = await voteQuestion(voteQuestionId, voteQuestionUser);
   }
 
   return json(response);

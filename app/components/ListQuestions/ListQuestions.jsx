@@ -1,5 +1,5 @@
-import { useState } from 'react';
-
+import { useState, useRef } from 'react';
+import { useSubmit, useSearchParams, useTransition } from '@remix-run/react';
 import PropTypes from 'prop-types';
 import * as Styled from './ListQuestions.Styled';
 import Slogan from '~/components/Slogan';
@@ -9,12 +9,15 @@ import GoToTopButton from '~/components/GoToTopButton';
 import markdownFormatQuestion from '~/utils/markdownFormatQuestions';
 import InfiniteScrollList from '~/components/Atoms/InfiniteScrollList';
 import Filters from '~/components/Filters';
-import { useSearchParams } from '@remix-run/react';
+import { ACTIONS } from '~/utils/actions';
 
 const ListQuestions = ({
   questions,
   onFetchMore,
 }) => {
+  const submit = useSubmit();
+  const transition = useTransition();
+  const voteQuestionForm = useRef();
   const profile = useUser();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -77,6 +80,21 @@ const ListQuestions = ({
 
 
   const renderQuestionsList = () => {
+    const onLikeButtonClick = async (questionId) => {
+      if (transition.state !== 'idle') {
+        return;
+      }
+      const data = new FormData(voteQuestionForm.current);
+      data.set("action", ACTIONS.VOTE_QUESTION);
+      data.set("questionId", questionId);
+      data.set("user", JSON.stringify(profile));
+      let actionUrl = '/?index';
+      searchParams.forEach((value, key) => {
+        actionUrl += value ? `&${key}=${value}` : '';
+      });
+      submit(data, { method: 'post', action: actionUrl, replace: false });
+    };
+
     if (questions.length === 0) { return null; }
 
     return questions.map((question, index) => (
@@ -88,7 +106,8 @@ const ListQuestions = ({
         displayAnsweredBy={displayAnsweredBy}
         searchTerm={state.searchTerm}
         index={index}
-        onVoteClick={() => console.log("vote")}
+        onVoteClick={() => onLikeButtonClick(question.question_id)}
+        processingFormSubmission={transition.state !== 'idle'}
       />
     ));
   };

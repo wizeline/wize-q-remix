@@ -9,13 +9,22 @@ const handleColorType = (props) => {
   return '#31425a';
 };
 
+const setCursorType = (props) => {
+  if (props.processingFormSubmission) {
+    return 'not-allowed;';
+  }
+  else {
+    return 'pointer';
+  }
+};
+
 export const ContainerCounterButton = styled.button`
   align-items: center;
   background-color: transparent;
   border: none;
   border-radius: 3px;
   color: ${props => handleColorType(props)};
-  cursor: pointer;
+  cursor: ${props => setCursorType(props)};
   display: inline-flex;
   flex-direction: row;
   font-family: "Nunito", sans-serif;

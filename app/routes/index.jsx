@@ -61,11 +61,7 @@ export const action = async ({ request }) => {
     case ACTIONS.VOTE_QUESTION:
       const voteQuestionId = parseInt(formData.get("questionId"));
       const voteQuestionUser = JSON.parse(formData.get("user"));
-      if (voteQuestionUser.id !== undefined && voteQuestionUser.id !== null && voteQuestionUser.id.length > 0) {
-        response = await voteQuestion(voteQuestionId, voteQuestionUser);
-      } else {
-        response = null;
-      }
+      response = await voteQuestion(voteQuestionId, voteQuestionUser);
   }
 
   return json(response);

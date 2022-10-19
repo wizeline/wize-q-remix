@@ -27,6 +27,9 @@ model Answers {
   Question                Questions @relation(fields: [answered_question_id], references: [question_id])
 
   AnsweredBy users @relation(fields: [answered_by_employee_id], references: [employee_id])
+
+  @@index([answered_by_employee_id], map: "Answers_answered_by_employee_id_fkey")
+  @@index([answered_question_id], map: "Answers_answered_question_id_fkey")
 }
 
 model CommentVote {
@@ -49,10 +52,14 @@ model Comments {
   userEmail   String?       @db.VarChar(255)
   updatedAt   DateTime?     @db.DateTime(0)
   approvedBy  Int?
+  approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
+  user        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
   Questions   Questions     @relation(fields: [questionId], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_1")
   CommentVote CommentVote[]
 
   @@index([questionId], map: "questionId")
+  @@index([approvedBy], map: "Comments_approved_by_employeeId")
+  @@index([userEmail], map: "Comments_created_by_employeeId")
 }
 
 model Departments {
@@ -141,6 +148,7 @@ model Questions {
   @@index([assigned_to_employee_id], map: "assigned_to_employee_id_foreign_idx")
   @@index([created_by_employee_id], map: "created_by_employee_id_foreign_idx")
   @@index([location], map: "location")
+  @@index([assigned_department], map: "Questions_assigned_department_fkey")
 }
 
 model Sentiments {
@@ -180,6 +188,8 @@ model users {
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
-
+  Comments_Approved    Comments[]             @relation("Comments_approvedByTousers")
+  Commests_Created     Comments[]             @relation("Comments_userEmailTousers")
+ 
   @@index([email], map: "users_email")
 }

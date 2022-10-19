@@ -27,8 +27,8 @@
     "createdAt": "2021-03-25 16:30:17",
     "questionId": 4,
     "sessionHash": null,
-    "userName": "Mario Carrillo Maldonado",
-    "userEmail": "mario.carrillo@wizeline.com",
+    "userName": "John Doeo",
+    "userEmail": "john.doe@wizeline.com",
     "updatedAt": null,
     "approvedBy": null
   },
@@ -74,13 +74,13 @@
     "userName": "Ignacio Cañipa Ariñez",
     "userEmail": "ignacio.canipa@wizeline.com",
     "updatedAt": null,
-    "approvedBy": null
+    "approvedBy": 1
   },
   {
     "id": 8,
     "comment": "New commmit",
     "createdAt": "2022-02-15 17:15:45",
-    "questionId": 9,
+    "questionId": 10,
     "sessionHash": null,
     "userName": "Miguel Cardona Chamorro",
     "userEmail": "miguel.cardona@wizeline.com",
@@ -90,11 +90,11 @@
   {
     "id": 9,
     "comment": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
-    "createdAt": "2022-02-15 17:17:30",
+    "createdAt": "2022-02-18 17:17:30",
     "questionId": 10,
     "sessionHash": "00ff85d63547fd3e7c7c08ba771b9713",
-    "userName": null,
-    "userEmail": null,
+    "userName": "Will Smith",
+    "userEmail": "will.smith@wizeline.com",
     "updatedAt": null,
     "approvedBy": null
   },

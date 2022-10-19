@@ -11,6 +11,7 @@ import * as Styled from '~/styles/Home.Styled';
 import dateRangeConversion from "../utils/dateRangeConversion";
 import { useEffect, useState } from "react";
 import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
+import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
 import { ACTIONS } from "~/utils/actions";
 
 
@@ -57,6 +58,10 @@ export const action = async ({ request }) => {
       const questionId = parseInt(formData.get("questionId"));
       const value = formData.get("value") !== 'false';
       response = await modifyPinStatus(questionId, value);
+    case ACTIONS.VOTE_QUESTION:
+      const voteQuestionId = parseInt(formData.get("questionId"));
+      const voteQuestionUser = JSON.parse(formData.get("user"));
+      response = await voteQuestion(voteQuestionId, voteQuestionUser);
   }
 
   return json(response);

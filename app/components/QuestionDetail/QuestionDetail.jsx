@@ -50,7 +50,7 @@ function QuestionDetails(props) {
   };
 
   const renderQuestionButtons = () => {
-    const onLikeButtonClick = async () => {
+    const onLikeButtonClick = () => {
       if (transition.state !== 'idle') {
         return;
       }

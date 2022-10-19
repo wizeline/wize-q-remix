@@ -11,11 +11,9 @@ const handleColorType = (props) => {
 
 const setCursorType = (props) => {
   if (props.processingFormSubmission) {
-    return 'not-allowed;';
+    return 'not-allowed';
   }
-  else {
-    return 'pointer';
-  }
+  return 'pointer';
 };
 
 export const ContainerCounterButton = styled.button`

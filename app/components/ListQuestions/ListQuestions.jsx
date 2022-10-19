@@ -80,7 +80,7 @@ const ListQuestions = ({
 
 
   const renderQuestionsList = () => {
-    const onLikeButtonClick = async (questionId) => {
+    const onLikeButtonClick = (questionId) => {
       if (transition.state !== 'idle') {
         return;
       }

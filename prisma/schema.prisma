@@ -42,7 +42,7 @@ model CommentVote {
 model Comments {
   id          Int           @id @default(autoincrement())
   comment     String?       @db.VarChar(3000)
-  createdAt   DateTime      @db.DateTime(0)
+  createdAt   DateTime      @default(now()) @db.DateTime(0)
   questionId  Int
   sessionHash String?       @db.VarChar(255)
   userName    String?       @db.VarChar(255)

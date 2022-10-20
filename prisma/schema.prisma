@@ -189,7 +189,7 @@ model users {
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
   CommentsApproved    Comments[]             @relation("Comments_approvedByTousers")
-  CommestsCreated     Comments[]             @relation("Comments_userEmailTousers")
+  CommenstsCreated     Comments[]             @relation("Comments_userEmailTousers")
 
   @@index([email], map: "users_email")
 }

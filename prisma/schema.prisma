@@ -52,8 +52,8 @@ model Comments {
   userEmail   String?       @db.VarChar(255)
   updatedAt   DateTime?     @db.DateTime(0)
   approvedBy  Int?
-  approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
-  user        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
+  Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
+  User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
   Questions   Questions     @relation(fields: [questionId], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_1")
   CommentVote CommentVote[]
 
@@ -188,8 +188,8 @@ model users {
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
-  Comments_Approved    Comments[]             @relation("Comments_approvedByTousers")
-  Commests_Created     Comments[]             @relation("Comments_userEmailTousers")
- 
+  CommentsApproved    Comments[]             @relation("Comments_approvedByTousers")
+  CommestsCreated     Comments[]             @relation("Comments_userEmailTousers")
+
   @@index([email], map: "users_email")
 }

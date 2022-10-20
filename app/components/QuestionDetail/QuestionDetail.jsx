@@ -1,4 +1,5 @@
-import {useState } from 'react';
+import {useState, useRef } from 'react';
+import { useSubmit, useTransition } from '@remix-run/react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import likeIcon from '~/images/ic_like.svg';
@@ -22,9 +23,12 @@ import QuestionRow from '~/components/QuestionRow';
 import Loader from '~/components/Loader';
 import logomark from '~/images/logomark_small.png';
 import { useUser } from '~/utils/hooks/useUser';
+import { ACTIONS } from '~/utils/actions';
 
 function QuestionDetails(props) {
-
+  const submit = useSubmit();
+  const transition = useTransition();
+  const voteQuestionForm = useRef();
   const profile = useUser();
   const isAdmin = profile.is_admin;
   const currentUserEmail = profile.email;
@@ -46,6 +50,17 @@ function QuestionDetails(props) {
   };
 
   const renderQuestionButtons = () => {
+    const onLikeButtonClick = () => {
+      if (transition.state !== 'idle') {
+        return;
+      }
+      const data = new FormData(voteQuestionForm.current);
+      data.set("action", ACTIONS.VOTE_QUESTION);
+      data.set("questionId", question.question_id);
+      data.set("user", JSON.stringify(profile));
+      submit(data, { method: 'post', action: `/questions/${question.question_id}` });
+    };
+
     const icon = !question.hasVoted ? likeIcon : likeIconVoted;
     return (
       <Styled.CounterButtonsWrapper isAdmin={isAdmin} hasAnswer={question.Answer}>
@@ -54,7 +69,8 @@ function QuestionDetails(props) {
           icon={icon}
           text={addS('Like', question.num_votes)}
           count={question.num_votes}
-          onClick={() => {}}
+          processingFormSubmission={transition.state !== 'idle'}
+          onClick={onLikeButtonClick}
         />
         <CounterButton
           notButton

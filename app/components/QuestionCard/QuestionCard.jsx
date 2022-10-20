@@ -20,6 +20,7 @@ const QuestionCard = (props) => {
     onVoteClick,
     searchTerm,
     fetchQuestionsList,
+    processingFormSubmission,
   } = props;
 
 
@@ -50,6 +51,7 @@ const QuestionCard = (props) => {
           text={addS('Like', question.num_votes)}
           count={question.num_votes}
           onClick={() => onVoteClick(question)}
+          processingFormSubmission={processingFormSubmission}
         />
         <CounterButton
           icon={commentIcon}
@@ -111,6 +113,7 @@ QuestionCard.propTypes = {
   onVoteClick: PropTypes.func.isRequired,
   currentUserEmail: PropTypes.string,
   searchTerm: PropTypes.string,
+  processingFormSubmission: PropTypes.bool,
 };
 
 QuestionCard.defaultProps = {

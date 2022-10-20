@@ -1,0 +1,27 @@
+[
+    {
+        "id":1,
+        "comment_id":10,
+        "user": "google-oauth2|100361217454991890939",
+        "value": 1
+    },
+
+    {
+        "id":2,
+        "comment_id":10,
+        "user": "google-oauth2|114355703508299539934",
+        "value": 1
+    },
+    {
+        "id":3,
+        "comment_id":9,
+        "user": "google-oauth2|114355703508299539934",
+        "value": 1
+    },
+    {
+        "id":4,
+        "comment_id":8,
+        "user": "google-oauth2|100361217454991890939",
+        "value": 1
+    }
+]

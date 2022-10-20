@@ -7,6 +7,7 @@ import commentsFixture from './fixtures/comments.json';
 import answersFixture from './fixtures/answers.json';
 import votesFixture from './fixtures/votes.json';
 import npsFixture from './fixtures/nps.json';
+import commentVotes from './fixtures/commentVotes.json';
 
 beforeAll(async () => {
   if (process.env.TEST_MODE === 'integration') {
@@ -90,6 +91,12 @@ beforeAll(async () => {
     await db.Nps.createMany({
       data: npsFixture,
       skipDuplicates: true,
+    })
+
+    //Create CommentVotes
+    await db.CommentVote.createMany({
+      data: commentVotes,
+      skipDuplicates:true, 
     })
 
   } else {

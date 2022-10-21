@@ -20,7 +20,7 @@ model Answers {
   answered_by_employee_id Int
   answered_question_id    Int
   createdAt               DateTime  @default(now()) @db.DateTime(0)
-  updatedAt               DateTime  @default(now()) @db.DateTime(0)
+  updatedAt               DateTime  @default(now()) @db.DateTime(0) @updatedAt
   num_scores              Int?      @default(0)
   average_score           Float?    @default(0) @db.Float
   Nps                     Nps[]
@@ -50,7 +50,7 @@ model Comments {
   sessionHash String?       @db.VarChar(255)
   userName    String?       @db.VarChar(255)
   userEmail   String?       @db.VarChar(255)
-  updatedAt   DateTime?     @db.DateTime(0)
+  updatedAt   DateTime?     @db.DateTime(0) @updatedAt
   approvedBy  Int?
   Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
   User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
@@ -126,7 +126,7 @@ model Questions {
   user_hash                    String         @default("") @db.VarChar(255)
   is_anonymous                 Boolean
   createdAt                    DateTime       @default(now()) @db.DateTime(0)
-  updatedAt                    DateTime       @default(now()) @db.DateTime(0)
+  updatedAt                    DateTime       @default(now()) @db.DateTime(0) @updatedAt
   location                     String?        @default("ALL") @db.VarChar(255)
   last_email_notification_date DateTime?      @db.DateTime(0)
   assigned_department          Int?

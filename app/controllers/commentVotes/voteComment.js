@@ -47,11 +47,11 @@ export const upsertCommentVote = async (query) => {
     };
   }
 
-  const foundComment = await findCommentVote({ comment_id, user });
+  const foundCommentVote = await findCommentVote({ comment_id, user });
 
-  if (foundComment) {
-    const alreadyUpvoted = foundComment.value >= 1 && newValue >= 1;
-    const alreadyDownvoted = foundComment.value <= -1 && newValue <= -1;
+  if (foundCommentVote) {
+    const alreadyUpvoted = foundCommentVote.value >= 1 && newValue >= 1;
+    const alreadyDownvoted = foundCommentVote.value <= -1 && newValue <= -1;
 
     let temp;
 
@@ -63,7 +63,7 @@ export const upsertCommentVote = async (query) => {
 
     const commentVote = await db.CommentVote.update({
       where: {
-        id: foundComment.id,
+        id: foundCommentVote.id,
       },
       data: {
         value: transformValue(temp),

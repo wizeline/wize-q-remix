@@ -40,12 +40,13 @@ export const createComment = async (data) => {
     commentData.User = {
       connect: {
         email: value.user.userEmail,
-      }
-    }
+      },
+    };
+    commentData.userName = value.user.userName;
   }
 
   const created = await db.Comments.create({
-    data: commentData
+    data: commentData,
   });
 
   let commentResponse = created;
@@ -58,14 +59,13 @@ export const createComment = async (data) => {
       },
       data: {
         sessionHash: sessionHash,
-      }
+      },
     });
-
     commentResponse = updated;
   }
 
   return {
     success: "Comment has been created succesfully.",
     comment: commentResponse,
-  }
-}
+  };
+};

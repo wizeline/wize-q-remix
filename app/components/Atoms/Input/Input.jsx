@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as Styled from '~/components/Atoms/Input/Input.Styled';
 
-const Input = React.forwardRef((props, ref) => {
+const Input = React.forwardRef(function Input (props, ref){
   const { id, type, classContainer, classInput, inputLeftElement,
     inputRightElement, classLeftElement,
     classRightElement, rows, ...inputParams } = props;
@@ -20,6 +21,19 @@ const Input = React.forwardRef((props, ref) => {
 Input.displayName = 'Input';
 
 export default Input;
+
+Input.propTypes = {
+  id: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  inputParams: {}.isRequired,
+  classContainer: PropTypes.string,
+  classInput: PropTypes.string,
+  inputLeftElement: PropTypes.element,
+  inputRightElement: PropTypes.element,
+  classLeftElement: PropTypes.element,
+  classRightElement: PropTypes.element,
+  rows: PropTypes.number,
+};
 
 Input.defaultProps = {
   classContainer: '',

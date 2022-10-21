@@ -1,5 +1,5 @@
 import moment from 'moment';
-import crypto from  '~/utils/backend/crypto';
+import generateSessionIdHash from  '~/utils/backend/crypto';
 
 export function generateMinMaxDates() {
     const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';
@@ -18,7 +18,7 @@ export function canEditComment (comment, userEmail, sessionToken){
     }
 
     const { minDate, maxDate } = generateMinMaxDates();
-    const sessionHash = crypto.generateSessionIdHash(sessionToken, comment.id);
+    const sessionHash = generateSessionIdHash(sessionToken, comment.id);
     const isValidDateRangeForEdit = moment(comment.createdAt).isBetween(minDate, maxDate);
     const isValidSessionHash = comment.sessionHash === sessionHash;
     return isValidSessionHash && isValidDateRangeForEdit;

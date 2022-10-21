@@ -107,6 +107,9 @@ export const DEFAULT_COMMENT_SEARCH = {
   limit: PAGE_COMMENTS_LIMIT,
 };
 
+export const DEFAULT_QUESTION_COMMENT_SORTING = 'votes';
+export const ACTIVITY_TIME_QUESTION_COMMENT_SORTING = 'activityTime';
+
 export const ENDPOINT_DASHBOARD = '/api/dashboard';
 export const ENDPOINT_QUESTIONS = '/api/questions';
 export const ENDPOINT_ANSWERS = '/api/answers';
@@ -168,6 +171,8 @@ export const COMMENTS = 'Comments';
 export const WARNING_MAX_COMMENT_LENGTH = 'The maximum length is 3000 characters';
 export const WARNING_EMPTY_COMMENT_SUBMIT = 'Comment needed to Post';
 export const COMMENTS_SEPARATOR = ' | ';
+export const COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD = 10;
+export const COMMUNITY_ANSWER_TAG_TEXT = 'Community answer';
 
 // Contacts
 export const CONTACT_REASONS_LIST = [

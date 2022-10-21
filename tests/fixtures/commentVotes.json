@@ -23,5 +23,11 @@
         "comment_id":8,
         "user": "google-oauth2|100361217454991890939",
         "value": 1
+    },
+    {
+        "id":5,
+        "comment_id":2,
+        "user": "google-oauth2|100361217454991890939",
+        "value": -1
     }
 ]

@@ -7,6 +7,7 @@ import {
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
 } from "~/utils/constants";
 import { db } from "~/utils/db.server";
+import {getFormattedDate } from '~/utils/dateFormat';
 
 describe("questions controller", () => {
   describe("Modify pin status of a question (modifyPinStatus)", () => {
@@ -82,5 +83,16 @@ describe("questions controller", () => {
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
     });
     
+    it('return the current date in the updatedAt field when updating a question', async () => {
+      const response = await modifyPinStatus(1, true);
+      expect(response.error).toBeUndefined();
+      expect(response.success).toBeDefined();
+      expect(response.question).toBeDefined();
+      expect(response.success).toBe('The question has been pinned');
+      expect(response.question.is_pinned).toBeDefined();
+      expect(response.question.is_pinned).toBe(true);
+      expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));
+    });
+
   });
 });

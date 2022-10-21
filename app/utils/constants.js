@@ -322,6 +322,7 @@ export const RECOMMENDATIONS_QUESTION = [
 
 // Recurring error messages
 export const PIN_QUESTION_ERROR_MESSAGE = 'Error trying to pin/unpin the question.';
-export const  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE = 'The provided parameters for the operation are not valid';
-export const  QUESTION_NOT_FOUND_ERROR_MESSAGE = 'The question with the id provided could not be found';
-export const  INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vote in the question';
+export const INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE = 'The provided parameters for the operation are not valid';
+export const QUESTION_NOT_FOUND_ERROR_MESSAGE = 'The question with the id provided could not be found';
+export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vote in the question';
+export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';

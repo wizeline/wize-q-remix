@@ -108,5 +108,27 @@
     "userEmail": "miguel.cardona@wizeline.com",
     "updatedAt": null,
     "approvedBy": null
+  },
+  {
+    "id": 11,
+    "comment": "Comment update test",
+    "createdAt": "2022-02-15 17:17:40",
+    "questionId": 2,
+    "sessionHash": null,
+    "userName": "Miguel Cardona Chamorro",
+    "userEmail": "miguel.cardona@wizeline.com",
+    "updatedAt": null,
+    "approvedBy": null
+  },
+  {
+    "id": 12,
+    "comment": "Another Comment update test",
+    "createdAt": "2022-10-01 13:45:12",
+    "questionId": 2,
+    "sessionHash": "85e8a1623e1c7e2c34b4e5ee8fd365a6",
+    "userName": "Ignacio Cañipa Ariñez",
+    "userEmail": null,
+    "updatedAt": null,
+    "approvedBy": null
   }
 ]

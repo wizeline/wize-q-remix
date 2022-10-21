@@ -1,11 +1,11 @@
-import { upsertCommentVote } from '~/controllers/comments/commentVotes';
+import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
 import { db } from '~/utils/db.server';
 
 describe('commentVotes', () => {
-  const dbFindFirstCommentVoteSpy = jest.spyOn(db.CommentVote, "findFirst");
-  const dbUpdateCommentVoteSpy = jest.spyOn(db.CommentVote, "update");
-  const dbCreateCommentVoteSpy = jest.spyOn(db.CommentVote, "create");
-  
+  const dbFindFirstCommentVoteSpy = jest.spyOn(db.CommentVote, 'findFirst');
+  const dbUpdateCommentVoteSpy = jest.spyOn(db.CommentVote, 'update');
+  const dbCreateCommentVoteSpy = jest.spyOn(db.CommentVote, 'create');
+
   it('creates vote', async () => {
     const payload = {
       comment_id: 1,

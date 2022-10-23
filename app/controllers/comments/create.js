@@ -1,4 +1,5 @@
 import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import generateSessionIdHash from "~/utils/backend/crypto";
 import { createCommentSchema } from "~/utils/backend/validators/comment"
 import { db } from "~/utils/db.server";
 
@@ -25,8 +26,24 @@ export const createComment = async (data) => {
     }
   });
 
+  let commentResponse = created;
+
+  if (value.isAnonymous) {
+    const sessionHash = generateSessionIdHash(value.user.accessToken, created.id);
+    const updated = await db.Comments.update({
+      where: {
+        id: created.id,
+      },
+      data: {
+        sessionHash: sessionHash,
+      }
+    });
+
+    commentResponse = updated;
+  }
+
   return {
     success: "Comment has been created succesfully.",
-    comment: created,
+    comment: commentResponse,
   }
 }

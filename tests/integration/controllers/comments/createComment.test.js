@@ -4,6 +4,7 @@ import { db } from '~/utils/db.server';
 
 describe('createComment', () => {
   const dbCreateSpy = jest.spyOn(db.Comments, 'create');
+  const dbUpdateSpy = jest.spyOn(db.Comments, 'update');
 
   it('returns error on invalid parameters', async () => {
     const comment = {
@@ -18,6 +19,7 @@ describe('createComment', () => {
     expect(response.error).toBeDefined();
     expect(response.comment).toBeUndefined();
 
+    expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
     expect(dbCreateSpy).toHaveBeenCalledTimes(0);
   });
 
@@ -26,7 +28,11 @@ describe('createComment', () => {
     const comment = {
       comment: '_This_ is a **sample** ~~comment~~',
       questionId: 2,
-      accessToken: randomAccessToken(),
+      user: {
+        accessToken: randomAccessToken(),
+        userEmail: "testuser@gmail.com",
+        userName: "John Smith Doe",
+      },
     };
 
     const response = await createComment(comment);
@@ -35,6 +41,13 @@ describe('createComment', () => {
     expect(response.success).toBeDefined();
     expect(response.comment).toBeDefined();
 
+    expect(response.comment.createdAt).toBeDefined();
+    expect(response.comment.userName).toBeDefined();
+    expect(response.comment.createdAt).toBeDefined();
+
+    expect(response.comment.sessionHash).toBeNull();
+
+    expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
     expect(dbCreateSpy).toHaveBeenCalled();
   });
 
@@ -42,7 +55,9 @@ describe('createComment', () => {
     const comment = {
       comment: '_This_ is a **sample** ~~comment~~',
       questionId: 2,
-      accessToken: randomAccessToken(),
+      user: {
+        accessToken: randomAccessToken(),
+      },
       isAnonymous: true,
     };
 
@@ -51,7 +66,13 @@ describe('createComment', () => {
     expect(response).toBeDefined();
     expect(response.success).toBeDefined();
     expect(response.comment).toBeDefined();
+    
+    expect(response.comment.createdAt).toBeDefined();
+    expect(response.comment.userEmail).toBeNull();
+    expect(response.comment.userName).toBeNull();
+    expect(response.comment.sessionHash).toBeDefined();
 
     expect(dbCreateSpy).toHaveBeenCalled();
+    expect(dbUpdateSpy).toHaveBeenCalled();
   });
 });

@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { MINIMUM_COMMENT_LENGTH } from "~/utils/backend/constants";
-import { JOI_ID_VALIDATION } from "~/utils/backend/joiConstants";
+import { JOI_EMAIL_VALIDATION, JOI_ID_VALIDATION } from "~/utils/backend/joiConstants";
 import { MAXIMUM_COMMENT_LENGTH } from "~/utils/constants";
 
 const COMMENT_VALIDATION = Joi.string()
@@ -12,5 +12,9 @@ export const createCommentSchema = Joi.object().keys({
   questionId: JOI_ID_VALIDATION,
   comment: COMMENT_VALIDATION,
   isAnonymous: Joi.boolean(),
-  accessToken: Joi.string().required(),
+  user: Joi.object({
+    accessToken: Joi.string().required(),
+    userEmail: JOI_EMAIL_VALIDATION,
+    userName: Joi.string(),
+  })
 });

@@ -22,3 +22,8 @@ export const updateAnswerSchema = Joi.object().keys({
 export const deleteAnswerSchema = Joi.object().keys({
   answer_id: JOI_ID_VALIDATION,
 });
+
+export const npsSchema = Joi.object().keys({
+  id: JOI_ID_VALIDATION,
+  score: Joi.number().integer().required().min(1).max(5),
+});

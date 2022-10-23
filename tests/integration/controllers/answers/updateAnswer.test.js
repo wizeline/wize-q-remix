@@ -1,4 +1,5 @@
 import { updateAnswer } from '~/controllers/answers/update';
+import {getFormattedDate } from '~/utils/dateFormat';
 
 describe('updateAnswer', () => {
   it('should validate fields', async () => {
@@ -27,4 +28,16 @@ describe('updateAnswer', () => {
     };
     await expect(updateAnswer(payload)).rejects.toThrowError();
   });
+
+  it('return the current date in the updatedAt field when updating an answer',async () => {
+    const payload = {
+      answer_id: 1,
+      answer_text: 'New answer text',
+    };
+
+    const response = await updateAnswer(payload);
+    expect(response).toBeDefined();
+    expect(response.success).toBeDefined();
+    expect(getFormattedDate(response.updatedAnswer.updatedAt)).toEqual(getFormattedDate(new Date()));
+  })
 });

@@ -55,8 +55,8 @@ const fetchComments = await db.Comments.findMany({
     take: limit || DEFAULT_LIMIT,
     skip: offset || DEFAULT_OFFSET,
     include:{
-        approver: true,
-        user: true,
+        Approver: true,
+        User: true,
         CommentVote:true,
     }
 });

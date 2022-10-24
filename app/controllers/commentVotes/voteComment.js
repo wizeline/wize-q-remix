@@ -84,5 +84,5 @@ export const upsertCommentVote = async (query) => {
     },
   });
 
-  return commentVote;
+  return { commentVote };
 };

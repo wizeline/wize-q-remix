@@ -50,7 +50,7 @@ model Comments {
   sessionHash String?       @db.VarChar(255)
   userName    String?       @db.VarChar(255)
   userEmail   String?       @db.VarChar(255)
-  updatedAt   DateTime?     @db.DateTime(0) @updatedAt
+  updatedAt   DateTime?     @default(now()) @db.DateTime(0) @updatedAt
   approvedBy  Int?
   Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
   User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")

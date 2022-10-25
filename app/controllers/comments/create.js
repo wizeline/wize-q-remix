@@ -15,15 +15,26 @@ export const createComment = async (data) => {
     }
   }
 
-  const created = await db.Comments.create({
-    data: {
-      Questions: {
-        connect: {
-          question_id: value.questionId,
-        },
+
+  const commentData = {
+    Questions: {
+      connect: {
+        question_id: value.questionId,
       },
-      comment: value.comment,
+    },
+    comment: value.comment,
+  };
+
+  if (value.user.userEmail) {
+    commentData.User = {
+      connect: {
+        email: value.user.userEmail,
+      }
     }
+  }
+
+  const created = await db.Comments.create({
+    data: commentData
   });
 
   let commentResponse = created;

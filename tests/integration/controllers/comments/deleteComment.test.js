@@ -7,6 +7,10 @@ import { db } from "~/utils/db.server";
 describe('delete comment controller', () => {
     const dbDeleteManyCommentSpy = jest.spyOn(db.Comments, "deleteMany");
 
+    afterEach(() => {    
+      dbDeleteManyCommentSpy.mockClear();
+    });
+
     it('returns an error when accessToken is not provided', async () => {
         const deleteCommentBody = {
             commentId: 1001,
@@ -33,7 +37,7 @@ describe('delete comment controller', () => {
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.error).toBeDefined();
         expect(deleteCommentResponse.error.message).toBe('Error trying to delete the comment');
-        expect(deleteCommentResponse.error.detail).toBe('Comment not found or user does not have deletion rights over the comment');
+        expect(deleteCommentResponse.error.detail).toContain('Comment not found or user does not have deletion rights over the comment');
         expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 
@@ -47,8 +51,8 @@ describe('delete comment controller', () => {
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.error).toBeDefined();
         expect(deleteCommentResponse.error.message).toBe('Error trying to delete the comment');
-        expect(deleteCommentResponse.error.detail).toBe('Comment not found or user does not have deletion rights over the comment');
-        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(2);
+        expect(deleteCommentResponse.error.detail).toContain('Comment not found or user does not have deletion rights over the comment');
+        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 
     it('deletes the comment when author email matches', async () => {
@@ -83,7 +87,7 @@ describe('delete comment controller', () => {
         expect(deleteCommentResponse.success).toBe(true);
         expect(deleteCommentResponse.response).toBeDefined();
         expect(deleteCommentResponse.response).toBe('Comment was deleted successfully');
-        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(3);
+        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 
     it('deletes the comment when author session hash matches', async () => {
@@ -116,6 +120,6 @@ describe('delete comment controller', () => {
         expect(deleteCommentResponse.success).toBe(true);
         expect(deleteCommentResponse.response).toBeDefined();
         expect(deleteCommentResponse.response).toBe('Comment was deleted successfully');
-        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(4);
+        expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 });

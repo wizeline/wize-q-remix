@@ -68,7 +68,7 @@ export const deleteComment = async (body) => {
       error: {
         message: DELETE_COMMENT_ERROR_MESSAGE,
         detail:
-          "Comment not found or user does not have deletion rights over the comment",
+          `Comment not found or user does not have deletion rights over the comment. Comment id: ${id}`,
       },
     };
   }

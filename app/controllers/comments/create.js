@@ -1,4 +1,7 @@
 import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import {
+  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+} from "~/utils/constants";
 import generateSessionIdHash from "~/utils/backend/crypto";
 import { createCommentSchema } from "~/utils/backend/validators/comment"
 import { db } from "~/utils/db.server";
@@ -15,6 +18,14 @@ export const createComment = async (data) => {
     }
   }
 
+  if (!value.isAnonymous && !value.user.userEmail) {
+    return {
+      error: {
+        message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+        detail: "The comment is not anonymous but no user email was provided in the user object",
+      }
+    }
+  }
 
   const commentData = {
     Questions: {
@@ -25,7 +36,7 @@ export const createComment = async (data) => {
     comment: value.comment,
   };
 
-  if (value.user.userEmail) {
+  if (!value.isAnonymous) {
     commentData.User = {
       connect: {
         email: value.user.userEmail,

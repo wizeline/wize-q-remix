@@ -88,36 +88,38 @@ const About = () => (
       </Styled.AboutWhatElseContainer>
 
       <h3>Things to Keep in Mind When Asking a Question</h3>
-      <p>
-        We value your ideas, questions, suggestions, and comments. Therefore, we
-        encourage you to use this communication space. Please, when writing a new
-        question or a comment follow these recommendations:
-        <ul>
-          <li>
-            Strive for constructive open communication. Avoid vagueness.
-          </li>
-          <li>
-            Do not demean or degrade others because of their gender, race, age, religion,
-            etc.
-          </li>
-          <li>
-            Avoid posting questions that include sexually explicit comments, hate speech,
-            prejudicial remarks, and profanity.
-          </li>
-          <li>
-            Do not mock other members, their comments, profiles, threads, or experiences.
-            Remember, what is funny for you may be offensive to others.
-          </li>
-        </ul>
-      </p>
+      <span>
+        <p>
+          We value your ideas, questions, suggestions, and comments. Therefore, we
+          encourage you to use this communication space. Please, when writing a new
+          question or a comment follow these recommendations:
+        </p>
+        <div style={{ textAlign: 'justify' }}>
+          <ul>
+            <li>
+              Strive for constructive open communication. Avoid vagueness.
+            </li>
+            <li>
+              Do not demean or degrade others because of their gender, race, age, religion,
+              etc.
+            </li>
+            <li>
+              Avoid posting questions that include sexually explicit comments, hate speech,
+              prejudicial remarks, and profanity.
+            </li>
+            <li>
+              Do not mock other members, their comments, profiles, threads, or experiences.
+              Remember, what is funny for you may be offensive to others.
+            </li>
+          </ul>
+        </div>
+      </span>
     </Styled.AboutBody>
     <Styled.AboutFooter>
       <p>
         <strong>We need your help!</strong> Wizeline Questions is an internal project and
         everyone can contribute. Come aboard and meet the team. You can take a
-        look at our source code for
-        <a href="https://github.com/wizeline/wize-q-front"> Frontend</a> and
-        <a href="https://github.com/wizeline/wize-q-back"> Backend</a> on GitHub.
+        look at our <a href='https://github.com/wizeline/wize-q-remix'>source code</a> on GitHub.
       </p>
     </Styled.AboutFooter>
   </Styled.About>

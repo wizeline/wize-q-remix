@@ -121,11 +121,11 @@
 .navbar-default .navbar-nav .active a:focus,
 .navbar-default .navbar-nav .active a:hover {
   background-color: transparent;
-  color: var(--color-primary);
+  color: #E5C8A6;
 }
 .navbar-default .navbar-nav .active a {
   background-color: transparent;
-  color: var(--color-primary);
+  color: #E5C8A6;
 }
 .navbar-link {
   line-height: 20px;
@@ -152,7 +152,7 @@
 }
 .navbar-default .navbar-nav li a:hover {
   background-color: transparent;
-  color: var(--color-primary);
+  color: var(--color-dark-25);
 }
 .navbar-link .navbar-button.sub-menu-item a {
   color: black;
@@ -161,9 +161,10 @@
 }
 .navbar-default .navbar-nav li a {
   border: none;
-  color: #111;
+  color: #fff;
   float: none;
   text-shadow: none;
+  background: none;
 }
 .navbar-toggle {
   border: none #111;

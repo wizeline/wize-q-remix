@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 export const AppNav = styled(Navbar).attrs(props => ({
   fluid: true,
 }))` 
-  background-color: white;
+  background-color: #203449;
   border-color: white;
   border-radius: 0;
   margin-bottom: 0;

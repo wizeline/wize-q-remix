@@ -25,6 +25,10 @@ const AppNavbar = () => {
 
   const profile = useUser();
 
+  if(!profile){
+    return;
+  }
+
   return (
     <Styled.AppNav
       onSelect={complexOnSelect}
@@ -49,15 +53,13 @@ const AppNavbar = () => {
           </Styled.ButtonBootstrap>
         </Navbar.Header>
         <Navbar.Collapse id="user-controls">
-          { profile &&
-            <UserControls
-              name={profile.full_name}
-              title={profile.job_title}
-              email={profile.email}
-              picture={profile.profile_picture}
-              isAdmin={profile.is_admin}
-            />
-          }
+          <UserControls
+            name={profile.full_name}
+            title={profile.job_title}
+            email={profile.email}
+            picture={profile.profile_picture}
+            isAdmin={profile.is_admin}
+          />
         </Navbar.Collapse>
         <Styled.SearchBarNavContainer>
       <Navbar.Collapse in={open} id="example-collapse-text" style={{ width: '100%', padding: '10px', overflow: 'visible' }}>

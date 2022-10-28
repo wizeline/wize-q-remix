@@ -37,7 +37,7 @@ export const createAnswer = async (body) => {
   });
 
   return {
-    success: 'Answer has been created succesfully!',
+    success: 'Answer has been created successfully.',
     answer,
   };
 };

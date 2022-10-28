@@ -16,6 +16,10 @@ export const LoginSubDiv = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+    }
 `;
 
 export const SH3 = styled.h3`
@@ -49,6 +53,11 @@ export const LeftDiv = styled.div`
     align-items: center;
     width: 45%;
     padding: 0 40px;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 export const RightDiv = styled.div`
@@ -65,6 +74,15 @@ export const RightDiv = styled.div`
         width: 200px;
         margin-bottom: 40px;
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 120px;
+
+        img {
+            margin-bottom: 0;
+        }
+    }
 `;
 
 export const Slogan = styled.div`
@@ -77,6 +95,10 @@ export const Slogan = styled.div`
             color: white;
             font-size: 18px;
         }
+    }
+
+    @media (max-width: 768px) {
+        display: none;
     }
 `;
 

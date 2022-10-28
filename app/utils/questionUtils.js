@@ -62,7 +62,7 @@ function renderAnswer(renderAnswerProps) {
     return null;
   }
   let actionsEnabled = false;
-  if (Answer.numScores <= 1) {
+  if (Answer.num_scores <= 1) {
     actionsEnabled = true;
   }
 

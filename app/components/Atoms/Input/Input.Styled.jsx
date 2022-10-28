@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-//import '../../../styles/MediaQueries.scss';
 
 export const InputContainer = styled.div`
     align-items: top;

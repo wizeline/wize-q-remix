@@ -92,7 +92,7 @@ const QuestionDetailPage = () => {
                   <strong><MdArrowBackIosNew style={{ verticalAlign: 'middle' }} />  Back </strong>
                 </Button>
             </Styled.BackToHomeQuestion>
-            <Styled.QuestionDetail> 
+            <Styled.QuestionDetail>
               <QuestionDetail question={question}/>
             </Styled.QuestionDetail>
            <Styled.QuestionRecommendations>

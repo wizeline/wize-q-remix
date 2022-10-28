@@ -4,6 +4,7 @@ import {MdArrowBackIosNew}from 'react-icons/md';
 import { BsCircleFill } from 'react-icons/bs';
 import Button from '~/components/Atoms/Button';
 import QuestionDetail from "~/components/QuestionDetail";
+import Notifications from "~/components/Notifications";
 import { useNavigate } from 'react-router-dom';
 import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION } from '~/utils/constants'
 import { requireAuth, getAuthenticatedUser } from "~/session.server";
@@ -11,6 +12,9 @@ import { getQuestionById } from "~/controllers/questions/getQuestionById";
 import { listLocations } from "~/controllers/locations/list";
 import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
 import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
+import { createAnswer } from "~/controllers/answers/create";
+import { updateAnswer } from "~/controllers/answers/update";
+import { deleteAnswer } from "~/controllers/answers/delete";
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
 
@@ -38,10 +42,33 @@ export const action = async ({ request }) => {
       const questionId = parseInt(formData.get("questionId"));
       const value = formData.get("value") !== 'false';
       response = await modifyPinStatus(questionId, value);
+      break;
     case ACTIONS.VOTE_QUESTION:
       const voteQuestionId = parseInt(formData.get("questionId"));
       const voteQuestionUser = JSON.parse(formData.get("user"));
       response = await voteQuestion(voteQuestionId, voteQuestionUser);
+      break;
+    case ACTIONS.CREATE_QUESTION_ANSWER:
+      const createAnswerBody = {
+        answered_question_id: parseInt(formData.get("questionId")),
+        answered_by_employee_id: parseInt(formData.get("employee_id")),
+        answer_text: formData.get("answer"),
+      };
+      response = await createAnswer(createAnswerBody);
+      break;
+    case ACTIONS.UPDATE_QUESTION_ANSWER:
+      const updateAnswerBody = {
+        answer_id: parseInt(formData.get("answerId")),
+        answer_text: formData.get("answer"),
+      };
+      response = await updateAnswer(updateAnswerBody);
+      break;
+    case ACTIONS.DELETE_ANSWER:
+      const deleteAnswerBody = {
+        answer_id: parseInt(formData.get("answerId")),
+      };
+      response = await deleteAnswer(deleteAnswerBody);
+      break;
   }
 
   return json(response);
@@ -59,6 +86,7 @@ const QuestionDetailPage = () => {
 
     return (
         <Styled.Container>
+            <Notifications />
             <Styled.BackToHomeQuestion>
                 <Button onClick={()=> { navigate('/'); }}>
                   <strong><MdArrowBackIosNew style={{ verticalAlign: 'middle' }} />  Back </strong>

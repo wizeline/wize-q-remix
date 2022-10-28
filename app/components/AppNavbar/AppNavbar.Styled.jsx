@@ -6,7 +6,7 @@ export const AppNav = styled(Navbar).attrs(props => ({
   fluid: true,
 }))` 
   background-color: #203449;
-  border-color: white;
+  border-color: #203449;
   border-radius: 0;
   margin-bottom: 0;
   padding: 5px;
@@ -18,25 +18,27 @@ export const AppNav = styled(Navbar).attrs(props => ({
 `;
 
 export const ButtonBootstrap = styled(Button)`
+  background-color: transparent;
   display: none;
   border: 1px solid transparent;
   border-radius: 25px;
   position: absolute;
   right: 65px;
   top: 8px;
+
   &:hover,
   &.hover {
-    background-color: #ddd;
+    background-color: #4d5d6d;
     border: 1px solid transparent;
   }
   &:focus,
   &.focus {
-    background-color: #ddd;
+    background-color: #4d5d6d;
     border: 1px solid transparent;
   }
   &:active:hover,
   &:active:focus {
-    background-color: #ddd;
+    background-color: #4d5d6d;
     border: 1px solid transparent;
     color: transparent;
   }
@@ -62,5 +64,5 @@ export const IconWrapper = styled.div`
 
 export const SearchIcon = styled(AiOutlineSearch)`
   font-size: 30px;
-  color: rgba(78, 81, 84, 0.65);
+  color: #fff;
 `;

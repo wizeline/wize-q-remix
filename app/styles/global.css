@@ -169,9 +169,17 @@
 .navbar-toggle {
   border: none #111;
 }
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #4d5d6d;
+}
 .navbar-default .navbar-toggle .icon-bar {
-  background-color: #000;
+  background-color: #fff;
   height: 3px;
+}
+.navbar-default .navbar-collapse, 
+.navbar-default .navbar-form {
+  border-color: #4d5d6d;
 }
 .user-image-wrapper.dropdown-toggle.btn {
   box-shadow: none;

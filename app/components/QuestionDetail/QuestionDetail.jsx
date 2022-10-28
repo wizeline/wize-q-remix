@@ -44,10 +44,6 @@ function QuestionDetails(props) {
 
   const { questionId } = useParams();
 
-  const setUrl = () => {
-    window.history.replaceState(null, null, `/question/${questionId}`);
-  };
-
   const addComment = () => {
     setWritingCommentOnMobile(true);
   };
@@ -111,7 +107,6 @@ function QuestionDetails(props) {
   };
 
   const handleAnswerModalClose = () => {
-    setUrl();
     setState({
       ...state,
       showAnswerModal: false,
@@ -119,7 +114,6 @@ function QuestionDetails(props) {
   };
 
   const handleDeleteAnswerModalClose = () => {
-    setUrl();
     setState({ ...state, showDeleteAnswerModal: false });
   };
 

@@ -38,5 +38,5 @@ jobs:
     - uses: actions/upload-artifact@v3
       if: always()
       with:
-        name: Cypress_${{ github.head_ref }}_${{ github.sha }}
+        name: Cypress_${{ github.sha }}
         path: ./tests/cypress/videos/

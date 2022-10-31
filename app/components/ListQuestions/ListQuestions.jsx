@@ -123,7 +123,7 @@ const ListQuestions = ({
   };
 
   const generateAskQuestionButton = () => (
-    <Styled.AskButton to="/questions/new">
+    <Styled.AskButton to="/questions/new" id="ask-button">
       Ask Question
     </Styled.AskButton>
      );
@@ -148,7 +148,7 @@ const ListQuestions = ({
             <Styled.Alert>{renderNoResultMessage()}</Styled.Alert>
             ) : (
               <InfiniteScrollList onFetch={onFetchMore}>
-                <Styled.QuestionList>
+                <Styled.QuestionList id="questions-list">
                   {renderQuestionsList(questions)}
                 </Styled.QuestionList>
               </InfiniteScrollList>

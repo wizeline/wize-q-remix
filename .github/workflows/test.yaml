@@ -33,3 +33,5 @@ jobs:
       run: npm run test:unit
     - name: Run integration tests
       run: npm run test:integration
+    - name: Cypress run
+      run: npm run test:cypress:run

@@ -1,5 +1,5 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
+  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node, plugin:cypress/recommended"],
   "env": {
     "jest": true
   },
@@ -10,5 +10,8 @@
             "react-hooks/exhaustive-deps": "off"
         }
     }
+  ],
+  "plugins": [
+    "cypress"
   ]
 }

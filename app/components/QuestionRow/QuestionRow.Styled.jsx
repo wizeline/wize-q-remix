@@ -146,11 +146,13 @@ export const QuestionRowContent = styled.div`
 export const QuestionRowMetadataBottom = styled.div`
   color: var(--color-dark-25);
   display: flex;
+  align-items: flex-end;
   font-family: "Nunito", sans-serif;
   font-size: 12px;
+  font-weight: 600;
   justify-content: space-between;
   letter-spacing: 0.7px;
-  margin-top: 8px;
+  margin-top: 20px;
   margin-bottom: 8px;
   width: 100%;
 `;
@@ -196,10 +198,4 @@ export const RightWrapper = styled.div`
 export const QuestionRowMetadataSectionOne = styled.div`
     display: flex;
     align-items: center;
-`;
-
-export const LocationWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    margin-right: 5px;
 `;

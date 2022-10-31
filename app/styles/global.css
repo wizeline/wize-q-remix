@@ -4,11 +4,13 @@
     --color-primary: #E94D44;
     --color-primary-hover: #AF2E33;
     --color-primary-active: #751F22;
+    --color-primary-lowOpacity: #e94c442d;
   
     --color-secondary: #00A7E5;
     --color-secondary-hover: #4E90B9;
     --color-secondary-active: #3B72A4;
     --color-secondary-light: #E0EAF8;
+    --color-secondary-lowOpacity: #e0eaf8b8;
   
     --color-primary-contrast: #111823;
     --color-dark-100: #222529;

@@ -5,8 +5,6 @@ import UserImage from '~/components/Atoms/UserImage';
 import { ANONYMOUS_USER } from '~/utils/constants';
 
 function QuestionerResponderInfo(props) {
-  const { department, isAnswer } = props;
-
   const renderName = (createdBy) => {
     if (createdBy && createdBy.full_name) {
       return createdBy.full_name;
@@ -28,11 +26,6 @@ function QuestionerResponderInfo(props) {
     return '';
   };
 
-  const renderDepartment = () => (department &&
-      (<Styled.QuestionResponderDepartment isAnswer={isAnswer} department={department}>
-        {props.department}
-      </Styled.QuestionResponderDepartment>));
-
   const { createdBy } = props;
   const fullName = renderName(createdBy);
   const jobTitle = renderJobTitle(createdBy);
@@ -47,7 +40,6 @@ function QuestionerResponderInfo(props) {
         <Styled.QuestionerResponderJobTitle>
           {jobTitle}
         </Styled.QuestionerResponderJobTitle>
-        {renderDepartment()}
       </Styled.QuestionerResponderInfoContainer>
     </Styled.QuestionerResponderContainer>
   );

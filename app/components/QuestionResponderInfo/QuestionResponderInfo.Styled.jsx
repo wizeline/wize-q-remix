@@ -21,26 +21,6 @@ export const QuestionerResponderInfoContainer = styled.div`
   margin-left: 8px;
 `;
 
-export const QuestionResponderDepartment = styled.div`
-  align-self: flex-start;
-  border-radius: 20px;
-  border: 2px solid var(--color-secondary);
-  color: var(--color-secondary);
-  font-family: 'Nunito', sans-serif;
-  font-size: 14px;
-  line-height: normal;
-  margin-top: 5px;
-  padding: 6px 8px 4px;
-  ${props => props.department === 'Not Assigned' && css`
-    border: 2px solid var(--color-secondary-light);
-    color: var(--color-secondary-light);
-  `}
-  ${props => props.isAnswer && css`
-    border: 2px solid #72d8b6;
-    color: #72d8b6;
-  `}
-`;
-
 export const QuestionerResponderName = styled.span`
   font-family: "Nunito", sans-serif;
   font-size: 18px;

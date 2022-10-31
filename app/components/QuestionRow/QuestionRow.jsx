@@ -4,9 +4,9 @@ import { getFormattedDate } from '~/utils/dateFormat';
 import { renderDepartment } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
 import pinIcon from '~/images/ic_pin.svg';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
+import Label from '~/components/Atoms/Label';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import QuestionMarkdown from '~/components/QuestionMarkdown';
 import { useLoaderData, useSubmit } from '@remix-run/react';
@@ -77,12 +77,6 @@ const QuestionRow = (props) => {
       <span>Pinned by admin</span> <img src={pinIcon} alt="Icon" />
     </Styled.PinnedIndicator>);
 
-  const renderIcon = () => (
-    <div>
-      <HiOutlineLocationMarker />
-    </div>
-  );
-
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
@@ -117,15 +111,11 @@ const QuestionRow = (props) => {
         {children}
         <Styled.QuestionRowMetadataBottom>
           <Styled.QuestionRowMetadataSectionOne>
-            <Styled.LocationWrapper>
-              {renderIcon()}
-              {`${renderLocation(question.location, locations)}`}
-            </Styled.LocationWrapper>
-            {`| Question ID: Q${question.question_id}`}
+            <Label text={renderLocation(question.location, locations)} type={'Location'}/>
+            <Label text={renderDepartment(question.Department)} type={'Department'}/>
           </Styled.QuestionRowMetadataSectionOne>
           <div>
-            <em>{isUpdated && ' (edited)'}</em>
-            {getFormattedDate(question.createdAt)}
+            {`Question ID: Q${question.question_id}`}
           </div>
         </Styled.QuestionRowMetadataBottom>
         <Styled.QuestionRowBorderBottom />

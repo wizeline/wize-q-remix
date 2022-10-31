@@ -53,7 +53,7 @@ export const AboutBody = styled.div`
     text-align: justify;
   }
 
-  p ul {
+  span ul {
     list-style: none;
 
     @media (max-width: 767px) {
@@ -61,7 +61,7 @@ export const AboutBody = styled.div`
     }
   }
 
-  p ul li {
+  span ul li {
     padding-top: 10px;
     width: 60%;
 
@@ -70,9 +70,8 @@ export const AboutBody = styled.div`
     }
 
     &:before {
-      color: ${colorSecondary};
-      content: "\\2022";
       display: inline-block;
+      content: "\\2022";
       font-size: 30px;
       font-weight: bold;
       left: 6px;
@@ -82,6 +81,7 @@ export const AboutBody = styled.div`
       position: relative;
       top: 4px;
       width: 1em;
+      color: ${colorSecondary};
 
       @media (max-width: 767px) {
         left: 6px;
@@ -89,7 +89,7 @@ export const AboutBody = styled.div`
     }
   }
 
-  p ul.inside-list li::before {
+  span ul.inside-list li::before {
     content: "\00b0";
     font-weight: unset;
     left: 22px;
@@ -137,7 +137,7 @@ export const BoxImage = styled.img`
 
 export const BoxBoldText = styled.div`
   color: ${colorDark50};
-  font-family: "Nunito";
+  font-family: "NunitoSans Semibold";
   margin-top: 44px;
   margin: 28px;
   text-align: left;
@@ -186,7 +186,7 @@ export const AboutWHatElseText = styled.div`
 
 export const AboutWHatElseBold = styled.div`
   color: ${colorDark50};
-  font-family: "Nunito";
+  font-family: "NunitoSans Semibold";
   margin-top: 44px;
   margin: 28px;
   text-align: left;

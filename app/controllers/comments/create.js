@@ -1,4 +1,7 @@
 import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import {
+  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+} from "~/utils/constants";
 import generateSessionIdHash from "~/utils/backend/crypto";
 import { createCommentSchema } from "~/utils/backend/validators/comment"
 import { db } from "~/utils/db.server";
@@ -15,15 +18,34 @@ export const createComment = async (data) => {
     }
   }
 
-  const created = await db.Comments.create({
-    data: {
-      Questions: {
-        connect: {
-          question_id: value.questionId,
-        },
-      },
-      comment: value.comment,
+  if (!value.isAnonymous && !value.user.userEmail) {
+    return {
+      error: {
+        message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+        detail: "The comment is not anonymous but no user email was provided in the user object",
+      }
     }
+  }
+
+  const commentData = {
+    Questions: {
+      connect: {
+        question_id: value.questionId,
+      },
+    },
+    comment: value.comment,
+  };
+
+  if (!value.isAnonymous) {
+    commentData.User = {
+      connect: {
+        email: value.user.userEmail,
+      }
+    }
+  }
+
+  const created = await db.Comments.create({
+    data: commentData
   });
 
   let commentResponse = created;

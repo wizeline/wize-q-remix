@@ -22,3 +22,9 @@ export const updateCommentSchema = Joi.object().keys({
   userEmail: EMAIL_VALIDATION,
 });
 
+export const deleteCommentSchema = Joi.object().keys({
+  commentId: JOI_ID_VALIDATION,
+  accessToken: Joi.string().required(),
+  userEmail: EMAIL_VALIDATION,
+});
+

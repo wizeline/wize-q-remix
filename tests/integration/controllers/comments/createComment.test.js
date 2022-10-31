@@ -30,8 +30,8 @@ describe('createComment', () => {
       questionId: 2,
       user: {
         accessToken: randomAccessToken(),
-        userEmail: "testuser@gmail.com",
-        userName: "John Smith Doe",
+        userEmail: "john.doe@wizeline.com",
+        userName: "John Doe",
       },
     };
 

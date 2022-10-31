@@ -74,8 +74,7 @@ export const deleteComment = async (body) => {
   }
   if (deleteCommentResponse.count === 1) {
     return {
-      success: true,
-      response: "Comment was deleted successfully",
+      success: "Comment was deleted successfully",
     };
   }
 

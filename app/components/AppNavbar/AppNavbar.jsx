@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
-import logo from '~/images/logo.png';
+import logo from '~/images/logo-white.png';
 import { Link } from '@remix-run/react';
 import * as Styled from '~/components/AppNavbar/AppNavbar.Styled';
 import UserControls from '~/components/UserControls';

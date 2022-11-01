@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import likeIcon from '~/images/ic_like.svg';
 import likeIconVoted from '~/images/ic_like_pressed.svg';
 import commentIcon from '~/images/ic_comment_non-selected.svg';
-import { addS } from '~/utils/stringOperations';
 import {
   renderAnswer,
 } from '~/utils/questionUtils';
@@ -48,14 +47,12 @@ const QuestionCard = (props) => {
         <CounterButton
           selected={question.hasVoted}
           icon={icon}
-          text={addS('Like', question.num_votes)}
           count={question.num_votes}
           onClick={() => onVoteClick(question)}
           processingFormSubmission={processingFormSubmission}
         />
         <CounterButton
           icon={commentIcon}
-          text={addS('Comment', question.numComments)}
           count={question.numComments}
           onClick={() => navigate(`/questions/${question.question_id}`)}
         />

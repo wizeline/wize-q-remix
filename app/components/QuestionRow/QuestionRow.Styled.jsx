@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { BsFillCircleFill } from "react-icons/bs";
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -186,16 +187,20 @@ export const QuestionRowDate = styled.div`
     font-family: "Nunito", sans-serif;
     font-size: 12px;
     letter-spacing: 0.7px;
-    margin-bottom: 10px;
 `;
 
 export const RightWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    padding-top: 5px;
 `;
 
 export const QuestionRowMetadataSectionOne = styled.div`
     display: flex;
     align-items: center;
+`;
+
+export const CircleIcon = styled(BsFillCircleFill)`
+    font-size: 5px;
+    color: var(--color-dark-25);
+    margin: 0 5px;
 `;

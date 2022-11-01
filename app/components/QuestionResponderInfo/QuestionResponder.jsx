@@ -26,7 +26,7 @@ function QuestionerResponderInfo(props) {
     return '';
   };
 
-  const { createdBy } = props;
+  const { children, createdBy } = props;
   const fullName = renderName(createdBy);
   const jobTitle = renderJobTitle(createdBy);
   const profilePicture = renderProfilePicture(createdBy);
@@ -34,9 +34,12 @@ function QuestionerResponderInfo(props) {
     <Styled.QuestionerResponderContainer>
       <UserImage src={profilePicture} size={props.userImgSize} />
       <Styled.QuestionerResponderInfoContainer>
-        <Styled.QuestionerResponderName>
-          {fullName}
-        </Styled.QuestionerResponderName>
+        <Styled.TopContainer>
+          <Styled.QuestionerResponderName>
+            {fullName}
+          </Styled.QuestionerResponderName>
+          {children}
+        </Styled.TopContainer>
         <Styled.QuestionerResponderJobTitle>
           {jobTitle}
         </Styled.QuestionerResponderJobTitle>
@@ -50,10 +53,11 @@ QuestionerResponderInfo.defaultProps = {
     full_name: ANONYMOUS_USER.username,
     profile_picture: ANONYMOUS_USER.profilePicture,
   },
-  userImgSize: 'big',
+  userImgSize: 'medium',
   circumstance: '',
   department: null,
   isAnswer: false,
+  children: null,
 };
 
 QuestionerResponderInfo.propTypes = {
@@ -64,6 +68,7 @@ QuestionerResponderInfo.propTypes = {
   userImgSize: PropTypes.string,
   department: PropTypes.string,
   isAnswer: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default QuestionerResponderInfo;

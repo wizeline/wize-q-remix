@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { formatCollapsingText } from '~/utils/stringOperations';
-import { getFormattedDate } from '~/utils/dateFormat';
 import { renderDepartment } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
@@ -14,6 +13,7 @@ import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
 import { useRef } from 'react';
 import { ACTIONS } from '~/utils/actions';
+
 
 
 const renderLocation = (location, locations) => {
@@ -81,17 +81,19 @@ const QuestionRow = (props) => {
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
-          <QuestionResponderInfo
-            department={renderDepartment(question.Department)}
-            createdBy={question.created_by}
-          />
+            <QuestionResponderInfo
+              department={renderDepartment(question.Department)}
+              createdBy={question.created_by}
+            >
+              <Styled.CircleIcon />
+              <Styled.QuestionRowDate>
+                <em>{isUpdated && ' (edited)'}</em>
+                {getDateData(question.createdAt)}
+              </Styled.QuestionRowDate>
+            </QuestionResponderInfo>
         </ConditionalLinkTo>
         <Styled.QuestionRowLine isQuestionModalOpen={isQuestionModalOpen} hasAnswer={hasAnswer} />
         <Styled.RightWrapper>
-          <Styled.QuestionRowDate>
-            <em>{isUpdated && ' (edited)'}</em>
-            {getDateData(question.createdAt)}
-          </Styled.QuestionRowDate>
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
         </Styled.RightWrapper>      </Styled.QuestionRowMetadataTop>
       <Styled.QuestionRowWrapper hasAnswer={hasAnswer} isQuestionModalOpen={isQuestionModalOpen}>

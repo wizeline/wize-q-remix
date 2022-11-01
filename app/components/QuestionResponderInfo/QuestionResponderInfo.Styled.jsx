@@ -27,7 +27,7 @@ export const QuestionerResponderName = styled.span`
 
 export const QuestionerResponderJobTitle = styled.span`
   margin-top: 4px;
-  font-size: 11px;
+  font-size: 12px;
   @media screen and (max-width: 768px) {
     margin-right: 8px;
   }

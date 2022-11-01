@@ -116,9 +116,9 @@ const QuestionRow = (props) => {
             <Label text={renderLocation(question.location, locations)} type={'Location'}/>
             <Label text={renderDepartment(question.Department)} type={'Department'}/>
           </Styled.QuestionRowMetadataSectionOne>
-          <div>
+          <Styled.QuestionId>
             {`Question ID: Q${question.question_id}`}
-          </div>
+          </Styled.QuestionId>
         </Styled.QuestionRowMetadataBottom>
         <Styled.QuestionRowBorderBottom />
       </Styled.QuestionRowWrapper>

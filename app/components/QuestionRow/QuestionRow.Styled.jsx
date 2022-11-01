@@ -204,3 +204,9 @@ export const CircleIcon = styled(BsFillCircleFill)`
     color: var(--color-dark-25);
     margin: 0 5px;
 `;
+
+export const QuestionId = styled.span`
+  font-size: 12px;
+  color: var(--color-dark-25);
+  font-weight: 500;
+`;

@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './CounterButton.Styled';
 
-const CounterButton = ({ icon, text, count, selected, onClick, notButton, processingFormSubmission }) => {
+const CounterButton = ({ id, icon, text, count, selected, onClick, notButton, processingFormSubmission }) => {
   const validIcon = React.isValidElement(icon);
   return (<Styled.ContainerCounterButton
+    id={id}
     onClick={onClick}
     selected={selected}
     notButton={notButton}
@@ -32,6 +33,7 @@ CounterButton.defaultProps = {
 };
 
 CounterButton.propTypes = {
+  id: PropTypes.string,
   icon: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element,

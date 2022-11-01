@@ -1,11 +1,11 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
+  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node", "plugin:cypress/recommended"],
   "env": {
     "jest": true
   },
   "overrides": [
     {
-        "files": ["**/*.js", "**/*.jsx"],
+        "files": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
         "rules": {
             "react-hooks/exhaustive-deps": "off"
         }

@@ -1,7 +1,7 @@
 import { createCookieSessionStorage, redirect } from "@remix-run/node";
 
 const USER_SESSION_KEY = "userData";
-const SESSION_SECRET = process.env.SESSION_SECRET || "secret";
+const SESSION_SECRET = process.env.SESSION_SECRET || "super-duper-s3cret";
 
 export const sessionStorage = createCookieSessionStorage({
   cookie: {
@@ -44,7 +44,6 @@ export async function commitSession(session, remember = true) {
 
 export async function requireAuth(request) {
     const session = await getSession(request);
-  
     if (!session.has("userData")) {
       throw redirect("/login");
     }

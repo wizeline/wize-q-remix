@@ -1,5 +1,6 @@
 {
-  "include": ["**/*.js", "**/*.jsx"],
+  "exclude": ["./cypress"],
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
     "isolatedModules": true,
@@ -8,13 +9,16 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "target": "ES2019",
+    "module": "CommonJS",
     "strict": true,
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
+    "types": ["cypress", "node"],
     "paths": {
       "~/*": ["./app/*"]
     },
-    "noEmit": true
+    "skipLibCheck": true,
+    "noEmit": true,
   }
 }

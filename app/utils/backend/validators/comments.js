@@ -28,3 +28,9 @@ export const deleteCommentSchema = Joi.object().keys({
   userEmail: EMAIL_VALIDATION,
 });
 
+export const approvedByCommentSchema = Joi.object().keys({
+  commentId: JOI_ID_VALIDATION.required(), 
+  questionId: SIMPLE_INTEGER_VALIDATION.required(),
+  employeeId : SIMPLE_INTEGER_VALIDATION.required(),
+  checked: Joi.boolean().required(),
+})

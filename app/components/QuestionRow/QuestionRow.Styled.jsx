@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillCircleFill, BsFillPinAngleFill } from "react-icons/bs";
+import { BsFillCircleFill, BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -46,8 +46,6 @@ export const QuestionRowOptions = styled.div`
 `;
 
 export const PinQuestionIconHolder = styled.span`
-  margin-right: 25px;
-  margin-top: 8px;
   float: right;
   display: block;
   position: relative;
@@ -60,16 +58,13 @@ export const PinQuestionIconHolder = styled.span`
 `;
 
 
-export const PinActionableIconHolder = styled.img`
-  margin-right: 0px;
-  margin-top: 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  float: right;
-  height: 16px;
-  width: 16px;
-  filter: invert(28%) sepia(8%) saturate(331%) hue-rotate(169deg) brightness(97%) contrast(82%);
+export const PinActionableIconHolder = styled(BsPinFill)`
+  font-size: 15px;
+  color: var(--color-dark-25);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const PinTooltipMessage = styled.span`
@@ -93,16 +88,13 @@ export const PinTooltipMessage = styled.span`
 `
 
 
-export const UnpinActionableIconHolder = styled.img`
-  margin-right: 0px;
-  margin-top: 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  float: right;
-  height: 16px;
-  width: 16px;
-  filter: invert(72%) sepia(70%) saturate(2758%) hue-rotate(178deg) brightness(103%) contrast(106%);
+export const UnpinActionableIconHolder = styled(BsPinFill)`
+  font-size: 15px;
+  color: var(--color-secondary);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const PinnedIndicator = styled.span`

@@ -3,7 +3,6 @@ import { formatCollapsingText } from '~/utils/stringOperations';
 import { renderDepartment } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
-import pinIcon from '~/images/ic_pin.svg';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import Label from '~/components/Atoms/Label';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
@@ -63,12 +62,12 @@ const QuestionRow = (props) => {
   const adminPinButton = (profile.is_admin && !question.is_pinned)
     ? (
       <Styled.PinQuestionIconHolder onClick={onPinChange} >
-        <Styled.PinActionableIconHolder src={pinIcon} alt="Icon" />
+        <Styled.PinActionableIconHolder />
         <Styled.PinTooltipMessage>Pin question to the top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>)
     : (
       <Styled.PinQuestionIconHolder onClick={onPinChange} className="pin-tooltip" >
-        <Styled.UnpinActionableIconHolder src={pinIcon} alt="Icon" />
+        <Styled.UnpinActionableIconHolder />
         <Styled.PinTooltipMessage>Unpin question from top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>);
 

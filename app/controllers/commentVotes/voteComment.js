@@ -71,7 +71,6 @@ export const upsertCommentVote = async (query) => {
     });
 
     return {
-      success: true,
       commentVote,
     };
   }

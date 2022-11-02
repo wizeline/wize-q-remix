@@ -207,6 +207,7 @@ export const TOKEN_ID_SEPARATOR = ':';
 export const ANSWER_PLACE_HOLDER = 'Type your answer here...';
 export const MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN = 2;
 export const MINIMUM_WIDTH_TO_SHOW_MARKDOWN = 767;
+export const MINIMUN_WINDOW_WIDTH = 768;
 export const editAnswerMessage = questionId => `Edit answer to question Q${questionId}?`;
 export const editAnswerInfo = (fullName, timeDiff) => `Question answered by ${fullName}, ${timeDiff}`;
 export const addAnswerInfo = (fullName, timeDiff) => `Question asked by ${fullName}, ${timeDiff}`;

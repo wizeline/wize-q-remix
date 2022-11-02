@@ -1,12 +1,11 @@
 import { useState, useRef } from 'react';
-import { useSubmit, useTransition } from "@remix-run/react";
+import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
 import PropTypes from 'prop-types';
 import AnswerInputText from '~/components/AnswerInputText/AnswerInputText';
 import Button from "~/components/Atoms/Button";
 import { useUser } from "~/utils/hooks/useUser";
 import { ACTIONS } from "~/utils/actions";
 import {
-  HTML_CODE_WARNING,
   CANCEL,
   SUBMIT,
   UPDATE_ANSWER,
@@ -44,6 +43,7 @@ function AnswerModal(props) {
   const transition = useTransition();
   const submitAnswerForm = useRef();
   const profile = useUser();
+  const [searchParams] = useSearchParams();
 
   const initialState = {
     Answer: props.question.Answer ? props.question.Answer : '',
@@ -97,10 +97,13 @@ function AnswerModal(props) {
     data.set("answer", answerValueNoHTML);
 
     onClose();
+    let url = `/questions/${question.question_id}`;
+    const urlSearchParam = searchParams.get('order');
+    url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
 
     submit(data, {
       method: "post",
-      action: `/questions/${question.question_id}`,
+      action: url,
     });
   };
 

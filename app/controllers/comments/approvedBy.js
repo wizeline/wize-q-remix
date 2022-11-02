@@ -1,7 +1,7 @@
 import { db } from "~/utils/db.server";
 import { approvedByCommentSchema } from "~/utils/backend/validators/comments";
 import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from "~/utils/constants";
-import { COMMENT_AS_AN_ANSWER, DEFAULT_ERROR_MESSAGE, UPDATE_COMMENT_ERROR_MESSAGE} from '~/utils/backend/constants';
+import { COMMENT_AS_AN_ANSWER, DEFAULT_ERROR_MESSAGE} from '~/utils/backend/constants';
 import { isEmptyObject } from '~/utils/backend/objectUtils';
 
 export const approvedByComment = async(params) => {

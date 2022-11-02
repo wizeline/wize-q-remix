@@ -2,13 +2,16 @@ import styled, { css } from 'styled-components';
 
 export const Label = styled.div`
   background-color: var(--color-secondary-lowOpacity);
-  color: var(--color-secondary);
   border-radius: 20px;
+  color: var(--color-secondary);
+  display: flex;
   font-weight: 600;
-  font-size: 12px;
+  font-size: 11px;
   line-height: normal;
-  padding: 5px 10px;
   margin-right: 7px;
+  padding: 5px 10px;
+  width: fit-content;
+  height: fit-content;
 
   ${props => props.text === 'Not Assigned' && css`
     display: none;
@@ -25,6 +28,10 @@ export const Label = styled.div`
   `}
 
   ${props => props.type === 'Answer' && css`
-    background-color: var(--color-dark-100);
+    background-color: var(--color-green-bg);
+    color: var(--color-green);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 10px;
   `}
 `;

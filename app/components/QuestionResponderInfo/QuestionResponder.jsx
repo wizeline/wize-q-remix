@@ -55,7 +55,6 @@ QuestionerResponderInfo.defaultProps = {
   },
   userImgSize: 'medium',
   circumstance: '',
-  department: null,
   isAnswer: false,
   children: null,
 };
@@ -66,7 +65,6 @@ QuestionerResponderInfo.propTypes = {
     profile_picture: PropTypes.string.isRequired,
   }),
   userImgSize: PropTypes.string,
-  department: PropTypes.string,
   isAnswer: PropTypes.bool,
   children: PropTypes.node,
 };

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillCircleFill } from "react-icons/bs";
+import { BsFillCircleFill, BsFillPinAngleFill } from "react-icons/bs";
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -110,21 +110,12 @@ export const PinnedIndicator = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   height: fit-content;
 
-  > img {
-    display: block;
-    display: block;
-    margin-left: 5px;
-    margin-right: auto;
-    float: right;
-    height: 12px;
-    width: 12px;
-    filter: invert(95%) sepia(6%) saturate(18%) hue-rotate(201deg) brightness(89%) contrast(91%);
-  }
   > span {
     min-width: 80px;
-    color: var(--color-dark-25);
+    color: var(--color-dark-metadata);
     font-family: "Nunito", sans-serif;
     font-size: 11px;
     letter-spacing: 0.7px;
@@ -132,6 +123,12 @@ export const PinnedIndicator = styled.span`
       font-size: 9px;
       letter-spacing: 0.7px;
     }
+`;
+
+export const PinnedIcon = styled(BsFillPinAngleFill)`
+  color: var(--color-dark-metadata);
+  margin-left: 4px;
+  font-size: 12px;
 `;
 
 export const QuestionRowWrapper = styled.div`
@@ -180,10 +177,16 @@ export const QuestionRowLine = styled.div`
     `}
 `;
 
+export const CircleIcon = styled(BsFillCircleFill)`
+    font-size: 5px;
+    color: var(--color-dark-metadata);
+    margin: 0 5px;
+`;
+
 export const QuestionRowDate = styled.div`
     display: flex;
     height: fit-content;
-    color: var(--color-dark-25);
+    color: var(--color-dark-metadata);
     font-family: "Nunito", sans-serif;
     font-size: 12px;
     letter-spacing: 0.7px;
@@ -199,14 +202,9 @@ export const QuestionRowMetadataSectionOne = styled.div`
     align-items: center;
 `;
 
-export const CircleIcon = styled(BsFillCircleFill)`
-    font-size: 5px;
-    color: var(--color-dark-25);
-    margin: 0 5px;
-`;
 
 export const QuestionId = styled.span`
   font-size: 12px;
-  color: var(--color-dark-25);
+  color: var(--color-dark-metadata);
   font-weight: 500;
 `;

@@ -74,17 +74,14 @@ const QuestionRow = (props) => {
 
   const nonAdminPinIndicator = (!profile.is_admin && question.is_pinned) && (
     <Styled.PinnedIndicator>
-      <span>Pinned by admin</span> <img src={pinIcon} alt="Icon" />
+      <span>Pinned by admin</span> <Styled.PinnedIcon />
     </Styled.PinnedIndicator>);
 
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
-            <QuestionResponderInfo
-              department={renderDepartment(question.Department)}
-              createdBy={question.created_by}
-            >
+            <QuestionResponderInfo createdBy={question.created_by}>
               <Styled.CircleIcon />
               <Styled.QuestionRowDate>
                 <em>{isUpdated && ' (edited)'}</em>

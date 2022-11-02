@@ -74,8 +74,8 @@ const QuestionCard = (props) => {
             {renderButtons()}
           </Styled.QuestionCardActions>
         </Styled.QuestionCardBorder>
-        {renderAnswer(renderAnswerProps)}
       </Styled.QuestionCardWrapper>
+      {renderAnswer(renderAnswerProps)}
     </Styled.QuestionCardContainer>
   );
 };

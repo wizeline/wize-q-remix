@@ -8,8 +8,6 @@ export const QuestionCardContainer = styled.article`
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
-  padding-top: 15px;
-  padding-bottom: 8px;
 
   > div {
     align-items: center;
@@ -19,7 +17,8 @@ export const QuestionCardContainer = styled.article`
 `;
 
 export const QuestionCardWrapper = styled.div`
-  width: 94%;
+  width: 100%;
+  padding: 15px 20px 10px 20px;
 
   @media screen and (max-width: 480px) {
     width: 100%;

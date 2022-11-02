@@ -2,7 +2,7 @@ import { db } from "~/utils/db.server";
 import { approvedByCommentSchema } from "~/utils/backend/validators/comments";
 import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from "~/utils/constants";
 import { COMMENT_AS_AN_ANSWER, DEFAULT_ERROR_MESSAGE, UPDATE_COMMENT_ERROR_MESSAGE} from '~/utils/backend/constants';
-import { isEmpty } from '~/utils/backend/objectUtils';
+import { isEmptyObject } from '~/utils/backend/objectUtils';
 
 export const approvedByComment = async(params) => {
     const { error, value } = approvedByCommentSchema.validate(params);
@@ -50,7 +50,7 @@ export const approvedByComment = async(params) => {
         data: {approvedBy: checked ? employeeId: null 
     }});
 
-    if(isEmpty(commentUpdated)){
+    if(isEmptyObject(commentUpdated)){
         return {
             error: {
               message: DEFAULT_ERROR_MESSAGE,

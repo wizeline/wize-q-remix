@@ -32,12 +32,6 @@ function CommentTextArea({
     textAreaRows: MIN_TEXTAREA_ROWS,
   };
 
-
-  let width;
-  useEffect(() => {
-    width = window.innerWidth;
-  }, []);
-
   return (
     <Styled.CommentInputTextArea>
       <Input
@@ -57,7 +51,7 @@ function CommentTextArea({
           visible={
             shouldShowMarkdownSuggestions(
               commentLength, MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
-              width, MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
+               window.innerWidth,  MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
             )
           }
         />

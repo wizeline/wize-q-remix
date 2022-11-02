@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import * as Styled from '~/components/MarkdownFormattingNote/MarkdownFormattingNote.Styled';
+import * as Styled from '~/components/MarkdownFormattingNote/MarkdownFormattingNote.styled';
 
 const MarkdownFormattingNote = ({ visible }) => (
   <Styled.Note visible={visible} >

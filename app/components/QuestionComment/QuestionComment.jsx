@@ -46,7 +46,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       wrapperRef,
     } = useClickOutside(isEditing || isDeleting);
     
-    async function voteComment (comment_id, value){
+    function voteComment (comment_id, value){
       const data = new FormData();
       data.set('action',ACTIONS.VOTE_COMMENT)
       data.set('comment_id', comment_id);
@@ -58,8 +58,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       submit(data, { method: 'post', action: url });
     }
   
-    async function upVoteF() {
-      await voteComment(commentData.id, 1);
+     function upVoteF() {
+       voteComment(commentData.id, 1);
 
       if (downVoteActive) {
         setDownVoteActive(false);
@@ -74,8 +74,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       }
     }
   
-    async function downVoteF() {
-     await voteComment(commentData.id, -1);
+     function downVoteF() {
+      voteComment(commentData.id, -1);
       if (upVoteActive) {
         setUpVoteActive(false);
         setDownVoteActive(true);

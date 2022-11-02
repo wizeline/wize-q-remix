@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { DEFAULT_QUESTION_COMMENT_SORTING, ACTIVITY_TIME_QUESTION_COMMENT_SORTING } from '~/utils/constants';
 import * as Styled from './SortQuestionCommentsDropdown.styled';
@@ -25,6 +25,15 @@ function SortQuestionCommentsDropdown(props) {
         value: ACTIVITY_TIME_QUESTION_COMMENT_SORTING,
       },
     ];
+
+    useEffect(()=>{
+      const order = searchParams.get('order');
+      const optionSelected = sortOptions.find(v=>v.value === order);
+      if(optionSelected){
+        setSelectedOption(optionSelected.displayText);
+        onSortCommentsOptionChange(optionSelected.value);
+      }
+    },[])
   
     const onSortSelection = (displayText, value) => async () => {
       setSelectedOption(displayText);

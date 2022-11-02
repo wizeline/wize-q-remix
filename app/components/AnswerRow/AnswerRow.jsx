@@ -17,17 +17,6 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
   const [collapsed, setCollapsed] = useState(shouldCollapse);
 
-  const renderLabelAnswer = () => {
-    if (props.isAnswer) {
-      return 'Best Answer';
-    } else if (props.isCommentApproved) {
-      return `Comment approved by ${props.approver.full_name}`;
-    } else if (props.isCommunityAnswer) {
-      return 'Community answer';
-    }
-    return null;
-  };
-
   const renderAnswer = () => (
     <Styled.AnswerRow>
       <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
@@ -64,7 +53,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
             </Styled.AnswerRowDate>
           </QuestionResponderInfo>
         </ConditionalLinkTo>
-        <Label type={'Answer'} text={renderLabelAnswer()} />
+        <Label type={'Answer'} text={'Best Answer'} />
         {children}
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}
@@ -87,9 +76,6 @@ AnswerRow.propTypes = {
   isQuestionModalOpen: PropTypes.bool,
   isFromList: PropTypes.bool,
   questionId: PropTypes.number.isRequired,
-  isAnswer: PropTypes.bool.isRequired,
-  isCommunityAnswer: PropTypes.bool.isRequired,
-  isCommentApproved: PropTypes.bool.isRequired,
 };
 
 AnswerRow.defaultProps = {

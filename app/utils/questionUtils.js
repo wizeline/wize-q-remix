@@ -40,8 +40,8 @@ function renderAdminButtons(renderAdminBtnProps) {
 }
 
 function renderAnswer(renderAnswerProps) {
+
   const {
-    question: { Answer },
     isAdmin,
     currentUserEmail,
     onAnswerClick,
@@ -52,13 +52,20 @@ function renderAnswer(renderAnswerProps) {
     isQuestionModalOpen,
     isFromList,
   } = renderAnswerProps;
+
+  let Answer;
+  if (question.Answers.length > 0 ){
+    Answer = question.Answers[0];
+  }
+
   if (!Answer) {
     return null;
   }
   let actionsEnabled = false;
-  if (Answer.numScores <= 1) {
+  if (Answer.num_scores <= 1) {
     actionsEnabled = true;
   }
+
   return (
     <AnswerRow
       {...Answer}
@@ -67,9 +74,7 @@ function renderAnswer(renderAnswerProps) {
       isQuestionModalOpen={isQuestionModalOpen}
       questionId={question.question_id}
       isFromList={isFromList}
-      isAnswer
-      isCommunityAnswer={false}
-      isCommentApproved={false}
+      user={Answer.AnsweredBy}
     >
       { isAdmin && Answer.AnsweredBy.email === currentUserEmail && (
         <AnswerAdminOptions

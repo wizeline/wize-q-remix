@@ -5,11 +5,12 @@ import commentIcon from '~/images/ic_comment_non-selected.svg';
 import {
   renderAnswer,
 } from '~/utils/questionUtils';
-
+import { reorderHighlightedComments } from '~/utils/commentUtils';
 import * as Styled from './QuestionCard.Styled';
 import { useNavigate } from 'react-router-dom';
 import QuestionRow from '~/components/QuestionRow';
 import CounterButton from '~/components/CounterButton';
+import AnswerRow from '~/components/AnswerRow';
 
 const QuestionCard = (props) => {
   const {
@@ -60,6 +61,38 @@ const QuestionCard = (props) => {
     );
   };
 
+  const renderCommentAnswer = () => {
+    if ((!question.hasCommentApproved && !question.hasCommunityAnswer) ||
+    question.Answer !== null) {
+      return null;
+    }
+    let commentAsAnswer = {};
+
+    if (question.hasCommentApproved) {
+      commentAsAnswer = question.Comments.find(c => c.approver !== null);
+    } else if (question.hasCommunityAnswer) {
+      const [communityAnswerCommentId,
+        reorderedByPriorityComments] = reorderHighlightedComments(question.Comments);
+      commentAsAnswer = reorderedByPriorityComments.find(c => c.id === communityAnswerCommentId);
+    }
+    if (commentAsAnswer) {
+      return (<AnswerRow
+        answer={commentAsAnswer.comment}
+        user={commentAsAnswer.user}
+        answered_at={commentAsAnswer.commentCreatedAt}
+        searchTerm={renderAnswerProps.searchTerm}
+        isPreview={renderAnswerProps.isPreview}
+        isFromList={renderAnswerProps.isFromList}
+        questionId={question.question_id}
+        isAnswer={question.Answer !== null}
+        isCommentApproved={!!question.hasCommentApproved}
+        isCommunityAnswer={!!question.hasCommunityAnswer}
+        approver={commentAsAnswer.approver}
+      />);
+    }
+    return null;
+  };
+
   return (
     <Styled.QuestionCardContainer>
       <Styled.QuestionCardWrapper>
@@ -76,6 +109,7 @@ const QuestionCard = (props) => {
         </Styled.QuestionCardBorder>
       </Styled.QuestionCardWrapper>
       {renderAnswer(renderAnswerProps)}
+      {renderCommentAnswer()}
     </Styled.QuestionCardContainer>
   );
 };

@@ -34,4 +34,9 @@ export const Label = styled.div`
     font-weight: 700;
     font-size: 10px;
   `}
+  
+  ${props => props.text === 'Community Answer' && css`
+    background-color: var(--color-gold-bg);
+    color: var(--color-gold);
+  `}
 `;

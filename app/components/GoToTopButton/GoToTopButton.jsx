@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import * as Styled from './GoToTopButton.styled';
+import * as Styled from './GoToTopButton.Styled';
 import { BACK_TO_TOP } from '~/utils/constants';
 import ArrowIcon from '~/components/Atoms/ArrowIcon';
 
@@ -24,6 +24,7 @@ function GoToTopButton() {
 
   return (
     <Styled.Button
+      id="go-to-top-button"
       display={show}
       onClick={goToTop}
     >

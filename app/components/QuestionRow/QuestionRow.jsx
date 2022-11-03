@@ -7,7 +7,7 @@ import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import Label from '~/components/Atoms/Label';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import QuestionMarkdown from '~/components/QuestionMarkdown';
-import { useLoaderData, useSubmit } from '@remix-run/react';
+import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
 import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
 import { useRef } from 'react';
@@ -42,10 +42,14 @@ const QuestionRow = (props) => {
   const pinForm = useRef();
   const submit = useSubmit();
 
+  const [searchParams] = useSearchParams();
+
   const onPinChange = () => {
     let url = "/?index"
     if(!isFromList){
       url = `/questions/${question.question_id}`
+      const urlSearchParam = searchParams.get('order');
+      url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     }
     const newPinStatusValue = question.is_pinned ? 'false' : 'true';
     const data = new FormData(pinForm.current);

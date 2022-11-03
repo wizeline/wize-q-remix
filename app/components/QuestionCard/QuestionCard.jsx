@@ -45,13 +45,15 @@ const QuestionCard = (props) => {
     return (
       <Styled.CounterButtonsWrapper isAdmin={false} hasAnswer={hasAnswer}>
         <CounterButton
+          id={`like-button-${question.question_id}`}
           selected={question.hasVoted}
           icon={icon}
           count={question.num_votes}
           onClick={() => onVoteClick(question)}
           processingFormSubmission={processingFormSubmission}
-        />
+        / >
         <CounterButton
+          id={`comments-button-${question.question_id}`}
           icon={commentIcon}
           count={question.numComments}
           onClick={() => navigate(`/questions/${question.question_id}`)}

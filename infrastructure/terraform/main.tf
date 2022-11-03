@@ -18,7 +18,7 @@ module "cloud_run" {
   // slack_wizeq_domain  = data.google_secret_manager_secret_version.Slack_wizeq_domain.secret_data
   db_url             = format("$s://$s:$s@$s/$s", "mysql", data.google_secret_manager_secret_version.Db_user.secret_data, data.google_secret_manager_secret_version.Db_password.secret_data, data.google_secret_manager_secret_version.Db_host.secret_data, data.google_secret_manager_secret_version.Db_name.secret_data)
   base_url           = data.google_secret_manager_secret_version.Wizeq_url.secret_data
-
+  session_secret     = data.google_secret_manager_secret_version.Session_secret.secret_data
   // db_host            = module.cloud_sql.db_host
   // db_connection_name = module.cloud_sql.db_connection_name
 }

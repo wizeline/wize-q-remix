@@ -10,7 +10,7 @@ steps:
   - id: 'Validate Terraform'
     name: 'hashicorp/terraform:0.12.21'
     entrypoint: 'sh'
-    dir: '/workspace/infrastructure'
+    dir: '/workspace/infrastructure/terraform'
     timeout: 600s
     args:
       - '-c'
@@ -22,7 +22,7 @@ steps:
   # - id: 'Apply Terraform'
   #   name: 'hashicorp/terraform:0.12.21'
   #   entrypoint: 'sh'
-  #   dir: '/workspace/infrastructure'
+  #   dir: '/workspace/infrastructure/terraform'
   #   args:
   #     - '-c'
   #     - |

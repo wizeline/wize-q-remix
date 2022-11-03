@@ -72,6 +72,6 @@ variable "base_url" {
   type = string
 }
 
-variable "db_connection_name" {
-  type = string
-}
+# variable "db_connection_name" {
+#   type = string
+# }

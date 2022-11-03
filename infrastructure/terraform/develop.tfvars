@@ -1,0 +1,7 @@
+app_env         = "dev"
+cr_cpu_limit    = "2000m"
+cr_memory_limit = "512Mi"
+cr_max_scale    = "3"
+db_tier         = "db-f1-micro"
+secret_prefix   = "DEV"
+cidr_range      = "10.9.0.0/28"

@@ -10,9 +10,6 @@ export const QuestionRowContainer = styled.div`
     padding-botton: 8px;
     width: 100%;
     position: relative;
-    @media screen and (max-width: 480px) {
-      padding: 0 20px;
-    }
     ${props => props.isQuestionModalOpen && css`
         @media screen and (max-width: 480px) {
           padding: 0 10px;
@@ -26,9 +23,6 @@ export const QuestionRowMetadataTop = styled.div`
   justify-content: space-between;
   margin-bottom: 17px;
   width: 100%;
-  @media screen and (max-width: 480px) {
-    padding: 24px 0 0;
-  }
 `;
 
 export const QuestionRowOptions = styled.div`

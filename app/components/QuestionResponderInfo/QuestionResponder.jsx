@@ -33,7 +33,7 @@ function QuestionerResponderInfo(props) {
   return (
     <Styled.QuestionerResponderContainer>
       <UserImage src={profilePicture} size={props.userImgSize} />
-      <Styled.QuestionerResponderInfoContainer>
+      <Styled.QuestionerResponderInfoContainer hasJobTitle={jobTitle}>
         <Styled.TopContainer>
           <Styled.QuestionerResponderName>
             {fullName}

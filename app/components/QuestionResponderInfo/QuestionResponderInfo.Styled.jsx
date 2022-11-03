@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 
 export const QuestionerResponderContainer = styled.div`
@@ -6,13 +6,19 @@ export const QuestionerResponderContainer = styled.div`
   color: var(--color-dark-50);
   display: inline-flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const QuestionerResponderInfoContainer = styled.div`
   font-family: "Nunito", sans-serif;
   font-size: 12px;
   margin-left: 8px;
+
+
+  ${props => !props.hasJobTitle && css`
+    display: flex;
+    align-items: center;
+  `}
 `;
 
 export const QuestionerResponderName = styled.span`
@@ -20,17 +26,11 @@ export const QuestionerResponderName = styled.span`
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  @media screen and (max-width: 768px) {
-    margin-right: 8px;
-  }
 `;
 
 export const QuestionerResponderJobTitle = styled.span`
   margin-top: 4px;
   font-size: 12px;
-  @media screen and (max-width: 768px) {
-    margin-right: 8px;
-  }
 `;
 
 export const QuestionerResponderCircumstance = styled.span`

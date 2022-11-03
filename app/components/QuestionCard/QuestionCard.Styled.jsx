@@ -14,6 +14,10 @@ export const QuestionCardContainer = styled.article`
     display: flex;
     flex-direction: column;
   }
+
+  @media screen and (max-width: 480px) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const QuestionCardWrapper = styled.div`
@@ -21,7 +25,7 @@ export const QuestionCardWrapper = styled.div`
   padding: 15px 20px 10px 20px;
 
   @media screen and (max-width: 480px) {
-    width: 100%;
+    padding: 15px 12px 5px 12px;
   }
 `;
 

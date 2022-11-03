@@ -36,8 +36,7 @@ export const AnswerContainer = styled.div`
   padding: 15px 20px 10px 20px;
 
   @media screen and (max-width: 480px) {
-    margin-top: 20px;
-    padding: 0 20px;
+    padding: 15px 12px 10px 12px;
   }
   ${props => !props.isPreview && css`
     @media screen and (max-width: 480px) {
@@ -70,13 +69,24 @@ export const AnsweredMetadata = styled.div`
   position: relative;
   width: 100%;
   display: flex;
-  ${props => !props.isPreview && css`
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-  `}
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
 
   ${props => !props.hasJobTitle && css`
     align-items: center;
+
+    @media screen and (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  `}
+
+  ${props => !props.isPreview && css`
+    margin-bottom: 8px;
+    padding-bottom: 8px;
   `}
 `;
 

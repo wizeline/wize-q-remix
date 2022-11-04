@@ -1,5 +1,2 @@
-build/
-public/
-node_modules/
-.env
-.cache
+node_modules
+npm-debug.log

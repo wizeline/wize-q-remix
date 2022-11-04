@@ -1,46 +1,12 @@
-
-# Install all node_modules, including dev dependencies
-FROM node:14 as deps
-
-RUN mkdir /app
-WORKDIR /app
+FROM node:14.18.2
+WORKDIR /usr/server/app
 
 ADD package.json package-lock.json ./
-RUN npm install --production=false
+RUN npm install
 
-# Setup production node_modules
-FROM node:14 as production-deps
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY --from=deps /app/node_modules /app/node_modules
-ADD package.json package-lock.json ./
-RUN npm prune --production
-
-# Build the app
-FROM node:14 as build
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY --from=deps /app/node_modules /app/node_modules
-
-ADD . .
+COPY . .
 RUN npm run build
 
-# Finally, build the production image with minimal footprint
-FROM node:14
+RUN npx prisma generate
 
-ENV NODE_ENV=production
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY --from=production-deps /app/node_modules /app/node_modules
-#My build goes to /app/server/build and i'm running /server/index.js express
-COPY --from=build /app/build /app/build
-COPY --from=build /app/public /app/public
-ADD . .
-
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]

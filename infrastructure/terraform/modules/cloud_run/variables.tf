@@ -11,7 +11,7 @@ variable "short_sha" {
 }
 
 variable "cidr_range" {
-  default = "10.10.0.0/28"
+  default = "10.12.0.0/28"
   type    = string
 }
 

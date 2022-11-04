@@ -22,10 +22,6 @@ data "google_secret_manager_secret_version" "Slack_wizeq_domain" {
   secret = "${var.secret_prefix}_SLACK_WIZEQ_DOMAIN"
 }
 
-data "google_secret_manager_secret_version" "Db_host" {
-  secret = "${var.secret_prefix}_DB_HOST"
-}
-
 data "google_secret_manager_secret_version" "Db_name" {
   secret = "${var.secret_prefix}_DB_NAME"
 }

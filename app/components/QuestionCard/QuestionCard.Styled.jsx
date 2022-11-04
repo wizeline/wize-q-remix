@@ -22,10 +22,10 @@ export const QuestionCardContainer = styled.article`
 
 export const QuestionCardWrapper = styled.div`
   width: 100%;
-  padding: 15px 20px 10px 20px;
+  padding: 15px 20px 10px;
 
   @media screen and (max-width: 480px) {
-    padding: 15px 12px 5px 12px;
+    padding: 15px 12px 5px;
   }
 `;
 

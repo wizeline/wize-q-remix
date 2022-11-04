@@ -33,10 +33,10 @@ export const AnswerContainer = styled.div`
   width: 100%;
   background-color: #EDF5FF;
   border-radius: 0px 0px 15px 15px;
-  padding: 15px 20px 10px 20px;
+  padding: 15px 20px 10px;
 
   @media screen and (max-width: 480px) {
-    padding: 15px 12px 10px 12px;
+    padding: 15px 12px 10px;
   }
 `;
 

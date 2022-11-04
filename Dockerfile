@@ -1,16 +1,40 @@
-FROM node:14
-ENV NODE_ENV=development
+FROM base as deps
 
+RUN mkdir /app
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm cache clean --force
-RUN npm install
+ADD package.json package-lock.json ./
+RUN npm install --production=false
+
+FROM base as production-deps
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY --from=deps /app/node_modules /app/node_modules
+ADD package.json package-lock.json ./
+RUN npm prune --production
+
+FROM base as build
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY --from=deps /app/node_modules /app/node_modules
+
+ADD . .
 RUN npm run build
 
-# RUN npx prisma generate
+FROM base
 
-COPY . .
+ENV NODE_ENV=production
 
+RUN mkdir /app
+WORKDIR /app
+
+COPY --from=production-deps /app/node_modules /app/node_modules
+COPY --from=build /app/build /app/build
+COPY --from=build /app/public /app/public
+ADD . .
 
 CMD ["npm", "run", "start"]

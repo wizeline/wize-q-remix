@@ -8,7 +8,7 @@ steps:
     name: 'gcr.io/cloud-builders/docker'
     args: [ 'push', 'gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA' ]
   - id: 'Validate Terraform'
-    name: 'hashicorp/terraform:0.12.21'
+    name: 'hashicorp/terraform:1.3.2'
     entrypoint: 'sh'
     dir: '/workspace/infrastructure/terraform'
     timeout: 600s
@@ -20,7 +20,7 @@ steps:
         terraform validate
         terraform plan -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
   - id: 'Apply Terraform'
-    name: 'hashicorp/terraform:0.12.21'
+    name: 'hashicorp/terraform:1.3.2'
     entrypoint: 'sh'
     dir: '/workspace/infrastructure/terraform'
     args:

@@ -38,20 +38,6 @@ export const AnswerContainer = styled.div`
   @media screen and (max-width: 480px) {
     padding: 15px 12px 10px 12px;
   }
-  ${props => !props.isPreview && css`
-    @media screen and (max-width: 480px) {
-      padding: 0;
-      margin-top: 0;
-    }
-  `}
-  ${props => props.isQuestionModalOpen && css`
-    padding: 0;
-    ${AnswerRow} {
-      @media screen and (max-width: 480px) {
-        padding: 0;
-      }
-    }
-  `}
 `;
 
 export const AnsweredBy = styled.div`

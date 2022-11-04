@@ -1,7 +1,5 @@
-node_modules
-npm-debug.log
 build/
 public/
+node_modules/
 .env
 .cache
-.firebase

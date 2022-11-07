@@ -214,6 +214,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   
     return (
       <Styled.QuestionCommentContainer
+        hadApprover={commentData.approvedBy}
         isDeleting={isDeleting}
         isEditing={isEditing}
       >
@@ -247,7 +248,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
           }
         </Styled.QuestionCommentButtons>
         <Styled.QuestionCommentWrapper
-          hadApprover={commentData.approvedBy}
           isDeleting={isDeleting}
           isEditing={isEditing}
         >

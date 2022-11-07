@@ -11,6 +11,10 @@ export const QuestionCommentContainer = styled.div`
   padding-bottom: ${props => (!props.isDeleting ? '16px' : '10px')};
   display: flex;
   justify-content: space-between;
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
+  ${props => props.isDeleting && css`border: 1px solid #cd3140;`}
+  ${props => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
 
   ${QuestionerResponderName} {
     font-size: 15px;
@@ -120,14 +124,9 @@ export const QuestionCommentButtons = styled.div`
 `;
 
 export const QuestionCommentWrapper = styled.div`
-  background-color: #f7f7f7;
-  ${props => (props.isDeleting) && css`
-    border: 1px solid #cd3140;
-  `}
   border-radius: 15px;
   padding: 12px 15px;
   width: 93%;
-  ${props => props.hadApprover && css `background-color: var(--color-secondary-light);`}
 
   ${CommentInputTextArea} {
     @media screen and (max-width: 768px) {

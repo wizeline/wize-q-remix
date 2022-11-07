@@ -39,7 +39,7 @@ data "google_secret_manager_secret_version" "Db_user" {
 }
 
 data "google_secret_manager_secret_version" "Wizeq_url" {
-  secret = "${var.secret_prefix}_TEMP_WIZEQ_URL"
+  secret = "${var.secret_prefix}_WIZEQ_URL"
 }
 
 data "google_secret_manager_secret_version" "Session_secret" {

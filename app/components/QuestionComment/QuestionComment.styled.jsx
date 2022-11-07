@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
+import { BsFillCircleFill } from "react-icons/bs";
 import { ContainerCounterButton } from '~/components/CounterButton/CounterButton.Styled';
-import { QuestionerResponderName } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled'
 import { CommentInputTextArea } from '../CommentInput/CommentInput.styled';
 
 export const QuestionCommentContainer = styled.div`
@@ -15,10 +15,6 @@ export const QuestionCommentContainer = styled.div`
   box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
   ${props => props.isDeleting && css`border: 1px solid #cd3140;`}
   ${props => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
-
-  ${QuestionerResponderName} {
-    font-size: 15px;
-  }
 
   ${ContainerCounterButton} {
     :hover {
@@ -38,12 +34,17 @@ export const QuestionCommentContainer = styled.div`
 `;
 
 export const QuestionCommentMetadata = styled.div`
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-bottom: 5px;
   padding-bottom: 8px;
+
+  p {
+    display: flex;
+    margin: 0;
+  }
 `;
 
 export const QuestionCommentText = styled.div`
@@ -160,17 +161,12 @@ export const QuestionCommentDotsWrapper = styled.div`
 `;
 
 export const QuestionCommentDate = styled.div`
-  color: #757575;
   display: flex;
+  height: fit-content;
+  color: var(--color-dark-metadata);
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
-  justify-content: flex-end;
-  margin-top: 8px;
-  width: 100%;
-  ${props => ((props.hadApprover) && css `justify-content: space-between;`)};
-
-  em:first-child {
-    margin-right: 3px;
-  }
+  letter-spacing: 0.7px;
 `;
 
 
@@ -195,4 +191,11 @@ position: relative;
  &:hover ${CommentAsAnswerToolTipText} {
   visibility: visible;
  }
+`;
+
+
+export const CircleIcon = styled(BsFillCircleFill)`
+    font-size: 5px;
+    color: var(--color-dark-metadata);
+    margin: 0 5px;
 `;

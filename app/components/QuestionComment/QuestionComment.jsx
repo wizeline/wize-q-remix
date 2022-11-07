@@ -258,12 +258,22 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               userImgSize={'medium'}
               department={departmentTagContent}
               isAnswer={isAnswerTag}
-            />
+            >
+              <Styled.CircleIcon />
+              <Styled.QuestionCommentDate
+                isAdmin={props.isAdmin}
+                hadApprover={commentData.approvedBy}
+              >
+                {updatedAt && <em>{'edited'}</em>}
+                {getTimeDiff(updatedAt || createdAt)}
+              </Styled.QuestionCommentDate>
+              {(commentData.approvedBy !== null) && renderApproverName()}
+            </QuestionerResponderInfo>
             {canEdit && (
-            <Styled.QuestionCommentOptions>
-              {renderCommentOptions()}
-            </Styled.QuestionCommentOptions>
-          )}
+              <Styled.QuestionCommentOptions>
+                {renderCommentOptions()}
+              </Styled.QuestionCommentOptions>
+            )}
           </Styled.QuestionCommentMetadata>
           <Styled.QuestionCommentText isEditing={isEditing}>
             {!isEditing ? (
@@ -324,14 +334,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             </Styled.QuestionCommentDeleteConfirmation>
           )}
           </Styled.QuestionCommentText>
-          <Styled.QuestionCommentDate
-            isAdmin={props.isAdmin}
-            hadApprover={commentData.approvedBy}
-          >
-            {(commentData.approvedBy !== null) && renderApproverName()}
-            {updatedAt && <em>{'edited'}</em>}
-            {getTimeDiff(updatedAt || createdAt)}
-          </Styled.QuestionCommentDate>
         </Styled.QuestionCommentWrapper>
       </Styled.QuestionCommentContainer>
   

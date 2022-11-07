@@ -15,7 +15,7 @@ import { PRIMARY_BUTTON, LSPIN_SMALL } from "~/utils/constants";
 import * as Styled from "~/components/QuestionDetail/QuestionDetail.Styled";
 import Button from "~/components/Atoms/Button";
 import CounterButton from "~/components/CounterButton";
-import { QuestionCardActions } from "~/components/QuestionCard/QuestionCard.Styled";
+import { QuestionCardActions, QuestionCardContainer, QuestionCardWrapper, QuestionCardBorder } from "~/components/QuestionCard/QuestionCard.Styled";
 import QuestionRow from "~/components/QuestionRow";
 import AnswerModal from "~/components/Modals/AnswerModal/AnswerModal";
 import DeleteAnswerModal from "~/components/Modals/DeleteAnswerModal/DeleteAnswerModal";
@@ -143,44 +143,51 @@ function QuestionDetails(props) {
       isAdmin !== undefined ? (
         <Styled.QuestionDetail>
           <Styled.QuestionDetailHeader>
-            <QuestionRow question={question} isFromList={false} />
-            <QuestionCardActions
-              hasDetail
-              hasAnswer={question.Answer}
-              isQuestionModalOpen
-            >
-              {renderQuestionButtons()}
-              {shouldRenderAdminButtons(question, isAdmin) &&
-                renderAdminButtons({
-                  question,
-                  onAnswerClick: () => {
-                    setState({ ...state, showAnswerModal: true });
-                  },
-                  onAssignAnswerClick: () => {},
-                })}
-            </QuestionCardActions>
-            {renderAnswer({
-              Answer: question.Answer,
-              isAdmin,
-              currentUserEmail,
-              onAnswerClick: () => {
-                openAnswerModal(question);
-              },
-              openDeleteAnswerModal: () => {
-                openDeleteAnswerModal(question);
-              },
-              question,
-              isQuestionModalOpen: true,
-              isFromList: false,
-            })}
+            <QuestionCardContainer>
+              <QuestionCardWrapper>
+                <QuestionCardBorder>
+                  <QuestionRow question={question} isFromList={false} />
+                  <QuestionCardActions
+                    hasDetail
+                    hasAnswer={question.Answer}
+                    isQuestionModalOpen
+                  >
+                    {renderQuestionButtons()}
+                    {shouldRenderAdminButtons(question, isAdmin) &&
+                      renderAdminButtons({
+                        question,
+                        onAnswerClick: () => {
+                          setState({ ...state, showAnswerModal: true });
+                        },
+                        onAssignAnswerClick: () => {},
+                      })}
+                  </QuestionCardActions>
+                </QuestionCardBorder>
+              </QuestionCardWrapper>
+              {renderAnswer({
+                Answer: question.Answer,
+                isAdmin,
+                currentUserEmail,
+                onAnswerClick: () => {
+                  openAnswerModal(question);
+                },
+                openDeleteAnswerModal: () => {
+                  openDeleteAnswerModal(question);
+                },
+                question,
+                isQuestionModalOpen: true,
+                isFromList: false,
+              })}
+            </QuestionCardContainer>
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
-            {renderNumCommentsRow(question.Answer)}
             <QuestionCommentList
               questionId={parseInt(questionId, 10)}
               isAdmin={isAdmin}
               hasAnswer={question.Answer !== null}
-            />
+            >
+              {renderNumCommentsRow(question.Answer)}
+            </QuestionCommentList>
           </Styled.QuestionDetailBody>
           <Styled.QuestionDetailFooter
             className={writingCommentOnMobile ? "writing-mobile" : ""}

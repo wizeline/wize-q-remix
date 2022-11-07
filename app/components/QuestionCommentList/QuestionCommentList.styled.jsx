@@ -28,3 +28,8 @@ export const SortSelectorContainer = styled.div`
 export const SortSelectorText = styled.span`
   margin-top: 0.3em;
 `;
+
+export const CommentListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

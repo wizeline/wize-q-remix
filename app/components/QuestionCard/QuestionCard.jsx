@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import likeIcon from '~/images/ic_like.svg';
 import likeIconVoted from '~/images/ic_like_pressed.svg';
 import commentIcon from '~/images/ic_comment_non-selected.svg';
-import { addS } from '~/utils/stringOperations';
 import {
   renderAnswer,
 } from '~/utils/questionUtils';
@@ -49,7 +48,6 @@ const QuestionCard = (props) => {
           id={`like-button-${question.question_id}`}
           selected={question.hasVoted}
           icon={icon}
-          text={addS('Like', question.num_votes)}
           count={question.num_votes}
           onClick={() => onVoteClick(question)}
           processingFormSubmission={processingFormSubmission}
@@ -57,7 +55,6 @@ const QuestionCard = (props) => {
         <CounterButton
           id={`comments-button-${question.question_id}`}
           icon={commentIcon}
-          text={addS('Comment', question.numComments)}
           count={question.numComments}
           onClick={() => navigate(`/questions/${question.question_id}`)}
         />
@@ -79,8 +76,8 @@ const QuestionCard = (props) => {
             {renderButtons()}
           </Styled.QuestionCardActions>
         </Styled.QuestionCardBorder>
-        {renderAnswer(renderAnswerProps)}
       </Styled.QuestionCardWrapper>
+      {renderAnswer(renderAnswerProps)}
     </Styled.QuestionCardContainer>
   );
 };

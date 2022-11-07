@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { BsFillCircleFill, BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -9,9 +10,6 @@ export const QuestionRowContainer = styled.div`
     padding-botton: 8px;
     width: 100%;
     position: relative;
-    @media screen and (max-width: 480px) {
-      padding: 0 20px;
-    }
     ${props => props.isQuestionModalOpen && css`
         @media screen and (max-width: 480px) {
           padding: 0 10px;
@@ -25,9 +23,6 @@ export const QuestionRowMetadataTop = styled.div`
   justify-content: space-between;
   margin-bottom: 17px;
   width: 100%;
-  @media screen and (max-width: 480px) {
-    padding: 24px 0 0;
-  }
 `;
 
 export const QuestionRowOptions = styled.div`
@@ -45,8 +40,6 @@ export const QuestionRowOptions = styled.div`
 `;
 
 export const PinQuestionIconHolder = styled.span`
-  margin-right: 25px;
-  margin-top: 8px;
   float: right;
   display: block;
   position: relative;
@@ -59,16 +52,13 @@ export const PinQuestionIconHolder = styled.span`
 `;
 
 
-export const PinActionableIconHolder = styled.img`
-  margin-right: 0px;
-  margin-top: 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  float: right;
-  height: 16px;
-  width: 16px;
-  filter: invert(28%) sepia(8%) saturate(331%) hue-rotate(169deg) brightness(97%) contrast(82%);
+export const PinActionableIconHolder = styled(BsPinFill)`
+  font-size: 15px;
+  color: var(--color-dark-25);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const PinTooltipMessage = styled.span`
@@ -92,16 +82,13 @@ export const PinTooltipMessage = styled.span`
 `
 
 
-export const UnpinActionableIconHolder = styled.img`
-  margin-right: 0px;
-  margin-top: 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  float: right;
-  height: 16px;
-  width: 16px;
-  filter: invert(72%) sepia(70%) saturate(2758%) hue-rotate(178deg) brightness(103%) contrast(106%);
+export const UnpinActionableIconHolder = styled(BsPinFill)`
+  font-size: 15px;
+  color: var(--color-secondary);
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const PinnedIndicator = styled.span`
@@ -109,21 +96,12 @@ export const PinnedIndicator = styled.span`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-end;
   height: fit-content;
 
-  > img {
-    display: block;
-    display: block;
-    margin-left: 5px;
-    margin-right: auto;
-    float: right;
-    height: 12px;
-    width: 12px;
-    filter: invert(95%) sepia(6%) saturate(18%) hue-rotate(201deg) brightness(89%) contrast(91%);
-  }
   > span {
     min-width: 80px;
-    color: var(--color-dark-25);
+    color: var(--color-dark-metadata);
     font-family: "Nunito", sans-serif;
     font-size: 11px;
     letter-spacing: 0.7px;
@@ -131,6 +109,12 @@ export const PinnedIndicator = styled.span`
       font-size: 9px;
       letter-spacing: 0.7px;
     }
+`;
+
+export const PinnedIcon = styled(BsFillPinAngleFill)`
+  color: var(--color-dark-metadata);
+  margin-left: 4px;
+  font-size: 12px;
 `;
 
 export const QuestionRowWrapper = styled.div`
@@ -146,11 +130,13 @@ export const QuestionRowContent = styled.div`
 export const QuestionRowMetadataBottom = styled.div`
   color: var(--color-dark-25);
   display: flex;
+  align-items: flex-end;
   font-family: "Nunito", sans-serif;
   font-size: 12px;
+  font-weight: 600;
   justify-content: space-between;
   letter-spacing: 0.7px;
-  margin-top: 8px;
+  margin-top: 20px;
   margin-bottom: 8px;
   width: 100%;
 `;
@@ -177,20 +163,24 @@ export const QuestionRowLine = styled.div`
     `}
 `;
 
+export const CircleIcon = styled(BsFillCircleFill)`
+    font-size: 5px;
+    color: var(--color-dark-metadata);
+    margin: 0 5px;
+`;
+
 export const QuestionRowDate = styled.div`
     display: flex;
     height: fit-content;
-    color: var(--color-dark-25);
+    color: var(--color-dark-metadata);
     font-family: "Nunito", sans-serif;
     font-size: 12px;
     letter-spacing: 0.7px;
-    margin-bottom: 10px;
 `;
 
 export const RightWrapper = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: end;
+    padding-top: 5px;
 `;
 
 export const QuestionRowMetadataSectionOne = styled.div`
@@ -198,8 +188,9 @@ export const QuestionRowMetadataSectionOne = styled.div`
     align-items: center;
 `;
 
-export const LocationWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    margin-right: 5px;
+
+export const QuestionId = styled.span`
+  font-size: 12px;
+  color: var(--color-dark-metadata);
+  font-weight: 500;
 `;

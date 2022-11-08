@@ -1,12 +1,10 @@
 import PropTypes from 'prop-types';
 import { formatCollapsingText } from '~/utils/stringOperations';
-import { getFormattedDate } from '~/utils/dateFormat';
 import { renderDepartment } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
-import { HiOutlineLocationMarker } from 'react-icons/hi';
-import pinIcon from '~/images/ic_pin.svg';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
+import Label from '~/components/Atoms/Label';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import QuestionMarkdown from '~/components/QuestionMarkdown';
 import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
@@ -14,6 +12,7 @@ import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
 import { useRef } from 'react';
 import { ACTIONS } from '~/utils/actions';
+
 
 
 const renderLocation = (location, locations) => {
@@ -67,41 +66,34 @@ const QuestionRow = (props) => {
   const adminPinButton = (profile.is_admin && !question.is_pinned)
     ? (
       <Styled.PinQuestionIconHolder onClick={onPinChange} >
-        <Styled.PinActionableIconHolder src={pinIcon} alt="Icon" />
+        <Styled.PinActionableIconHolder />
         <Styled.PinTooltipMessage>Pin question to the top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>)
     : (
       <Styled.PinQuestionIconHolder onClick={onPinChange} className="pin-tooltip" >
-        <Styled.UnpinActionableIconHolder src={pinIcon} alt="Icon" />
+        <Styled.UnpinActionableIconHolder />
         <Styled.PinTooltipMessage>Unpin question from top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>);
 
   const nonAdminPinIndicator = (!profile.is_admin && question.is_pinned) && (
     <Styled.PinnedIndicator>
-      <span>Pinned by admin</span> <img src={pinIcon} alt="Icon" />
+      <span>Pinned by admin</span> <Styled.PinnedIcon />
     </Styled.PinnedIndicator>);
-
-  const renderIcon = () => (
-    <div>
-      <HiOutlineLocationMarker />
-    </div>
-  );
 
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
-          <QuestionResponderInfo
-            department={renderDepartment(question.Department)}
-            createdBy={question.created_by}
-          />
+            <QuestionResponderInfo createdBy={question.created_by}>
+              <Styled.CircleIcon />
+              <Styled.QuestionRowDate>
+                <em>{isUpdated && ' (edited)'}</em>
+                {getDateData(question.createdAt)}
+              </Styled.QuestionRowDate>
+            </QuestionResponderInfo>
         </ConditionalLinkTo>
         <Styled.QuestionRowLine isQuestionModalOpen={isQuestionModalOpen} hasAnswer={hasAnswer} />
         <Styled.RightWrapper>
-          <Styled.QuestionRowDate>
-            <em>{isUpdated && ' (edited)'}</em>
-            {getDateData(question.createdAt)}
-          </Styled.QuestionRowDate>
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
         </Styled.RightWrapper>      </Styled.QuestionRowMetadataTop>
       <Styled.QuestionRowWrapper hasAnswer={hasAnswer} isQuestionModalOpen={isQuestionModalOpen}>
@@ -121,16 +113,12 @@ const QuestionRow = (props) => {
         {children}
         <Styled.QuestionRowMetadataBottom>
           <Styled.QuestionRowMetadataSectionOne>
-            <Styled.LocationWrapper>
-              {renderIcon()}
-              {`${renderLocation(question.location, locations)}`}
-            </Styled.LocationWrapper>
-            {`| Question ID: Q${question.question_id}`}
+            <Label text={renderLocation(question.location, locations)} type={'Location'}/>
+            <Label text={renderDepartment(question.Department)} type={'Department'}/>
           </Styled.QuestionRowMetadataSectionOne>
-          <div>
-            <em>{isUpdated && ' (edited)'}</em>
-            {getFormattedDate(question.createdAt)}
-          </div>
+          <Styled.QuestionId>
+            {`Question ID: Q${question.question_id}`}
+          </Styled.QuestionId>
         </Styled.QuestionRowMetadataBottom>
         <Styled.QuestionRowBorderBottom />
       </Styled.QuestionRowWrapper>

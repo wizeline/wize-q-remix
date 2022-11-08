@@ -26,10 +26,10 @@ export const ContainerCounterButton = styled.button`
   display: inline-flex;
   flex-direction: row;
   font-family: "Nunito", sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   justify-content: center;
-  padding: 8px 10px;
+  padding: 3px 7px;
   transition: all 0.3s ease-in-out;
   :hover {
     background-color: #f4f7f9;

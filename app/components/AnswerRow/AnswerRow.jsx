@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getFormattedDate } from '~/utils/dateFormat';
+import { getDateData } from '~/utils/timeOperations';
 import { showCollapseOrExpandMessage, formatCollapsingText } from '~/utils/stringOperations';
 import { markdownFormat } from '~/utils/markdownFormatQuestions';
 import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '~/utils/constants';
@@ -11,6 +11,7 @@ import MarkdownLinkRenderer from '~/components/MarkdownLinkRenderer';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
+import Label from '~/components/Atoms/Label';
 
 function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
@@ -41,15 +42,18 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const { user, createdAt, children } = props;
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
-      <Styled.AnsweredMetadata isPreview={isPreview}>
+      <Styled.AnsweredMetadata isPreview={isPreview} hasJobTitle={user.job_title}>
         <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
         <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
         <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
-          <QuestionResponderInfo department={'Best Answer'} createdBy={user} isAnswer />
+          <QuestionResponderInfo createdBy={user} isAnswer>
+            <Styled.CircleIcon />
+            <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
+              {getDateData(createdAt)}
+            </Styled.AnswerRowDate>
+          </QuestionResponderInfo>
         </ConditionalLinkTo>
-        <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
-          {getFormattedDate(createdAt)}
-        </Styled.AnswerRowDate>
+        <Label type={'Answer'} text={'Best Answer'} />
         {children}
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}

@@ -12,7 +12,7 @@ export const createQuestionSchema = Joi.object().keys({
   assigned_department: Joi.number().integer().min(1).allow(null),
 });
 
-export const modifyQuestionPinStatusParms = Joi.object().keys({
+export const modifyQuestionPinStatusParams = Joi.object().keys({
   questionId: Joi.number().integer().required().min(1),
   newPinStatus: Joi.boolean().required(),
 });

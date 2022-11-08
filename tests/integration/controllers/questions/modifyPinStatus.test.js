@@ -77,7 +77,7 @@ describe("questions controller", () => {
       expect(response.error).toBeUndefined();
       expect(response.success).toBeDefined();
       expect(response.question).toBeDefined();
-      expect(response.success).toBe('The question has been pinned');
+      expect(response.success).toContain('The question has been pinned');
       expect(response.question.is_pinned).toBeDefined();
       expect(response.question.is_pinned).toBe(true);
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
@@ -88,7 +88,7 @@ describe("questions controller", () => {
       expect(response.error).toBeUndefined();
       expect(response.success).toBeDefined();
       expect(response.question).toBeDefined();
-      expect(response.success).toBe('The question has been pinned');
+      expect(response.success).toContain('The question has been pinned');
       expect(response.question.is_pinned).toBeDefined();
       expect(response.question.is_pinned).toBe(true);
       expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));

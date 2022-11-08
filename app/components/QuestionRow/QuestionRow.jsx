@@ -50,6 +50,10 @@ const QuestionRow = (props) => {
       url = `/questions/${question.question_id}`
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    } else {
+      searchParams.forEach((value, key) => {
+        url += value ? `&${key}=${value}` : '';
+      });
     }
     const newPinStatusValue = question.is_pinned ? 'false' : 'true';
     const data = new FormData(pinForm.current);

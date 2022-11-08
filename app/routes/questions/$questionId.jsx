@@ -17,6 +17,8 @@ import { updateAnswer } from "~/controllers/answers/update";
 import { deleteAnswer } from "~/controllers/answers/delete";
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
+import { assignQuestion } from "~/controllers/questions/assignQuestion";
+import { listDepartments } from '~/controllers/departments/list';
 
 
 export const loader = async ({request, params}) => {
@@ -25,9 +27,12 @@ export const loader = async ({request, params}) => {
   const { questionId } = params
   const {question} = await getQuestionById( parseInt(questionId,10), user);
   const locations = await listLocations();
+  const departments = await listDepartments();
+
   return json({
     question,
     locations,
+    departments,
   });
 }
 
@@ -68,6 +73,13 @@ export const action = async ({ request }) => {
         answer_id: parseInt(formData.get("answerId")),
       };
       response = await deleteAnswer(deleteAnswerBody);
+      break;
+    case ACTIONS.ASSIGN_QUESTION:
+      const assignQuestionBody = {
+        question_id: parseInt(formData.get("questionId")),
+        assigned_department: parseInt(formData.get("assigned_department")),
+      };
+      response = await assignQuestion(assignQuestionBody);
       break;
   }
 

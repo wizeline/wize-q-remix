@@ -1,6 +1,5 @@
 import {useState} from 'react';
-import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc';
-import { BsThreeDotsVertical, BsCheckCircle, BsCircle } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsCheckCircle, BsCircle, BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as Styled from './QuestionComment.styled';
 import CounterButton from '../CounterButton';
@@ -146,9 +145,21 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       setUpdatedComment(comment);
     };
   
-    const renderArrowIcon = direction => (direction === 'up' ?
-      (<VscTriangleUp size={'1.5em'} color={!upVoteActive ? 'grey' : '#72d8b6'} />) :
-      (<VscTriangleDown size={'1.5em'} color={!downVoteActive ? 'grey' : 'var(--color-primary)'} />));
+    const renderArrowIcon = direction => {
+      if(direction === 'up'){
+        return (
+          <Styled.ArrowUp upVoteActive={upVoteActive}>
+            <BsArrowUpCircle size={'1.8em'} color={upVoteActive ? 'var(--color-green)' : 'var(--color-dark-metadata)'}/>
+          </Styled.ArrowUp>
+        );
+      } else {
+        return (
+          <Styled.ArrowDown downVoteActive={downVoteActive}>
+            <BsArrowDownCircle size={'1.8em'} color={downVoteActive ? 'var(--color-primary)' : 'var(--color-dark-metadata)'}/>
+          </Styled.ArrowDown>
+        );
+      }
+    }
   
     const renderCommentOptions = () => (
       <div ref={wrapperRef}>
@@ -226,7 +237,9 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             count={' '}
             onClick={upVoteF}
           />
-          <Styled.QuestionCommentCounterSpan>{upVote}</Styled.QuestionCommentCounterSpan>
+          <Styled.QuestionCommentCounterSpan upVoteActive={upVoteActive} downVoteActive={downVoteActive}>
+            {upVote}
+          </Styled.QuestionCommentCounterSpan>
           <CounterButton
             selected={downVoteActive}
             icon={renderArrowIcon('down')}

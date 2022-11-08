@@ -10,9 +10,11 @@ export const QuestionCommentContainer = styled.div`
   width: 100%;
   padding-bottom: ${props => (!props.isDeleting ? '16px' : '10px')};
   display: flex;
+  flex-direction: column-reverse;
   justify-content: space-between;
   background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
+  padding: 15px 20px 10px;
   ${props => props.isDeleting && css`border: 1px solid #cd3140;`}
   ${props => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
 
@@ -118,16 +120,15 @@ export const QuestionCommentShowMore = styled.span`
 export const QuestionCommentButtons = styled.div`
   align-items: center;
   display: flex;
-  flex-direction: column;
   justify-content: flex-start;
-  width: 5%;
+  margin-top: 15px;
+  width: fit-content;
     
 `;
 
 export const QuestionCommentWrapper = styled.div`
   border-radius: 15px;
-  padding: 12px 15px;
-  width: 93%;
+  width: 100%;
 
   ${CommentInputTextArea} {
     @media screen and (max-width: 768px) {
@@ -154,6 +155,14 @@ export const QuestionCommentCounterSpan = styled.span`
   display: flex;
   justify-content: center;
   width: 100%;
+
+  ${props => (props.upVoteActive && `
+    color: var(--color-green);
+  `)};
+
+  ${props => (props.downVoteActive && `
+    color: var(--color-primary);
+  `)};
 `;
 
 export const QuestionCommentDotsWrapper = styled.div`
@@ -198,4 +207,26 @@ export const CircleIcon = styled(BsFillCircleFill)`
     font-size: 5px;
     color: var(--color-dark-metadata);
     margin: 0 5px;
+`;
+
+export const ArrowUp = styled.div`
+  border-radius: 50%;
+  height: 1.8em;
+  width: 1.8em;
+  margin-right: 5px;
+
+  ${props => (props.upVoteActive && `
+    background-color: var(--color-green-bg);
+  `)};
+`;
+
+export const ArrowDown = styled.div`
+  border-radius: 50%;
+  height: 1.8em;
+  width: 1.8em;
+  margin-left: 5px;
+
+  ${props => (props.downVoteActive && `
+    background-color: var(--color-primary-lowOpacity);
+  `)};
 `;

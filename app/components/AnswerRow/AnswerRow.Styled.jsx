@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
+import { BsFillCircleFill } from "react-icons/bs";
 
 export const AnswerRow = styled.div` 
   font-family: 'Nunito', sans-serif;
   font-size: 14px;
   letter-spacing: 0.6px;
   line-height: 1.71;
+  width: 100%;
 `;
 
 export const AnswerMarkdown = styled(Markdown)`
@@ -29,26 +31,13 @@ export const AnswerMarkdown = styled(Markdown)`
 
 export const AnswerContainer = styled.div`
   width: 100%;
-  margin-top: 20px;
+  background-color: #EDF5FF;
+  border-radius: 0px 0px 15px 15px;
+  padding: 15px 20px 10px;
 
   @media screen and (max-width: 480px) {
-    margin-top: 20px;
-    padding: 0 20px;
+    padding: 15px 12px 10px;
   }
-  ${props => !props.isPreview && css`
-    @media screen and (max-width: 480px) {
-      padding: 0;
-      margin-top: 0;
-    }
-  `}
-  ${props => props.isQuestionModalOpen && css`
-    padding: 0;
-    ${AnswerRow} {
-      @media screen and (max-width: 480px) {
-        padding: 0;
-      }
-    }
-  `}
 `;
 
 export const AnsweredBy = styled.div`
@@ -62,25 +51,46 @@ export const AnsweredMetadata = styled.div`
   align-items: flex-start;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
   margin-bottom: 17px;
   position: relative;
+  width: 100%;
+  display: flex;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  ${props => !props.hasJobTitle && css`
+    align-items: center;
+
+    @media screen and (max-width: 480px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  `}
+
   ${props => !props.isPreview && css`
     margin-bottom: 8px;
     padding-bottom: 8px;
   `}
 `;
 
+export const CircleIcon = styled(BsFillCircleFill)`
+    font-size: 5px;
+    color: var(--color-dark-metadata);
+    margin: 0 5px;
+`;
+
 export const AnswerRowDate = styled.div`
-  color: var(--color-dark-25);
+  color: var(--color-dark-metadata);
   display: flex;
   flex-direction: column;
-  font-family: "Nunio",sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 12px;
   align-items: end;
   letter-spacing: 0.7px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-right: 8px;
 `;
 
 export const AnswerRowLineVertical = styled.div`

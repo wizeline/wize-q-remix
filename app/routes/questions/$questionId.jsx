@@ -6,7 +6,7 @@ import Button from '~/components/Atoms/Button';
 import QuestionDetail from "~/components/QuestionDetail";
 import Notifications from "~/components/Notifications";
 import { useNavigate } from 'react-router-dom';
-import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION } from '~/utils/constants'
+import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION, DEFAULT_QUESTION_COMMENT_SORTING } from '~/utils/constants'
 import { requireAuth, getAuthenticatedUser } from "~/session.server";
 import { getQuestionById } from "~/controllers/questions/getQuestionById";
 import { listLocations } from "~/controllers/locations/list";
@@ -15,24 +15,59 @@ import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
 import { createAnswer } from "~/controllers/answers/create";
 import { updateAnswer } from "~/controllers/answers/update";
 import { deleteAnswer } from "~/controllers/answers/delete";
+import { listComments } from '~/controllers/comments/list';
+import { createComment } from '~/controllers/comments/create';
+import { updateComment } from '~/controllers/comments/update';
+import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
+import { deleteComment } from '~/controllers/comments/delete';
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
 import { assignQuestion } from "~/controllers/questions/assignQuestion";
 import { listDepartments } from '~/controllers/departments/list';
 
+const replacer = (key, value) => { 
+return typeof value === "bigint" ?  value.toString() : value};
+
+const jsonCustom = (data, init ={}) =>{
+  let responseInit = typeof init === "number" ? {
+    status: init
+  } : init;
+  let headers = new Headers(responseInit.headers);
+
+  if (!headers.has("Content-Type")) {
+    headers.set("Content-Type", "application/json; charset=utf-8");
+  }
+
+  return new Response(JSON.stringify(data,replacer), { ...responseInit,
+    headers
+  });
+}
 
 export const loader = async ({request, params}) => {
   await requireAuth(request);
   const user = await getAuthenticatedUser(request);
+  const url = new URL(request.url);
+  const order = url.searchParams.get("order");
+
   const { questionId } = params
   const {question} = await getQuestionById( parseInt(questionId,10), user);
   const locations = await listLocations();
   const departments = await listDepartments();
 
-  return json({
+  const parametros = {
+    questionId: parseInt(questionId,10), 
+    userEmail: user.email, 
+    userId: user.id , 
+    sortBy: order !== undefined && order !== null ? order : DEFAULT_QUESTION_COMMENT_SORTING, 
+    sessionToken: user.accessToken
+  }
+  const {comments} = await listComments(parametros);
+
+  return jsonCustom({
     question,
     locations,
     departments,
+    comments, 
   });
 }
 
@@ -42,6 +77,7 @@ export const action = async ({ request }) => {
   const action = formData.get("action");
   let response;
 
+  const user = await getAuthenticatedUser(request);
   switch (action) {
     case ACTIONS.PINNIN:
       const questionId = parseInt(formData.get("questionId"));
@@ -81,8 +117,26 @@ export const action = async ({ request }) => {
       };
       response = await assignQuestion(assignQuestionBody);
       break;
+    case ACTIONS.CREATE_COMMENT:
+      const commentToSubmit = JSON.parse(formData.get("commentToSubmit"));
+      response = await createComment(commentToSubmit);
+     break;
+     case ACTIONS.UPDATE_COMMENT:
+      const newCommentData = JSON.parse(formData.get("newCommentData"));
+      response = await updateComment(newCommentData);
+     break;
+     case ACTIONS.VOTE_COMMENT:
+      const comment_id = parseInt(formData.get('comment_id'));
+      const vote = parseInt(formData.get('value'));
+      response = await upsertCommentVote({comment_id, value: vote, user: user.id})
+      break;
+     case ACTIONS.DELETE_COMMENT:
+      const commentId = parseInt(formData.get('comment_id'));
+      const accessToken = user.accessToken;
+      const userEmail = user.email;
+      response = await deleteComment({commentId, accessToken, userEmail});
+     break;
   }
-
   return json(response);
 }
 

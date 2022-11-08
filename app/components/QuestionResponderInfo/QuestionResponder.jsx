@@ -5,8 +5,6 @@ import UserImage from '~/components/Atoms/UserImage';
 import { ANONYMOUS_USER } from '~/utils/constants';
 
 function QuestionerResponderInfo(props) {
-  const { department, isAnswer } = props;
-
   const renderName = (createdBy) => {
     if (createdBy && createdBy.full_name) {
       return createdBy.full_name;
@@ -28,26 +26,23 @@ function QuestionerResponderInfo(props) {
     return '';
   };
 
-  const renderDepartment = () => (department &&
-      (<Styled.QuestionResponderDepartment isAnswer={isAnswer} department={department}>
-        {props.department}
-      </Styled.QuestionResponderDepartment>));
-
-  const { createdBy } = props;
+  const { children, createdBy } = props;
   const fullName = renderName(createdBy);
   const jobTitle = renderJobTitle(createdBy);
   const profilePicture = renderProfilePicture(createdBy);
   return (
     <Styled.QuestionerResponderContainer>
       <UserImage src={profilePicture} size={props.userImgSize} />
-      <Styled.QuestionerResponderInfoContainer>
-        <Styled.QuestionerResponderName>
-          {fullName}
-        </Styled.QuestionerResponderName>
+      <Styled.QuestionerResponderInfoContainer hasJobTitle={jobTitle}>
+        <Styled.TopContainer>
+          <Styled.QuestionerResponderName>
+            {fullName}
+          </Styled.QuestionerResponderName>
+          {children}
+        </Styled.TopContainer>
         <Styled.QuestionerResponderJobTitle>
           {jobTitle}
         </Styled.QuestionerResponderJobTitle>
-        {renderDepartment()}
       </Styled.QuestionerResponderInfoContainer>
     </Styled.QuestionerResponderContainer>
   );
@@ -58,10 +53,10 @@ QuestionerResponderInfo.defaultProps = {
     full_name: ANONYMOUS_USER.username,
     profile_picture: ANONYMOUS_USER.profilePicture,
   },
-  userImgSize: 'big',
+  userImgSize: 'medium',
   circumstance: '',
-  department: null,
   isAnswer: false,
+  children: null,
 };
 
 QuestionerResponderInfo.propTypes = {
@@ -70,8 +65,8 @@ QuestionerResponderInfo.propTypes = {
     profile_picture: PropTypes.string.isRequired,
   }),
   userImgSize: PropTypes.string,
-  department: PropTypes.string,
   isAnswer: PropTypes.bool,
+  children: PropTypes.node,
 };
 
 export default QuestionerResponderInfo;

@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useSubmit, useTransition } from "@remix-run/react";
+import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import likeIcon from "~/images/ic_like.svg";
@@ -24,6 +24,8 @@ import logomark from "~/images/logomark_small.png";
 import { useUser } from "~/utils/hooks/useUser";
 import { ACTIONS } from "~/utils/actions";
 import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
+import QuestionCommentList  from '~/components/QuestionCommentList';
+import CommentInput from '~/components/CommentInput/CommentInput';
 
 function QuestionDetails(props) {
   const submit = useSubmit();
@@ -42,6 +44,7 @@ function QuestionDetails(props) {
 
   const [state, setState] = useState(initialState);
   const [writingCommentOnMobile, setWritingCommentOnMobile] = useState(false);
+  const [searchParams] = useSearchParams();
 
   const { questionId } = useParams();
 
@@ -58,9 +61,12 @@ function QuestionDetails(props) {
       data.set("action", ACTIONS.VOTE_QUESTION);
       data.set("questionId", question.question_id);
       data.set("user", JSON.stringify(profile));
+      let url = `/questions/${question.question_id}`;
+      const urlSearchParam = searchParams.get('order');
+      url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
       submit(data, {
         method: "post",
-        action: `/questions/${question.question_id}`,
+        action: url,
       });
     };
 
@@ -198,6 +204,11 @@ function QuestionDetails(props) {
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
             {renderNumCommentsRow(question.Answer)}
+            <QuestionCommentList
+              questionId={parseInt(questionId, 10)}
+              isAdmin={isAdmin}
+              hasAnswer={question.Answer !== null}
+            />
           </Styled.QuestionDetailBody>
           <Styled.QuestionDetailFooter
             className={writingCommentOnMobile ? "writing-mobile" : ""}
@@ -210,8 +221,14 @@ function QuestionDetails(props) {
               }
               onClick={addComment}
             >
-              Add Comment
-            </Button>
+                Add Comment
+              </Button>
+              <CommentInput
+              isWritingCommentMobile={writingCommentOnMobile}
+              setWritingCommentOnMobile={setWritingCommentOnMobile}
+              questionId={parseInt(questionId, 10)}
+            />
+
           </Styled.QuestionDetailFooter>
         </Styled.QuestionDetail>
       ) : (

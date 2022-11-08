@@ -1,10 +1,11 @@
 import {listComments} from '~/controllers/comments/list';
 import {INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE} from '~/utils/constants';
+import { randomAccessToken } from "./../../../utils";
 
 describe("listComments", ()=> {
 
     it('return the comments list according with the question Id',async() => {
-        const response = await listComments({questionId: 10});
+        const response = await listComments({questionId: 2, sessionToken: randomAccessToken()});
         expect(response).toBeDefined();
         expect(response.comments).toBeDefined(); 
         expect(response.comments.length).toBe(3);  

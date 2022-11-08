@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useSubmit, useTransition } from "@remix-run/react";
+import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
 import PropTypes from 'prop-types';
 import Button from '~/components/Atoms/Button/Button';
 import { ACTIONS } from "~/utils/actions";
@@ -20,6 +20,7 @@ function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
   const submit = useSubmit();
   const transition = useTransition();
   const deleteAnswerForm = useRef();
+  const [searchParams] = useSearchParams();
 
   const onDeleteAnswer = () => {
     if (transition.state !== "idle") {
@@ -31,10 +32,13 @@ function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
     data.set("answerId", question.Answer.answer_id);
 
     onClose();
+    let url = `/questions/${question.question_id}`;
+    const urlSearchParam = searchParams.get('order');
+    url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
 
     submit(data, {
         method: "post",
-        action: `/questions/${question.question_id}`,
+        action: url,
     });
 
   };

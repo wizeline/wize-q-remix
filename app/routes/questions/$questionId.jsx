@@ -22,6 +22,8 @@ import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
 import { deleteComment } from '~/controllers/comments/delete';
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
+import { assignQuestion } from "~/controllers/questions/assignQuestion";
+import { listDepartments } from '~/controllers/departments/list';
 
 const replacer = (key, value) => { 
 return typeof value === "bigint" ?  value.toString() : value};
@@ -50,6 +52,8 @@ export const loader = async ({request, params}) => {
   const { questionId } = params
   const {question} = await getQuestionById( parseInt(questionId,10), user);
   const locations = await listLocations();
+  const departments = await listDepartments();
+
   const parametros = {
     questionId: parseInt(questionId,10), 
     userEmail: user.email, 
@@ -62,6 +66,7 @@ export const loader = async ({request, params}) => {
   return jsonCustom({
     question,
     locations,
+    departments,
     comments, 
   });
 }
@@ -104,6 +109,13 @@ export const action = async ({ request }) => {
         answer_id: parseInt(formData.get("answerId")),
       };
       response = await deleteAnswer(deleteAnswerBody);
+      break;
+    case ACTIONS.ASSIGN_QUESTION:
+      const assignQuestionBody = {
+        question_id: parseInt(formData.get("questionId")),
+        assigned_department: parseInt(formData.get("assigned_department")),
+      };
+      response = await assignQuestion(assignQuestionBody);
       break;
     case ACTIONS.CREATE_COMMENT:
       const commentToSubmit = JSON.parse(formData.get("commentToSubmit"));

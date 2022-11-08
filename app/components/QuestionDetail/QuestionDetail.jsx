@@ -23,6 +23,7 @@ import Loader from "~/components/Loader";
 import logomark from "~/images/logomark_small.png";
 import { useUser } from "~/utils/hooks/useUser";
 import { ACTIONS } from "~/utils/actions";
+import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
 import QuestionCommentList  from '~/components/QuestionCommentList';
 import CommentInput from '~/components/CommentInput/CommentInput';
 
@@ -98,6 +99,13 @@ function QuestionDetails(props) {
       <Styled.NumComments>{question.numComments} Comments</Styled.NumComments>
     );
 
+  const openAssignAnswerModal = () => {
+    setState({
+      ...state,
+      showAssignAnswerModal: true,
+    });
+  };
+
   const openAnswerModal = () => {
     setState({
       ...state,
@@ -124,7 +132,7 @@ function QuestionDetails(props) {
   };
 
   const answerModal = state.showAnswerModal ? (
-    <AnswerModal question={question} onClose={handleAnswerModalClose} />
+    <AnswerModal question={question} onClose={handleAnswerModalClose} openAssignAnswerModal={openAssignAnswerModal}/>
   ) : null;
 
   const deleteAnswerModal = state.showDeleteAnswerModal ? (
@@ -135,6 +143,26 @@ function QuestionDetails(props) {
   ) : null;
 
   const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+  const handleAssignAnswerModalClose = () => {
+    setState({ ...state, showAssignAnswerModal: false });
+  };
+  const handleAssignAnswerModalSubmitSuccess = () => {
+    setState({
+      ...state,
+      showAssignAnswerModal: false,
+      showAnswerModal: false,
+    });
+  };
+  const assignAnswerModal = state.showAssignAnswerModal ? (
+    <AssignAnswerModal
+      question={question}
+      onClose={handleAssignAnswerModalClose}
+      onSubmitSuccess={handleAssignAnswerModalSubmitSuccess}
+    />
+      ) : null;
+
+  
 
   return (
     <Styled.Container>
@@ -156,7 +184,7 @@ function QuestionDetails(props) {
                   onAnswerClick: () => {
                     setState({ ...state, showAnswerModal: true });
                   },
-                  onAssignAnswerClick: () => {},
+                  onAssignAnswerClick: () => { openAssignAnswerModal(question) },
                 })}
             </QuestionCardActions>
             {renderAnswer({
@@ -208,6 +236,7 @@ function QuestionDetails(props) {
       )}
       {answerModal}
       {deleteAnswerModal}
+      {assignAnswerModal}
     </Styled.Container>
   );
 }

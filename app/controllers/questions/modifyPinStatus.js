@@ -1,9 +1,9 @@
 import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE, QUESTION_NOT_FOUND_ERROR_MESSAGE } from "~/utils/constants";
-import { modifyQuestionPinStatusParms } from "~/utils/backend/validators/question";
+import { modifyQuestionPinStatusParams } from "~/utils/backend/validators/question";
 import { db } from "~/utils/db.server";
 
 export const modifyPinStatus = async (questionId, newPinStatus) => {
-  const { error, value } = modifyQuestionPinStatusParms.validate({
+  const { error, value } = modifyQuestionPinStatusParams.validate({
     questionId,
     newPinStatus,
   });
@@ -23,7 +23,7 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
       data: { is_pinned: value.newPinStatus },
     });
     return {
-      success: `The question has been ${updatedQuestion.is_pinned ? 'pinned' : 'unpinned'}`,
+      success: `The question has been ${updatedQuestion.is_pinned ? 'pinned' : 'unpinned'}.`,
       question: updatedQuestion,
     }
 

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { BsThreeDotsVertical, BsCheckCircle, BsCircle, BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsCheckCircle, BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as Styled from './QuestionComment.styled';
 import CounterButton from '../CounterButton';
@@ -186,14 +186,10 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     );
   
     const renderButtonOption = () => {
-      let color = '#A7A5A5';
       if (props.hasCommentAsAnswer && commentData.approvedBy !== null) {
-        color = 'green';
-        return <BsCheckCircle color={color} size="20px" />;
-      } else if (!props.hasCommentAsAnswer) {
-        color = '#4F4F4F';
+        return <BsCheckCircle color='green' size="20px" />;
       }
-      return <BsCircle color={color} size="20px" />;
+      return <BsCheckCircle color="var(--color-dark-25)" size="20px" />;
     };
   
     const renderNotAdminOption = () => {

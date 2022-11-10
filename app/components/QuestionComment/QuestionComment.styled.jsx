@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { BsFillCircleFill } from "react-icons/bs";
 import { ContainerCounterButton } from '~/components/CounterButton/CounterButton.Styled';
 import { CommentInputTextArea } from '../CommentInput/CommentInput.styled';
 
@@ -207,13 +206,6 @@ position: relative;
  &:hover ${CommentAsAnswerToolTipText} {
   visibility: visible;
  }
-`;
-
-
-export const CircleIcon = styled(BsFillCircleFill)`
-    font-size: 5px;
-    color: var(--color-dark-metadata);
-    margin: 0 5px;
 `;
 
 export const ArrowUp = styled.div`

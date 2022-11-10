@@ -12,6 +12,7 @@ import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
 import { useRef } from 'react';
 import { ACTIONS } from '~/utils/actions';
+import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 
 
@@ -85,11 +86,13 @@ const QuestionRow = (props) => {
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
             <QuestionResponderInfo createdBy={question.created_by}>
-              <Styled.CircleIcon />
-              <Styled.QuestionRowDate>
-                <em>{isUpdated && ' (edited)'}</em>
-                {getDateData(question.createdAt)}
-              </Styled.QuestionRowDate>
+              <DateContainer>
+                <CircleIcon />
+                <Styled.QuestionRowDate>
+                  <em>{isUpdated && ' (edited)'}</em>
+                  {getDateData(question.createdAt)}
+                </Styled.QuestionRowDate>
+              </DateContainer>
             </QuestionResponderInfo>
         </ConditionalLinkTo>
         <Styled.QuestionRowLine isQuestionModalOpen={isQuestionModalOpen} hasAnswer={hasAnswer} />

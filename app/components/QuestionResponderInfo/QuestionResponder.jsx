@@ -31,19 +31,17 @@ function QuestionerResponderInfo(props) {
   const jobTitle = renderJobTitle(createdBy);
   const profilePicture = renderProfilePicture(createdBy);
   return (
-    <Styled.QuestionerResponderContainer>
+    <Styled.QuestionerResponderContainer hasJobTitle={jobTitle}>
       <UserImage src={profilePicture} size={props.userImgSize} />
-      <Styled.QuestionerResponderInfoContainer hasJobTitle={jobTitle}>
-        <Styled.TopContainer>
+      <Styled.QuestionerResponderInfoContainer>
           <Styled.QuestionerResponderName>
             {fullName}
           </Styled.QuestionerResponderName>
-          {children}
-        </Styled.TopContainer>
         <Styled.QuestionerResponderJobTitle>
           {jobTitle}
         </Styled.QuestionerResponderJobTitle>
       </Styled.QuestionerResponderInfoContainer>
+      {children}
     </Styled.QuestionerResponderContainer>
   );
 }

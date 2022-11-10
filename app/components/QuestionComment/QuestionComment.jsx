@@ -18,6 +18,7 @@ import CommentInputText from '~/components/CommentInput/CommentInputText';
 import { ACTIONS } from '~/utils/actions';
 import { useSubmit, useSearchParams } from '@remix-run/react';
 import { useUser } from '~/utils/hooks/useUser';
+import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     const submit = useSubmit();
@@ -261,14 +262,16 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               isUpdated={updatedAt !== null}
               userImgSize={'medium'}
             >
-              <Styled.CircleIcon />
-              <Styled.QuestionCommentDate
-                isAdmin={props.isAdmin}
-                hadApprover={commentData.approvedBy}
-              >
-                {updatedAt && <em>{'edited'}</em>}
-                {getTimeDiff(updatedAt || createdAt)}
-              </Styled.QuestionCommentDate>
+              <DateContainer>
+                <CircleIcon />
+                <Styled.QuestionCommentDate
+                  isAdmin={props.isAdmin}
+                  hadApprover={commentData.approvedBy}
+                >
+                  {updatedAt && <em>{'edited'}</em>}
+                  {getTimeDiff(updatedAt || createdAt)}
+                </Styled.QuestionCommentDate>
+              </DateContainer>
             </QuestionerResponderInfo>
             <Styled.QuestionCommentOptionsWrapper>
               {

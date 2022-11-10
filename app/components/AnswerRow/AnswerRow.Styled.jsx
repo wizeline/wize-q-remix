@@ -86,12 +86,6 @@ export const AnsweredMetadataLeft = styled.div`
     }
 `;
 
-export const CircleIcon = styled(BsFillCircleFill)`
-    font-size: 5px;
-    color: var(--color-dark-metadata);
-    margin: 0 5px;
-`;
-
 export const AnswerRowDate = styled.div`
   color: var(--color-dark-metadata);
   display: flex;

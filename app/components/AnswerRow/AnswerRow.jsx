@@ -12,6 +12,7 @@ import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
 import Label from '~/components/Atoms/Label';
+import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
@@ -48,10 +49,12 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
           <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
           <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
             <QuestionResponderInfo createdBy={user} isAnswer>
-              <Styled.CircleIcon />
-              <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
-                {getDateData(createdAt)}
-              </Styled.AnswerRowDate>
+              <DateContainer>
+                <CircleIcon />
+                <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
+                  {getDateData(createdAt)}
+                </Styled.AnswerRowDate>
+              </DateContainer>
             </QuestionResponderInfo>
           </ConditionalLinkTo>
           <Label type={'Answer'} text={'Best Answer'} />

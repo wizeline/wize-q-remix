@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import likeIcon from "~/images/ic_like.svg";
 import likeIconVoted from "~/images/ic_like_pressed.svg";
-import commentIcon from "~/images/ic_comment_selected.svg";
-import { addS } from "~/utils/stringOperations";
 import {
   shouldRenderAdminButtons,
   renderAdminButtons,
@@ -78,16 +76,9 @@ function QuestionDetails(props) {
         <CounterButton
           selected={question.hasVoted}
           icon={icon}
-          text={addS("Like", question.num_votes)}
           count={question.num_votes}
           processingFormSubmission={transition.state !== "idle"}
           onClick={onLikeButtonClick}
-        />
-        <CounterButton
-          notButton
-          icon={commentIcon}
-          text={addS("Comment", question.numComments)}
-          count={question.numComments}
         />
       </Styled.CounterButtonsWrapper>
     );

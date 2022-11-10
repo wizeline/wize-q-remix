@@ -2,7 +2,8 @@ import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
 import { BsFillCircleFill } from "react-icons/bs";
 import { ContainerCounterButton } from '~/components/CounterButton/CounterButton.Styled';
-import { CommentInputTextArea } from '../CommentInput/CommentInput.styled';
+import { CommentInputTextArea } from '~/components/CommentInput/CommentInput.styled';
+import { TopContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const QuestionCommentContainer = styled.div`
   border-radius: 20px;
@@ -47,6 +48,13 @@ export const QuestionCommentMetadata = styled.div`
   p {
     display: flex;
     margin: 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    ${TopContainer} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 `;
 
@@ -214,6 +222,10 @@ export const CircleIcon = styled(BsFillCircleFill)`
     font-size: 5px;
     color: var(--color-dark-metadata);
     margin: 0 5px;
+
+    @media screen and (max-width: 480px) {
+      display: none;
+    }
 `;
 
 export const ArrowUp = styled.div`

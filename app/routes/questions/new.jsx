@@ -31,13 +31,13 @@ export const action = async ({request}) => {
 
   const user = await getAuthenticatedUser(request);
   
-  const parsedDeparment = parseInt(form.assignedDepartment);
+  const parsedDepartment = parseInt(form.assignedDepartment);
 
   const payload = {
     question: form.question,
-    created_by_employee_id: user.employee_id,
+    created_by_employee_id: form.isAnonymous === 'true' ? null : user.employee_id,
     is_anonymous: form.isAnonymous === 'true',
-    assigned_department: Number.isNaN(parsedDeparment) ? null : parsedDeparment,
+    assigned_department: Number.isNaN(parsedDepartment) ? null : parsedDepartment,
     location: form.location,
     accessToken: user.accessToken,
   };
@@ -48,7 +48,7 @@ export const action = async ({request}) => {
     const session = await getSession(request);
     session.flash("globalSuccess", response.success);
   
-    return redirect("/", {
+    return redirect("/?index", {
         headers: {
           "Set-Cookie": await commitSession(session)
         }

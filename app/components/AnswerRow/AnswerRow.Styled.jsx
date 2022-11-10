@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
 import { BsFillCircleFill } from "react-icons/bs";
+import { QuestionerResponderContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const AnswerRow = styled.div` 
   font-family: 'Nunito', sans-serif;
@@ -68,13 +69,21 @@ export const AnsweredMetadataLeft = styled.div`
     align-items: flex-start;
 
     ${props => !props.hasJobTitle && css`
-    align-items: center;
+      align-items: center;
+
+      @media screen and (max-width: 480px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    `}
 
     @media screen and (max-width: 480px) {
       flex-direction: column;
-      align-items: flex-start;
+
+      ${QuestionerResponderContainer} {
+        margin-bottom: 5px;
+      }
     }
-  `}
 `;
 
 export const CircleIcon = styled(BsFillCircleFill)`

@@ -217,22 +217,22 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     };
   
     const { comment, createdAt, updatedAt, User, canEdit } = commentData;
+
+    const renderCommunityAnswerLabel = () => props.isCommunityAnswer && <Label type='Answer' text={COMMUNITY_ANSWER_TAG_TEXT} />
   
-    const renderApproverName = () => (
+    const renderApproverNameLabel = () => (
       <>
         <Label type='Answer' text='Approved'/>
         <Styled.ApproverName>by <strong>{commentData.Approver.full_name}</strong></Styled.ApproverName>
       </>
     );
-
-    const departmentTagContent = props.isCommunityAnswer ? COMMUNITY_ANSWER_TAG_TEXT : null;
-    const isAnswerTag = props.isCommunityAnswer ? true : null;
   
     return (
       <Styled.QuestionCommentContainer
         hadApprover={commentData.approvedBy}
         isDeleting={isDeleting}
         isEditing={isEditing}
+        isCommunityAnswer={props.isCommunityAnswer}
       >
         <Styled.QuestionCommentButtons>
           <CounterButton
@@ -264,7 +264,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             {commentData.approver !== null && renderToolTip('Approved as answer')}
           </Styled.CommentAsAnswerToolTip>
           }
-          {(commentData.approvedBy !== null) && renderApproverName()}
+          {(commentData.approvedBy !== null) && renderApproverNameLabel()}
+          {renderCommunityAnswerLabel()}
         </Styled.QuestionCommentButtons>
         <Styled.QuestionCommentWrapper
           isDeleting={isDeleting}
@@ -275,8 +276,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               createdBy={User}
               isUpdated={updatedAt !== null}
               userImgSize={'medium'}
-              department={departmentTagContent}
-              isAnswer={isAnswerTag}
             >
               <Styled.CircleIcon />
               <Styled.QuestionCommentDate

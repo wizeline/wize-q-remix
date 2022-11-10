@@ -17,6 +17,7 @@ export const QuestionCommentContainer = styled.div`
   padding: 15px 20px 10px;
   ${props => props.isDeleting && css`border: 1px solid #cd3140;`}
   ${props => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
+  ${props => props.isCommunityAnswer && css`border: 1px solid var(--color-gold-border);`}
 
   ${ContainerCounterButton} {
     :hover {

@@ -6,6 +6,8 @@ import {
 import { createAnswerSchema } from '~/utils/backend/validators/answer';
 import { sanitizeHTML } from '~/utils/backend/sanitizer';
 import { db } from '~/utils/db.server';
+import slack from '~/utils/backend/slackNotifications';
+import { stripNewLines } from '~/utils/backend/stringUtils';
 
 export const createAnswer = async (body) => {
   const { error, value } = createAnswerSchema.validate(body);
@@ -18,7 +20,7 @@ export const createAnswer = async (body) => {
 
   const { answered_by_employee_id, answered_question_id, ...rest } = value;
 
-  let answer = await db.Answers.create({
+  const answer = await db.Answers.create({
     data: {
       ...rest,
       answer_text: sanitizeHTML(value.answer_text),
@@ -34,6 +36,18 @@ export const createAnswer = async (body) => {
         },
       },
     },
+  });
+
+  const relatedQuestion = await db.Questions.findUnique({
+    where: {
+      question_id: answer.answered_question_id,
+    },
+  });
+
+  await slack.createAnswerNotification({
+    questionId: answer.question_id,
+    questionBody: stripNewLines(relatedQuestion.question),
+    answerBody: answer.answer_text,
   });
 
   return {

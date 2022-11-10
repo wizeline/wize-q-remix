@@ -9,6 +9,7 @@ import {
   renderAdminButtons,
   renderAnswer,
 } from "~/utils/questionUtils";
+import { addS } from "~/utils/stringOperations";
 import { PRIMARY_BUTTON, LSPIN_SMALL } from "~/utils/constants";
 import * as Styled from "~/components/QuestionDetail/QuestionDetail.Styled";
 import Button from "~/components/Atoms/Button";
@@ -84,11 +85,12 @@ function QuestionDetails(props) {
     );
   };
 
-  const renderNumCommentsRow = (answer) =>
-    answer && (
-      <Styled.NumComments>{question.numComments} Comments</Styled.NumComments>
-    );
-
+  const renderNumCommentsRow = () => (
+    <Styled.NumComments>
+      {question.numComments} {addS('Comment', question.numComments)}
+    </Styled.NumComments>
+  );
+  
   const openAnswerModal = () => {
     setState({
       ...state,
@@ -177,7 +179,7 @@ function QuestionDetails(props) {
               isAdmin={isAdmin}
               hasAnswer={question.Answer !== null}
             >
-              {renderNumCommentsRow(question.Answer)}
+              {renderNumCommentsRow()}
             </QuestionCommentList>
           </Styled.QuestionDetailBody>
           <Styled.QuestionDetailFooter

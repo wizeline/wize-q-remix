@@ -29,8 +29,8 @@ export const CounterButtonsWrapper = styled.div`
 
 export const NumComments = styled.div`
     color: var(--color-dark-50);
-    font-family: 'NunitoSans Regular', sans-serif;
-    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
     font-weight: 600;
     line-height: normal;
     margin-bottom: 10px;

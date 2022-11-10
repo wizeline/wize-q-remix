@@ -42,18 +42,20 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const { user, createdAt, children } = props;
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
-      <Styled.AnsweredMetadata isPreview={isPreview} hasJobTitle={user.job_title}>
-        <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
-        <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
-        <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
-          <QuestionResponderInfo createdBy={user} isAnswer>
-            <Styled.CircleIcon />
-            <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
-              {getDateData(createdAt)}
-            </Styled.AnswerRowDate>
-          </QuestionResponderInfo>
-        </ConditionalLinkTo>
-        <Label type={'Answer'} text={'Best Answer'} />
+      <Styled.AnsweredMetadata isPreview={isPreview} >
+        <Styled.AnsweredMetadataLeft hasJobTitle={user.job_title}>
+          <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
+          <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
+          <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
+            <QuestionResponderInfo createdBy={user} isAnswer>
+              <Styled.CircleIcon />
+              <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
+                {getDateData(createdAt)}
+              </Styled.AnswerRowDate>
+            </QuestionResponderInfo>
+          </ConditionalLinkTo>
+          <Label type={'Answer'} text={'Best Answer'} />
+        </Styled.AnsweredMetadataLeft>
         {children}
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}

@@ -50,6 +50,7 @@ export const AnsweredBy = styled.div`
 export const AnsweredMetadata = styled.div`
   align-items: flex-start;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   margin-bottom: 17px;
   position: relative;
@@ -60,19 +61,19 @@ export const AnsweredMetadata = styled.div`
     flex-direction: column;
     justify-content: flex-start;
   }
+`;
 
-  ${props => !props.hasJobTitle && css`
+export const AnsweredMetadataLeft = styled.div`
+    display: flex;
+    align-items: flex-start;
+
+    ${props => !props.hasJobTitle && css`
     align-items: center;
 
     @media screen and (max-width: 480px) {
       flex-direction: column;
       align-items: flex-start;
     }
-  `}
-
-  ${props => !props.isPreview && css`
-    margin-bottom: 8px;
-    padding-bottom: 8px;
   `}
 `;
 

@@ -17,11 +17,11 @@ import { json } from "@remix-run/node";
 import AppNavbar from "~/components/AppNavbar";
 import { listQuestions } from "~/controllers/questions/list";
 
-const titleSuffix = process.env.NODE_ENV === "development" ? "Local" : ""
+const titleSuffix = process.env.NODE_ENV === "development" ? " - Local" : ""
 
 export const meta = () => ({
   charset: "utf-8",
-  title: `Wizeline Questions - ${titleSuffix}`,
+  title: `Wizeline Questions${titleSuffix}`,
   viewport: "width=device-width,initial-scale=1",
 });
 

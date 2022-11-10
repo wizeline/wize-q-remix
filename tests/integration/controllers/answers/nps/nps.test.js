@@ -1,4 +1,4 @@
-import { nps } from "~/controllers/answers/nps";
+import { nps } from "~/controllers/answers/nps/nps";
 
 describe('nps', () => {
     it('scored correctly', async() => {

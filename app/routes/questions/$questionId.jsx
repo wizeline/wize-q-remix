@@ -20,8 +20,12 @@ import { createComment } from '~/controllers/comments/create';
 import { updateComment } from '~/controllers/comments/update';
 import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
 import { deleteComment } from '~/controllers/comments/delete';
+import { createNPS } from '~/controllers/answers/nps/create';
 import { ACTIONS } from "~/utils/actions";
 import { json } from "@remix-run/node";
+import { assignQuestion } from "~/controllers/questions/assignQuestion";
+import { listDepartments } from '~/controllers/departments/list';
+import { deleteNPS } from "~/controllers/answers/nps/delete";
 
 const replacer = (key, value) => { 
 return typeof value === "bigint" ?  value.toString() : value};
@@ -50,6 +54,8 @@ export const loader = async ({request, params}) => {
   const { questionId } = params
   const {question} = await getQuestionById( parseInt(questionId,10), user);
   const locations = await listLocations();
+  const departments = await listDepartments();
+
   const parametros = {
     questionId: parseInt(questionId,10), 
     userEmail: user.email, 
@@ -62,6 +68,7 @@ export const loader = async ({request, params}) => {
   return jsonCustom({
     question,
     locations,
+    departments,
     comments, 
   });
 }
@@ -71,6 +78,7 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const action = formData.get("action");
   let response;
+  let answer_id;
 
   const user = await getAuthenticatedUser(request);
   switch (action) {
@@ -105,6 +113,13 @@ export const action = async ({ request }) => {
       };
       response = await deleteAnswer(deleteAnswerBody);
       break;
+    case ACTIONS.ASSIGN_QUESTION:
+      const assignQuestionBody = {
+        question_id: parseInt(formData.get("questionId")),
+        assigned_department: parseInt(formData.get("assigned_department")),
+      };
+      response = await assignQuestion(assignQuestionBody);
+      break;
     case ACTIONS.CREATE_COMMENT:
       const commentToSubmit = JSON.parse(formData.get("commentToSubmit"));
       response = await createComment(commentToSubmit);
@@ -124,6 +139,16 @@ export const action = async ({ request }) => {
       const userEmail = user.email;
       response = await deleteComment({commentId, accessToken, userEmail});
      break;
+     case ACTIONS.SCORE_ANSWER:
+      answer_id = parseInt(formData.get('answer_id'));
+      const score = parseInt(formData.get('score'));
+      response = await createNPS({score, answer_id, user, accessToken: user.accessToken});
+     break;
+     case ACTIONS.DELETE_SCORE:
+      answer_id = parseInt(formData.get('answer_id'));
+      response = await deleteNPS({id: answer_id, user});
+      break;
+
   }
   return json(response);
 }

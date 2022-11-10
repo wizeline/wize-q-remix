@@ -19,10 +19,12 @@ import { QuestionCardActions } from "~/components/QuestionCard/QuestionCard.Styl
 import QuestionRow from "~/components/QuestionRow";
 import AnswerModal from "~/components/Modals/AnswerModal/AnswerModal";
 import DeleteAnswerModal from "~/components/Modals/DeleteAnswerModal/DeleteAnswerModal";
+import NetPromoterScoreRow from "~/components/NetPromoterScoreRow/NetPromoterScoreRow";
 import Loader from "~/components/Loader";
 import logomark from "~/images/logomark_small.png";
 import { useUser } from "~/utils/hooks/useUser";
 import { ACTIONS } from "~/utils/actions";
+import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
 import QuestionCommentList  from '~/components/QuestionCommentList';
 import CommentInput from '~/components/CommentInput/CommentInput';
 
@@ -98,6 +100,13 @@ function QuestionDetails(props) {
       <Styled.NumComments>{question.numComments} Comments</Styled.NumComments>
     );
 
+  const openAssignAnswerModal = () => {
+    setState({
+      ...state,
+      showAssignAnswerModal: true,
+    });
+  };
+
   const openAnswerModal = () => {
     setState({
       ...state,
@@ -124,7 +133,7 @@ function QuestionDetails(props) {
   };
 
   const answerModal = state.showAnswerModal ? (
-    <AnswerModal question={question} onClose={handleAnswerModalClose} />
+    <AnswerModal question={question} onClose={handleAnswerModalClose} openAssignAnswerModal={openAssignAnswerModal}/>
   ) : null;
 
   const deleteAnswerModal = state.showDeleteAnswerModal ? (
@@ -134,7 +143,61 @@ function QuestionDetails(props) {
     />
   ) : null;
 
+  const scoreAnswer = (score, answer_id) => {
+    const data = new FormData();
+    data.set('score', score);
+    data.set('answer_id', answer_id);
+    data.set('action', ACTIONS.SCORE_ANSWER);
+    let url = `/questions/${question.question_id}`;
+    const urlSearchParam = searchParams.get('order');
+    url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    submit(data, {method:'post', action: url });
+  }
+
+  const deleteScore = (answer_id) => {
+    const data = new FormData();
+    data.set('answer_id', answer_id);
+    data.set('action', ACTIONS.DELETE_SCORE);
+    let url = `/questions/${question.question_id}`;
+    const urlSearchParam = searchParams.get('order');
+    url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    submit(data, {method:'post', action: url });
+  }
+
+  const renderNPS = answer => answer && 
+  answer.AnsweredBy.email !== currentUserEmail && 
+  (<div>
+    <NetPromoterScoreRow
+      answer_id={answer.answer_id}
+      hasScored={!!answer.hasScored}
+      canUndoNps={!!answer.canUndoNps}
+      scoreAnswer={scoreAnswer}
+      deleteScore={deleteScore}
+    />
+  </div>)
+
+
   const isEmpty = (obj) => Object.keys(obj).length === 0;
+
+  const handleAssignAnswerModalClose = () => {
+    setState({ ...state, showAssignAnswerModal: false });
+  };
+  const handleAssignAnswerModalSubmitSuccess = () => {
+    setState({
+      ...state,
+      showAssignAnswerModal: false,
+      showAnswerModal: false,
+    });
+  };
+  const assignAnswerModal = state.showAssignAnswerModal ? (
+    <AssignAnswerModal
+      question={question}
+      onClose={handleAssignAnswerModalClose}
+      onSubmitSuccess={handleAssignAnswerModalSubmitSuccess}
+    />
+      ) : null;
+
+  
 
   return (
     <Styled.Container>
@@ -156,7 +219,7 @@ function QuestionDetails(props) {
                   onAnswerClick: () => {
                     setState({ ...state, showAnswerModal: true });
                   },
-                  onAssignAnswerClick: () => {},
+                  onAssignAnswerClick: () => { openAssignAnswerModal(question) },
                 })}
             </QuestionCardActions>
             {renderAnswer({
@@ -173,6 +236,7 @@ function QuestionDetails(props) {
               isQuestionModalOpen: true,
               isFromList: false,
             })}
+            {renderNPS(question.Answer)}
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
             {renderNumCommentsRow(question.Answer)}
@@ -208,6 +272,7 @@ function QuestionDetails(props) {
       )}
       {answerModal}
       {deleteAnswerModal}
+      {assignAnswerModal}
     </Styled.Container>
   );
 }
@@ -218,7 +283,7 @@ QuestionDetails.propTypes = {
     question: PropTypes.string.isRequired,
     user_hash: PropTypes.string,
     can_edit: PropTypes.bool,
-    created_by_user: PropTypes.shape({
+    AnsweredBy: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,
       full_name: PropTypes.string,

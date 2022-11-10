@@ -18,7 +18,7 @@ function shouldRenderAdminButtons(question, isAdmin) {
 function renderAdminButtons(renderAdminBtnProps) {
   const { question, onAnswerClick, onAssignAnswerClick } = renderAdminBtnProps;
   return (
-    <div className="question-row__admin-buttons--container">
+    <div className="question-row__admin-buttons--container" style={{display: 'flex'}}>
       <Button
         type="button"
         category={TEXT_BUTTON}

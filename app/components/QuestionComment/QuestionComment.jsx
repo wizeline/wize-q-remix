@@ -252,18 +252,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             count={''}
             onClick={downVoteF}
           />
-          {(props.isAdmin && !props.hasAnswer) ? <Styled.CommentAsAnswerToolTip
-            onClick={() => { markAsAnswer(!isAnswer); }}
-            disabled={props.hasCommentAsAnswer && commentData.approvedBy === null}
-          >
-            {renderButtonOption()}
-            {renderAdminToolTips()}
-          </Styled.CommentAsAnswerToolTip> :
-          <Styled.CommentAsAnswerToolTip>
-            {renderNotAdminOption()}
-            {commentData.approver !== null && renderToolTip('Approved as answer')}
-          </Styled.CommentAsAnswerToolTip>
-          }
           {(commentData.approvedBy !== null) && renderApproverNameLabel()}
           {renderCommunityAnswerLabel()}
         </Styled.QuestionCommentButtons>
@@ -286,11 +274,28 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
                 {getTimeDiff(updatedAt || createdAt)}
               </Styled.QuestionCommentDate>
             </QuestionerResponderInfo>
-            {canEdit && (
-              <Styled.QuestionCommentOptions>
-                {renderCommentOptions()}
-              </Styled.QuestionCommentOptions>
-            )}
+            <Styled.QuestionCommentOptionsWrapper>
+              {
+                (props.isAdmin && !props.hasAnswer) ? 
+                <Styled.CommentAsAnswerToolTip
+                  onClick={() => { markAsAnswer(!isAnswer); }}
+                  disabled={props.hasCommentAsAnswer && commentData.approvedBy === null}
+                >
+                  {renderButtonOption()}
+                  {renderAdminToolTips()}
+                </Styled.CommentAsAnswerToolTip> 
+                :
+                <Styled.CommentAsAnswerToolTip>
+                  {renderNotAdminOption()}
+                  {commentData.approver !== null && renderToolTip('Approved as answer')}
+                </Styled.CommentAsAnswerToolTip>
+              }
+              {canEdit && (
+                <Styled.QuestionCommentOptions>
+                  {renderCommentOptions()}
+                </Styled.QuestionCommentOptions>
+              )}
+            </Styled.QuestionCommentOptionsWrapper>
           </Styled.QuestionCommentMetadata>
           <Styled.QuestionCommentText isEditing={isEditing}>
             {!isEditing ? (

@@ -75,7 +75,14 @@ export const QuestionCommentMarkdown = styled(Markdown)`
   }
 `;
 
+export const QuestionCommentOptionsWrapper = styled.div`
+  align-items: center;
+  display: flex;
+`;
+
 export const QuestionCommentOptions = styled.div`
+  margin-left: 5px;
+
   img {
     cursor: pointer;
     height: 15px;

@@ -5,6 +5,7 @@ import * as Styled from './QuestionComment.styled';
 import CounterButton from '../CounterButton';
 import QuestionerResponderInfo from '../QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
+import Label from '~/components/Atoms/Label';
 import editIconUnselected from '~/images/ic_edit.svg';
 import deleteIconUnselected from '~/images/ic_delete.svg';
 import editIconSelected from '~/images/ic_edit_selected.svg';
@@ -217,9 +218,13 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   
     const { comment, createdAt, updatedAt, User, canEdit } = commentData;
   
-    const renderApproverName = () =>
-      <p> Approved By: <strong> {commentData.Approver.full_name} </strong></p>;
-  
+    const renderApproverName = () => (
+      <>
+        <Label type='Answer' text='Approved'/>
+        <Styled.ApproverName>by <strong>{commentData.Approver.full_name}</strong></Styled.ApproverName>
+      </>
+    );
+
     const departmentTagContent = props.isCommunityAnswer ? COMMUNITY_ANSWER_TAG_TEXT : null;
     const isAnswerTag = props.isCommunityAnswer ? true : null;
   
@@ -259,6 +264,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             {commentData.approver !== null && renderToolTip('Approved as answer')}
           </Styled.CommentAsAnswerToolTip>
           }
+          {(commentData.approvedBy !== null) && renderApproverName()}
         </Styled.QuestionCommentButtons>
         <Styled.QuestionCommentWrapper
           isDeleting={isDeleting}
@@ -280,7 +286,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
                 {updatedAt && <em>{'edited'}</em>}
                 {getTimeDiff(updatedAt || createdAt)}
               </Styled.QuestionCommentDate>
-              {(commentData.approvedBy !== null) && renderApproverName()}
             </QuestionerResponderInfo>
             {canEdit && (
               <Styled.QuestionCommentOptions>

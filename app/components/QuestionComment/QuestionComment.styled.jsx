@@ -50,7 +50,7 @@ export const QuestionCommentMetadata = styled.div`
 `;
 
 export const QuestionCommentText = styled.div`
-  font-family: "NunitoSans Regular", sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
   letter-spacing: 0.6px;
   line-height: 1.71;
@@ -154,7 +154,6 @@ export const QuestionCommentWrapper = styled.div`
 export const QuestionCommentCounterSpan = styled.span` 
   display: flex;
   justify-content: center;
-  width: 100%;
 
   ${props => (props.upVoteActive && `
     color: var(--color-green);
@@ -229,4 +228,10 @@ export const ArrowDown = styled.div`
   ${props => (props.downVoteActive && `
     background-color: var(--color-primary-lowOpacity);
   `)};
+`;
+
+export const ApproverName = styled.span`
+  font-family: "Nunito", sans-serif;
+  font-size: 12px;
+  color: var(--color-green);
 `;

@@ -8,6 +8,7 @@ export const Label = styled.div`
   font-weight: 600;
   font-size: 11px;
   line-height: normal;
+  letter-spacing: 1px;
   margin-right: 7px;
   padding: 5px 10px;
   width: fit-content;

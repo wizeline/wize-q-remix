@@ -88,7 +88,7 @@ function QuestionCommentList(props) {
   
     const sortCommentsDropdown = (
       <Styled.SortSelectorContainer>
-        <Styled.SortSelectorText>Order comments by:</Styled.SortSelectorText>
+        <Styled.SortSelectorText>Order by:</Styled.SortSelectorText>
         <SortQuestionCommentsDropdown
           questionId={props.questionId}
           onSortCommentsOptionChange={sortCommentsOptionChangeHandler}

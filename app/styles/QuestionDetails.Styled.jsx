@@ -6,7 +6,7 @@ display: flex;
 width: 100%;
 height: 100%;
 flex-direction: row;
-padding-top: 30px;
+padding-top: 10px;
 overflow:auto;
 
 @media (max-width: 1025px) {
@@ -15,7 +15,6 @@ overflow:auto;
 }
 
 @media (max-width: 768px) {
-  padding-top: 20px;
   height: auto;
 }
 `

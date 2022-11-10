@@ -3,6 +3,7 @@ import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE
 } from "~/utils/constants";
+import generateSessionIdHash from "~/utils/backend/crypto";
 
 export const getQuestionById = async (questionId, user) => {
   if (!questionId || typeof questionId !== "number" || parseInt(questionId) < 1) {
@@ -47,12 +48,30 @@ export const getQuestionById = async (questionId, user) => {
       const hasUserData = user && user.id;
       const hasAnswer = unmappedQuestion.Answers.length > 0;
 
+      let canUndoNps = false;
+      if (unmappedQuestion.Answers.length > 0) {
+        const npsSessionHash = generateSessionIdHash(
+          user.id,
+          unmappedQuestion.Answers[0].answer_id
+        );
+        canUndoNps = unmappedQuestion.Answers[0].Nps.some(
+          (nps) => nps.session_hash === npsSessionHash
+        );
+       
+      }
+
       const Answer = unmappedQuestion.Answers.length < 1 
         ? null
         : {
           ...unmappedQuestion.Answers[0],
+          canUndoNps,
           hasScored: (hasUserData && hasAnswer && unmappedQuestion.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
         }; 
+      
+       let can_edit;
+       if (unmappedQuestion.created_by) 
+          can_edit = user && user.email && user.email === unmappedQuestion.created_by.email
+      
 
       const mappedQuestion = {
         ...unmappedQuestion,
@@ -60,6 +79,7 @@ export const getQuestionById = async (questionId, user) => {
         num_votes: unmappedQuestion._count.Votes,
         numComments: unmappedQuestion._count.Comments,
         Answer,
+        can_edit, 
       }
 
       return {

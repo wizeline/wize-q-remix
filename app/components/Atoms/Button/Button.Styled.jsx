@@ -174,8 +174,19 @@ export const MainButton = styled.button`
         font-size: 14px;
         font-family: "Nunito", sans-serif;
         margin: 3px 0;
-        position: absolute;
+        float: right;
         right: 48px;
+        text-decoration: underline;
+      }
+      
+      &.send-button {
+        color: #fff;
+        font-size: 14px;
+        font-family: "NunitoSans Semibold", sans-serif;
+        margin: 3px 0;
+        position: relative;
+        left: 85px;
+        bottom: 15px;
         text-decoration: underline;
       }
 

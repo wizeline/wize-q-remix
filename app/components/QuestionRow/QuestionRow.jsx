@@ -113,8 +113,13 @@ const QuestionRow = (props) => {
         {children}
         <Styled.QuestionRowMetadataBottom>
           <Styled.QuestionRowMetadataSectionOne>
-            <Label text={renderLocation(question.location, locations)} type={'Location'}/>
-            <Label text={renderDepartment(question.Department)} type={'Department'}/>
+            {
+              isFromList && 
+              <>
+                <Label text={renderLocation(question.location, locations)} type={'Location'}/>
+                <Label text={renderDepartment(question.Department)} type={'Department'}/>
+              </>
+            }
           </Styled.QuestionRowMetadataSectionOne>
           <Styled.QuestionId>
             {`Question ID: Q${question.question_id}`}

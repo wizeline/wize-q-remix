@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { BsFillCircleFill } from "react-icons/bs";
+import { QuestionerResponderContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const AnswerRow = styled.div` 
   font-family: 'Nunito', sans-serif;
@@ -50,6 +50,7 @@ export const AnsweredBy = styled.div`
 export const AnsweredMetadata = styled.div`
   align-items: flex-start;
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
   margin-bottom: 17px;
   position: relative;
@@ -60,26 +61,35 @@ export const AnsweredMetadata = styled.div`
     flex-direction: column;
     justify-content: flex-start;
   }
+`;
 
-  ${props => !props.hasJobTitle && css`
-    align-items: center;
+export const AnsweredRightContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
+export const AnsweredMetadataLeft = styled.div`
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+    ${props => !props.hasJobTitle && css`
+      align-items: center;
+
+      @media screen and (max-width: 480px) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    `}
 
     @media screen and (max-width: 480px) {
       flex-direction: column;
-      align-items: flex-start;
+
+      ${QuestionerResponderContainer} {
+        margin-bottom: 5px;
+      }
     }
-  `}
-
-  ${props => !props.isPreview && css`
-    margin-bottom: 8px;
-    padding-bottom: 8px;
-  `}
-`;
-
-export const CircleIcon = styled(BsFillCircleFill)`
-    font-size: 5px;
-    color: var(--color-dark-metadata);
-    margin: 0 5px;
 `;
 
 export const AnswerRowDate = styled.div`
@@ -91,36 +101,6 @@ export const AnswerRowDate = styled.div`
   align-items: end;
   letter-spacing: 0.7px;
   margin-right: 8px;
-`;
-
-export const AnswerRowLineVertical = styled.div`
-  display: none;
-  position: absolute;
-  height: 65px;
-  border-right: 1px solid var(--color-dark-25);
-  left: -28px;
-  bottom: 35px;
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-  ${props => props.isQuestionModalOpen && css`
-    display: none
-  `}
-`;
-
-export const AnswerRowLineHorizontal = styled.div`
-  display: none;
-  position: absolute;
-  width: 20px;
-  border-top: 1px solid var(--color-dark-25);
-  left: -28px;
-  bottom: 35px;
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-  ${props => props.isQuestionModalOpen && css`
-    display: none
-  `}
 `;
 
 export const AnswerRowBorderBottom = styled.div`

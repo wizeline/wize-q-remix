@@ -14,6 +14,7 @@ import * as Styled from './CommentInput.styled';
 const CommentInputText = forwardRef(function CommentInputText (props, ref) {
   CommentInputText.propTypes = {
     inputValue: PropTypes.string.isRequired,
+    isNewComment: PropTypes.bool,
   };
 
   CommentInputText.defaultProps = {
@@ -22,6 +23,7 @@ const CommentInputText = forwardRef(function CommentInputText (props, ref) {
     placeholder: COMMENT_INPUT_PLACEHOLDER,
     inputValue: '',
     commentLength: 0,
+    isNewComment: false,
   };
 
   const initialState = {
@@ -32,6 +34,7 @@ const CommentInputText = forwardRef(function CommentInputText (props, ref) {
   };
 
   const [commentInput, setCommentInput] = useState(initialState);
+  const [canShowPreview, setCanShowPreview] = useState(false);
 
   useEffect(() => {
     setCommentInput({
@@ -40,6 +43,10 @@ const CommentInputText = forwardRef(function CommentInputText (props, ref) {
       commentLength: props.inputValue ? props.inputValue.trim().length : 0,
     });
   }, [props.inputValue]);
+
+  useEffect(() => {
+    setCanShowPreview(commentInput.commentLength > MIN_COMMENT_PREVIEW_LENGTH);
+  }, [commentInput.commentLength])
 
   useImperativeHandle(ref, () => ({
     resetInputText() {
@@ -66,29 +73,47 @@ const CommentInputText = forwardRef(function CommentInputText (props, ref) {
     props.onInputChange(inputValue);
   };
 
-  const handlePreviewChange = () => {
+  const handlePreviewChange = (type) => {
     setCommentInput({
       ...commentInput,
-      isShowPreview: !commentInput.isShowPreview,
+      isShowPreview: (type === 'preview' && canShowPreview) ? true : false,
     });
   };
 
+
   const renderPreviewButton = () => {
-    if (commentInput.commentLength > MIN_COMMENT_PREVIEW_LENGTH) {
       return (
         <Styled.QuestionInputTextPreview>
-          <Button
-            type="button"
-            category={TEXT_BUTTON}
-            onClick={handlePreviewChange}
-            className="preview-button"
+          <Styled.QuestionInputTab
+            isNewComment={props.isNewComment}
+            selected={!commentInput.isShowPreview}
           >
-            {commentInput.isShowPreview ? 'Hide preview' : 'Show preview'}
-          </Button>
+            <Button
+              type="button"
+              category={TEXT_BUTTON}
+              onClick={() => handlePreviewChange('write')}
+              className="preview-button"
+            >
+              Write
+            </Button>
+          </Styled.QuestionInputTab>
+          <Styled.QuestionInputTab
+            isNewComment={props.isNewComment}
+            selected={commentInput.isShowPreview}
+            disabled={!canShowPreview}
+          >
+            <Button
+              type="button"
+              category={TEXT_BUTTON}
+              onClick={() => handlePreviewChange('preview')}
+              className="preview-button"
+              disabled={!canShowPreview}
+            >
+              Preview
+            </Button>
+          </Styled.QuestionInputTab>
         </Styled.QuestionInputTextPreview>
       );
-    }
-    return null;
   };
 
   const renderCommentPreview = inputValue =>
@@ -107,14 +132,15 @@ const CommentInputText = forwardRef(function CommentInputText (props, ref) {
         onCommentChange={onCommentChange}
         textAreaRows={commentInput.textAreaRows}
         commentLength={commentInput.commentLength}
+        placeholder="Add a comment..."
       />
     );
   };
 
   return (
     <Styled.CommentInputText>
-      {renderInputArea(commentInput)}
       {renderPreviewButton(commentInput)}
+      {renderInputArea(commentInput)}
     </Styled.CommentInputText>
   );
 });

@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import { IoMdArrowDropdown } from "react-icons/io";
 import { DEFAULT_QUESTION_COMMENT_SORTING, ACTIVITY_TIME_QUESTION_COMMENT_SORTING } from '~/utils/constants';
 import * as Styled from './SortQuestionCommentsDropdown.styled';
 import { useSearchParams } from '@remix-run/react';
@@ -49,6 +50,7 @@ function SortQuestionCommentsDropdown(props) {
           onClick={() => setIsDropdownOpen(prevState => !prevState)}
         >
           {selectedOption}
+          <IoMdArrowDropdown />
         </Styled.DropDownHeader>
         {isDropdownOpen && (
           <Styled.DropDownListContainer>

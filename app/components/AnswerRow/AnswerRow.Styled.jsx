@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { BsFillCircleFill } from "react-icons/bs";
 import { QuestionerResponderContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const AnswerRow = styled.div` 
@@ -64,9 +63,16 @@ export const AnsweredMetadata = styled.div`
   }
 `;
 
+export const AnsweredRightContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+`;
+
 export const AnsweredMetadataLeft = styled.div`
     display: flex;
     align-items: flex-start;
+    width: 100%;
 
     ${props => !props.hasJobTitle && css`
       align-items: center;
@@ -95,36 +101,6 @@ export const AnswerRowDate = styled.div`
   align-items: end;
   letter-spacing: 0.7px;
   margin-right: 8px;
-`;
-
-export const AnswerRowLineVertical = styled.div`
-  display: none;
-  position: absolute;
-  height: 65px;
-  border-right: 1px solid var(--color-dark-25);
-  left: -28px;
-  bottom: 35px;
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-  ${props => props.isQuestionModalOpen && css`
-    display: none
-  `}
-`;
-
-export const AnswerRowLineHorizontal = styled.div`
-  display: none;
-  position: absolute;
-  width: 20px;
-  border-top: 1px solid var(--color-dark-25);
-  left: -28px;
-  bottom: 35px;
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-  ${props => props.isQuestionModalOpen && css`
-    display: none
-  `}
 `;
 
 export const AnswerRowBorderBottom = styled.div`

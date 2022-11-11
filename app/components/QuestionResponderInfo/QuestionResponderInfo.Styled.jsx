@@ -16,6 +16,7 @@ export const QuestionerResponderContainer = styled.div`
 export const QuestionResponderWrapper = styled.div`
   display: flex;
   align-items: center;
+  width: max-content;
 `;
 
 export const QuestionerResponderInfoContainer = styled.div`
@@ -59,6 +60,7 @@ export const CircleIcon = styled(BsFillCircleFill)`
 export const DateContainer = styled.div`
   display: flex;
   align-items: center;
+  width: max-content;
 
   @media screen and (max-width: 480px) {
     ${props => props.isComment && css`

@@ -45,8 +45,6 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.AnsweredMetadata isPreview={isPreview} >
         <Styled.AnsweredMetadataLeft hasJobTitle={user.job_title}>
-          <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
-          <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
           <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
             <QuestionResponderInfo createdBy={user} isAnswer>
               <DateContainer>
@@ -57,9 +55,11 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
               </DateContainer>
             </QuestionResponderInfo>
           </ConditionalLinkTo>
-          <Label type={'Answer'} text={'Best Answer'} />
+          <Styled.AnsweredRightContainer>
+            <Label type={'Answer'} text={'Best Answer'} />
+            {children}
+          </Styled.AnsweredRightContainer>
         </Styled.AnsweredMetadataLeft>
-        {children}
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}
     </Styled.AnswerContainer>

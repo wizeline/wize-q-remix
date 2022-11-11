@@ -34,29 +34,7 @@ function QuestionCommentList(props) {
   
     const {isAdmin, hasAnswer } = props;
     const [state, setState] = useState(initialState);
-    const [hasCommentAsAnswer, sethasCommentAsAnswer] = useState(false);
   
-    const fetchComments = async () => {
-      const { questionId } = props;
-      await props.getCommentsByQuestionId(questionId, state.sortCommentsOption);
-      setState(prevState => ({
-        isLoading: false,
-        sortCommentsOption: prevState.sortCommentsOption,
-      }));
-    };
-  
-    function checkIfQuestionHasAnAnswer() {
-      const commentsFilters = comments.filter(comment => comment.approvedBy !== null);
-      sethasCommentAsAnswer(commentsFilters.length > 0);
-    }
-  
-    useEffect(() => {
-      fetchComments();
-    }, []);
-  
-    useEffect(() => {
-      checkIfQuestionHasAnAnswer();
-    }, [state]);
   
     const handleDeleteCommentSuccess = () => fetchComments();
   
@@ -72,7 +50,7 @@ function QuestionCommentList(props) {
           onSubmitSuccess={handleDeleteCommentSuccess}
           commentData={comment}
           isAdmin={isAdmin}
-          hasCommentAsAnswer={hasCommentAsAnswer}
+          hasCommentAsAnswer={comments.some(comment => comment.approvedBy !== null)}
           hasAnswer={hasAnswer}
           isCommunityAnswer={comment.id === communityAnswerCommentId}
         />

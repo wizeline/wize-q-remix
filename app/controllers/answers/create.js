@@ -45,7 +45,7 @@ export const createAnswer = async (body) => {
   });
 
   await slack.createAnswerNotification({
-    questionId: answer.question_id,
+    questionId: relatedQuestion.question_id,
     questionBody: stripNewLines(relatedQuestion.question),
     answerBody: answer.answer_text,
   });

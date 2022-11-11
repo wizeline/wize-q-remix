@@ -58,10 +58,12 @@ export const action = async ({ request }) => {
       const questionId = parseInt(formData.get("questionId"));
       const value = formData.get("value") !== 'false';
       response = await modifyPinStatus(questionId, value);
+      break;
     case ACTIONS.VOTE_QUESTION:
       const voteQuestionId = parseInt(formData.get("questionId"));
       const voteQuestionUser = JSON.parse(formData.get("user"));
       response = await voteQuestion(voteQuestionId, voteQuestionUser);
+      break;
   }
 
   return json(response);

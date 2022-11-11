@@ -56,13 +56,13 @@ variable "node_env" {
   type = string
 }
 
-# variable "slack_webhook_url" {
-#   type = string
-# }
+variable "slack_webhook_url" {
+  type = string
+}
 
-# variable "slack_wizeq_domain" {
-#   type = string
-# }
+variable "slack_wizeq_domain" {
+  type = string
+}
 
 variable "db_url" {
   type = string

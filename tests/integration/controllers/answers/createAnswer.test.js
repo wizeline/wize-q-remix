@@ -1,8 +1,10 @@
 import { createAnswer } from '~/controllers/answers/create';
 import { db } from '~/utils/db.server';
+import slack from '~/utils/backend/slackNotifications';
 
 describe('createAnswer', () => {
   const dbCreateSpy = jest.spyOn(db.Answers, 'create');
+  const slackSpy = jest.spyOn(slack, "createAnswerNotification").mockImplementation();
 
   it('creates valid answer', async () => {
     const answer = {
@@ -18,5 +20,6 @@ describe('createAnswer', () => {
     expect(response.answer).toBeDefined();
 
     expect(dbCreateSpy).toHaveBeenCalled();
+    expect(slackSpy).toHaveBeenCalled();
   });
 });

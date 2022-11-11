@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getDateData } from '~/utils/timeOperations';
+import { hasJobTitle } from '~/utils/questionUtils';
 import { showCollapseOrExpandMessage, formatCollapsingText } from '~/utils/stringOperations';
 import { markdownFormat } from '~/utils/markdownFormatQuestions';
 import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '~/utils/constants';
@@ -47,7 +48,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
         <Styled.AnsweredMetadataLeft hasJobTitle={user.job_title}>
           <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
             <QuestionResponderInfo createdBy={user} isAnswer>
-              <DateContainer>
+              <DateContainer hasJobTitle={user.job_title}>
                 <CircleIcon />
                 <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
                   {getDateData(createdAt)}

@@ -62,6 +62,10 @@ export const DateContainer = styled.div`
   align-items: center;
   width: max-content;
 
+  ${props => (props.hasJobTitle) && css`
+        margin-top: 3px;
+  `};
+
   @media screen and (max-width: 480px) {
     ${props => props.isComment && css`
       margin-left: 40px;

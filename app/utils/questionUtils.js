@@ -15,6 +15,12 @@ function shouldRenderAdminButtons(question, isAdmin) {
   return !question.Answer && isAdmin;
 }
 
+function hasJobTitle(createdBy) {
+  if(!createdBy) return;
+
+  return createdBy.job_title;
+}
+
 function renderAdminButtons(renderAdminBtnProps) {
   const { question, onAnswerClick, onAssignAnswerClick } = renderAdminBtnProps;
   return (
@@ -92,6 +98,7 @@ function renderAnswer(renderAnswerProps) {
 module.exports = {
   renderDepartment,
   shouldRenderAdminButtons,
+  hasJobTitle,
   renderAdminButtons,
   renderAnswer,
 };

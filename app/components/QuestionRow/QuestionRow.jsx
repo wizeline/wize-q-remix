@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { formatCollapsingText } from '~/utils/stringOperations';
-import { renderDepartment } from '~/utils/questionUtils';
+import { renderDepartment, hasJobTitle } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
@@ -86,7 +86,7 @@ const QuestionRow = (props) => {
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
             <QuestionResponderInfo createdBy={question.created_by}>
-              <DateContainer>
+              <DateContainer hasJobTitle={hasJobTitle(question.created_by)}>
                 <CircleIcon />
                 <Styled.QuestionRowDate>
                   <em>{isUpdated && ' (edited)'}</em>

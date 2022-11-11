@@ -167,7 +167,9 @@ export const QuestionCommentWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     ${props => (props.isEditing && `
+      background-color: #fff;
       position: fixed;
+      padding: 20px 15px;
       border-radius: 0;
       top: 0;
       left: 0;

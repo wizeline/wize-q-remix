@@ -2,7 +2,6 @@ import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
 import generateSessionIdHash from "~/utils/backend/crypto";
 import slack from '~/utils/backend/slackNotifications';
 import { stripNewLines, truncate } from '~/utils/backend/stringUtils';
-
 import { sanitizeHTML } from "~/utils/backend/sanitizer";
 import { createQuestionSchema } from "~/utils/backend/validators/question";
 import { db } from "~/utils/db.server"
@@ -10,7 +9,6 @@ import { SLACK_QUESTION_LIMIT } from "~/utils/backend/slackConstants";
 
 export const createQuestion = async (body) => {
   const { error, value } = createQuestionSchema.validate(body);
-
   if (error) {
     return {
       errors: [
@@ -44,7 +42,10 @@ export const createQuestion = async (body) => {
     });
   }
 
-  await slack.question(stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT));
+  await slack.createQuestionNotification({
+    questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
+    questionId: created.question_id,
+  });
 
   return {
     success: "Question has been created succesfully!",

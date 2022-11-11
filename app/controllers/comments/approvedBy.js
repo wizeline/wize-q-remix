@@ -60,7 +60,7 @@ export const approvedByComment = async(params) => {
     }
 
     return {
-        success: true,
+        success: `Comment ${checked? 'marked' : 'unmarked'} as an answer successfully`,
         response: `Comment ${checked? 'marked' : 'unmarked'} as an answer successfully`,
     };
 }

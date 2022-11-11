@@ -90,7 +90,13 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     }
   
     function markAsAnswer(check) {
-      props.markAsAnswser(commentData.questionId, commentData.id, check).then(onSubmitSuccess);
+      const data = new FormData();
+      data.set('action', ACTIONS.APPROVED_COMMENT);
+      data.set('params', JSON.stringify({questionId: commentData.questionId, commentId: commentData.id, checked: check}));
+      let url = `/questions/${commentData.questionId}`;
+      const urlSearchParam = searchParams.get('order');
+      url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+      submit(data, { method: 'post', action: url });
     }
   
     const onSubmit = () => {

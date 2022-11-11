@@ -32,14 +32,14 @@ resource "google_cloud_run_service" "app" {
           name  = "NODE_ENV"
           value = var.node_env
         }
-        # env {
-        #   name  = "SLACK_WEBHOOK_URL"
-        #   value = var.slack_webhook_url
-        # }
-        # env {
-        #   name  = "SLACK_WIZEQ_DOMAIN"
-        #   value = var.slack_wizeq_domain
-        # }
+        env {
+          name  = "SLACK_WEBHOOK_URL"
+          value = var.slack_webhook_url
+        }
+        env {
+          name  = "SLACK_WIZEQ_DOMAIN"
+          value = var.slack_wizeq_domain
+        }
         env {
           name  = "DATABASE_URL"
           value = var.db_url

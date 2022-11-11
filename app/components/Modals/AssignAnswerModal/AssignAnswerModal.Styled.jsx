@@ -83,7 +83,7 @@ export const ModalFooter = styled.div`
 `;
 
 export const ModalTitle = styled.div`
-    font-family: "NunitoSans Semibold";
+    font-family: "Nunito";
     font-size: 16px;
     font-weight: 600;
     line-height: normal;

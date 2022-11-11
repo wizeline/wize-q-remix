@@ -14,7 +14,7 @@ export const createNPS = async (params) => {
   }
 
   try {
-    const { score, answer_id, user, accessToken } = value;
+    const { score, answer_id, user } = value;
 
     const npmCreated = await db.Nps.create({
       data: {

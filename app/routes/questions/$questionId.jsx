@@ -22,7 +22,7 @@ import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
 import { deleteComment } from '~/controllers/comments/delete';
 import { createNPS } from '~/controllers/answers/nps/create';
 import { ACTIONS } from "~/utils/actions";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { assignQuestion } from "~/controllers/questions/assignQuestion";
 import { listDepartments } from '~/controllers/departments/list';
 import { deleteNPS } from "~/controllers/answers/nps/delete";
@@ -51,8 +51,13 @@ export const loader = async ({request, params}) => {
   const url = new URL(request.url);
   const order = url.searchParams.get("order");
 
-  const { questionId } = params
-  const {question} = await getQuestionById( parseInt(questionId,10), user);
+  const { questionId } = params;
+  const { question } = await getQuestionById(parseInt(questionId,10), user);
+
+  if (!question) {
+    return redirect("/404");
+  };
+
   const locations = await listLocations();
   const departments = await listDepartments();
 

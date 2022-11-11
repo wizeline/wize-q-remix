@@ -21,6 +21,7 @@ import { updateComment } from '~/controllers/comments/update';
 import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
 import { deleteComment } from '~/controllers/comments/delete';
 import { createNPS } from '~/controllers/answers/nps/create';
+import { approvedByComment } from '~/controllers/comments/approvedBy';
 import { ACTIONS } from "~/utils/actions";
 import { json, redirect } from "@remix-run/node";
 import { assignQuestion } from "~/controllers/questions/assignQuestion";
@@ -152,6 +153,11 @@ export const action = async ({ request }) => {
      case ACTIONS.DELETE_SCORE:
       answer_id = parseInt(formData.get('answer_id'));
       response = await deleteNPS({id: answer_id, user});
+      break;
+    case ACTIONS.APPROVED_COMMENT:
+      const params = JSON.parse(formData.get('params'));
+      params.employeeId = user.employee_id;
+      response = await approvedByComment(params);
       break;
 
   }

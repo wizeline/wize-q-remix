@@ -1,5 +1,5 @@
 import slackNotify from 'slack-notify';
-import { DEFAULT_DOMAIN, DEFAULT_SLACK_NAME, SLACK_ANSWER_COLOR, SLACK_ANSWER_EMOJI, SLACK_ANSWER_HEADER, SLACK_ANSWER_UPDATED_HEADER, SLACK_FALLBACK_STRING, SLACK_MAX_MESSAGE_SIZE_IN_BYTES, SLACK_QUESTION_DETAILS, SLACK_QUESTION_SEE_MORE } from '~/utils/backend/slackConstants';
+import { DEFAULT_DOMAIN, DEFAULT_SLACK_NAME, SLACK_ANSWER_COLOR, SLACK_ANSWER_EMOJI, SLACK_ANSWER_HEADER, SLACK_FALLBACK_STRING, SLACK_MAX_MESSAGE_SIZE_IN_BYTES, SLACK_QUESTION_COLOR, SLACK_QUESTION_DETAILS, SLACK_QUESTION_EMOJI, SLACK_QUESTION_HEADER, SLACK_QUESTION_SEE_MORE } from '~/utils/backend/slackConstants';
 import { getStringSizeInBytes, truncateStringByBytes } from "./stringUtils";
 
 const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
@@ -21,7 +21,6 @@ async function send(options) {
       },
     ],
   };
-
   await slack.send(defaults);
 }
 
@@ -31,7 +30,7 @@ function buildUrl(questionId) {
 }
 
 
-async function answer({ questionId, questionBody, answerBody, isUpdated }) {
+async function createAnswerNotification({ questionId, questionBody, answerBody }) {
   if (!process.env.SLACK_WEBHOOK_URL) {
     return;
   }
@@ -71,16 +70,14 @@ async function answer({ questionId, questionBody, answerBody, isUpdated }) {
       text,
       footer,
       color: SLACK_ANSWER_COLOR,
-      pretext: isUpdated
-        ? SLACK_ANSWER_UPDATED_HEADER
-        : SLACK_ANSWER_HEADER,
+      pretext: SLACK_ANSWER_HEADER,
     },
   };
 
   await send(options);
 }
 
-async function question(questionBody, questionId) {
+async function createQuestionNotification({questionBody, questionId}) {
   if (!process.env.SLACK_WEBHOOK_URL) {
     return;
   }
@@ -102,12 +99,12 @@ async function question(questionBody, questionId) {
   const footer = `<${url}|${footerBody}>`;
 
   const options = {
-    icon_emoji: SLACK_ANSWER_EMOJI,
+    icon_emoji: SLACK_QUESTION_EMOJI,
     attachments: {
       text,
       footer,
-      color: SLACK_ANSWER_COLOR,
-      pretext: SLACK_ANSWER_HEADER,
+      color: SLACK_QUESTION_COLOR,
+      pretext: SLACK_QUESTION_HEADER,
     },
   };
 
@@ -115,6 +112,6 @@ async function question(questionBody, questionId) {
 }
 
 export default {
-  question,
-  answer,
-};
+  createQuestionNotification,
+  createAnswerNotification
+}

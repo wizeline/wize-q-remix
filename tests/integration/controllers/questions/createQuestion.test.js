@@ -6,7 +6,7 @@ import slack from '~/utils/backend/slackNotifications';
   describe("createQuestion", () => {
     const dbCreateSpy = jest.spyOn(db.Questions, 'create');
     const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
-    const slackSpy = jest.spyOn(slack, "question").mockImplementation();
+    const slackSpy = jest.spyOn(slack, "createQuestionNotification").mockImplementation();
 
     it("returns error when inavlid parameters passed", async () => {
 

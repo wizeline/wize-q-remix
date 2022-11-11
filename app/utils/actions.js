@@ -9,5 +9,7 @@ export const ACTIONS = {
   UPDATE_COMMENT: 'update_comment',
   VOTE_COMMENT:'vote_comment',
   DELETE_COMMENT: 'delete_commet',
-  APPROVED_COMMENT: 'approved_comment'
+  APPROVED_COMMENT: 'approved_comment', 
+  SCORE_ANSWER: 'score_answer',
+  DELETE_SCORE: 'delete_answer_score',
 };

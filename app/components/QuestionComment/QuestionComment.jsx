@@ -2,10 +2,11 @@ import {useState} from 'react';
 import { BsThreeDotsVertical, BsCheckCircle, BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as Styled from './QuestionComment.styled';
-import CounterButton from '../CounterButton';
-import QuestionerResponderInfo from '../QuestionResponderInfo';
+import CounterButton from '~/components/CounterButton';
+import QuestionerResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
 import Label from '~/components/Atoms/Label';
+import { CircleIcon, DateContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 import editIconUnselected from '~/images/ic_edit.svg';
 import deleteIconUnselected from '~/images/ic_delete.svg';
 import editIconSelected from '~/images/ic_edit_selected.svg';
@@ -18,7 +19,6 @@ import CommentInputText from '~/components/CommentInput/CommentInputText';
 import { ACTIONS } from '~/utils/actions';
 import { useSubmit, useSearchParams } from '@remix-run/react';
 import { useUser } from '~/utils/hooks/useUser';
-import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     const submit = useSubmit();
@@ -262,7 +262,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               isUpdated={updatedAt !== null}
               userImgSize={'medium'}
             >
-              <DateContainer>
+              <DateContainer isComment hasJobTitle={User.job_title}>
                 <CircleIcon />
                 <Styled.QuestionCommentDate
                   isAdmin={props.isAdmin}

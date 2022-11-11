@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-import * as Styled from './/QuestionResponderInfo.Styled';
+import * as Styled from './QuestionResponderInfo.Styled';
 import UserImage from '~/components/Atoms/UserImage';
 import { ANONYMOUS_USER } from '~/utils/constants';
 
@@ -32,15 +32,17 @@ function QuestionerResponderInfo(props) {
   const profilePicture = renderProfilePicture(createdBy);
   return (
     <Styled.QuestionerResponderContainer hasJobTitle={jobTitle}>
-      <UserImage src={profilePicture} size={props.userImgSize} />
-      <Styled.QuestionerResponderInfoContainer>
-          <Styled.QuestionerResponderName>
-            {fullName}
-          </Styled.QuestionerResponderName>
-        <Styled.QuestionerResponderJobTitle>
-          {jobTitle}
-        </Styled.QuestionerResponderJobTitle>
-      </Styled.QuestionerResponderInfoContainer>
+      <Styled.QuestionResponderWrapper>
+        <UserImage src={profilePicture} size={props.userImgSize} />
+        <Styled.QuestionerResponderInfoContainer>
+            <Styled.QuestionerResponderName>
+              {fullName}
+            </Styled.QuestionerResponderName>
+          <Styled.QuestionerResponderJobTitle>
+            {jobTitle}
+          </Styled.QuestionerResponderJobTitle>
+        </Styled.QuestionerResponderInfoContainer>
+      </Styled.QuestionResponderWrapper>
       {children}
     </Styled.QuestionerResponderContainer>
   );

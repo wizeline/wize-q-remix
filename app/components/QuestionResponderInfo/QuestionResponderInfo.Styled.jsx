@@ -13,6 +13,11 @@ export const QuestionerResponderContainer = styled.div`
   `}
 `;
 
+export const QuestionResponderWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const QuestionerResponderInfoContainer = styled.div`
   font-family: "Nunito", sans-serif;
   font-size: 12px;
@@ -54,4 +59,15 @@ export const CircleIcon = styled(BsFillCircleFill)`
 export const DateContainer = styled.div`
   display: flex;
   align-items: center;
+
+  @media screen and (max-width: 480px) {
+    ${props => props.isComment && css`
+      margin-left: 40px;
+      margin-top: -13px;
+    `};
+
+    ${props => (props.isComment && props.hasJobTitle) && css`
+        margin-top: -5px;
+    `};
+  }
 `;

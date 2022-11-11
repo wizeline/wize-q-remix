@@ -1,7 +1,12 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
 import { ContainerCounterButton } from '~/components/CounterButton/CounterButton.Styled';
-import { CommentInputTextArea } from '../CommentInput/CommentInput.styled';
+import { CommentInputTextArea } from '~/components/CommentInput/CommentInput.styled';
+import { 
+  CircleIcon,
+  QuestionerResponderContainer,
+  QuestionerResponderName 
+} from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const QuestionCommentContainer = styled.div`
   border-radius: 20px;
@@ -46,6 +51,21 @@ export const QuestionCommentMetadata = styled.div`
   p {
     display: flex;
     margin: 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    ${CircleIcon} {
+      display: none;
+    }
+
+    ${QuestionerResponderContainer} {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    ${QuestionerResponderName} {
+      margin-top: -8px;
+    }
   }
 `;
 

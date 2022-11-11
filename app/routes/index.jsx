@@ -78,7 +78,7 @@ export default function Index() {
   const fetcher = useFetcher();
   const [shouldFetch, setShouldFetch] = useState(true);
   const [page, setPage] = useState(2);
-  const [isLoading, setIsLoadign] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchParams, ] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -96,12 +96,11 @@ export default function Index() {
         navigate(`/questions/${questionId}`);
       }
       else {
-        setIsLoadign(false);
-        //To-Do Redirect to Not Found Question Page.
+        setIsLoading(false);
       }
     }
     else{
-      setIsLoadign(false);
+      setIsLoading(false);
     }
   }, [])
 

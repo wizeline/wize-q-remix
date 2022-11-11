@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getDateData } from '~/utils/timeOperations';
+import { hasJobTitle } from '~/utils/questionUtils';
 import { showCollapseOrExpandMessage, formatCollapsingText } from '~/utils/stringOperations';
 import { markdownFormat } from '~/utils/markdownFormatQuestions';
 import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '~/utils/constants';
@@ -12,6 +13,7 @@ import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
 import QuestionResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
 import Label from '~/components/Atoms/Label';
+import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
@@ -42,19 +44,23 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const { user, createdAt, children } = props;
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
-      <Styled.AnsweredMetadata isPreview={isPreview} hasJobTitle={user.job_title}>
-        <Styled.AnswerRowLineVertical isQuestionModalOpen={isQuestionModalOpen} />
-        <Styled.AnswerRowLineHorizontal isQuestionModalOpen={isQuestionModalOpen} />
-        <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
-          <QuestionResponderInfo createdBy={user} isAnswer>
-            <Styled.CircleIcon />
-            <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
-              {getDateData(createdAt)}
-            </Styled.AnswerRowDate>
-          </QuestionResponderInfo>
-        </ConditionalLinkTo>
-        <Label type={'Answer'} text={'Best Answer'} />
-        {children}
+      <Styled.AnsweredMetadata isPreview={isPreview} >
+        <Styled.AnsweredMetadataLeft hasJobTitle={user.job_title}>
+          <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
+            <QuestionResponderInfo createdBy={user} isAnswer>
+              <DateContainer hasJobTitle={user.job_title}>
+                <CircleIcon />
+                <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
+                  {getDateData(createdAt)}
+                </Styled.AnswerRowDate>
+              </DateContainer>
+            </QuestionResponderInfo>
+          </ConditionalLinkTo>
+          <Styled.AnsweredRightContainer>
+            <Label type={'Answer'} text={'Best Answer'} />
+            {children}
+          </Styled.AnsweredRightContainer>
+        </Styled.AnsweredMetadataLeft>
       </Styled.AnsweredMetadata>
       {renderAnswer({ isQuestionModalOpen })}
     </Styled.AnswerContainer>

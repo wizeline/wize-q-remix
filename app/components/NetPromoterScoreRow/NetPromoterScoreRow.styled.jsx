@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const NpsRowContainer = styled.div`
   background-color: var(--color-secondary);
+  border-radius: 15px; 
   border: solid 1px rgba(80, 165, 231, 0.8);
   box-shadow: 0 3px 6px 0 rgba(225, 229, 233, 0.8);
   padding: 20px 24px 16px;
@@ -14,7 +15,7 @@ export const NpsRowContainer = styled.div`
 
 export const NpsRowDisplayText = styled.div`
   color: #fff;
-  font-family: "NunitoSans Regular";
+  font-family: "Nunito";
   font-size: 14px;
   letter-spacing: 0.6px;
   line-height: 1.71;
@@ -34,7 +35,7 @@ export const NpsRowOptionsContainer = styled.div`
   .nps-row__option--container {
     color: #fff;
     cursor: pointer;
-    font-family: "NunitoSans Regular";
+    font-family: "Nunito";
     font-size: 12px;
     font-stretch: normal;
     font-style: normal;

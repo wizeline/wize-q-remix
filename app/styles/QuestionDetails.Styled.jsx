@@ -7,7 +7,7 @@ width: 100%;
 height: 100%;
 flex-direction: row;
 padding-top: 30px;
-overflow:auto;
+overflow: auto;
 
 @media (max-width: 1025px) {
   flex-direction: column;
@@ -15,8 +15,8 @@ overflow:auto;
 }
 
 @media (max-width: 768px) {
-  padding-top: 20px;
   height: auto;
+  overflow: hidden;
 }
 `
 

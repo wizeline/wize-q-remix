@@ -16,7 +16,6 @@ export const CommentListContainer = styled.div`
 
 export const SortSelectorContainer = styled.div`
   float: right;
-  width: 20.5em;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -26,5 +25,11 @@ export const SortSelectorContainer = styled.div`
 `;
 
 export const SortSelectorText = styled.span`
-  margin-top: 0.3em;
+  font-size: 1.3rem;
+  margin-right: 8px;
+`;
+
+export const CommentListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

@@ -151,6 +151,7 @@ function CommentInput(props) {
               ref={CommentInputTextRef}
               onInputChange={onInputChange}
               resetInputText={resetForm}
+              isNewComment={true}
             />
           </Styled.CommentInputTextAreaForm>
           {renderButtons()}

@@ -4,6 +4,7 @@ import {MdArrowBackIosNew}from 'react-icons/md';
 import { BsCircleFill } from 'react-icons/bs';
 import Button from '~/components/Atoms/Button';
 import QuestionDetail from "~/components/QuestionDetail";
+import QuestionDetailInfo from "~/components/QuestionDetailInfo";
 import Notifications from "~/components/Notifications";
 import { useNavigate } from 'react-router-dom';
 import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION, DEFAULT_QUESTION_COMMENT_SORTING } from '~/utils/constants'
@@ -181,6 +182,7 @@ const QuestionDetailPage = () => {
                 <Button onClick={()=> { navigate('/'); }}>
                   <strong><MdArrowBackIosNew style={{ verticalAlign: 'middle' }} />  Back </strong>
                 </Button>
+                <QuestionDetailInfo location={question.location} department={question.Department}/>
             </Styled.BackToHomeQuestion>
             <Styled.QuestionDetail>
               <QuestionDetail question={question}/>

@@ -8,6 +8,7 @@ export const Label = styled.div`
   font-weight: 600;
   font-size: 11px;
   line-height: normal;
+  letter-spacing: 0.5px;
   margin-right: 7px;
   padding: 5px 10px;
   width: fit-content;
@@ -35,7 +36,7 @@ export const Label = styled.div`
     font-size: 10px;
   `}
   
-  ${props => props.text === 'Community Answer' && css`
+  ${props => props.text === 'Community answer' && css`
     background-color: var(--color-gold-bg);
     color: var(--color-gold);
   `}

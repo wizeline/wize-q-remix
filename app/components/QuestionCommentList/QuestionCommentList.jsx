@@ -15,6 +15,7 @@ function QuestionCommentList(props) {
       questionId: PropTypes.number.isRequired,
       isAdmin: PropTypes.bool.isRequired,
       hasAnswer: PropTypes.bool.isRequired,
+      children: PropTypes.node,
     };
   
     QuestionCommentList.defaultProps = {
@@ -23,6 +24,7 @@ function QuestionCommentList(props) {
         picture: '',
         email: '',
       },
+      children: null,
     };
   
     const initialState = {
@@ -64,7 +66,7 @@ function QuestionCommentList(props) {
   
     const sortCommentsDropdown = (
       <Styled.SortSelectorContainer>
-        <Styled.SortSelectorText>Order comments by:</Styled.SortSelectorText>
+        <Styled.SortSelectorText>Order by:</Styled.SortSelectorText>
         <SortQuestionCommentsDropdown
           questionId={props.questionId}
           onSortCommentsOptionChange={sortCommentsOptionChangeHandler}
@@ -75,7 +77,10 @@ function QuestionCommentList(props) {
   
     return (
       <Styled.CommentListContainer>
-        {comments.length > 0 && sortCommentsDropdown}
+        <Styled.CommentListHeader>
+          {props.children}
+          {comments.length > 0 && sortCommentsDropdown}
+        </Styled.CommentListHeader>
         {renderCommentsList(comments)}
       </Styled.CommentListContainer>
     );

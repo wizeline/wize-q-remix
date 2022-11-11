@@ -9,12 +9,10 @@ export const CommentInputMainContainer = styled.div`
     box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
     padding: 15px 20px 10px;
     position: relative;
-
+    
     &:before {
         content: "";
         position: absolute;
-        width: 100px;
-        height: 100px;
         background-color: #F5F7F9 ;
         left: 0;
         top: 0;
@@ -30,10 +28,7 @@ export const CommentInputMainContainer = styled.div`
         display: block;
         margin-left: unset;
         margin-top: 16px;
-    
-        @media screen and (max-width: 767px) {
-          width: 100vw;
-        }
+        padding: 0;
     }
 `;
 
@@ -81,7 +76,7 @@ export const CommentInputText = styled.div`
     flex-direction: column;
 
     @media (max-width: 500px) {
-        flex-direction: column-reverse;
+        margin-top: 14px;
     }
 `;
 
@@ -113,6 +108,10 @@ export const CommentInputAuthor = styled.div`
     
     .dropdown-menu > li > a {
         padding: 4px 8px;
+    }
+
+    @media (max-width: 500px) {
+        margin-top: 60px;
     }
 `;
 

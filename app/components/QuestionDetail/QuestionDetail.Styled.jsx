@@ -41,9 +41,19 @@ export const NumComments = styled.div`
 `;
 
 export const QuestionDetailHeader = styled.div`
+    padding: 24px 20px 0;
+
+    @media screen and (max-width: 480px) {
+        padding: 0;
+    }
 `;
 
 export const QuestionDetailBody = styled.div`
+    padding: 24px 20px 0;
+
+    @media screen and (max-width: 480px) {
+        padding: 0;
+    }
 `;
 
 export const QuestionDetailFooter = styled.div`

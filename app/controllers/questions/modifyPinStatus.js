@@ -23,7 +23,7 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
       data: { is_pinned: value.newPinStatus },
     });
     return {
-      success: `The question has been ${updatedQuestion.is_pinned ? 'pinned' : 'unpinned'}.`,
+      successMessage: `The question has been ${updatedQuestion.is_pinned ? 'pinned' : 'unpinned'}.`,
       question: updatedQuestion,
     }
 

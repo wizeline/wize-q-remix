@@ -14,7 +14,7 @@ const Notifications = () => {
     }
     if (!data) return;
     
-    const { error, errors, success, warnings } = data;
+    const { error, errors, successMessage, warnings } = data;
 
     if (error) {
       console.error(error.detail);
@@ -34,8 +34,8 @@ const Notifications = () => {
       });
     };
 
-    if (success) {
-      toast.success(success, DEFAULT_TOAST_CONFIG);
+    if (successMessage) {
+      toast.success(successMessage, DEFAULT_TOAST_CONFIG);
     };
   }, [data, globalSuccess]);
 

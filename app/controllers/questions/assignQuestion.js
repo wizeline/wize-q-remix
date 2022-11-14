@@ -21,7 +21,7 @@ try {
     })
 
     return{
-        success:'Department has been assigned successfully',
+        successMessage:'Department has been assigned successfully',
         assignedQuestion
     } 
 } catch (error) {

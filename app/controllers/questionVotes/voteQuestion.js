@@ -51,7 +51,6 @@ export const voteQuestion = async (questionId, user) => {
       });
 
       return {
-        success: true,
         response: {
           vote: newVote,
           upVoteCount: targetQuestion._count.Votes + 1,
@@ -62,7 +61,6 @@ export const voteQuestion = async (questionId, user) => {
     try {
       const deletedVote = await db.Votes.delete({ where: { id: voteByUser.id } });
       return {
-        success: true,
         response: {
           voteSuccessfullyDeleted: true,
           deletedVote,

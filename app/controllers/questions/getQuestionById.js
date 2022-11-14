@@ -83,7 +83,7 @@ export const getQuestionById = async (questionId, user) => {
       }
 
       return {
-        success: true,
+        successMessage: true,
         question: mappedQuestion,
       }
 

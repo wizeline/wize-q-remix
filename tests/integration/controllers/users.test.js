@@ -35,7 +35,7 @@ describe("user controllers", () => {
       }
       const response = await updateUser(payload);
       expect(response).toBeDefined();
-      expect(response.success).toBeDefined();
+      expect(response.successMessage).toBeDefined();
 
       expect(response.updatedUser.job_title).toEqual(payload.job_title);
       expect(response.updatedUser.is_admin).toEqual(payload.is_admin);

@@ -16,7 +16,7 @@ describe('createAnswer', () => {
     const response = await createAnswer(answer);
 
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
     expect(response.answer).toBeDefined();
 
     expect(dbCreateSpy).toHaveBeenCalled();

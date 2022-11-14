@@ -8,8 +8,8 @@ describe('nps delete controller', () => {
         }
         const response = await deleteNPS(params);
         expect(response).toBeDefined();
-        expect(response.success).toBeDefined();
-        expect(response.success).toBe('NetScore has been deleted succesfully.');
+        expect(response.successMessage).toBeDefined();
+        expect(response.successMessage).toBe('NetScore has been deleted succesfully.');
     })
     it('error when the netscore not exist', async() => {
         const params ={ id: 10, user: {id: 'google-oauth2|111766391199351256706' }};

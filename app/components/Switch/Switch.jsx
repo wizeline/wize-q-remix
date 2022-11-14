@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import * as S from './Switch.Styled';
 
-const Switch = ({ checked, onChange }) => (
-  <S.Switch htmlFor={'react-switch-new'}>
-    <input type="checkbox" checked={checked} onChange={onChange} id={'react-switch-new'} />
-    <S.Slider />
+const Switch = ({ checked, onChange, id}) => (
+  <S.Switch htmlFor={id ?? 'react-switch-new'}>
+    <input type="checkbox" checked={checked} onChange={onChange} id={id ?? 'react-switch-new'} />
+    <S.Slider id={`${id}-slider` ?? 'react-switch-new-slider'}/>
   </S.Switch>
 );
 

@@ -287,6 +287,7 @@ const QuestionForm = ({
                   <Switch
                     checked={state.isAnonymous}
                     onChange={onAnonymousChange}
+                    id='ask-as-anonymous-toggle'
                   />
                 </p>
                 <InputCounter

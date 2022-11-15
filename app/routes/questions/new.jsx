@@ -44,7 +44,7 @@ export const action = async ({request}) => {
 
   const response = await createQuestion(payload);
 
-  if (response.success) {
+  if (response.successMessage) {
     const session = await getSession(request);
     session.flash("globalSuccess", response.successMessage);
   

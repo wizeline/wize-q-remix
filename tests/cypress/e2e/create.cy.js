@@ -99,7 +99,7 @@ describe('Create Question', () => {
     cy.get("#questions-list").children().eq(1).contains(QUESTION_TEXT);
   });
 
-  it('question detail of', () => {
-    cy.get("#questions-list").children().eq(1).contains(QUESTION_TEXT);
+  it('toast notification is shown', () => {
+    cy.get(".Toastify__toast-container").should('be.visible');
   });
 })

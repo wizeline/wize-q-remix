@@ -26,12 +26,13 @@ describe('Home', () => {
 
   it('has ask question button', () => {
     cy.get("#ask-button").click();
-
     cy.url().should('be.equal', `${Cypress.env('BASE_URL')}/questions/new`)
-
   });
 
   it('has go to top button', () => {
+    cy.login();
+    cy.visit(Cypress.env('BASE_URL'));
+
     cy.scrollTo('bottom')
 
     cy.get("#go-to-top-button").click();
@@ -42,7 +43,6 @@ describe('Home', () => {
 
   it('question click redirects to question detail page', () => {
     cy.get("#comments-button-1").click();
-
     cy.url().should('be.equal', `${Cypress.env('BASE_URL')}/questions/1`);
   });
 })

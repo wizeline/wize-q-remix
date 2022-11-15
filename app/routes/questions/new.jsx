@@ -46,7 +46,7 @@ export const action = async ({request}) => {
 
   if (response.success) {
     const session = await getSession(request);
-    session.flash("globalSuccess", response.success);
+    session.flash("globalSuccess", response.successMessage);
   
     return redirect("/?index", {
         headers: {

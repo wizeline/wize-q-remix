@@ -8,6 +8,6 @@ describe('deleteAnswer', () => {
 
     const response = await deleteAnswer(payload);
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
   });
 });

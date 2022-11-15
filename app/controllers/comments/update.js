@@ -72,7 +72,7 @@ export const updateComment = async (body) => {
   }
   if (updateCommentResponse.count === 1) {
     return {
-      success: true,
+      successMessage: "Comment was updated successfully!",
       response: "Comment was updated successfully",
     };
   }

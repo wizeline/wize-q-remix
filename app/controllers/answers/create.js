@@ -51,7 +51,7 @@ export const createAnswer = async (body) => {
   });
 
   return {
-    success: 'Answer has been created successfully.',
+    successMessage: 'Answer has been created successfully.',
     answer,
   };
 };

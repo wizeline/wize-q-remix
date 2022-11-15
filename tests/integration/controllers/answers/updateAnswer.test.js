@@ -16,7 +16,7 @@ describe('updateAnswer', () => {
 
     const response = await updateAnswer(payload);
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
 
     expect(response.updatedAnswer.answer_text).toEqual(payload.answer_text);
   });
@@ -37,7 +37,7 @@ describe('updateAnswer', () => {
 
     const response = await updateAnswer(payload);
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
     expect(getFormattedDate(response.updatedAnswer.updatedAt)).toEqual(getFormattedDate(new Date()));
   })
 });

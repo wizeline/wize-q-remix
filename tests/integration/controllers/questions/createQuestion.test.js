@@ -21,7 +21,7 @@ import slack from '~/utils/backend/slackNotifications';
 
       expect(response).toBeDefined();
       expect(response.errors).toBeDefined();
-      expect(response.success).toBeUndefined();
+      expect(response.successMessage).toBeUndefined();
       expect(response.question).toBeUndefined();
 
       expect(dbCreateSpy).toHaveBeenCalledTimes(0);
@@ -41,7 +41,7 @@ import slack from '~/utils/backend/slackNotifications';
         const response = await createQuestion(question);
 
         expect(response).toBeDefined();
-        expect(response.success).toBeDefined();
+        expect(response.successMessage).toBeDefined();
         expect(response.question).toBeDefined();
         expect(response.question.user_hash).toBe('');
 
@@ -65,7 +65,7 @@ import slack from '~/utils/backend/slackNotifications';
       const response = await createQuestion(question);
 
       expect(response).toBeDefined();
-      expect(response.success).toBeDefined();
+      expect(response.successMessage).toBeDefined();
       expect(response.question).toBeDefined();
       expect(response.question.user_hash).not.toBe('');
 

@@ -9,7 +9,7 @@ describe('assignQuestion', () => {
 
         const response = await assignQuestion(payload);
         expect(response).toBeDefined();
-        expect(response.success).toBeDefined();
+        expect(response.successMessage).toBeDefined();
         expect(response.assignedQuestion.assigned_department).toEqual(payload.assigned_department);
     })
 

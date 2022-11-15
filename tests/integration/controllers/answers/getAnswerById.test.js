@@ -51,8 +51,8 @@ describe('answers controller', () => {
         id: 'google-oauth2|108653070533260305238',
       });
       expect(response).toBeDefined();
-      expect(response.success).toBeDefined();
-      expect(response.success).toBe('Answer successfully read!');
+      expect(response.successMessage).toBeDefined();
+      expect(response.successMessage).toBe('Answer successfully read!');
       expect(response.answer).toBeDefined();
 
       const answer = response.answer;

@@ -31,11 +31,9 @@ describe('question votes controller', () => {
 
     it('creates new vote for question', async () => {
       const voteResponse = await voteQuestion(3, { id: 'google-oauth2|108653070533267290373' });
-      expect(voteResponse.success).toBe(true);
       expect(voteResponse.response).toBeDefined();
       expect(voteResponse.response.upVoteCount).toBe(4);
       const getQuestionResponse = await getQuestionById(3, { id: 'google-oauth2|108653070533267290373' });
-      expect(getQuestionResponse.success).toBe(true);
       expect(getQuestionResponse.question).toBeDefined();
       expect(getQuestionResponse.question.hasVoted).toBe(true);
       expect(getQuestionResponse.question.num_votes).toBe(4);
@@ -57,7 +55,7 @@ describe('question votes controller', () => {
 
       expect(createQuestionResponse).toBeDefined();
       expect(createQuestionResponse.errors).toBeUndefined();
-      expect(createQuestionResponse.success).toBeDefined();
+      expect(createQuestionResponse.successMessage).toBeDefined();
       expect(createQuestionResponse.question).toBeDefined();
 
       const testQuestionId = createQuestionResponse.question.question_id;
@@ -67,35 +65,29 @@ describe('question votes controller', () => {
       const thirdUser = { id: "google-oauth2|108653070533260303333" };
 
       let voteResponse = await voteQuestion(testQuestionId, firstUser);
-      expect(voteResponse.success).toBe(true);
       expect(voteResponse.response).toBeDefined();
       expect(voteResponse.response.upVoteCount).toBe(1);
 
       voteResponse = await voteQuestion(testQuestionId, secondUser);
-      expect(voteResponse.success).toBe(true);
       expect(voteResponse.response).toBeDefined();
       expect(voteResponse.response.upVoteCount).toBe(2);
 
       voteResponse = await voteQuestion(testQuestionId, thirdUser);
-      expect(voteResponse.success).toBe(true);
       expect(voteResponse.response).toBeDefined();
       expect(voteResponse.response.upVoteCount).toBe(3);
 
       let getQuestionResponse = await getQuestionById(testQuestionId, secondUser);
-      expect(getQuestionResponse.success).toBe(true);
       expect(getQuestionResponse.question).toBeDefined();
       expect(getQuestionResponse.question.hasVoted).toBe(true);
       expect(getQuestionResponse.question.num_votes).toBe(3);
 
       voteResponse = await voteQuestion(testQuestionId, secondUser);
-      expect(voteResponse.success).toBe(true);
       expect(voteResponse.response).toBeDefined();
       expect(voteResponse.response.voteSuccessfullyDeleted).toBe(true);
       expect(voteResponse.response.upVoteCount).toBe(2);
       expect(dbDeleteVoteSpy).toHaveBeenCalledTimes(1);
 
       getQuestionResponse = await getQuestionById(testQuestionId, secondUser);
-      expect(getQuestionResponse.success).toBe(true);
       expect(getQuestionResponse.question).toBeDefined();
       expect(getQuestionResponse.question.hasVoted).toBe(false);
       expect(getQuestionResponse.question.num_votes).toBe(2);

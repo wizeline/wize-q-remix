@@ -85,5 +85,5 @@ const comments = fetchComments.map((comment) => {
 
     return comment;
 });
-return { success: true, comments};
+return { comments };
 }

@@ -27,7 +27,7 @@ export const getAnswerById = async (answerId, user) => {
     });
 
     return {
-      success: 'Answer successfully read!',
+      successMessage: 'Answer successfully read!',
       answer,
     };
   } catch (error) {

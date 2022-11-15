@@ -9,7 +9,7 @@ describe('nps', () => {
 
         const response = await nps(payload);
         expect(response).toBeDefined();
-        expect(response.success).toBeDefined();
+        expect(response.successMessage).toBeDefined();
         expect(response.scored.score).toEqual(payload.score);
     })
 

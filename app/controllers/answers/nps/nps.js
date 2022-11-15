@@ -19,7 +19,7 @@ export const nps = async (query) => {
     })
 
     return {
-        success:'Score has been assigned successfully',
+        successMessage:'Score has been assigned successfully',
         scored
     } 
 } catch (error) {

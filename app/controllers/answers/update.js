@@ -28,7 +28,7 @@ export const updateAnswer = async (query) => {
   });
 
   return {
-    success: 'Answer has been updated succesfully.',
+    successMessage: 'Answer has been updated succesfully.',
     updatedAnswer,
   };
 };

@@ -23,7 +23,7 @@ export const deleteNPS = async (params) => {
     });
 
     return{
-      success: 'NetScore has been deleted succesfully.',
+      successMessage: 'NetScore has been deleted succesfully.',
     }
 
   }

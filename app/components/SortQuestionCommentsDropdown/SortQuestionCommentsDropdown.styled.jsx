@@ -6,25 +6,24 @@ export const Main = styled.div`
 `;
 
 export const DropDownContainer = styled.div`
-    width: 10em;
     margin: 0;
     position: relative;
 `;
 
 export const DropDownHeader = styled.div`
-    margin-bottom: 0.2em;
-    padding: 0.4em 2em 0.4em 1em;
-    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
-    font-weight: 500;
+    font-weight: 700;
     font-size: 1.3rem;
     color: #3faffa;
-    background: #ffffff;
     cursor: pointer;
+    display: flex;
+    align-items:center;
 `;
 
 export const DropDownListContainer = styled.div`
+    right: 0;
     position: absolute;
-    width: 100%;
+    width: 10em;
+    z-index: 999;
 `;
 
 export const DropDownList = styled.ul`

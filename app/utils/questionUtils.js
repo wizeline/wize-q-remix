@@ -15,10 +15,16 @@ function shouldRenderAdminButtons(question, isAdmin) {
   return !question.Answer && isAdmin;
 }
 
+function hasJobTitle(createdBy) {
+  if(!createdBy) return;
+
+  return createdBy.job_title;
+}
+
 function renderAdminButtons(renderAdminBtnProps) {
   const { question, onAnswerClick, onAssignAnswerClick } = renderAdminBtnProps;
   return (
-    <div className="question-row__admin-buttons--container">
+    <div className="question-row__admin-buttons--container" style={{display: 'flex'}}>
       <Button
         type="button"
         category={TEXT_BUTTON}
@@ -92,6 +98,7 @@ function renderAnswer(renderAnswerProps) {
 module.exports = {
   renderDepartment,
   shouldRenderAdminButtons,
+  hasJobTitle,
   renderAdminButtons,
   renderAnswer,
 };

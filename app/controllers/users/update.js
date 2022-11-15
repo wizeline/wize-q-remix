@@ -28,7 +28,7 @@ export const updateUser = async (query) => {
     });
 
     return {
-        success: 'User has been updated succesfully.',
+        successMessage: 'User has been updated succesfully.',
         updatedUser: updatedUser,
     };
 }

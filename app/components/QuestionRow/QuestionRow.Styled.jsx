@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillCircleFill, BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
+import { BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -161,12 +161,6 @@ export const QuestionRowLine = styled.div`
     ${props => (!props.hasAnswer || props.isQuestionModalOpen) && css`
         display: none
     `}
-`;
-
-export const CircleIcon = styled(BsFillCircleFill)`
-    font-size: 5px;
-    color: var(--color-dark-metadata);
-    margin: 0 5px;
 `;
 
 export const QuestionRowDate = styled.div`

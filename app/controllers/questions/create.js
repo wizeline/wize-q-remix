@@ -48,7 +48,7 @@ export const createQuestion = async (body) => {
   });
 
   return {
-    success: "Question has been created succesfully!",
+    successMessage: "Question has been created succesfully!",
     question: created,
   };
 }

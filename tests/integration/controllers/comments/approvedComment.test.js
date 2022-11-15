@@ -11,7 +11,7 @@ describe('approve comment controller', () => {
         };
        const response = await approvedByComment(params);
        expect(response).toBeDefined();
-       expect(response.success).toBe('Comment marked as an answer successfully');
+       expect(response.successMessage).toBe('Comment marked as an answer successfully');
        expect(response.response).toBe('Comment marked as an answer successfully');
     });
 
@@ -25,12 +25,12 @@ describe('approve comment controller', () => {
        const response = await approvedByComment(params);
        expect(response).toBeDefined();
        expect(response.response).toBe('Comment marked as an answer successfully');
-       expect(response.success).toBe('Comment marked as an answer successfully');
+       expect(response.successMessage).toBe('Comment marked as an answer successfully');
        params.checked = false;
 
        const responseUnmark = await approvedByComment(params);
        expect(responseUnmark).toBeDefined();
-       expect(responseUnmark.success).toBe('Comment unmarked as an answer successfully');
+       expect(responseUnmark.successMessage).toBe('Comment unmarked as an answer successfully');
        expect(responseUnmark.response).toBe('Comment unmarked as an answer successfully');
     });
 

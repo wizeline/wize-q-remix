@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { formatCollapsingText } from '~/utils/stringOperations';
-import { renderDepartment } from '~/utils/questionUtils';
+import { renderDepartment, hasJobTitle } from '~/utils/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
 import * as Styled from './QuestionRow.Styled';
 import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
@@ -12,6 +12,7 @@ import { useUser } from '~/utils/hooks/useUser';
 import { getDateData } from '~/utils/timeOperations';
 import { useRef } from 'react';
 import { ACTIONS } from '~/utils/actions';
+import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 
 
@@ -89,11 +90,13 @@ const QuestionRow = (props) => {
       <Styled.QuestionRowMetadataTop>
         <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
             <QuestionResponderInfo createdBy={question.created_by}>
-              <Styled.CircleIcon />
-              <Styled.QuestionRowDate>
-                <em>{isUpdated && ' (edited)'}</em>
-                {getDateData(question.createdAt)}
-              </Styled.QuestionRowDate>
+              <DateContainer hasJobTitle={hasJobTitle(question.created_by)}>
+                <CircleIcon />
+                <Styled.QuestionRowDate>
+                  <em>{isUpdated && ' (edited)'}</em>
+                  {getDateData(question.createdAt)}
+                </Styled.QuestionRowDate>
+              </DateContainer>
             </QuestionResponderInfo>
         </ConditionalLinkTo>
         <Styled.QuestionRowLine isQuestionModalOpen={isQuestionModalOpen} hasAnswer={hasAnswer} />
@@ -117,8 +120,13 @@ const QuestionRow = (props) => {
         {children}
         <Styled.QuestionRowMetadataBottom>
           <Styled.QuestionRowMetadataSectionOne>
-            <Label text={renderLocation(question.location, locations)} type={'Location'}/>
-            <Label text={renderDepartment(question.Department)} type={'Department'}/>
+            {
+              isFromList && 
+              <>
+                <Label text={renderLocation(question.location, locations)} type={'Location'}/>
+                <Label text={renderDepartment(question.Department)} type={'Department'}/>
+              </>
+            }
           </Styled.QuestionRowMetadataSectionOne>
           <Styled.QuestionId>
             {`Question ID: Q${question.question_id}`}

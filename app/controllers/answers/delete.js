@@ -26,6 +26,6 @@ export const deleteAnswer = async (query) => {
   });
 
   return {
-    success: 'Answer has been deleted succesfully.',
+    successMessage: 'Answer has been deleted succesfully.',
   };
 };

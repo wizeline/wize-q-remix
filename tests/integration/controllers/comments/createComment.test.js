@@ -38,7 +38,7 @@ describe('createComment', () => {
     const response = await createComment(comment);
 
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
     expect(response.comment).toBeDefined();
 
     expect(response.comment.createdAt).toBeDefined();
@@ -64,7 +64,7 @@ describe('createComment', () => {
     const response = await createComment(comment);
 
     expect(response).toBeDefined();
-    expect(response.success).toBeDefined();
+    expect(response.successMessage).toBeDefined();
     expect(response.comment).toBeDefined();
     
     expect(response.comment.createdAt).toBeDefined();

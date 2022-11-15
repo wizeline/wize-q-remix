@@ -75,7 +75,7 @@ describe('delete comment controller', () => {
 
         const createCommentResponse = await createComment(createCommentBody);
 
-        expect(createCommentResponse.success).toBeDefined();
+        expect(createCommentResponse.successMessage).toBeDefined();
         expect(createCommentResponse.comment.id).toBeDefined();
         expect(typeof createCommentResponse.comment.id).toBe('number');
 
@@ -84,8 +84,8 @@ describe('delete comment controller', () => {
 
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
         expect(deleteCommentResponse).toBeDefined();
-        expect(deleteCommentResponse.success).toBeDefined();
-        expect(deleteCommentResponse.success).toBe('Comment was deleted successfully');
+        expect(deleteCommentResponse.successMessage).toBeDefined();
+        expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
         expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 
@@ -107,7 +107,7 @@ describe('delete comment controller', () => {
 
         const createCommentResponse = await createComment(createCommentBody);
 
-        expect(createCommentResponse.success).toBeDefined();
+        expect(createCommentResponse.successMessage).toBeDefined();
         expect(createCommentResponse.comment.id).toBeDefined();
         expect(typeof createCommentResponse.comment.id).toBe('number');
 
@@ -116,8 +116,8 @@ describe('delete comment controller', () => {
 
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
         expect(deleteCommentResponse).toBeDefined();
-        expect(deleteCommentResponse.success).toBeDefined();
-        expect(deleteCommentResponse.success).toBe('Comment was deleted successfully');
+        expect(deleteCommentResponse.successMessage).toBeDefined();
+        expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
         expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
     });
 });

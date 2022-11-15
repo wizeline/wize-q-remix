@@ -21,7 +21,7 @@ describe("questions controller", () => {
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
       expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE);
-      expect(response.success).toBeUndefined();
+      expect(response.successMessage).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
     });
@@ -34,7 +34,7 @@ describe("questions controller", () => {
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
       expect(response.error.detail).toBe(INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE);
-      expect(response.success).toBeUndefined();
+      expect(response.successMessage).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
     });
@@ -47,7 +47,7 @@ describe("questions controller", () => {
       expect(response.error.detail).toBeDefined();
       expect(response.error.message).toBe(PIN_QUESTION_ERROR_MESSAGE);
       expect(response.error.detail).toBe(QUESTION_NOT_FOUND_ERROR_MESSAGE);
-      expect(response.success).toBeUndefined();
+      expect(response.successMessage).toBeUndefined();
       expect(response.question).toBeUndefined();
       expect(dbUpdateSpy).toHaveBeenCalledTimes(1);
     });
@@ -66,7 +66,7 @@ describe("questions controller", () => {
 
       expect(createQuestionResponse).toBeDefined();
       expect(createQuestionResponse.errors).toBeUndefined();
-      expect(createQuestionResponse.success).toBeDefined();
+      expect(createQuestionResponse.successMessage).toBeDefined();
       expect(createQuestionResponse.question).toBeDefined();
       expect(createQuestionResponse.question.question_id).toBeDefined();
       expect(createQuestionResponse.question.is_pinned).toBeDefined();
@@ -75,9 +75,9 @@ describe("questions controller", () => {
       const response = await modifyPinStatus(createQuestionResponse.question.question_id, true);
 
       expect(response.error).toBeUndefined();
-      expect(response.success).toBeDefined();
+      expect(response.successMessage).toBeDefined();
       expect(response.question).toBeDefined();
-      expect(response.success).toContain('The question has been pinned');
+      expect(response.successMessage).toContain('The question has been pinned');
       expect(response.question.is_pinned).toBeDefined();
       expect(response.question.is_pinned).toBe(true);
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
@@ -86,9 +86,9 @@ describe("questions controller", () => {
     it('return the current date in the updatedAt field when updating a question', async () => {
       const response = await modifyPinStatus(1, true);
       expect(response.error).toBeUndefined();
-      expect(response.success).toBeDefined();
+      expect(response.successMessage).toBeDefined();
       expect(response.question).toBeDefined();
-      expect(response.success).toContain('The question has been pinned');
+      expect(response.successMessage).toContain('The question has been pinned');
       expect(response.question.is_pinned).toBeDefined();
       expect(response.question.is_pinned).toBe(true);
       expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));

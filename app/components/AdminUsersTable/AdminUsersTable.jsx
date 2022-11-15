@@ -24,7 +24,7 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
   const data = useActionData();
 
   useEffect(() => {
-    if (data && data.success) {
+    if (data && data.successMessage) {
       setModal(false);
     }
   }, [users, data])

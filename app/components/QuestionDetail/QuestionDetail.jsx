@@ -4,29 +4,28 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import likeIcon from "~/images/ic_like.svg";
 import likeIconVoted from "~/images/ic_like_pressed.svg";
-import commentIcon from "~/images/ic_comment_selected.svg";
-import { addS } from "~/utils/stringOperations";
 import {
   shouldRenderAdminButtons,
   renderAdminButtons,
   renderAnswer,
 } from "~/utils/questionUtils";
+import { addS } from "~/utils/stringOperations";
 import { PRIMARY_BUTTON, LSPIN_SMALL } from "~/utils/constants";
-import * as Styled from "~/components/QuestionDetail/QuestionDetail.Styled";
 import Button from "~/components/Atoms/Button";
 import CounterButton from "~/components/CounterButton";
-import { QuestionCardActions } from "~/components/QuestionCard/QuestionCard.Styled";
+import QuestionCommentList  from '~/components/QuestionCommentList';
+import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
+import CommentInput from '~/components/CommentInput/CommentInput';
 import QuestionRow from "~/components/QuestionRow";
 import AnswerModal from "~/components/Modals/AnswerModal/AnswerModal";
 import DeleteAnswerModal from "~/components/Modals/DeleteAnswerModal/DeleteAnswerModal";
 import NetPromoterScoreRow from "~/components/NetPromoterScoreRow/NetPromoterScoreRow";
+import { QuestionCardActions, QuestionCardContainer, QuestionCardWrapper, QuestionCardBorder } from "~/components/QuestionCard/QuestionCard.Styled";
+import * as Styled from "~/components/QuestionDetail/QuestionDetail.Styled";
 import Loader from "~/components/Loader";
 import logomark from "~/images/logomark_small.png";
 import { useUser } from "~/utils/hooks/useUser";
 import { ACTIONS } from "~/utils/actions";
-import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
-import QuestionCommentList  from '~/components/QuestionCommentList';
-import CommentInput from '~/components/CommentInput/CommentInput';
 
 function QuestionDetails(props) {
   const submit = useSubmit();
@@ -41,6 +40,7 @@ function QuestionDetails(props) {
   const initialState = {
     showAnswerModal: false,
     showAssignAnswerModal: false,
+    showDeleteAnswerModal: false,
   };
 
   const [state, setState] = useState(initialState);
@@ -80,25 +80,19 @@ function QuestionDetails(props) {
         <CounterButton
           selected={question.hasVoted}
           icon={icon}
-          text={addS("Like", question.num_votes)}
           count={question.num_votes}
           processingFormSubmission={transition.state !== "idle"}
           onClick={onLikeButtonClick}
-        />
-        <CounterButton
-          notButton
-          icon={commentIcon}
-          text={addS("Comment", question.numComments)}
-          count={question.numComments}
         />
       </Styled.CounterButtonsWrapper>
     );
   };
 
-  const renderNumCommentsRow = (answer) =>
-    answer && (
-      <Styled.NumComments>{question.numComments} Comments</Styled.NumComments>
-    );
+  const renderNumCommentsRow = () => (
+    <Styled.NumComments>
+      {question.numComments} {addS('Comment', question.numComments)}
+    </Styled.NumComments>
+  );
 
   const openAssignAnswerModal = () => {
     setState({
@@ -176,7 +170,6 @@ function QuestionDetails(props) {
     />
   </div>)
 
-
   const isEmpty = (obj) => Object.keys(obj).length === 0;
 
   const handleAssignAnswerModalClose = () => {
@@ -197,8 +190,6 @@ function QuestionDetails(props) {
     />
       ) : null;
 
-  
-
   return (
     <Styled.Container>
       {!isEmpty(question) &&
@@ -206,45 +197,52 @@ function QuestionDetails(props) {
       isAdmin !== undefined ? (
         <Styled.QuestionDetail>
           <Styled.QuestionDetailHeader>
-            <QuestionRow question={question} isFromList={false} />
-            <QuestionCardActions
-              hasDetail
-              hasAnswer={question.Answer}
-              isQuestionModalOpen
-            >
-              {renderQuestionButtons()}
-              {shouldRenderAdminButtons(question, isAdmin) &&
-                renderAdminButtons({
-                  question,
-                  onAnswerClick: () => {
-                    setState({ ...state, showAnswerModal: true });
-                  },
-                  onAssignAnswerClick: () => { openAssignAnswerModal(question) },
-                })}
-            </QuestionCardActions>
-            {renderAnswer({
-              Answer: question.Answer,
-              isAdmin,
-              currentUserEmail,
-              onAnswerClick: () => {
-                openAnswerModal(question);
-              },
-              openDeleteAnswerModal: () => {
-                openDeleteAnswerModal(question);
-              },
-              question,
-              isQuestionModalOpen: true,
-              isFromList: false,
-            })}
+            <QuestionCardContainer>
+              <QuestionCardWrapper>
+                <QuestionCardBorder>
+                  <QuestionRow question={question} isFromList={false} />
+                  <QuestionCardActions
+                    hasDetail
+                    hasAnswer={question.Answer}
+                    isQuestionModalOpen
+                  >
+                    {renderQuestionButtons()}
+                    {shouldRenderAdminButtons(question, isAdmin) &&
+                      renderAdminButtons({
+                        question,
+                        onAnswerClick: () => {
+                          setState({ ...state, showAnswerModal: true });
+                        },
+                        onAssignAnswerClick: () => { openAssignAnswerModal(question) },
+                      })}
+                  </QuestionCardActions>
+                </QuestionCardBorder>
+              </QuestionCardWrapper>
+              {renderAnswer({
+                Answer: question.Answer,
+                isAdmin,
+                currentUserEmail,
+                onAnswerClick: () => {
+                  openAnswerModal(question);
+                },
+                openDeleteAnswerModal: () => {
+                  openDeleteAnswerModal(question);
+                },
+                question,
+                isQuestionModalOpen: true,
+                isFromList: false,
+              })}
+            </QuestionCardContainer>
             {renderNPS(question.Answer)}
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
-            {renderNumCommentsRow(question.Answer)}
             <QuestionCommentList
               questionId={parseInt(questionId, 10)}
               isAdmin={isAdmin}
               hasAnswer={question.Answer !== null}
-            />
+            >
+              {renderNumCommentsRow()}
+            </QuestionCommentList>
           </Styled.QuestionDetailBody>
           <Styled.QuestionDetailFooter
             className={writingCommentOnMobile ? "writing-mobile" : ""}

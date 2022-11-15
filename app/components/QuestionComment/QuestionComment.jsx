@@ -1,11 +1,12 @@
 import {useState} from 'react';
-import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc';
-import { BsThreeDotsVertical, BsCheckCircle, BsCircle } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsCheckCircle, BsArrowDownCircle, BsArrowUpCircle } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import * as Styled from './QuestionComment.styled';
-import CounterButton from '../CounterButton';
-import QuestionerResponderInfo from '../QuestionResponderInfo';
+import CounterButton from '~/components/CounterButton';
+import QuestionerResponderInfo from '~/components/QuestionResponderInfo';
 import Button from '~/components/Atoms/Button';
+import Label from '~/components/Atoms/Label';
+import { CircleIcon, DateContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 import editIconUnselected from '~/images/ic_edit.svg';
 import deleteIconUnselected from '~/images/ic_delete.svg';
 import editIconSelected from '~/images/ic_edit_selected.svg';
@@ -152,9 +153,21 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       setUpdatedComment(comment);
     };
   
-    const renderArrowIcon = direction => (direction === 'up' ?
-      (<VscTriangleUp size={'1.5em'} color={!upVoteActive ? 'grey' : '#72d8b6'} />) :
-      (<VscTriangleDown size={'1.5em'} color={!downVoteActive ? 'grey' : 'var(--color-primary)'} />));
+    const renderArrowIcon = direction => {
+      if(direction === 'up'){
+        return (
+          <Styled.ArrowUp upVoteActive={upVoteActive}>
+            <BsArrowUpCircle size={'1.8em'} color={upVoteActive ? 'var(--color-green)' : 'var(--color-dark-metadata)'}/>
+          </Styled.ArrowUp>
+        );
+      } else {
+        return (
+          <Styled.ArrowDown downVoteActive={downVoteActive}>
+            <BsArrowDownCircle size={'1.8em'} color={downVoteActive ? 'var(--color-primary)' : 'var(--color-dark-metadata)'}/>
+          </Styled.ArrowDown>
+        );
+      }
+    }
   
     const renderCommentOptions = () => (
       <div ref={wrapperRef}>
@@ -180,14 +193,10 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     );
   
     const renderButtonOption = () => {
-      let color = '#A7A5A5';
       if (props.hasCommentAsAnswer && commentData.approvedBy !== null) {
-        color = 'green';
-        return <BsCheckCircle color={color} size="20px" />;
-      } else if (!props.hasCommentAsAnswer) {
-        color = '#4F4F4F';
+        return <BsCheckCircle color='green' size="20px" />;
       }
-      return <BsCircle color={color} size="20px" />;
+      return <BsCheckCircle color="var(--color-dark-25)" size="20px" />;
     };
   
     const renderNotAdminOption = () => {
@@ -211,17 +220,22 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     };
   
     const { comment, createdAt, updatedAt, User, canEdit } = commentData;
+
+    const renderCommunityAnswerLabel = () => props.isCommunityAnswer && <Label type='Answer' text={COMMUNITY_ANSWER_TAG_TEXT} />
   
-    const renderApproverName = () =>
-      <p> Approved By: <strong> {commentData.Approver.full_name} </strong></p>;
-  
-    const departmentTagContent = props.isCommunityAnswer ? COMMUNITY_ANSWER_TAG_TEXT : null;
-    const isAnswerTag = props.isCommunityAnswer ? true : null;
+    const renderApproverNameLabel = () => (
+      <>
+        <Label type='Answer' text='Approved'/>
+        <Styled.ApproverName>by <strong>{commentData.Approver.full_name}</strong></Styled.ApproverName>
+      </>
+    );
   
     return (
       <Styled.QuestionCommentContainer
+        hadApprover={commentData.approvedBy}
         isDeleting={isDeleting}
         isEditing={isEditing}
+        isCommunityAnswer={props.isCommunityAnswer}
       >
         <Styled.QuestionCommentButtons>
           <CounterButton
@@ -231,7 +245,9 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             count={' '}
             onClick={upVoteF}
           />
-          <Styled.QuestionCommentCounterSpan>{upVote}</Styled.QuestionCommentCounterSpan>
+          <Styled.QuestionCommentCounterSpan upVoteActive={upVoteActive} downVoteActive={downVoteActive}>
+            {upVote}
+          </Styled.QuestionCommentCounterSpan>
           <CounterButton
             selected={downVoteActive}
             icon={renderArrowIcon('down')}
@@ -239,21 +255,10 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             count={''}
             onClick={downVoteF}
           />
-          {(props.isAdmin && !props.hasAnswer) ? <Styled.CommentAsAnswerToolTip
-            onClick={() => { markAsAnswer(!isAnswer); }}
-            disabled={props.hasCommentAsAnswer && commentData.approvedBy === null}
-          >
-            {renderButtonOption()}
-            {renderAdminToolTips()}
-          </Styled.CommentAsAnswerToolTip> :
-          <Styled.CommentAsAnswerToolTip>
-            {renderNotAdminOption()}
-            {commentData.approver !== null && renderToolTip('Approved as answer')}
-          </Styled.CommentAsAnswerToolTip>
-          }
+          {(commentData.approvedBy !== null) && renderApproverNameLabel()}
+          {renderCommunityAnswerLabel()}
         </Styled.QuestionCommentButtons>
         <Styled.QuestionCommentWrapper
-          hadApprover={commentData.approvedBy}
           isDeleting={isDeleting}
           isEditing={isEditing}
         >
@@ -262,14 +267,40 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               createdBy={User}
               isUpdated={updatedAt !== null}
               userImgSize={'medium'}
-              department={departmentTagContent}
-              isAnswer={isAnswerTag}
-            />
-            {canEdit && (
-            <Styled.QuestionCommentOptions>
-              {renderCommentOptions()}
-            </Styled.QuestionCommentOptions>
-          )}
+            >
+              <DateContainer isComment hasJobTitle={User.job_title}>
+                <CircleIcon />
+                <Styled.QuestionCommentDate
+                  isAdmin={props.isAdmin}
+                  hadApprover={commentData.approvedBy}
+                >
+                  {updatedAt && <em>{'edited'}</em>}
+                  {getTimeDiff(updatedAt || createdAt)}
+                </Styled.QuestionCommentDate>
+              </DateContainer>
+            </QuestionerResponderInfo>
+            <Styled.QuestionCommentOptionsWrapper>
+              {
+                (props.isAdmin && !props.hasAnswer) ? 
+                <Styled.CommentAsAnswerToolTip
+                  onClick={() => { markAsAnswer(!isAnswer); }}
+                  disabled={props.hasCommentAsAnswer && commentData.approvedBy === null}
+                >
+                  {renderButtonOption()}
+                  {renderAdminToolTips()}
+                </Styled.CommentAsAnswerToolTip> 
+                :
+                <Styled.CommentAsAnswerToolTip>
+                  {renderNotAdminOption()}
+                  {commentData.approver !== null && renderToolTip('Approved as answer')}
+                </Styled.CommentAsAnswerToolTip>
+              }
+              {canEdit && (
+                <Styled.QuestionCommentOptions>
+                  {renderCommentOptions()}
+                </Styled.QuestionCommentOptions>
+              )}
+            </Styled.QuestionCommentOptionsWrapper>
           </Styled.QuestionCommentMetadata>
           <Styled.QuestionCommentText isEditing={isEditing}>
             {!isEditing ? (
@@ -330,14 +361,6 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             </Styled.QuestionCommentDeleteConfirmation>
           )}
           </Styled.QuestionCommentText>
-          <Styled.QuestionCommentDate
-            isAdmin={props.isAdmin}
-            hadApprover={commentData.approvedBy}
-          >
-            {(commentData.approvedBy !== null) && renderApproverName()}
-            {updatedAt && <em>{'edited'}</em>}
-            {getTimeDiff(updatedAt || createdAt)}
-          </Styled.QuestionCommentDate>
         </Styled.QuestionCommentWrapper>
       </Styled.QuestionCommentContainer>
   

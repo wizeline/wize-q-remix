@@ -83,7 +83,7 @@ const QuestionCard = (props) => {
 
     if(commentAsAnswer){
       return (<AnswerRow 
-      answer_text= {commentAsAnswer.comment}
+      answer_text={commentAsAnswer.comment}
       user={commentAsAnswer.User}
       answered_at={commentAsAnswer.createdAt}
       searchTerm={renderAnswerProps.searchTerm}
@@ -91,9 +91,9 @@ const QuestionCard = (props) => {
       isFromList={renderAnswerProps.isFromList}
       questionId={question.question_id}
       isAnswer={question.Answers.length > 0}
-      isCommunityAnswer= {question.hasCommunityAnswer}
-      isCommentApproved ={question.hasCommentApproved}
-      approver ={commentAsAnswer.Approver}
+      isCommunityAnswer={question.hasCommunityAnswer}
+      isCommentApproved={question.hasCommentApproved}
+      approver={commentAsAnswer.Approver}
       />)    
     }
   }

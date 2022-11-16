@@ -41,16 +41,15 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   );
   
   const renderAnswerLabel = () => {
-    let txt_answer = 'Best Answer';
     if(props.isCommentApproved) {
-      txt_answer = `Comment approved by ${props.approver.full_name}`;
+      return <Label type={'Answer'} text={'Approved'} approvedBy={props.approver.full_name} />
     }
     else if (props.isCommunityAnswer) {
-      txt_answer = 'Community answer';
+      return <Label type={'Answer'} text={'Community answer'} />
     };
     
     return (
-      <Label type={'Answer'} text={txt_answer} />
+      <Label type={'Answer'} text={'Best Answer'} />
     )
   }
 

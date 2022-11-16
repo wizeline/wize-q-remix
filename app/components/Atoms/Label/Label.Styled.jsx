@@ -1,5 +1,10 @@
 import styled, { css } from 'styled-components';
 
+export const LabelContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const Label = styled.div`
   background-color: var(--color-secondary-lowOpacity);
   border-radius: 20px;
@@ -40,4 +45,10 @@ export const Label = styled.div`
     background-color: var(--color-gold-bg);
     color: var(--color-gold);
   `}
+`;
+
+export const ApproverName = styled.span`
+  font-family: "Nunito", sans-serif;
+  font-size: 12px;
+  color: var(--color-green);
 `;

@@ -12,7 +12,7 @@ import toastify from 'react-toastify/dist/ReactToastify.css';
 import reactDraftWysiwyg from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftJs from "draft-js/dist/Draft.css";
 
-import ErrorHandler from "~/routes/errorHandler$";
+import ErrorHandler from "~/components/errorHandler";
 
 import { commitSession, getAuthenticatedUser, getSession } from "~/session.server";
 import { json } from "@remix-run/node";

@@ -64,8 +64,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
   const { user, children } = props;
 
   const anwserDate = getAnswerDate();
-  console.log(props.isCommentApproved ? "Approved" : props.isCommunityAnswer ? "Community" : "Regular")
-  console.log(props);
+
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.AnsweredMetadata isPreview={isPreview} >

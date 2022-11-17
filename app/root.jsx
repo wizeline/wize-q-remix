@@ -12,7 +12,7 @@ import toastify from 'react-toastify/dist/ReactToastify.css';
 import reactDraftWysiwyg from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftJs from "draft-js/dist/Draft.css";
 
-import ErrorHandler from "~/components/errorHandler";
+import ErrorHandler from "~/components/ErrorHandler/ErrorHandler";
 
 import { commitSession, getAuthenticatedUser, getSession } from "~/session.server";
 import { json } from "@remix-run/node";
@@ -96,10 +96,7 @@ export function ErrorBoundary({ error }) {
         <Links />
       </head>
       <body>
-        <ErrorHandler />
-        <div style={{display: "flex", justifyContent: "center", paddingTop: "20px" }}>
-          <pre>{error.message}</pre>
-        </div>
+        <ErrorHandler error = {error}/>
         <Scripts />
       </body>
     </html>

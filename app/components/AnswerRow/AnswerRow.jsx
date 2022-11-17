@@ -53,7 +53,19 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
     )
   }
 
-  const { user, createdAt, children } = props;
+  const getAnswerDate = () => {
+    if (props.isCommunityAnswer || props.isCommentApproved) {
+      return props.answered_at;
+    };
+    
+    return props.answer_date
+  }
+
+  const { user, children } = props;
+
+  const anwserDate = getAnswerDate();
+  console.log(props.isCommentApproved ? "Approved" : props.isCommunityAnswer ? "Community" : "Regular")
+  console.log(props);
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.AnsweredMetadata isPreview={isPreview} >
@@ -63,7 +75,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
               <DateContainer hasJobTitle={user !== null ? user.job_title : ''}>
                 <CircleIcon />
                 <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
-                  {getDateData(createdAt)}
+                  {getDateData(anwserDate)}
                 </Styled.AnswerRowDate>
               </DateContainer>
             </QuestionResponderInfo>

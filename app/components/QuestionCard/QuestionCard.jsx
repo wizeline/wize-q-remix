@@ -10,6 +10,8 @@ import * as Styled from './QuestionCard.Styled';
 import { useNavigate } from 'react-router-dom';
 import QuestionRow from '~/components/QuestionRow';
 import CounterButton from '~/components/CounterButton';
+import { reorderHighlightedComments } from '~/utils/commentUtils';
+import AnswerRow from '../AnswerRow';
 
 const QuestionCard = (props) => {
   const {
@@ -33,6 +35,8 @@ const QuestionCard = (props) => {
     searchTerm,
     isPreview: true,
     isFromList: true,
+    questionId: question.question_id,
+    isAnswer: true,
   };
 
   const hasAnswer = question.Answer;
@@ -51,7 +55,7 @@ const QuestionCard = (props) => {
           count={question.num_votes}
           onClick={() => onVoteClick(question)}
           processingFormSubmission={processingFormSubmission}
-        / >
+        />
         <CounterButton
           id={`comments-button-${question.question_id}`}
           icon={commentIcon}
@@ -61,6 +65,38 @@ const QuestionCard = (props) => {
       </Styled.CounterButtonsWrapper>
     );
   };
+
+  const renderCommentAnswer = () =>{
+    if((!question.hasCommentApproved && !question.hasCommunityAnswer) || 
+       question.Answers.length > 0  ){
+      return null;
+    }
+
+    let commentAsAnswer = {}
+    if(question.hasCommentApproved){
+      commentAsAnswer = question.Comments.find(comment => comment.approvedBy !== null);
+    }
+    else if(question.hasCommunityAnswer){
+      const [communityAnswerCommentId, ] = reorderHighlightedComments(question.Comments);
+      commentAsAnswer =  question.Comments.find(comment => comment.id === communityAnswerCommentId);
+    }
+
+    if(commentAsAnswer){
+      return (<AnswerRow 
+      answer_text={commentAsAnswer.comment}
+      user={commentAsAnswer.User}
+      answered_at={commentAsAnswer.createdAt}
+      searchTerm={renderAnswerProps.searchTerm}
+      isPreview={renderAnswerProps.isPreview}
+      isFromList={renderAnswerProps.isFromList}
+      questionId={question.question_id}
+      isAnswer={question.Answers.length > 0}
+      isCommunityAnswer={question.hasCommunityAnswer}
+      isCommentApproved={question.hasCommentApproved}
+      approver={commentAsAnswer.Approver}
+      />)    
+    }
+  }
 
   return (
     <Styled.QuestionCardContainer>
@@ -78,6 +114,7 @@ const QuestionCard = (props) => {
         </Styled.QuestionCardBorder>
       </Styled.QuestionCardWrapper>
       {renderAnswer(renderAnswerProps)}
+      {renderCommentAnswer()}
     </Styled.QuestionCardContainer>
   );
 };

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getDateData } from '~/utils/timeOperations';
-import { hasJobTitle } from '~/utils/questionUtils';
 import { showCollapseOrExpandMessage, formatCollapsingText } from '~/utils/stringOperations';
 import { markdownFormat } from '~/utils/markdownFormatQuestions';
 import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '~/utils/constants';
@@ -40,15 +39,28 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
       )}
     </Styled.AnswerRow>
   );
+  
+  const renderAnswerLabel = () => {
+    if(props.isCommentApproved) {
+      return <Label type={'Answer'} text={'Approved'} approvedBy={props.approver.full_name} />
+    }
+    else if (props.isCommunityAnswer) {
+      return <Label type={'Answer'} text={'Community answer'} />
+    };
+    
+    return (
+      <Label type={'Answer'} text={'Best Answer'} />
+    )
+  }
 
   const { user, createdAt, children } = props;
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.AnsweredMetadata isPreview={isPreview} >
-        <Styled.AnsweredMetadataLeft hasJobTitle={user.job_title}>
+        <Styled.AnsweredMetadataLeft hasJobTitle={user !== null ? user.job_title : ''}>
           <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
             <QuestionResponderInfo createdBy={user} isAnswer>
-              <DateContainer hasJobTitle={user.job_title}>
+              <DateContainer hasJobTitle={user !== null ? user.job_title : ''}>
                 <CircleIcon />
                 <Styled.AnswerRowDate isQuestionModalOpen={isQuestionModalOpen}>
                   {getDateData(createdAt)}
@@ -57,7 +69,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
             </QuestionResponderInfo>
           </ConditionalLinkTo>
           <Styled.AnsweredRightContainer>
-            <Label type={'Answer'} text={'Best Answer'} />
+            {renderAnswerLabel()}
             {children}
           </Styled.AnsweredRightContainer>
         </Styled.AnsweredMetadataLeft>
@@ -82,6 +94,15 @@ AnswerRow.propTypes = {
   isQuestionModalOpen: PropTypes.bool,
   isFromList: PropTypes.bool,
   questionId: PropTypes.number.isRequired,
+  isAnswer: PropTypes.bool.isRequired,
+  isCommunityAnswer: PropTypes.bool.isRequired,
+  isCommentApproved: PropTypes.bool.isRequired,
+  approver: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    full_name: PropTypes.string.isRequired,
+    profile_picture: PropTypes.string.isRequired,
+    job_title: PropTypes.string,
+  }),
 };
 
 AnswerRow.defaultProps = {

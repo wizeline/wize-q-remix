@@ -33,4 +33,8 @@ export const approvedByCommentSchema = Joi.object().keys({
   questionId: SIMPLE_INTEGER_VALIDATION.required(),
   employeeId : SIMPLE_INTEGER_VALIDATION.required(),
   checked: Joi.boolean().required(),
-})
+});
+
+export const questionCommentedSchema = Joi.object().keys({
+  userEmail: EMAIL_VALIDATION,
+});

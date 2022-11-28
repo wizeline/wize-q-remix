@@ -90,19 +90,20 @@ describe('delete comment controller', () => {
     });
 
     it('deletes the comment when author session hash matches', async () => {
+        const accessToken = randomAccessToken();
 
         const createCommentBody = {
             comment: 'Test delete comment controller',
             questionId: 10,
             user: {
-              accessToken: '8b1a5ca556d49fc46c169b2c94a058065d566f01bb208519cffd2d7419f4ff8cb4d63a060019e86354708c55766a60a2449edff151bb34681d4012699ebc3j65',
+              accessToken: accessToken,
             },
             isAnonymous: true,
         };
 
         const deleteCommentBody = {
           commentId: null,
-          accessToken: '8b1a5ca556d49fc46c169b2c94a058065d566f01bb208519cffd2d7419f4ff8cb4d63a060019e86354708c55766a60a2449edff151bb34681d4012699ebc3j65'
+          accessToken: accessToken
         };
 
         const createCommentResponse = await createComment(createCommentBody);
@@ -115,6 +116,9 @@ describe('delete comment controller', () => {
         deleteCommentBody.commentId = createCommentResponse.comment.id;
 
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
+        if(!deleteCommentResponse.successMessage) {
+          console.log(deleteCommentResponse);
+        }
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');

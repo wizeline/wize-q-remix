@@ -124,10 +124,7 @@ describe('delete comment controller', () => {
         deleteCommentBody.commentId = createCommentResponse.comment.id;
         
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
-        if(!deleteCommentResponse.successMessage) {
-          console.log(createCommentResponse);
-          console.log(deleteCommentResponse);
-        }
+
         expect(generateMinMaxDatesSpy).toHaveBeenCalledTimes(1);
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBeDefined();

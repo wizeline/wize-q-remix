@@ -25,7 +25,7 @@ try { const validEmail = await findUser(userEmail);
     
         const values = ids.map(({questionId}) => questionId);
     
-            const getQuestionCommented = await db.Questions.findMany({
+            const questions = await db.Questions.findMany({
                 where:{
                  question_id: {
                      in: values,
@@ -34,15 +34,14 @@ try { const validEmail = await findUser(userEmail);
             });
     
          return{
-                success:'Questions commented by user obtained succesfully',
-                getQuestionCommented
+                questions
             } 
     }
 } catch(error) {
     return {
         error: {
-            message: 'The user was not found',
-            detail: 'The user was not found',
+            message: 'The user: ' + userEmail + ' was not found',
+            detail: 'The user: ' + userEmail + ' was not found',
         }
     }
 }

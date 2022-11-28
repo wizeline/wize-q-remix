@@ -8,7 +8,7 @@ describe('get questions commented', () => {
 
         const response = await questionCommented(payload);
         expect(response).toBeDefined();
-        expect(response.getQuestionCommented.length).toBe(2);
+        expect(response.questions.length).toBe(2);
     })
 
      it('returns an error when the User is not found', async () => {
@@ -19,7 +19,7 @@ describe('get questions commented', () => {
         const response = await questionCommented(errPayload);
         expect(response).toBeDefined();
         expect(response.error).toBeDefined();
-        expect(response.error.message).toBe('The user was not found');
-        expect(response.error.detail).toBe('The user was not found');
+        expect(response.error.message).toBe('The user: ' + errPayload.userEmail + ' was not found');
+        expect(response.error.detail).toBe('The user: ' + errPayload.userEmail + ' was not found');
       });
 })

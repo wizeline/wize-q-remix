@@ -114,9 +114,10 @@ describe('delete comment controller', () => {
 
 
         deleteCommentBody.commentId = createCommentResponse.comment.id;
-
+        
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
         if(!deleteCommentResponse.successMessage) {
+          console.log(createCommentResponse);
           console.log(deleteCommentResponse);
         }
         expect(deleteCommentResponse).toBeDefined();

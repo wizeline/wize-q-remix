@@ -12,9 +12,21 @@ export const getQuestionsCreated = async(query) => {
     };
   }
 
-  return await db.Questions.findMany({
-    where: {
-      created_by_employee_id: employee_id,
-    },
-  });
+  try {
+    const validUser = await db.users.findUniqueOrThrow({
+      where: {
+        employee_id,
+      }
+    });
+  
+    return await db.Questions.findMany({
+      where: {
+        created_by_employee_id: validUser.employee_id,
+      },
+    });
+  } catch (error) {
+    return {
+      error: { message: 'The user was not found', detail: 'ID not found' }
+    }
+  }
 }

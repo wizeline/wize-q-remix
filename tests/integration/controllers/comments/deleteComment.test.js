@@ -1,6 +1,7 @@
 import { createComment } from "~/controllers/comments/create";
 import { deleteComment } from "~/controllers/comments/delete";
 import { randomAccessToken } from "./../../../utils";
+import * as commentsUtils from '~/utils/backend/comments';
 
 import { db } from "~/utils/db.server";
 
@@ -91,6 +92,13 @@ describe('delete comment controller', () => {
 
     it('deletes the comment when author session hash matches', async () => {
         const accessToken = randomAccessToken();
+        const generateMinMaxDatesSpy = jest.spyOn(commentsUtils, 'generateMinMaxDates');
+        generateMinMaxDatesSpy.mockImplementation(() => {
+          return {
+            minDate: new Date(1995, 11, 17),
+            maxDate: new Date(3000, 11, 17),
+          }
+        })
 
         const createCommentBody = {
             comment: 'Test delete comment controller',
@@ -120,9 +128,12 @@ describe('delete comment controller', () => {
           console.log(createCommentResponse);
           console.log(deleteCommentResponse);
         }
+        expect(generateMinMaxDatesSpy).toHaveBeenCalledTimes(1);
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
         expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
+
+        generateMinMaxDatesSpy.mockRestore();
     });
 });

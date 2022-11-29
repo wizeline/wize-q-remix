@@ -125,16 +125,20 @@ const buildWhereSearch = (search) => {
   }
 }
 
-const buildWhereLastXMonths = (numMonths, dateRange) => {
-  if(typeof numMonths === 'number' && !dateRange){
+const buildWhereLastXMonths = (numMonths, dateRange, search) => {
+  if(typeof numMonths === 'number' && (!dateRange && !search)){
     const { initialDate, lastDate} = createDateRange(new Date(), numMonths);
     return {
-      createdAt: {
-        lte: new Date(lastDate),
-        gte: new Date(initialDate),
-      }
-    }
-  }
+      OR:[{
+        createdAt: {
+              lte: new Date(lastDate),
+              gte: new Date(initialDate),
+            }
+      },{
+        is_pinned: true, 
+      },
+    ]
+  }}
   return {};
 }
 
@@ -145,7 +149,7 @@ const buildWhere = ({ status, search, location, department, dateRange }) => {
     ...buildWhereDepartment(department),
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
-    ...buildWhereLastXMonths(DEFAULT_MONTHS,dateRange),
+    ...buildWhereLastXMonths(DEFAULT_MONTHS,dateRange, search),
   };
   return where;
 }

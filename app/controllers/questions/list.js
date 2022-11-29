@@ -1,5 +1,6 @@
-import { DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD } from "~/utils/backend/constants";
+import { DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD, DEFAULT_MONTHS } from "~/utils/backend/constants";
 import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from "~/utils/backend/filterConstants";
+import { createDateRange } from '../../utils/backend/dateUtils';
 import { db } from "~/utils/db.server"
 
 const getOrderBy = (order) => {
@@ -124,6 +125,19 @@ const buildWhereSearch = (search) => {
   }
 }
 
+const buildWhereLastXMonths = (numMonths, dateRange) => {
+  if(typeof numMonths === 'number' && !dateRange){
+    const { initialDate, lastDate} = createDateRange(new Date(), numMonths);
+    return {
+      createdAt: {
+        lte: new Date(lastDate),
+        gte: new Date(initialDate),
+      }
+    }
+  }
+  return {};
+}
+
 const buildWhere = ({ status, search, location, department, dateRange }) => {
   const where = {
     ...buildWhereStatus(status),
@@ -131,6 +145,7 @@ const buildWhere = ({ status, search, location, department, dateRange }) => {
     ...buildWhereDepartment(department),
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
+    ...buildWhereLastXMonths(DEFAULT_MONTHS,dateRange),
   };
   return where;
 }

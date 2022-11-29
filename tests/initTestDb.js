@@ -44,6 +44,9 @@ const initTestDb = async () => {
   // Create questions
   await db.Questions.createMany({
     data: questionsFixture.map((question) => {
+      const initialDate = new Date().setMonth(new Date().getMonth() - 1); // one month before today.
+      question.createdAt = question.createdAt === undefined ? initialDate : question.createdAt;
+      question.updatedAt = question.updatedAt === undefined ? new Date(): question.updatedAt;
       return {
         ...question,
         is_anonymous: question.is_anonymous === 0 ? false : true,

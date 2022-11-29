@@ -81,6 +81,9 @@ function renderAnswer(renderAnswerProps) {
       questionId={question.question_id}
       isFromList={isFromList}
       user={Answer.AnsweredBy}
+      isAnswer
+      isCommunityAnswer={false}
+      isCommentApproved={false}
     >
       { isAdmin && Answer.AnsweredBy.email === currentUserEmail && (
         <AnswerAdminOptions

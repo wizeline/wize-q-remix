@@ -18,5 +18,6 @@ module.exports = {
   MAX_NET_PROMOTER_SCORE: 4,
   DEFAULT_ERROR_MESSAGE: "An unknown error has occurred with your request.",
   COMMENT_AS_AN_ANSWER: "This question already has a comment as answer",
-  COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD: 10, 
+  COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD: 10,
+  DEFAULT_MONTHS: -3, 
 };

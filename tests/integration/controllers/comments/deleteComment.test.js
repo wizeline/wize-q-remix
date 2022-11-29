@@ -1,6 +1,7 @@
 import { createComment } from "~/controllers/comments/create";
 import { deleteComment } from "~/controllers/comments/delete";
 import { randomAccessToken } from "./../../../utils";
+import * as commentsUtils from '~/utils/backend/comments';
 
 import { db } from "~/utils/db.server";
 
@@ -90,19 +91,27 @@ describe('delete comment controller', () => {
     });
 
     it('deletes the comment when author session hash matches', async () => {
+        const accessToken = randomAccessToken();
+        const generateMinMaxDatesSpy = jest.spyOn(commentsUtils, 'generateMinMaxDates');
+        generateMinMaxDatesSpy.mockImplementation(() => {
+          return {
+            minDate: new Date(1995, 11, 17),
+            maxDate: new Date(3000, 11, 17),
+          }
+        })
 
         const createCommentBody = {
             comment: 'Test delete comment controller',
             questionId: 10,
             user: {
-              accessToken: '8b1a5ca556d49fc46c169b2c94a058065d566f01bb208519cffd2d7419f4ff8cb4d63a060019e86354708c55766a60a2449edff151bb34681d4012699ebc3j65',
+              accessToken: accessToken,
             },
             isAnonymous: true,
         };
 
         const deleteCommentBody = {
           commentId: null,
-          accessToken: '8b1a5ca556d49fc46c169b2c94a058065d566f01bb208519cffd2d7419f4ff8cb4d63a060019e86354708c55766a60a2449edff151bb34681d4012699ebc3j65'
+          accessToken: accessToken
         };
 
         const createCommentResponse = await createComment(createCommentBody);
@@ -113,11 +122,15 @@ describe('delete comment controller', () => {
 
 
         deleteCommentBody.commentId = createCommentResponse.comment.id;
-
+        
         const deleteCommentResponse = await deleteComment(deleteCommentBody);
+
+        expect(generateMinMaxDatesSpy).toHaveBeenCalledTimes(1);
         expect(deleteCommentResponse).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBeDefined();
         expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
         expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
+
+        generateMinMaxDatesSpy.mockRestore();
     });
 });

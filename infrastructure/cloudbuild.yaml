@@ -29,3 +29,4 @@ steps:
         terraform init
         terraform workspace select $_DEPLOY_ENV  || terraform workspace new $_DEPLOY_ENV 
         terraform apply -auto-approve -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
+timeout: 1500s

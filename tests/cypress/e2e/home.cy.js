@@ -21,7 +21,7 @@ describe('Home', () => {
 
   it('lists questions', () => {
     cy.get("#questions-list");
-    cy.get("#questions-list").children().should('have.length', 10);
+    cy.get("#questions-list").children().should('have.length', 8);
   });
 
   it('has ask question button', () => {

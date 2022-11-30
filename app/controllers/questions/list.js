@@ -1,5 +1,6 @@
-import { DEFAULT_LIMIT, DEFAULT_OFFSET } from "~/utils/backend/constants";
+import { DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD, DEFAULT_MONTHS } from "~/utils/backend/constants";
 import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from "~/utils/backend/filterConstants";
+import { createDateRange } from '../../utils/backend/dateUtils';
 import { db } from "~/utils/db.server"
 
 const getOrderBy = (order) => {
@@ -124,6 +125,23 @@ const buildWhereSearch = (search) => {
   }
 }
 
+const buildWhereLastXMonths = (numMonths, dateRange, search) => {
+  if(typeof numMonths === 'number' && (!dateRange && !search)){
+    const { initialDate, lastDate} = createDateRange(new Date(), numMonths);
+    return {
+      OR:[{
+        createdAt: {
+              lte: new Date(lastDate),
+              gte: new Date(initialDate),
+            }
+      },{
+        is_pinned: true, 
+      },
+    ]
+  }}
+  return {};
+}
+
 const buildWhere = ({ status, search, location, department, dateRange }) => {
   const where = {
     ...buildWhereStatus(status),
@@ -131,6 +149,7 @@ const buildWhere = ({ status, search, location, department, dateRange }) => {
     ...buildWhereDepartment(department),
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
+    ...buildWhereLastXMonths(DEFAULT_MONTHS,dateRange, search),
   };
   return where;
 }
@@ -163,6 +182,13 @@ export const listQuestions = async (params) => {
           AnsweredBy: true,
         }
       },
+      Comments: {
+        include: {
+          CommentVote: true, 
+          Approver: true, 
+          User: true, 
+        }
+      }, 
       created_by: true,
       Department: true,
     }
@@ -175,21 +201,36 @@ export const listQuestions = async (params) => {
 
     let can_edit;
 
-    // TODO: Add canUndoNps validation
-
     if (question.created_by) {
       can_edit = user && user.email && user.email === question.created_by.email
     } else {
       // TODO: Check for anonymous comments
     }
-
+    const hasCommentApproved = question.Comments.some((comment) => comment.approvedBy !== null);
+    const CommentsComplete = question.Comments.map((comment)=>{ 
+  
+      const value = comment.CommentVote.reduce((prev,current)=>{
+        return prev + current.value;
+      },0);
+    
+      return {
+        ...comment, 
+        votes: value, 
+        }
+    });  
+    const hasCommunityAnswer = CommentsComplete.some((comment) => comment.votes >= COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD);
+    delete question.Comments;
+    
     return {
       ...question,
       hasVoted: (hasUserData && question.Votes.some((vote) => vote.user === user.id)) ?? false,
       hasScored: (hasUserData && hasAnswer && question.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
       num_votes: question._count.Votes,
       numComments: question._count.Comments,
-      can_edit: can_edit
+      can_edit: can_edit, 
+      hasCommentApproved, 
+      hasCommunityAnswer,
+      Comments: CommentsComplete,
     }
   });
 }

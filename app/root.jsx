@@ -12,6 +12,8 @@ import toastify from 'react-toastify/dist/ReactToastify.css';
 import reactDraftWysiwyg from "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import draftJs from "draft-js/dist/Draft.css";
 
+import ErrorHandler from "~/components/ErrorHandler/ErrorHandler";
+
 import { commitSession, getAuthenticatedUser, getSession } from "~/session.server";
 import { json } from "@remix-run/node";
 import AppNavbar from "~/components/AppNavbar";
@@ -84,3 +86,19 @@ export default function App() {
   );
 }
 
+export function ErrorBoundary({ error }) {
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <ErrorHandler error = {error}/>
+        <Scripts />
+      </body>
+    </html>
+  );
+}

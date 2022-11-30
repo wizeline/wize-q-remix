@@ -79,7 +79,7 @@ describe("listQuestions", () => {
 
     it(`returns results with an offset of 5`, () => {
       expect(response[0].question_id).toEqual(6);
-      expect(response[4].question_id).toEqual(2);
+      expect(response[2].question_id).toEqual(3);
     });
   });
 
@@ -212,7 +212,7 @@ describe("listQuestions", () => {
     });
 
     it(`returns questions that have been answered`, () => {
-      expect(response.length).toEqual(3);
+      expect(response.length).toEqual(2);
     });
   });
 
@@ -234,7 +234,7 @@ describe("listQuestions", () => {
     });
 
     it(`returns questions that have not been answered`, () => {
-      expect(response.length).toEqual(7);
+      expect(response.length).toEqual(6);
     });
   });
 
@@ -282,7 +282,7 @@ describe("listQuestions", () => {
     });
 
     it(`returns questions with no deparment set`, () => {
-      expect(response.length).toEqual(6);
+      expect(response.length).toEqual(5);
 
       response.forEach((question) => {
         expect(question.assigned_department).toEqual(null);
@@ -364,7 +364,7 @@ describe("listQuestions", () => {
     });
 
     it(`returns questions created between 2021-03-24 and 2021-03-25`, () => {
-      expect(response.length).toEqual(9);
+      expect(response.length).toEqual(2);
     });
   });
 

@@ -224,10 +224,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     const renderCommunityAnswerLabel = () => props.isCommunityAnswer && <Label type='Answer' text={COMMUNITY_ANSWER_TAG_TEXT} />
   
     const renderApproverNameLabel = () => (
-      <>
-        <Label type='Answer' text='Approved'/>
-        <Styled.ApproverName>by <strong>{commentData.Approver.full_name}</strong></Styled.ApproverName>
-      </>
+      <Label type='Answer' text='Approved' approvedBy={commentData.Approver.full_name}/>
     );
   
     return (

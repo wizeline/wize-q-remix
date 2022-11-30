@@ -1,11 +1,20 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import * as S from './UserImage.Styled';
 import PlaceHolderImage from '~/images/placeholder_user_img.png';
 
 const UserImage = ({ src, alt, customSize, size }) => {
+  const [imageSrc, setImageSrc] = useState(src);
+
   return (
     <S.Container size={size} customSize={customSize}>
-      <S.Image src={src || PlaceHolderImage} alt={alt} />
+      <S.Image
+        alt={alt}
+        onError={() => {
+          if (imageSrc !== PlaceHolderImage) setImageSrc(PlaceHolderImage);
+        }}
+        src={imageSrc}
+      />
     </S.Container>
   );
 }

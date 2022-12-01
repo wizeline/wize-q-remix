@@ -56,7 +56,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
       
-      submit(data, { method: 'post', action: url });
+      submit(data, { method: 'post', action: url, replace: true });
     }
   
      function upVoteF() {

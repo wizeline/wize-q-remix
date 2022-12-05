@@ -1,0 +1,90 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 New Features",
+      "labels": ["feat"]
+    },
+    {
+      "title": "## 🐛 Fixes",
+      "labels": ["fix"]
+    },
+    {
+      "title": "## 🧪 Tests",
+      "labels": ["test"]
+    },
+    {
+        "title": "## 📦 Dependencies",
+        "labels": ["deps", "build"]
+    },
+    {
+      "title": "## 📖 Documentation",
+      "labels": ["docs"]
+    },
+    {
+      "title": "## 🧹 Chores",
+      "labels": ["chore"]
+    }
+  ],
+  "ignore_labels": [
+    "ignore"
+  ],
+  "sort": "ASC",
+  "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
+  "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+  "empty_template": "- no changes",
+  "label_extractor": [
+    {
+      "pattern": "^feat",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^test",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^build",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^fix",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^docs",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^doc",
+      "on_property": "title",
+      "method": "match"
+    },
+    {
+      "pattern": "^chore",
+      "on_property": "title",
+      "method": "match"
+    }
+  ],
+  "transformers": [
+    {
+      "pattern": "(\\w+)(\\()(.+)(\\)): (.+)\n(.+?[\\-\\*] )(.+)",
+      "target": "[$3] - $5\n   - $7"
+    },
+    {
+      "pattern": "(\\w+)(\\()(.+)(\\))(!): (.+)\n(.+?[\\-\\*] )(.+)",
+      "target": "[$3] BREAKING - $6\n   - $8"
+    },
+    {
+      "pattern": "(\\w+): (.+)\n(.+?[\\-\\*] )(.+)",
+      "target": "$2\n   - $4"
+    },
+    {
+      "pattern": "(\\w+)(!): (.+)\n(.+?[\\-\\*] )(.+)",
+      "target": "BREAKING - $3\n   - $5"
+    }
+  ]
+}

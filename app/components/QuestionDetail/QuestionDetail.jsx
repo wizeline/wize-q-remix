@@ -68,6 +68,7 @@ function QuestionDetails(props) {
       submit(data, {
         method: "post",
         action: url,
+        replace: true,
       });
     };
 
@@ -145,7 +146,7 @@ function QuestionDetails(props) {
     let url = `/questions/${question.question_id}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-    submit(data, {method:'post', action: url });
+    submit(data, {method:'post', action: url, replace: true });
   }
 
   const deleteScore = (answer_id) => {
@@ -155,7 +156,7 @@ function QuestionDetails(props) {
     let url = `/questions/${question.question_id}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-    submit(data, {method:'post', action: url });
+    submit(data, {method:'post', action: url, replace: true });
   }
 
   const renderNPS = answer => answer && 

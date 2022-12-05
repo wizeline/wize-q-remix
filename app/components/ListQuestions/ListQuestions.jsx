@@ -92,7 +92,7 @@ const ListQuestions = ({
       searchParams.forEach((value, key) => {
         actionUrl += value ? `&${key}=${value}` : '';
       });
-      submit(data, { method: 'post', action: actionUrl, replace: false });
+      submit(data, { method: 'post', action: actionUrl, replace: true });
     };
 
     if (questions.length === 0) { return null; }

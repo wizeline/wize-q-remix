@@ -78,7 +78,7 @@ const CreateQuestion = () => {
     
     submit(
       data,
-      { method: "post", action: "/questions/new"}
+      { method: "post", action: "/questions/new" }
     );
   };
 

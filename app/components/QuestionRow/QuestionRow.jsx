@@ -64,7 +64,7 @@ const QuestionRow = (props) => {
 
     submit(
       data,
-      { method: "post", action: url }
+      { method: "post", action: url, replace: true }
     );
   }
 

@@ -1,5 +1,3 @@
-
-
 app_env         = "prod"
 cr_cpu_limit    = "2000m"
 cr_memory_limit = "512Mi"

@@ -33,6 +33,13 @@ const LoginContainer = () => {
             <img src={logo} alt="logo" />
             <Styled.Slogan>
               <Slogan />
+                <Styled.AdviceContainer> 
+                 <p>Before asking a question verify if you can get the information you need from these resources. </p>
+                 <ul>
+                  <li><a href="https://wizeline.slack.com/archives/C1UDJCL9E"> #Questions </a>- Slack Channel</li>
+                  <li><a href="https://ticketing.wizeline.com/ticketing.html"> Ticketing</a></li>
+                 </ul> 
+                </Styled.AdviceContainer>
             </Styled.Slogan>
           </Styled.RightDiv>
         </Styled.LoginSubDiv>

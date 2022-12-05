@@ -41,7 +41,7 @@ function AssignAnswerModal(props) {
     data.set("action", ACTIONS.ASSIGN_QUESTION);
     data.set("questionId", question.question_id);
     data.set("assigned_department", department.department_id);
-    submit(data, { method: 'post', action: `/questions/${question.question_id}` });
+    submit(data, { method: 'post', action: `/questions/${question.question_id}`, replace: true });
 
     setDepartment(
       { name: DEPARTMENT_PLACEHOLDER, department_id: 0 },

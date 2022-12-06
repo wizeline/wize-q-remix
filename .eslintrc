@@ -1,14 +1,47 @@
 {
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node", "plugin:cypress/recommended"],
+  "parser": "@babel/eslint-parser",
+  "extends": [
+    "airbnb",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": [
+      "react",
+      "jsx-a11y",
+      "import"
+  ],
+  "rules": {
+    "import/no-unresolved": "off",
+    "react/jsx-filename-extension": [
+      1,
+      {
+          "extensions": [".js", ".jsx"]
+      },
+  ],
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
+    "jsx-a11y/no-static-element-interactions": "off", 
+    "no-restricted-exports": "off",
+    "no-case-declarations":"off", 
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/destructuring-assignment":"off",
+    "react/jsx-no-bind": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export":"off",
+  },
   "env": {
     "jest": true
   },
   "overrides": [
     {
-        "files": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-        "rules": {
-            "react-hooks/exhaustive-deps": "off"
-        }
+      "files": [
+        "**/*.js",
+        "**/*.jsx",
+        "**/*.ts",
+        "**/*.tsx"
+      ],
+      "rules": {
+        "react-hooks/exhaustive-deps": "off"
+      }
     }
   ]
 }

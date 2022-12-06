@@ -1,10 +1,11 @@
+/* eslint-disable camelcase */
+import moment from 'moment';
 import {
   DATE_TIME_FORMAT,
   DEFAULT_ERROR_MESSAGE,
-} from '~/utils/backend/constants';
-import { updateAnswerSchema } from '~/utils/backend/validators/answer';
+} from '../../utils/backend/constants';
+import { updateAnswerSchema } from '../../utils/backend/validators/answer';
 import { db } from '~/utils/db.server';
-import moment from 'moment';
 
 export const updateAnswer = async (query) => {
   const { error, value } = updateAnswerSchema.validate(query);
@@ -16,7 +17,7 @@ export const updateAnswer = async (query) => {
     };
   }
 
-  let updatedAnswer = await db.Answers.update({
+  const updatedAnswer = await db.Answers.update({
     where: {
       answer_id,
     },

@@ -1,7 +1,7 @@
-import { db } from "~/utils/db.server";
+import { db } from '~/utils/db.server';
 
 const tearDownDb = async () => {
-  await db.$connect()
+  await db.$connect();
 
   // Delete in reverse order
   await db.Nps.deleteMany();
@@ -14,7 +14,6 @@ const tearDownDb = async () => {
   await db.users.deleteMany();
 
   await db.$disconnect();
-
-}
+};
 
 export default tearDownDb;

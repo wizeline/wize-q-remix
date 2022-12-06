@@ -1,9 +1,9 @@
-import { getQuestionById } from "~/controllers/questions/getQuestionById";
-import { db } from "~/utils/db.server";
+import { getQuestionById } from '../../../../app/controllers/questions/getQuestionById';
+import { db } from '~/utils/db.server';
 
-describe("questions controller", () => {
-  describe("get question by id", () => {
-    const dbFindUniqueSpy = jest.spyOn(db.Questions, "findUnique");
+describe('questions controller', () => {
+  describe('get question by id', () => {
+    const dbFindUniqueSpy = jest.spyOn(db.Questions, 'findUnique');
 
     it('returns an error when provided invalid id', async () => {
       const response = await getQuestionById('test', { id: 'google-oauth2|108653070533260305238' });
@@ -32,14 +32,14 @@ describe("questions controller", () => {
       expect(dbFindUniqueSpy).toHaveBeenCalledTimes(1);
     });
 
-    it("returns the question with all aggregated properties", async () => {
+    it('returns the question with all aggregated properties', async () => {
       const response = await getQuestionById(2, { id: 'google-oauth2|108653070533260305238' });
       expect(response).toBeDefined();
       expect(response.successMessage).toBeDefined();
       expect(response.successMessage).toBe(true);
       expect(response.question).toBeDefined();
 
-      const question = response.question;
+      const { question } = response;
       expect(question.question_id).toBe(2);
       expect(question.question).toContain('Testing');
       expect(question.is_anonymous).toBe(false);
@@ -57,6 +57,5 @@ describe("questions controller", () => {
       expect(question.Department.name).toBe('CEO / Exec Staff');
       expect(dbFindUniqueSpy).toHaveBeenCalledTimes(2);
     });
-    
   });
 });

@@ -1,4 +1,4 @@
-import { upsertCommentVote } from '~/controllers/commentVotes/voteComment';
+import { upsertCommentVote } from '../../../app/controllers/commentVotes/voteComment';
 import { db } from '~/utils/db.server';
 
 describe('commentVotes', () => {

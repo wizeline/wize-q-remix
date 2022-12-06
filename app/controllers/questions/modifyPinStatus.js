@@ -1,6 +1,10 @@
-import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE, QUESTION_NOT_FOUND_ERROR_MESSAGE } from "~/utils/constants";
-import { modifyQuestionPinStatusParams } from "~/utils/backend/validators/question";
-import { db } from "~/utils/db.server";
+import {
+  PIN_QUESTION_ERROR_MESSAGE,
+  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+  QUESTION_NOT_FOUND_ERROR_MESSAGE,
+} from '../../utils/constants';
+import { modifyQuestionPinStatusParams } from '../../utils/backend/validators/question';
+import { db } from '../../utils/db.server';
 
 export const modifyPinStatus = async (questionId, newPinStatus) => {
   const { error, value } = modifyQuestionPinStatusParams.validate({
@@ -9,11 +13,11 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
   });
 
   if (error) {
-    return { 
+    return {
       error: {
         message: PIN_QUESTION_ERROR_MESSAGE,
-        detail: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE
-      }  
+        detail: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+      },
     };
   }
 
@@ -25,15 +29,13 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
     return {
       successMessage: `The question has been ${updatedQuestion.is_pinned ? 'pinned' : 'unpinned'}.`,
       question: updatedQuestion,
-    }
-
-  } catch (error) {
-    return { 
+    };
+  } catch (_error) {
+    return {
       error: {
         message: PIN_QUESTION_ERROR_MESSAGE,
-        detail: QUESTION_NOT_FOUND_ERROR_MESSAGE
-      }  
+        detail: QUESTION_NOT_FOUND_ERROR_MESSAGE,
+      },
     };
   }
-
 };

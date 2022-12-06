@@ -1,11 +1,11 @@
-import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
-import generateSessionIdHash from "~/utils/backend/crypto";
-import slack from '~/utils/backend/slackNotifications';
-import { stripNewLines, truncate } from '~/utils/backend/stringUtils';
-import { sanitizeHTML } from "~/utils/backend/sanitizer";
-import { createQuestionSchema } from "~/utils/backend/validators/question";
-import { db } from "~/utils/db.server"
-import { SLACK_QUESTION_LIMIT } from "~/utils/backend/slackConstants";
+import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
+import generateSessionIdHash from '../../utils/backend/crypto';
+import slack from '../../utils/backend/slackNotifications';
+import { stripNewLines, truncate } from '../../utils/backend/stringUtils';
+import { sanitizeHTML } from '../../utils/backend/sanitizer';
+import { createQuestionSchema } from '../../utils/backend/validators/question';
+import { db } from '../../utils/db.server';
+import { SLACK_QUESTION_LIMIT } from '../../utils/backend/slackConstants';
 
 export const createQuestion = async (body) => {
   const { error, value } = createQuestionSchema.validate(body);
@@ -15,9 +15,9 @@ export const createQuestion = async (body) => {
         {
           message: DEFAULT_ERROR_MESSAGE,
           detail: error,
-        }
-      ] 
-    }
+        },
+      ],
+    };
   }
 
   const { accessToken, ...rest } = value;
@@ -26,7 +26,7 @@ export const createQuestion = async (body) => {
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
-    }
+    },
   });
 
   if (value.is_anonymous) {
@@ -38,7 +38,7 @@ export const createQuestion = async (body) => {
       },
       data: {
         user_hash: sessionHash,
-      }
+      },
     });
   }
 
@@ -48,7 +48,7 @@ export const createQuestion = async (body) => {
   });
 
   return {
-    successMessage: "Question has been created succesfully!",
+    successMessage: 'Question has been created succesfully!',
     question: created,
   };
-}
+};

@@ -1,4 +1,4 @@
-import { getAnswerById } from '~/controllers/answers/getAnswerById';
+import { getAnswerById } from '../../../../app/controllers/answers/getAnswerById';
 import { db } from '~/utils/db.server';
 
 describe('answers controller', () => {
@@ -55,7 +55,7 @@ describe('answers controller', () => {
       expect(response.successMessage).toBe('Answer successfully read!');
       expect(response.answer).toBeDefined();
 
-      const answer = response.answer;
+      const { answer } = response;
       expect(answer.answer_id).toBe(2);
       expect(answer.answer_text).toContain('variations');
       expect(answer.answered_by_employee_id).toBe(2);

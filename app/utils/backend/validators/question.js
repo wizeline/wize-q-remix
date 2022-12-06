@@ -1,5 +1,5 @@
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_QUESTION_LENGTH } from '~/utils/backend/constants';
 import Joi from 'joi';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_QUESTION_LENGTH } from '../constants';
 import { JOI_ID_VALIDATION } from '../joiConstants';
 
 export const createQuestionSchema = Joi.object().keys({

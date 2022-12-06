@@ -1,5 +1,5 @@
 import { randomAccessToken } from '../../../utils';
-import { createComment } from '~/controllers/comments/create';
+import { createComment } from '../../../../app/controllers/comments/create';
 import { db } from '~/utils/db.server';
 
 describe('createComment', () => {
@@ -23,15 +23,14 @@ describe('createComment', () => {
     expect(dbCreateSpy).toHaveBeenCalledTimes(0);
   });
 
-
   it('creates valid comment as user', async () => {
     const comment = {
       comment: '_This_ is a **sample** ~~comment~~',
       questionId: 2,
       user: {
         accessToken: randomAccessToken(),
-        userEmail: "john.doe@wizeline.com",
-        userName: "John Doe",
+        userEmail: 'john.doe@wizeline.com',
+        userName: 'John Doe',
       },
     };
 
@@ -66,7 +65,7 @@ describe('createComment', () => {
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
     expect(response.comment).toBeDefined();
-    
+
     expect(response.comment.createdAt).toBeDefined();
     expect(response.comment.userEmail).toBeNull();
     expect(response.comment.userName).toBeNull();

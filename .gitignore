@@ -9,3 +9,4 @@ node_modules
 
 # Cypress
 *.mp4
+/tests/cypress/screenshots/*

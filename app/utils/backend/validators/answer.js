@@ -25,5 +25,6 @@ export const deleteAnswerSchema = Joi.object().keys({
 
 export const npsSchema = Joi.object().keys({
   id: JOI_ID_VALIDATION,
-  score: Joi.number().integer().required().min(1).max(5),
+  score: Joi.number().integer().required().min(1)
+    .max(5),
 });

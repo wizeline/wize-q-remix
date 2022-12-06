@@ -1,9 +1,9 @@
-import { DEFAULT_ERROR_MESSAGE } from '~/utils/backend/constants';
-import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '~/utils/constants';
+import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
+import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '../../utils/constants';
 import { db } from '~/utils/db.server';
 
 export const getAnswerById = async (answerId, user) => {
-  if (!answerId || typeof answerId !== 'number' || parseInt(answerId) < 1) {
+  if (!answerId || typeof answerId !== 'number' || parseInt(answerId, 10) < 1) {
     return {
       error: {
         message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,

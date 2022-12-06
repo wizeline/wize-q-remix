@@ -1,5 +1,5 @@
 import XSS from 'xss';
-import { SHOW_LESS_TEXT, SHOW_MORE_TEXT } from '~/utils/constants';
+import { SHOW_LESS_TEXT, SHOW_MORE_TEXT } from './constants';
 
 export function deleteNoMarkupFormatHTML(content) {
   const token = '`';
@@ -7,7 +7,7 @@ export function deleteNoMarkupFormatHTML(content) {
     whiteList: [],
     stripIgnoreTag: true,
     stripIgnoreTagBody: ['script'],
-    escapeHtml: html => html,
+    escapeHtml: (html) => html,
   };
 
   const splitContent = content.split(token);
@@ -27,7 +27,8 @@ export function addS(text, num) {
   return num === 1 ? text : `${text}s`;
 }
 
-export const showCollapseOrExpandMessage = isCollapsed => (isCollapsed ? SHOW_MORE_TEXT : SHOW_LESS_TEXT);
+// eslint-disable-next-line max-len
+export const showCollapseOrExpandMessage = (isCollapsed) => (isCollapsed ? SHOW_MORE_TEXT : SHOW_LESS_TEXT);
 
 export const formatCollapsingText = (text, shouldCollapse, isCollapsed, minLength) => {
   if (shouldCollapse && isCollapsed) {

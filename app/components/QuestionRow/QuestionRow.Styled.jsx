@@ -188,3 +188,37 @@ export const QuestionId = styled.span`
   color: var(--color-dark-metadata);
   font-weight: 500;
 `;
+
+export const DisableControls = styled.div`
+    display:flex;
+`
+
+export const ChipButton = styled.button`
+  height: 25px;
+  font-size: 12px;
+  border-radius: 25px;
+  font-weight: 10px;
+  color: #fff;
+  background-color: ${props=>props.colorValue?'#84c9ef': '#f49c9c'}
+`
+
+
+export const ButtonTooltipMessage = styled.span`
+  display: none;
+  width: 210px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0px;
+  position: absolute;
+  z-index: 1000;
+  right: 25px;
+  top: -25px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+
+  ${DisableControls}:hover & {
+    display: block;
+  }
+`

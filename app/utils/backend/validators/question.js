@@ -21,3 +21,8 @@ export const assignQuestionSchema = Joi.object().keys({
   question_id: JOI_ID_VALIDATION,
   assigned_department: JOI_ID_VALIDATION,
 });
+
+export const modifyQuestionEnabledValueParams = Joi.object().keys({
+  questionId: Joi.number().integer().required().min(1),
+  enabledValue: Joi.boolean().required(),
+});

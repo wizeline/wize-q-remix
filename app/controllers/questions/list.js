@@ -142,7 +142,15 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   return {};
 }
 
-const buildWhere = ({ status, search, location, department, dateRange }) => {
+const buildWhereIsAdminSearch = (isAdmin) =>{
+  if (isAdmin){
+    return {}
+  }
+
+  return { is_enabled: true };
+}
+
+const buildWhere = ({ status, search, location, department, dateRange, isAdmin }) => {
   const where = {
     ...buildWhereStatus(status),
     ...buildWhereLocation(location),
@@ -150,20 +158,21 @@ const buildWhere = ({ status, search, location, department, dateRange }) => {
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
     ...buildWhereLastXMonths(DEFAULT_MONTHS,dateRange, search),
+    ...buildWhereIsAdminSearch(isAdmin)
   };
   return where;
 }
 
 export const listQuestions = async (params) => {
   const { limit, offset, orderBy, status, location, department, dateRange, search, user } = params;
-
   const fetchedQuestions = await db.Questions.findMany({
     where: buildWhere({
       status,
       location,
       department,
       dateRange,
-      search
+      search,
+      isAdmin: user?user.is_admin:false
     }),
     take: limit || DEFAULT_LIMIT,
     skip: offset || DEFAULT_OFFSET,

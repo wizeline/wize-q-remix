@@ -11,6 +11,7 @@ import * as Styled from '~/styles/Home.Styled';
 import dateRangeConversion from "../utils/dateRangeConversion";
 import { useEffect, useState } from "react";
 import { modifyPinStatus } from "~/controllers/questions/modifyPinStatus";
+import { modifyEnabledValue } from "~/controllers/questions/modifyEnableStatus";
 import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
 import { ACTIONS } from "~/utils/actions";
 import Loader from '~/components/Loader';
@@ -54,17 +55,22 @@ export const action = async ({ request }) => {
   const formData = await request.formData();
   const action = formData.get("action");
   let response;
-
+  let questionId;
   switch (action) {
     case ACTIONS.PINNIN:
-      const questionId = parseInt(formData.get("questionId"));
-      const value = formData.get("value") !== 'false';
+      questionId = parseInt(formData.get("questionId"));
+      const value = formData.get("value") !== "false";
       response = await modifyPinStatus(questionId, value);
       break;
     case ACTIONS.VOTE_QUESTION:
       const voteQuestionId = parseInt(formData.get("questionId"));
       const voteQuestionUser = JSON.parse(formData.get("user"));
       response = await voteQuestion(voteQuestionId, voteQuestionUser);
+      break;
+    case ACTIONS.ENABLED_ACTION:
+      questionId = parseInt(formData.get("questionId"));
+      const enabledValue = formData.get("enabledValue") !== "false";
+      response = await modifyEnabledValue(questionId,enabledValue);
       break;
   }
 

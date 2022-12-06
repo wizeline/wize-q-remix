@@ -56,7 +56,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
       
-      submit(data, { method: 'post', action: url });
+      submit(data, { method: 'post', action: url, replace: true });
     }
   
      function upVoteF() {
@@ -97,7 +97,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       let url = `/questions/${commentData.questionId}`;
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-      submit(data, { method: 'post', action: url });
+      submit(data, { method: 'post', action: url, replace: true });
     }
   
     const onSubmit = () => {
@@ -118,7 +118,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       let url = `/questions/${commentData.questionId}`;
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-      submit(data, { method: 'post', action: url });
+      submit(data, { method: 'post', action: url, replace: true });
 
     };
   
@@ -144,7 +144,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
       let url = `/questions/${commentData.questionId}`;
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-      submit(data, {method: 'delete', action: url})
+      submit(data, {method: 'delete', action: url, replace: true })
     };
   
     const handleCommentUpdate = (comment) => {

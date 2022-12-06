@@ -39,6 +39,7 @@ function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
     submit(data, {
         method: "post",
         action: url,
+        replace: true
     });
 
   };

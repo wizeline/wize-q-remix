@@ -1,4 +1,5 @@
-import { findUser } from "~/controllers/users/find";
+import { findOrCreateUser, findUser } from "~/controllers/users/find";
+import { db } from '~/utils/db.server';
 import { updateUser } from "~/controllers/users/update";
 
 describe("user controllers", () => {
@@ -19,8 +20,54 @@ describe("user controllers", () => {
     });
     it("should throw error on user not found", async () => {
       await expect(findUser("notexistinguser@mail.com")).rejects.toThrowError()
+    });
   });
+
+  describe("findOrCreateUser", () => {
+    const dbCreateSpy = jest.spyOn(db.users, 'create');
+    const dbFindUniqueSpy = jest.spyOn(db.users, 'findUnique');
+
+    afterEach(() => {    
+      dbFindUniqueSpy.mockClear();
+      dbCreateSpy.mockClear();
+    });
+
+    it("returns user with existing email", async () => {
+
+        const payload = {
+          "full_name": "Patrick Shu",
+          "email": "patrick.shu@wizeline.com",
+          "profile_picture": undefined,
+        };
+
+        const user = await findOrCreateUser(payload);
+
+        expect(dbFindUniqueSpy).toHaveBeenCalled();
+        expect(dbCreateSpy).toHaveBeenCalledTimes(0);
+
+        expect(user).toBeDefined();
+        expect(user.full_name).toEqual(payload.full_name);
+    });
+
+    it("should create user when not found", async () => {
+      const payload = {
+        "full_name": "John Smith Baleman",
+        "email": "john.smith@wizeline.com",
+        "profile_picture": "url_string",
+      };
+
+      const user = await findOrCreateUser(payload);
+      
+      expect(dbFindUniqueSpy).toHaveBeenCalled();
+      expect(dbCreateSpy).toHaveBeenCalled();
+
+      expect(user).toBeDefined();
+      expect(user.full_name).toEqual(payload.full_name);
+      expect(user.email).toEqual(payload.email);
+      expect(user.profile_picture).toEqual(payload.profile_picture);
+    });
   });
+
   describe("updateUser", () => {
     it("should validate fields", async () => {
         const response = await updateUser({});

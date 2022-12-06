@@ -63,7 +63,7 @@ describe("questions controller", () => {
       };
 
       const createQuestionResponse = await createQuestion(question);
-      expect(response.error).toBeUndefined();
+      expect(createQuestionResponse.error).toBeUndefined();
       expect(createQuestionResponse).toBeDefined();
       expect(createQuestionResponse.successMessage).toBeDefined();
       expect(createQuestionResponse.question).toBeDefined();
@@ -79,7 +79,7 @@ describe("questions controller", () => {
       expect(response.successMessage).toContain('The question has been disabled');
       expect(response.question.is_enabled).toBeDefined();
       expect(response.question.is_enabled).toBe(false);
-      expect(dbUpdateSpy).toHaveBeenCalledTimes(1);
+      expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
     });
     
     test('return the current date in the updatedAt field when updating a question', async () => {

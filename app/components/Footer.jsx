@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FOOTER_MESSAGE } from '~/utils/constants';
+import { FOOTER_MESSAGE } from '../utils/constants';
 import * as Styled from '~/styles/Contact.Styled';
 
 class Footer extends Component {

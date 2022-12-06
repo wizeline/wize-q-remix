@@ -38,7 +38,7 @@ const findCommentVote = async (query) => {
   return commentVote;
 };
 
-export const upsertCommentVote = async (query) => {
+const upsertCommentVote = async (query) => {
   const { error, value } = commentVoteSchema.validate(query);
   const { comment_id, user, value: newValue } = value;
 
@@ -86,3 +86,5 @@ export const upsertCommentVote = async (query) => {
 
   return { commentVote };
 };
+
+export default upsertCommentVote;

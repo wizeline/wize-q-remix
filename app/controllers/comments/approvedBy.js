@@ -2,9 +2,9 @@ import { db } from '~/utils/db.server';
 import { approvedByCommentSchema } from '../../utils/backend/validators/comments';
 import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '../../utils/constants';
 import { COMMENT_AS_AN_ANSWER, DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { isEmptyObject } from '../../utils/backend/objectUtils';
+import isEmptyObject from '../../utils/backend/objectUtils';
 
-export const approvedByComment = async (params) => {
+const approvedByComment = async (params) => {
   const { error, value } = approvedByCommentSchema.validate(params);
 
   if (error) {
@@ -68,3 +68,5 @@ export const approvedByComment = async (params) => {
     response: `Comment ${checked ? 'marked' : 'unmarked'} as an answer successfully`,
   };
 };
+
+export default approvedByComment;

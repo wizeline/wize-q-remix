@@ -1,5 +1,6 @@
-import styled from "styled-components";
-import { SloganContainer } from "../Slogan/Slogan.Styled";
+/* eslint-disable import/prefer-default-export */
+import styled from 'styled-components';
+import { SloganContainer } from '../Slogan/Slogan.Styled';
 
 export const LoginDiv = styled.div`
   position: absolute;
@@ -33,10 +34,9 @@ export const SH3 = styled.h3`
 `;
 
 export const Span = styled.span`
-  ${(props) =>
-    props.variant === "bold"
-      ? 'font-family: "Nunito";'
-      : 'font-family: "Nunito";'}
+  ${(props) => (props.variant === 'bold'
+    ? 'font-family: "Nunito";'
+    : 'font-family: "Nunito";')}
 `;
 
 export const Paragraph = styled.p`

@@ -3,10 +3,10 @@ import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
 } from '../../utils/constants';
 import generateSessionIdHash from '../../utils/backend/crypto';
-import { createCommentSchema } from '../../utils/backend/validators/comment';
+import createCommentSchema from '../../utils/backend/validators/comment';
 import { db } from '~/utils/db.server';
 
-export const createComment = async (data) => {
+const createComment = async (data) => {
   const { error, value } = createCommentSchema.validate(data);
 
   if (error) {
@@ -69,3 +69,5 @@ export const createComment = async (data) => {
     comment: commentResponse,
   };
 };
+
+export default createComment;

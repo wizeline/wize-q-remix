@@ -1,8 +1,11 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '~/components/Atoms/UserImage';
+import UserImage from '../Atoms/UserImage';
 import * as Styled from './UserProfile.styled';
 
-function UserProfile({ name, title, email, picture }) {
+function UserProfile({
+  name, title, email, picture,
+}) {
   return (
     <Styled.ProfileDropdown>
       <Styled.ProfileDropdownInfo>

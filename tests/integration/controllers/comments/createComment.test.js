@@ -1,5 +1,5 @@
-import { randomAccessToken } from '../../../utils';
-import { createComment } from '../../../../app/controllers/comments/create';
+import randomAccessToken from '../../../utils';
+import createComment from '../../../../app/controllers/comments/create';
 import { db } from '~/utils/db.server';
 
 describe('createComment', () => {

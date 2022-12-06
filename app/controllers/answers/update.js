@@ -7,7 +7,7 @@ import {
 import { updateAnswerSchema } from '../../utils/backend/validators/answer';
 import { db } from '~/utils/db.server';
 
-export const updateAnswer = async (query) => {
+const updateAnswer = async (query) => {
   const { error, value } = updateAnswerSchema.validate(query);
   const { answer_id, answer_text } = value;
 
@@ -33,3 +33,5 @@ export const updateAnswer = async (query) => {
     updatedAnswer,
   };
 };
+
+export default updateAnswer;

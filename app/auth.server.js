@@ -10,7 +10,7 @@ const clientID = process.env.AUTH0_CLIENT_ID || 'AUTH0_CLIENT_ID must be set';
 const clientSecret = process.env.AUTH0_CLIENT_SECRET || 'AUTH0_CLIENT_SECRET must be set';
 const domain = process.env.AUTH0_DOMAIN || 'AUTH0_DOMAIN must be set';
 
-export const authenticator = new Authenticator(sessionStorage);
+const authenticator = new Authenticator(sessionStorage);
 
 const strategyConfig = {
   callbackURL,
@@ -47,3 +47,5 @@ const auth0Strategy = new Auth0Strategy(
 );
 
 authenticator.use(auth0Strategy);
+
+export default authenticator;

@@ -1,4 +1,5 @@
-import styled from "styled-components";
+/* eslint-disable import/prefer-default-export */
+import styled from 'styled-components';
 
 export const Container = styled.div`
 background-color: #f4f7f9;
@@ -18,7 +19,7 @@ overflow: auto;
   height: auto;
   overflow: hidden;
 }
-`
+`;
 
 export const BackToHomeQuestion = styled.div`
 flex: 1;
@@ -32,13 +33,13 @@ flex: 1;
         color: var(--color-secondary);
         font-weight: bolder;
     }
-`
+`;
 
 export const QuestionDetail = styled.div`
 flex: 2;
 height: 100%;
 width: 100%;
-`
+`;
 export const RecommendationsContainer = styled.div`
   padding: 0 40px;
 
@@ -53,7 +54,7 @@ flex: 1;
     @media (max-width: 1025px){
         display:none;
     }
-`
+`;
 
 export const Recommendations = styled.div`
 background-color: var(--color-secondary-light);
@@ -81,4 +82,4 @@ flex-direction: row;
         margin-bottom: 10px;
     }
 }
-`
+`;

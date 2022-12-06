@@ -8,7 +8,7 @@ const COMMENT_VALIDATION = Joi.string()
   .max(MAXIMUM_COMMENT_LENGTH)
   .required();
 
-export const createCommentSchema = Joi.object().keys({
+const createCommentSchema = Joi.object().keys({
   questionId: JOI_ID_VALIDATION,
   comment: COMMENT_VALIDATION,
   isAnonymous: Joi.boolean(),
@@ -18,3 +18,5 @@ export const createCommentSchema = Joi.object().keys({
     userName: Joi.string(),
   }),
 });
+
+export default createCommentSchema;

@@ -1,13 +1,13 @@
-import { modifyPinStatus } from '../../../../app/controllers/questions/modifyPinStatus';
-import { createQuestion } from '../../../../app/controllers/questions/create';
-import { randomAccessToken } from '../../../utils';
+import modifyPinStatus from '../../../../app/controllers/questions/modifyPinStatus';
+import createQuestion from '../../../../app/controllers/questions/create';
+import randomAccessToken from '../../../utils';
 import {
   PIN_QUESTION_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
 } from '../../../../app/utils/constants';
 import { db } from '../../../../app/utils/db.server';
-import { getFormattedDate } from '../../../../app/utils/dateFormat';
+import getFormattedDate from '../../../../app/utils/dateFormat';
 
 describe('questions controller', () => {
   describe('Modify pin status of a question (modifyPinStatus)', () => {

@@ -1,9 +1,9 @@
 import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
 import { questionCommentedSchema } from '../../utils/backend/validators/comments';
 import { db } from '../../utils/db.server';
-import { findUser } from '../users/find';
+import findUser from '../users/find';
 
-export const questionCommented = async (query) => {
+const questionCommented = async (query) => {
   const { error, value } = questionCommentedSchema.validate(query);
   const { userEmail } = value;
 
@@ -53,3 +53,5 @@ export const questionCommented = async (query) => {
     };
   }
 };
+
+export default questionCommented;

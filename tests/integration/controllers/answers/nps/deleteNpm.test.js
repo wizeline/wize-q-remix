@@ -1,4 +1,4 @@
-import { deleteNPS } from '../../../../../app/controllers/answers/nps/delete';
+import deleteNPS from '../../../../../app/controllers/answers/nps/delete';
 
 describe('nps delete controller', () => {
   it('delete the nps from an answer', async () => {

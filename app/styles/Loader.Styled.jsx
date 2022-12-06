@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-import { LSPIN_SMALL, LSPIN_LARGE, LSPIN_MEDIUM } from '~/utils/constants';
+import { LSPIN_SMALL, LSPIN_LARGE, LSPIN_MEDIUM } from '../utils/constants';
 
 export const LoaderWrapper = styled.div`
   display: flex;
@@ -16,16 +16,14 @@ export const LoaderText = styled.span`
   margin: 15px 0;
   text-align: center;
 
-  ${props =>
-    props.size === LSPIN_SMALL &&
-    css`
+  ${(props) => props.size === LSPIN_SMALL
+    && css`
       font-size: 14px;
       margin: 10px 0;
     `}
 
-  ${props =>
-    props.size === LSPIN_LARGE &&
-    css`
+  ${(props) => props.size === LSPIN_LARGE
+    && css`
       font-size: 20px;
       margin: 20px 0;
     `}
@@ -45,24 +43,21 @@ export const Spinner = styled.img`
   display: inline-block;
   margin: 20px 0;
 
-  ${props =>
-    props.size === LSPIN_SMALL &&
-    css`
+  ${(props) => props.size === LSPIN_SMALL
+    && css`
       width: 43px;
       height: 30px;
       margin: 15px 0;
     `}
 
-  ${props =>
-    props.size === LSPIN_MEDIUM &&
-    css`
+  ${(props) => props.size === LSPIN_MEDIUM
+    && css`
       width: 95px;
       height: 60px;
     `}
 
-  ${props =>
-    props.size === LSPIN_LARGE &&
-    css`
+  ${(props) => props.size === LSPIN_LARGE
+    && css`
       width: 122px;
       height: 82px;
     `}

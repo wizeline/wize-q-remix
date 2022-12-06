@@ -5,7 +5,6 @@ display: flex;
 justify-content: center;
 `;
 
-
 export const QuestionDetail = styled.div`
 border-radius: 15px;
 width: 100%;
@@ -22,7 +21,7 @@ export const CounterButtonsWrapper = styled.div`
         padding-left: 10px;
     }
 
-    ${props => props.isAdmin && !props.hasAnswer && css`
+    ${(props) => props.isAdmin && !props.hasAnswer && css`
         justify-content: flex-start;
   `}
 `;

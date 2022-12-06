@@ -1,4 +1,4 @@
-import { getAnswerById } from '../../../../app/controllers/answers/getAnswerById';
+import getAnswerById from '../../../../app/controllers/answers/getAnswerById';
 import { db } from '~/utils/db.server';
 
 describe('answers controller', () => {

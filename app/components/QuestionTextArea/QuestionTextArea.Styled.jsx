@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import doubleQuotes from '~/images/react-icons/ri/double-quotes-r.svg';
 

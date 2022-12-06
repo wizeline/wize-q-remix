@@ -70,6 +70,4 @@ function reorderHighlightedComments(comments) {
   return [null, comments];
 }
 
-export {
-  reorderHighlightedComments,
-};
+export default reorderHighlightedComments;

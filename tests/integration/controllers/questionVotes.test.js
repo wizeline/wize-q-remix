@@ -1,7 +1,7 @@
-import { voteQuestion } from '../../../app/controllers/questionVotes/voteQuestion';
-import { getQuestionById } from '../../../app/controllers/questions/getQuestionById';
-import { createQuestion } from '../../../app/controllers/questions/create';
-import { randomAccessToken } from '../../utils';
+import voteQuestion from '../../../app/controllers/questionVotes/voteQuestion';
+import getQuestionById from '../../../app/controllers/questions/getQuestionById';
+import createQuestion from '../../../app/controllers/questions/create';
+import randomAccessToken from '../../utils';
 
 import { db } from '~/utils/db.server';
 

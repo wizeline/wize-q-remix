@@ -6,7 +6,7 @@ import {
   INVALIDATE_VOTE_ERROR_MESSAGE,
 } from '../../utils/constants';
 
-export const voteQuestion = async (questionId, user) => {
+const voteQuestion = async (questionId, user) => {
   if (
     !questionId
     || typeof questionId !== 'number'
@@ -89,3 +89,5 @@ export const voteQuestion = async (questionId, user) => {
     };
   }
 };
+
+export default voteQuestion;

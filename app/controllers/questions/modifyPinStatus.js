@@ -6,7 +6,7 @@ import {
 import { modifyQuestionPinStatusParams } from '../../utils/backend/validators/question';
 import { db } from '../../utils/db.server';
 
-export const modifyPinStatus = async (questionId, newPinStatus) => {
+const modifyPinStatus = async (questionId, newPinStatus) => {
   const { error, value } = modifyQuestionPinStatusParams.validate({
     questionId,
     newPinStatus,
@@ -39,3 +39,5 @@ export const modifyPinStatus = async (questionId, newPinStatus) => {
     };
   }
 };
+
+export default modifyPinStatus;

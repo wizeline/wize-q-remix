@@ -1,6 +1,6 @@
-import { createComment } from '../../../../app/controllers/comments/create';
-import { deleteComment } from '../../../../app/controllers/comments/delete';
-import { randomAccessToken } from '../../../utils';
+import createComment from '../../../../app/controllers/comments/create';
+import deleteComment from '../../../../app/controllers/comments/delete';
+import randomAccessToken from '../../../utils';
 import * as commentsUtils from '../../../../app/utils/backend/comments';
 
 import { db } from '~/utils/db.server';

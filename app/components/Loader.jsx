@@ -1,5 +1,5 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-
 import * as Styled from '~/styles/Loader.Styled';
 
 function Loader({ src, size }) {
@@ -14,11 +14,6 @@ function Loader({ src, size }) {
 Loader.propTypes = {
   src: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
-};
-
-Loader.defaultProps = {
-  src: '',
-  size: '',
 };
 
 export default Loader;

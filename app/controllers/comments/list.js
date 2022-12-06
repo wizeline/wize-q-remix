@@ -6,7 +6,7 @@ import {
 } from '../../utils/constants';
 import { canEditComment } from '../../utils/backend/comments';
 
-export const listComments = async (params) => {
+const listComments = async (params) => {
   const {
     questionId, userEmail, userId, sortBy, sessionToken,
   } = params;
@@ -89,3 +89,5 @@ ${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_a
   });
   return { comments };
 };
+
+export default listComments;

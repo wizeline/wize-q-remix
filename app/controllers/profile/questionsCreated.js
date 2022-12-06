@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { profileQuestionsCreatedSchema } from '../../utils/backend/validators/profile';
+import profileQuestionsCreatedSchema from '../../utils/backend/validators/profile';
 import { db } from '../../utils/db.server';
 
-export const getQuestionsCreated = async (query) => {
+const getQuestionsCreated = async (query) => {
   const { error, value } = profileQuestionsCreatedSchema.validate(query);
   const { employee_id } = value;
 
@@ -31,3 +31,5 @@ export const getQuestionsCreated = async (query) => {
     };
   }
 };
+
+export default getQuestionsCreated;

@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { DropdownButton } from 'react-bootstrap';
 
@@ -48,11 +49,11 @@ export const ModalHeader = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? `
+    ${(props) => (props.variant === 'logout' ? `
         border-bottom: 1px solid #e5e5e5;
         padding: 15px;` : `
         border-bottom: none;`
-    )}
+  )}
 `;
 
 export const ModalBody = styled.div`
@@ -74,12 +75,12 @@ export const ModalFooter = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? `
+    ${(props) => (props.variant === 'logout' ? `
         border-top: 1px solid #e5e5e5;
         padding: 15px;text-align: right;`
-        : `
+    : `
         border-bottom: none;`
-    )}
+  )}
 `;
 
 export const ModalTitle = styled.div`

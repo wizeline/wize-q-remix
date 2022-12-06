@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
@@ -9,7 +10,7 @@ export const Note = styled.span`
   height: 1rem;
   line-height: 1rem;
   margin-top: 3px;
-  opacity: ${props => (props.visible ? 1 : 0)};
+  opacity: ${(props) => (props.visible ? 1 : 0)};
   transition: opacity 0.2s ease-in-out;
   white-space: nowrap;
 

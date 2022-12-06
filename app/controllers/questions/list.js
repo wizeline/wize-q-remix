@@ -6,7 +6,7 @@ import {
   DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD, DEFAULT_MONTHS,
 } from '../../utils/backend/constants';
 import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from '../../utils/backend/filterConstants';
-import { createDateRange } from '../../utils/backend/dateUtils';
+import createDateRange from '../../utils/backend/dateUtils';
 import { db } from '~/utils/db.server';
 
 const getOrderBy = (order) => {
@@ -172,7 +172,7 @@ const buildWhere = ({
   return where;
 };
 
-export const listQuestions = async (params) => {
+const listQuestions = async (params) => {
   const {
     limit, offset, orderBy, status, location, department, dateRange, search, user,
   } = params;
@@ -252,3 +252,5 @@ export const listQuestions = async (params) => {
     };
   });
 };
+
+export default listQuestions;

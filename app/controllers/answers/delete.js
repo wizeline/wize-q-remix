@@ -3,7 +3,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
 import { deleteAnswerSchema } from '../../utils/backend/validators/answer';
 import { db } from '~/utils/db.server';
 
-export const deleteAnswer = async (query) => {
+const deleteAnswer = async (query) => {
   const { error, value } = deleteAnswerSchema.validate(query);
   const { answer_id } = value;
 
@@ -30,3 +30,5 @@ export const deleteAnswer = async (query) => {
     successMessage: 'Answer has been deleted succesfully.',
   };
 };
+
+export default deleteAnswer;

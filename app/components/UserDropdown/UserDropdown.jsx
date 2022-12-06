@@ -1,9 +1,12 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '~/components/Atoms/UserImage';
-import UserProfile from '~/components/UserProfile';
+import UserImage from '../Atoms/UserImage';
+import UserProfile from '../UserProfile';
 import * as Styled from './UserDropdown.styled';
 
-export default function UserDropdown({ name, title, email, picture, onLogoutClick }) {
+export default function UserDropdown({
+  name, title, email, picture, onLogoutClick,
+}) {
   return (
     <Styled.UDropdown id="userDropdown">
       <Styled.UDropdown.Toggle noCaret componentClass="a">
@@ -41,4 +44,3 @@ UserDropdown.propTypes = {
 UserDropdown.defaultProps = {
   title: '',
 };
-

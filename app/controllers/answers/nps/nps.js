@@ -2,7 +2,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../../../utils/backend/constants';
 import { npsSchema } from '../../../utils/backend/validators/answer';
 import { db } from '~/utils/db.server';
 
-export const nps = async (query) => {
+const nps = async (query) => {
   const { error, value } = npsSchema.validate(query);
   const { id, score } = value;
 
@@ -31,3 +31,5 @@ export const nps = async (query) => {
     };
   }
 };
+
+export default nps;

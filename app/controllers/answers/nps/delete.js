@@ -2,7 +2,7 @@ import { deleteNPSSchema } from '../../../utils/backend/validators/nps';
 import { DEFAULT_ERROR_MESSAGE } from '../../../utils/backend/constants';
 import { db } from '~/utils/db.server';
 
-export const deleteNPS = async (params) => {
+const deleteNPS = async (params) => {
   const { error, value } = deleteNPSSchema.validate(params);
 
   if (error) {
@@ -35,3 +35,5 @@ export const deleteNPS = async (params) => {
     };
   }
 };
+
+export default deleteNPS;

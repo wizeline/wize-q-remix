@@ -1,4 +1,4 @@
-export const ACTIONS = {
+const ACTIONS = {
   PINNIN: 'pin',
   VOTE_QUESTION: 'vote_question',
   CREATE_QUESTION_ANSWER: 'create_question_answer',
@@ -14,3 +14,5 @@ export const ACTIONS = {
   DELETE_SCORE: 'delete_answer_score',
   ENABLED_ACTION:'enable/disable',
 };
+
+export default ACTIONS;

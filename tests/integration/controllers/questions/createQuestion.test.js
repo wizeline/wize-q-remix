@@ -1,5 +1,5 @@
-import { randomAccessToken } from '../../../utils';
-import { createQuestion } from '../../../../app/controllers/questions/create';
+import randomAccessToken from '../../../utils';
+import createQuestion from '../../../../app/controllers/questions/create';
 import { db } from '../../../../app/utils/db.server';
 import slack from '../../../../app/utils/backend/slackNotifications';
 

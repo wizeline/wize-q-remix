@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 const colorDark50 = '#4E5154';

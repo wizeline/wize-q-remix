@@ -1,5 +1,5 @@
-import { updateComment } from '../../../../app/controllers/comments/update';
-import { randomAccessToken } from '../../../utils';
+import updateComment from '../../../../app/controllers/comments/update';
+import randomAccessToken from '../../../utils';
 
 import { db } from '~/utils/db.server';
 

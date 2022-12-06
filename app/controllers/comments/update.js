@@ -8,7 +8,7 @@ import {
 } from '../../utils/constants';
 import { updateCommentSchema } from '../../utils/backend/validators/comments';
 
-export const updateComment = async (body) => {
+const updateComment = async (body) => {
   const { error, value } = updateCommentSchema.validate(body);
 
   if (error) {
@@ -86,3 +86,5 @@ export const updateComment = async (body) => {
     },
   };
 };
+
+export default updateComment;

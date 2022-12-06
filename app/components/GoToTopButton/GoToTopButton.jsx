@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as Styled from './GoToTopButton.Styled';
-import { BACK_TO_TOP } from '~/utils/constants';
-import ArrowIcon from '~/components/Atoms/ArrowIcon';
+import { BACK_TO_TOP } from '../../utils/constants';
+import ArrowIcon from '../Atoms/ArrowIcon';
 
 function GoToTopButton() {
   const [show, setShow] = useState(false);

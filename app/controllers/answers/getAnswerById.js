@@ -2,7 +2,7 @@ import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
 import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '../../utils/constants';
 import { db } from '~/utils/db.server';
 
-export const getAnswerById = async (answerId, user) => {
+const getAnswerById = async (answerId, user) => {
   if (!answerId || typeof answerId !== 'number' || parseInt(answerId, 10) < 1) {
     return {
       error: {
@@ -39,3 +39,5 @@ export const getAnswerById = async (answerId, user) => {
     };
   }
 };
+
+export default getAnswerById;

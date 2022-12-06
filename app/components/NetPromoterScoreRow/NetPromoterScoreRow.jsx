@@ -1,14 +1,15 @@
-import { useState } from 'react';
+/* eslint-disable camelcase */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '~/components/Atoms/Button';
+import Button from '../Atoms/Button';
 import {
   DISPLAY_TEXT_BEFORE_SCORING,
   DISPLAY_TEXT_AFTER_SCORING,
   SCORES,
   UNDO_BUTTON_TEXT,
   TEXT_BUTTON,
-} from '~/utils/constants';
-import * as Styled from '~/components/NetPromoterScoreRow/NetPromoterScoreRow.styled';
+} from '../../utils/constants';
+import * as Styled from './NetPromoterScoreRow.styled';
 
 function NetPromoterScoreRow(props) {
   const {
@@ -18,7 +19,6 @@ function NetPromoterScoreRow(props) {
     scoreAnswer,
     deleteScore,
   } = props;
-
 
   const [scored, setScored] = useState(hasScored);
   const [selectedOption, setSelectedOption] = useState(undefined);
@@ -58,7 +58,7 @@ function NetPromoterScoreRow(props) {
     </Button>
   );
 
-  const generateUndoButton = canUndoNps_ => canUndoNps_ && (
+  const generateUndoButton = (canUndoNps_) => canUndoNps_ && (
     <Button
       id="nps-undo-btn"
       type="button"
@@ -68,36 +68,37 @@ function NetPromoterScoreRow(props) {
     >
       {UNDO_BUTTON_TEXT}
     </Button>
-     );
+  );
 
-  const NpsRating = () => (
-    <Styled.NpsRowOptionsContainer>
-      {SCORES.map(score => (
-        <label
-          key={score.name}
-          className="nps-row__option--container"
-          htmlFor={`choice${score.value}`}
-        >
-          <p>{score.name}</p>
-          <input type="radio" name="score" checked={selectedOption === score.value} onClick={() => handleOptionsClick(score.value)} />
-        </label>
-      ))}
-      {generateSendButton()}
-    </Styled.NpsRowOptionsContainer>
+  // eslint-disable-next-line react/no-unstable-nested-components
+  function NpsRating() {
+    return (
+      <Styled.NpsRowOptionsContainer>
+        {SCORES.map((score) => (
+          <label
+            key={score.name}
+            className="nps-row__option--container"
+            htmlFor={`choice${score.value}`}
+          >
+            <p>{score.name}</p>
+            <input type="radio" name="score" checked={selectedOption === score.value} onClick={() => handleOptionsClick(score.value)} />
+          </label>
+        ))}
+        {generateSendButton()}
+      </Styled.NpsRowOptionsContainer>
     );
-
+  }
 
   return (
     <Styled.NpsRowContainer>
       <Styled.NpsRowDisplayText>
         <p>{scored ? DISPLAY_TEXT_AFTER_SCORING : DISPLAY_TEXT_BEFORE_SCORING}</p>
       </Styled.NpsRowDisplayText>
-        
+      
       {scored ? generateUndoButton(undoNps) : NpsRating()}
     </Styled.NpsRowContainer>
   );
 }
-
 
 NetPromoterScoreRow.propTypes = {
   answer_id: PropTypes.number.isRequired,

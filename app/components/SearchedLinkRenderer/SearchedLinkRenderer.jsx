@@ -1,13 +1,14 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import { HIGHLIGHT_END, HIGHLIGHT_START } from '~/utils/constants';
-import MarkdownLinkRenderer from '~/components/MarkdownLinkRenderer';
+import { HIGHLIGHT_END, HIGHLIGHT_START } from '../../utils/constants';
+import MarkdownLinkRenderer from '../MarkdownLinkRenderer';
 
 const propTypes = {
   href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-const SearchedLinkRenderer = ({ href, children }) => {
+function SearchedLinkRenderer({ href, children }) {
   let cleanedUrl = href.replace(new RegExp(HIGHLIGHT_START, 'g'), '');
   cleanedUrl = cleanedUrl.replace(new RegExp(HIGHLIGHT_END, 'g'), '');
   return (
@@ -15,7 +16,7 @@ const SearchedLinkRenderer = ({ href, children }) => {
       {children}
     </MarkdownLinkRenderer>
   );
-};
+}
 
 SearchedLinkRenderer.propTypes = propTypes;
 

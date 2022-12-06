@@ -1,6 +1,7 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { QuestionAssigner } from '~/components/QuestionAssigner/QuestionAssigner.Styled';
-import { QuestionLocationWrapper } from '~/components/QuestionLocation/QuestionLocation.Styled';
+import { QuestionAssigner } from '../QuestionAssigner/QuestionAssigner.Styled';
+import { QuestionLocationWrapper } from '../QuestionLocation/QuestionLocation.Styled';
 
 // Question Input Main
 export const InputForm = styled.div`
@@ -142,14 +143,14 @@ export const Options = styled.div`
   }
   ${QuestionAssigner} {
     .question-input-dropdown.btn-default[role=button] {
-      background-color: ${props => (props.department === '' ? '#f1f1f1' : 'var(--color-secondary)')};
-      color: ${props => (props.department === '' ? 'var(--color-dark-50)' : '#fff')};
+      background-color: ${(props) => (props.department === '' ? '#f1f1f1' : 'var(--color-secondary)')};
+      color: ${(props) => (props.department === '' ? 'var(--color-dark-50)' : '#fff')};
     }
   }
   ${QuestionLocationWrapper} {
     .question-input-dropdown.btn-default[role=button] {
-      background-color: ${props => (props.location === '' ? '#f1f1f1' : 'var(--color-secondary)')};
-      color: ${props => (props.location === '' ? 'var(--color-dark-50)' : '#fff')};
+      background-color: ${(props) => (props.location === '' ? '#f1f1f1' : 'var(--color-secondary)')};
+      color: ${(props) => (props.location === '' ? 'var(--color-dark-50)' : '#fff')};
     }
   }
 `;

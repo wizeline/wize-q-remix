@@ -1,6 +1,6 @@
 import { db } from '../../utils/db.server';
 
-export const listLocations = async () => {
+const listLocations = async () => {
   const locations = await db.Locations.findMany({
     orderBy: {
       name: 'asc',
@@ -9,3 +9,5 @@ export const listLocations = async () => {
 
   return locations;
 };
+
+export default listLocations;

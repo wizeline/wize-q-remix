@@ -4,7 +4,7 @@ import { assignQuestionSchema } from '../../utils/backend/validators/question';
 import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from '../../utils/constants';
 import { db } from '../../utils/db.server';
 
-export const assignQuestion = async (query) => {
+const assignQuestion = async (query) => {
   const { error, value } = assignQuestionSchema.validate(query);
   const { question_id, assigned_department } = value;
 
@@ -33,3 +33,5 @@ export const assignQuestion = async (query) => {
     };
   }
 };
+
+export default assignQuestion;

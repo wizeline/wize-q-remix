@@ -1,14 +1,17 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import InputCounterWrapper from './InputCounter.Styled';
 
-const InputCounter = (props) => {
+function InputCounter(props) {
   const { currentLength, maxLength } = props;
   return (
     <InputCounterWrapper className="input-counter">
-      {currentLength}/{maxLength}
+      {currentLength}
+      /
+      {maxLength}
     </InputCounterWrapper>
   );
-};
+}
 export default InputCounter;
 
 InputCounter.propTypes = {

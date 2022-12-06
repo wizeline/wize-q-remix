@@ -8,7 +8,7 @@ import {
   DELETE_COMMENT_ERROR_MESSAGE,
 } from '../../utils/constants';
 
-export const deleteComment = async (body) => {
+const deleteComment = async (body) => {
   const { error, value } = deleteCommentSchema.validate(body);
 
   if (error) {
@@ -85,3 +85,5 @@ export const deleteComment = async (body) => {
     },
   };
 };
+
+export default deleteComment;

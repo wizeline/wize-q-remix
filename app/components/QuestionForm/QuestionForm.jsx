@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+/* eslint-disable camelcase */
+/* eslint-disable no-useless-catch */
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
@@ -20,28 +22,27 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-} from '~/utils/constants';
+} from '../../utils/constants';
 import * as Styled from './QuestionForm.Styled';
-import QuestionAssigner from '~/components/QuestionAssigner';
-import QuestionLocation from '~/components/QuestionLocation';
-import Switch from '~/components/Switch';
-import InputAuthor from '~/components/InputAuthor';
-import InputCounter from '~/components/InputCounter';
-import SubmitWithModal from '~/components/SubmitWithModal';
-import { deleteNoMarkupFormatHTML } from '~/utils/stringOperations';
-import { validTextLength } from '~/utils/input';
-import QuestionInputText from '~/components/QuestionInputText';
-import { useUser } from '~/utils/hooks/useUser';
+import QuestionAssigner from '../QuestionAssigner';
+import QuestionLocation from '../QuestionLocation';
+import Switch from '../Switch';
+import InputAuthor from '../InputAuthor';
+import InputCounter from '../InputCounter';
+import SubmitWithModal from '../SubmitWithModal';
+import { deleteNoMarkupFormatHTML } from '../../utils/stringOperations';
+import { validTextLength } from '../../utils/input';
+import QuestionInputText from '../QuestionInputText';
+import useUser from '../../utils/hooks/useUser';
 
-const QuestionForm = ({
+function QuestionForm({
   postQuestion,
   locations,
   departments,
   initialValue,
   initialDepartment,
   initialIsAnonymous,
-}) => {
-
+}) {
   const { full_name, picture } = useUser();
 
   const initialState = {
@@ -57,12 +58,12 @@ const QuestionForm = ({
     assignedDepartment: initialDepartment,
     fullLocation: '',
     isShowPreview: false,
-    askButtonEnabled: false,
+    askBtbEnabled: false,
   };
 
   const [state, setState] = useState(initialState);
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createWithContent(convertFromRaw(markdownToDraft(state.inputValue))),
+  const [editorState, setEditorState] = useState(
+    () => EditorState.createWithContent(convertFromRaw(markdownToDraft(state.inputValue))),
   );
 
   const selectPostingAs = (username) => {
@@ -81,13 +82,13 @@ const QuestionForm = ({
   }, [full_name]);
 
   const clearTextArea = () => {
-    setEditorState(() =>
-      EditorState.push(editorState, ContentState.createFromText(''), 'remove-range'),
-    );
+    setEditorState(() => EditorState.push(editorState, ContentState.createFromText(''), 'remove-range'));
   };
 
   const onSubmitWithModalSuccess = async () => {
-    const { location, isAnonymous, inputValue, assignedDepartment } = state;
+    const {
+      location, isAnonymous, inputValue, assignedDepartment,
+    } = state;
     setState({ ...state, showSubmitWithModal: false });
 
     const question = {
@@ -129,7 +130,8 @@ const QuestionForm = ({
       warningsToShow.push(ALL_LOCATIONS_MESSAGE);
     } else {
       const prelocation = locations.find(
-        loc => loc.code === location);
+        (loc) => loc.code === location,
+      );
       const fullLocation = prelocation ? prelocation.name : '';
       warningsToShow.push(LOCATION_WARNING + fullLocation);
     }
@@ -154,7 +156,7 @@ const QuestionForm = ({
       ...state,
       location: selectedLocation,
       fullLocation: locations.find(
-        loc => loc.code === selectedLocation,
+        (loc) => loc.code === selectedLocation,
       ).name,
     });
   };
@@ -171,20 +173,19 @@ const QuestionForm = ({
     setState({ ...state, inputValue });
   };
 
-  const getClasses = (askButtonEnabled, departmentId) => {
+  const getClasses = (askBtbEnabled, departmentId) => {
     // eslint-disable-next-line no-unneeded-ternary
-    const askButtonClass = askButtonEnabled ? false : true;
-    const employeeDropdownClass = (departmentId !== NOT_ASSIGNED_DEPARTMENT_ID &&
-      departmentId !== NO_DEPARTMENT_SELECTED_ID) ? '' : 'employee-dropdown--department-assigned';
-    const locationDropdownClass = departmentId !== NO_DEPARTMENT_SELECTED_ID ?
-      '' : 'location-dropdown--department-selected';
+    const askBtnClass = askBtbEnabled ? false : true;
+    const employeeDropdownClass = (departmentId !== NOT_ASSIGNED_DEPARTMENT_ID
+      && departmentId !== NO_DEPARTMENT_SELECTED_ID) ? '' : 'employee-dropdown--department-assigned';
+    const locationDropdownClass = departmentId !== NO_DEPARTMENT_SELECTED_ID
+      ? '' : 'location-dropdown--department-selected';
     return {
-      askButtonClass,
+      askBtnClass,
       employeeDropdownClass,
       locationDropdownClass,
     };
   };
-
 
   const handleDepartmentSelectChange = (selectedDepartment) => {
     setState({
@@ -201,38 +202,39 @@ const QuestionForm = ({
 
     const sanitizedInput = deleteNoMarkupFormatHTML(inputValue.trim());
 
-    let askButtonEnabled = true;
+    let askBtbEnabled = true;
     let tooltipMessage = '';
     if (!validTextLength(sanitizedInput.length, MINIMUM_QUESTION_LENGTH, MAXIMUM_QUESTION_LENGTH)) {
-      askButtonEnabled = false;
+      askBtbEnabled = false;
       tooltipMessage = MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE;
     }
 
     if (assignedDepartment.department_id === NO_DEPARTMENT_SELECTED_ID) {
-      askButtonEnabled = false;
+      askBtbEnabled = false;
       tooltipMessage = NO_DEPARTMENT_SELECTED_TOOLTIP_MESSAGE;
     }
 
     if (locations.length === 0) {
-      askButtonEnabled = false;
+      askBtbEnabled = false;
       tooltipMessage = NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE;
     }
 
     return {
-      askButtonEnabled,
+      askBtbEnabled,
       tooltipMessage,
     };
   };
 
-  const renderTooltip = tooltipMessage =>
-    tooltipMessage && (
-      <Styled.SubmitTooltipText>
-        <span>{tooltipMessage}</span> <br />
-        {DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP}
-      </Styled.SubmitTooltipText>
-    );
+  const renderTooltip = (tooltipMessage) => tooltipMessage && (
+  <Styled.SubmitTooltipText>
+    <span>{tooltipMessage}</span>
+    {' '}
+    <br />
+    {DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP}
+  </Styled.SubmitTooltipText>
+  );
 
-  const getQuestionLength = question => deleteNoMarkupFormatHTML(question.trim()).length;
+  const getQuestionLength = (question) => deleteNoMarkupFormatHTML(question.trim()).length;
 
   const onAnonymousChange = (event) => {
     setState({
@@ -241,14 +243,16 @@ const QuestionForm = ({
     });
   };
 
-  const { tooltipMessage, askButtonEnabled } = isAllowedToSubmitQuestion();
-  const { askButtonClass, locationDropdownClass } =
-      getClasses(askButtonEnabled, state.assignedDepartment.department_id);
+  const { tooltipMessage, askBtbEnabled } = isAllowedToSubmitQuestion();
+  const { askBtnClass, locationDropdownClass } = getClasses(
+    askBtbEnabled,
+    state.assignedDepartment.department_id,
+  );
 
   return (
     <Styled.InputForm className="clearfix">
       <form onSubmit={onSubmit} id="question-submit-form">
-        <Styled.InputContainer >
+        <Styled.InputContainer>
           <Styled.InputTopWrapper>
             <InputAuthor
               dropDownTitle={state.dropDownTitle}
@@ -257,7 +261,7 @@ const QuestionForm = ({
               isAsking
               isAnonymous={state.isAnonymous}
             />
-            <RiArrowRightSFill color="black" size={'25px'} />
+            <RiArrowRightSFill color="black" size="25px" />
             <Styled.Options
               department={state.assignedDepartment.name}
               location={state.fullLocation}
@@ -280,8 +284,8 @@ const QuestionForm = ({
             editorState={editorState}
             setEditorState={setEditorState}
             onInputChange={onInputChange}
-            submitElement={
-              <Styled.Submit disabled={askButtonClass}>
+            submitElement={(
+              <Styled.Submit disabled={askBtnClass}>
                 <p style={{ float: 'left' }}>
                   <span>Ask anonymously</span>
                   <Switch
@@ -296,13 +300,13 @@ const QuestionForm = ({
                 <Styled.SubmitTooltip
                   type="submit"
                   id="submit-btn"
-                  disabled={!askButtonEnabled}
+                  disabled={!askBtbEnabled}
                 >
                   {renderTooltip(tooltipMessage)}
                   Ask
                 </Styled.SubmitTooltip>
               </Styled.Submit>
-            }
+            )}
           />
         </Styled.InputContainer>
         <SubmitWithModal
@@ -330,7 +334,9 @@ QuestionForm.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  departments: PropTypes.array,
+  departments: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
   initialValue: PropTypes.string,
   initialDepartment: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -345,6 +351,7 @@ QuestionForm.defaultProps = {
     picture: '',
   },
   initialValue: '',
+  departments: [],
   initialDepartment: { name: '', department_id: NO_DEPARTMENT_SELECTED_ID },
   initialIsAnonymous: false,
 };

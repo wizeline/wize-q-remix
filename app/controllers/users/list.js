@@ -9,7 +9,7 @@ const getPagination = (page, size) => {
   return { limit, offset };
 };
 
-export const listUsers = async (query) => {
+const listUsers = async (query) => {
   const { page, search, size } = query;
   const { limit, offset } = getPagination(Number(page), Number(size));
 
@@ -39,3 +39,5 @@ export const listUsers = async (query) => {
     users,
   };
 };
+
+export default listUsers;

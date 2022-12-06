@@ -1,15 +1,21 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './Label.Styled';
 
-const Label = ({text, type, approvedBy}) => {
+function Label({ text, type, approvedBy }) {
   return (
     <Styled.LabelContainer>
       <Styled.Label type={type} text={text}>
         {text}
       </Styled.Label>
-      {approvedBy && <Styled.ApproverName>by <strong>{approvedBy}</strong></Styled.ApproverName>}
+      {approvedBy && (
+      <Styled.ApproverName>
+        by
+        <strong>{approvedBy}</strong>
+      </Styled.ApproverName>
+      )}
     </Styled.LabelContainer>
-  )
+  );
 }
 
 Label.propTypes = {
@@ -20,6 +26,6 @@ Label.propTypes = {
 
 Label.defaultProps = {
   approvedBy: null,
-}
+};
 
 export default Label;

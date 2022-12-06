@@ -1,27 +1,25 @@
 import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import * as Styled from './UserSearchBar.Styled';
-import { useState } from 'react';
-import { ICON_BUTTON } from '~/utils/constants';
-import Button from '~/components/Atoms/Button';
-
+import { ICON_BUTTON } from '../../utils/constants';
+import Button from '../Atoms/Button';
 
 export default function UserSearchBar({ onSearch }) {
-
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const clearText = () => {
-    setSearch("");
+    setSearch('');
   };
 
   const onChange = (e) => {
     setSearch(e.target.value);
-  }
+  };
 
   const handleKeyDown = (event) => {
     if (search && event.key === 'Enter') {
       onSearch(search);
     }
-  }
+  };
 
   return (
     <Styled.SearchField>

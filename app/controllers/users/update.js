@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { updateUserSchema } from '../../utils/backend/validators/admin';
+import updateUserSchema from '../../utils/backend/validators/admin';
 import { db } from '../../utils/db.server';
 
-export const updateUser = async (query) => {
+const updateUser = async (query) => {
   const { error, value } = updateUserSchema.validate(query);
   const { employee_id, is_admin, job_title } = value;
 
@@ -33,3 +33,5 @@ export const updateUser = async (query) => {
     updatedUser,
   };
 };
+
+export default updateUser;

@@ -21,6 +21,4 @@ function sanitizeHTML(content) {
   return finalContent;
 }
 
-export {
-  sanitizeHTML,
-};
+export default sanitizeHTML;

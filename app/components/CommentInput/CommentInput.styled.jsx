@@ -149,29 +149,25 @@ export const QuestionInputTab = styled.div`
     margin-left: 10px;
     border-radius: 7px 7px 0 0;
 
-    ${props =>
-        props.selected &&
-        css`
+    ${(props) => props.selected
+        && css`
         background-color: #fff;
     `} 
 
-    ${props =>
-        props.selected &&
-        !props.isNewComment &&
-        css`
+    ${(props) => props.selected
+        && !props.isNewComment
+        && css`
         background-color: #f3f3f3;
         border-radius: 7px;
     `} 
 
-    ${props =>
-        props.disabled &&
-        css`
+    ${(props) => props.disabled
+        && css`
         ${MainButton} {
             color: var(--color-dark-25) !important;
         }
     `} 
 `;
-
 
 export const QuestionInputTextPreviewDiv = styled.div`
     padding: 10px;
@@ -191,7 +187,7 @@ export const AuthorImg = styled.img`
     height: 40px;
     border-radius: 50%;
 
-    ${props => (props.variant === 'dropdown' ? 'height: 32px' : 'height: 40px')}
+    ${(props) => (props.variant === 'dropdown' ? 'height: 32px' : 'height: 40px')}
 `;
 
 export const CommentInputAuthorPictureDiv = styled.div`

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillCircleFill } from "react-icons/bs";
+import { BsFillCircleFill } from 'react-icons/bs';
 
 export const QuestionerResponderContainer = styled.div`
   align-items: flex-start;
@@ -8,7 +8,7 @@ export const QuestionerResponderContainer = styled.div`
   flex-direction: row;
   justify-content: center;
 
-  ${props => !props.hasJobTitle && css`
+  ${(props) => !props.hasJobTitle && css`
     align-items: center;
   `}
 `;
@@ -62,17 +62,17 @@ export const DateContainer = styled.div`
   align-items: center;
   width: max-content;
 
-  ${props => (props.hasJobTitle) && css`
+  ${(props) => (props.hasJobTitle) && css`
         margin-top: 3px;
   `};
 
   @media screen and (max-width: 480px) {
-    ${props => props.isComment && css`
+    ${(props) => props.isComment && css`
       margin-left: 40px;
       margin-top: -13px;
     `};
 
-    ${props => (props.isComment && props.hasJobTitle) && css`
+    ${(props) => (props.isComment && props.hasJobTitle) && css`
         margin-top: -5px;
     `};
   }

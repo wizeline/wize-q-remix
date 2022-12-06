@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 export const Modal = styled.div`
@@ -28,7 +29,7 @@ export const ModalDialog = styled.div`
     display: block;
     max-height: calc(100vh - 150px);
     overflow-y: auto;
-    ${props => (props.variant === 'submit' ? 'padding: 0px 24px;max-width: 55vw;' : 'padding: 24px 24px;max-width: 70vw;')}
+    ${(props) => (props.variant === 'submit' ? 'padding: 0px 24px;max-width: 55vw;' : 'padding: 24px 24px;max-width: 70vw;')}
 
     @media (max-width: 768px) {
         max-height: 100%;
@@ -56,7 +57,7 @@ export const ModalFooter = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? 'border-top: 1px solid #e5e5e5;padding: 15px;text-align: right;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout' ? 'border-top: 1px solid #e5e5e5;padding: 15px;text-align: right;' : 'border-bottom: none;')}
 `;
 
 export const ModalHeader = styled.div`
@@ -65,7 +66,7 @@ export const ModalHeader = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? 'border-bottom: 1px solid #e5e5e5;padding: 15px;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout' ? 'border-bottom: 1px solid #e5e5e5;padding: 15px;' : 'border-bottom: none;')}
 `;
 
 export const ModalTitle = styled.div`

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { QuestionerResponderContainer } from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+import { QuestionerResponderContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const AnswerRow = styled.div` 
   font-family: 'Nunito', sans-serif;
@@ -44,7 +44,7 @@ export const AnsweredBy = styled.div`
   color: var(--color-secondary);
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: ${props => (props.isPreview ? '14px' : '4px')};
+  margin-bottom: ${(props) => (props.isPreview ? '14px' : '4px')};
 `;
 
 export const AnsweredMetadata = styled.div`
@@ -74,7 +74,7 @@ export const AnsweredMetadataLeft = styled.div`
     align-items: flex-start;
     width: 100%;
 
-    ${props => !props.hasJobTitle && css`
+    ${(props) => !props.hasJobTitle && css`
       align-items: center;
 
       @media screen and (max-width: 480px) {

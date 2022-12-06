@@ -1,32 +1,39 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import * as Styled from './AnswerAdminOptions.Styled';
 
 import editIcon from '~/images/ic_edit.svg';
 import deleteIcon from '~/images/ic_delete.svg';
-import { DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE } from '~/utils/constants';
+import { DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE } from '../../utils/constants';
 
 function AnswerAdminOptions({
   isPreview,
   isDisabled,
   onAnswerClick,
   openDeleteAnswerModal,
-  question }) {
+  question,
+}) {
   const [showTootip, setShowTooltip] = useState(false);
   return (
     <Styled.AnswerOptions isPreview={isPreview} isDisabled={isDisabled}>
       <button
+        type="button"
         onMouseOver={() => isDisabled && setShowTooltip(true)}
+        onFocus={() => isDisabled && setShowTooltip(true)}
         onMouseOut={() => isDisabled && setShowTooltip(false)}
+        onBlur={() => isDisabled && setShowTooltip(false)}
         onClick={() => !isDisabled && onAnswerClick(question)}
         disabled={isDisabled}
       >
         <img src={editIcon} alt="Edit" />
       </button>
       <button
+        type="button"
         onMouseOver={() => isDisabled && setShowTooltip(true)}
+        onFocus={() => isDisabled && setShowTooltip(true)}
         onMouseOut={() => isDisabled && setShowTooltip(false)}
+        onBlur={() => isDisabled && setShowTooltip(false)}
         onClick={() => !isDisabled && openDeleteAnswerModal(question)}
         disabled={isDisabled}
       >

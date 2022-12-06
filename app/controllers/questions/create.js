@@ -2,12 +2,12 @@ import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
 import generateSessionIdHash from '../../utils/backend/crypto';
 import slack from '../../utils/backend/slackNotifications';
 import { stripNewLines, truncate } from '../../utils/backend/stringUtils';
-import { sanitizeHTML } from '../../utils/backend/sanitizer';
+import sanitizeHTML from '../../utils/backend/sanitizer';
 import { createQuestionSchema } from '../../utils/backend/validators/question';
 import { db } from '../../utils/db.server';
 import { SLACK_QUESTION_LIMIT } from '../../utils/backend/slackConstants';
 
-export const createQuestion = async (body) => {
+const createQuestion = async (body) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
     return {
@@ -52,3 +52,5 @@ export const createQuestion = async (body) => {
     question: created,
   };
 };
+
+export default createQuestion;

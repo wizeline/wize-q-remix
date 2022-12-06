@@ -29,8 +29,8 @@ export const Icon = styled.img`
 export const FiltersLine = styled.hr`
   border-top: 1px solid #e6e6e6;
   margin: 16px 0 24px;
-  display: ${props => props.visibility};
-  ${props => props.secondary && css`
+  display: ${(props) => props.visibility};
+  ${(props) => props.secondary && css`
     margin: 0;
   `}
   
@@ -47,13 +47,13 @@ export const FiltersWrapper = styled.div`
   transition: box-shadow 300ms;
   width: 100%;
   @media (min-width: 768px) and (max-width: 1024px) {
-      display: ${props => props.hideComponent};
+      display: ${(props) => props.hideComponent};
       margin: 0 auto;
       padding: 10px 0;
       width: 248px;
   }
   @media (max-width: 767px) {
-      display: ${props => props.hideComponent};
+      display: ${(props) => props.hideComponent};
       margin: 0 auto;
       padding: 10px 0;
       width: 248px;
@@ -127,9 +127,8 @@ export const FiltersField = styled.div`
     padding: 5px 0 8.9px;
     position: unset;
   }
-  ${props =>
-    props.departments &&
-    css`
+  ${(props) => props.departments
+    && css`
       .dropdown-menu li:nth-child(2) a label {
         border-bottom: 1px solid #e6e6e6;
         padding-bottom: 12px;

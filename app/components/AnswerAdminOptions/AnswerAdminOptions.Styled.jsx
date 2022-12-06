@@ -16,7 +16,7 @@ export const AnswerOptions = styled.div`
       width: 15px;
     }
   }
-  ${props => !props.isPreview && css`
+  ${(props) => !props.isPreview && css`
     @media screen and (max-width: 480px) {
       min-width: fit-content;
     }
@@ -26,7 +26,7 @@ export const AnswerOptions = styled.div`
       }
     }
   `}
-  ${props => props.isDisabled && css`
+  ${(props) => props.isDisabled && css`
     display: inline-block;
     position: relative;
   `}

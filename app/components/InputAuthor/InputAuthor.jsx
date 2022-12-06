@@ -1,8 +1,9 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '~/components/Atoms/UserImage';
-import { ANONYMOUS_USER } from '~/utils/constants';
+import UserImage from '../Atoms/UserImage';
+import { ANONYMOUS_USER } from '../../utils/constants';
 
-const InputAuthor = (props) => {
+function InputAuthor(props) {
   return (
     props.isAnonymous ? (
       <UserImage size="big" src={props.anonymousProfilePicture} />
@@ -10,7 +11,8 @@ const InputAuthor = (props) => {
       <UserImage
         src={props.profilePicture}
         size="big"
-      />)
+      />
+    )
   );
 }
 
@@ -21,13 +23,8 @@ InputAuthor.propTypes = {
 };
 
 InputAuthor.defaultProps = {
-  profile: {},
-  anonymousUsername: ANONYMOUS_USER.username,
   anonymousProfilePicture: ANONYMOUS_USER.profilePicture,
-  isAsking: true,
-  dropDownTitle: '',
   profilePicture: '',
-  isAnonymous: false,
 };
 
 export default InputAuthor;

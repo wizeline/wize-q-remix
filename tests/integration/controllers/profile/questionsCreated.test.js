@@ -1,4 +1,4 @@
-import { getQuestionsCreated } from '../../../../app/controllers/profile/questionsCreated';
+import getQuestionsCreated from '../../../../app/controllers/profile/questionsCreated';
 
 describe('get questions created', () => {
   it('send valid employee id', async () => {

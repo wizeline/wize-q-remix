@@ -1,4 +1,4 @@
-import { questionCommented } from '../../../../app/controllers/profile/questionsCommented';
+import questionCommented from '../../../../app/controllers/profile/questionsCommented';
 
 describe('get questions commented', () => {
   it('get questions commentes succesfully', async () => {

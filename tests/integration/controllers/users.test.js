@@ -1,6 +1,6 @@
 import { findOrCreateUser, findUser } from '../../../app/controllers/users/find';
 import { db } from '~/utils/db.server';
-import { updateUser } from '../../../app/controllers/users/update';
+import updateUser from '../../../app/controllers/users/update';
 
 describe('user controllers', () => {
   describe('findUser', () => {

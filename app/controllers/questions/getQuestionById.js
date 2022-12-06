@@ -7,7 +7,7 @@ import {
 } from '../../utils/constants';
 import generateSessionIdHash from '../../utils/backend/crypto';
 
-export const getQuestionById = async (questionId, user) => {
+const getQuestionById = async (questionId, user) => {
   if (!questionId || typeof questionId !== 'number' || parseInt(questionId, 10) < 1) {
     return {
       error: {
@@ -97,3 +97,5 @@ export const getQuestionById = async (questionId, user) => {
     };
   }
 };
+
+export default getQuestionById;

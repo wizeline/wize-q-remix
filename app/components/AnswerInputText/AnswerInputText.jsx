@@ -1,27 +1,26 @@
-import { useState } from 'react';
+/* eslint-disable react/no-this-in-sfc */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import AnswerTextArea from '~/components/AnswerInputText/AnswerTextArea';
-import QuestionMarkdown from '~/components/QuestionMarkdown/QuestionMarkdown';
-import Button from '~/components/Atoms/Button/Button';
-import * as Styled from '~/components/AnswerInputText/AnswerInputText.Styled';
+import AnswerTextArea from './AnswerTextArea';
+import QuestionMarkdown from '../QuestionMarkdown/QuestionMarkdown';
+import Button from '../Atoms/Button/Button';
+import * as Styled from './AnswerInputText.Styled';
 import {
   MINIMUM_ANSWER_LENGTH,
-  TEXTAREA_LINE_HEIGHT_IN_PX,
   MIN_TEXTAREA_ROWS,
   TEXT_BUTTON,
-} from '~/utils/constants';
+} from '../../utils/constants';
 
 function AnswerInputText(props) {
   AnswerInputText.propTypes = {
     minRows: PropTypes.number,
-    inputValue: PropTypes.string.isRequired,
+    inputValue: PropTypes.string,
     answerLength: PropTypes.number,
+    onInputChange: PropTypes.func.isRequired,
   };
 
   AnswerInputText.defaultProps = {
     minRows: MIN_TEXTAREA_ROWS,
-    lineHeightPx: TEXTAREA_LINE_HEIGHT_IN_PX,
-    isShowPreview: false,
     inputValue: '',
     answerLength: 0,
   };
@@ -55,23 +54,29 @@ function AnswerInputText(props) {
     setAnswerState({ ...answerState, isShowPreview: !answerState.isShowPreview });
   };
 
-  const renderPreviewButton = ({ answerLength, isShowPreview }) =>
-    answerLength > MINIMUM_ANSWER_LENGTH && (
-      <div>
-        <Button
-          type="button"
-          category={TEXT_BUTTON}
-          className="preview-button"
-          onClick={handlePreviewChange}
-        >
-          {isShowPreview ? 'Edit answer' : 'Show preview'}
-        </Button>
-      </div>
-    );
-  const renderAnswerPreview = inputValue =>
+  const renderPreviewButton = (
+    {
+      answerLength,
+      isShowPreview,
+    },
+  ) => answerLength > MINIMUM_ANSWER_LENGTH
+  && (
+  <div>
+    <Button
+      type="button"
+      category={TEXT_BUTTON}
+      className="preview-button"
+      onClick={handlePreviewChange}
+    >
+      {isShowPreview ? 'Edit answer' : 'Show preview'}
+    </Button>
+  </div>
+  );
+  const renderAnswerPreview = (inputValue) => (
     <div className="col-md-12">
       <QuestionMarkdown source={inputValue} />
-    </div>;
+    </div>
+  );
 
   const renderInputArea = () => {
     const { inputValue, answerLength, isShowPreview } = answerState;

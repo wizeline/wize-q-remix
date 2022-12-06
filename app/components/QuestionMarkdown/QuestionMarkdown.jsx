@@ -1,17 +1,21 @@
+/* eslint-disable react/no-children-prop */
+import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './QuestionMarkdown.Styled';
 import gfm from 'remark-gfm';
-import MarkdownLinkRenderer from '~/components/MarkdownLinkRenderer';
+import * as Styled from './QuestionMarkdown.Styled';
+import MarkdownLinkRenderer from '../MarkdownLinkRenderer';
 
-const QuestionMarkdown = props => (
-  <Styled.QuestionMarkdown
-    children={props.source}
-    components={{
-      link: MarkdownLinkRenderer,
-    }}
-    remarkPlugins={[gfm]}
-  />
-);
+function QuestionMarkdown(props) {
+  return (
+    <Styled.QuestionMarkdown
+      children={props.source}
+      components={{
+        link: MarkdownLinkRenderer,
+      }}
+      remarkPlugins={[gfm]}
+    />
+  );
+}
 
 QuestionMarkdown.propTypes = {
   source: PropTypes.string.isRequired,

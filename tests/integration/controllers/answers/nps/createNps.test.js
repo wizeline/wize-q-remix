@@ -1,5 +1,5 @@
-import { randomAccessToken } from '../../../../utils';
-import { createNPS } from '../../../../../app/controllers/answers/nps/create';
+import randomAccessToken from '../../../../utils';
+import createNPS from '../../../../../app/controllers/answers/nps/create';
 
 describe('nps create controller', () => {
   it('add netscore for an answer', async () => {

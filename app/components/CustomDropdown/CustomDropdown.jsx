@@ -1,9 +1,10 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import * as Styled from './CustomDropdown.Styled';
 
 function CustomDropdown(props) {
   const { accessValueName, selectedValue } = props;
-  const renderElements = elements => elements.map(element => (
+  const renderElements = (elements) => elements.map((element) => (
     <Styled.CMenuItem eventKey={element} key={element[accessValueName]}>
       <label className="custom-dropdown" htmlFor={element[accessValueName]}>
         {element.name}
@@ -19,10 +20,9 @@ function CustomDropdown(props) {
     </Styled.CMenuItem>
   ));
 
-  const renderSelected = () =>
-    props.showSelected && (
-      <p className="custom-dropdown-selected">{props.text}</p>
-    );
+  const renderSelected = () => props.showSelected && (
+  <p className="custom-dropdown-selected">{props.text}</p>
+  );
 
   return (
     <Styled.CDropdown
@@ -41,15 +41,15 @@ function CustomDropdown(props) {
         {renderSelected()}
       </Styled.CDropdown.Toggle>
       <Styled.CDropdown.Menu className={props.menuClass}>
-        {props.elements.length > 0 &&
-          renderElements(props.elements)}
+        {props.elements.length > 0
+          && renderElements(props.elements)}
       </Styled.CDropdown.Menu>
     </Styled.CDropdown>
   );
 }
 
 CustomDropdown.propTypes = {
-  elements: PropTypes.arrayOf(PropTypes.any).isRequired,
+  elements: PropTypes.arrayOf().isRequired,
   text: PropTypes.string,
   label: PropTypes.string.isRequired,
   dropdownClass: PropTypes.string,

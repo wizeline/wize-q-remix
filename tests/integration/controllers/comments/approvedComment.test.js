@@ -1,4 +1,4 @@
-import { approvedByComment } from '../../../../app/controllers/comments/approvedBy';
+import approvedByComment from '../../../../app/controllers/comments/approvedBy';
 
 describe('approve comment controller', () => {
   it('approve a comment as an answer', async () => {

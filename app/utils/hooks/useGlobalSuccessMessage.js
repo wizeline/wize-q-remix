@@ -1,7 +1,9 @@
-import { useFindLoaderMatch } from './useFindLoaderMatch';
+import useFindLoaderMatch from './useFindLoaderMatch';
 
-export function useGlobalSuccessMessage() {
+function useGlobalSuccessMessage() {
   const loader = useFindLoaderMatch('root');
   if (!loader || !loader.data) return undefined;
   return loader.data.globalSuccess;
 }
+
+export default useGlobalSuccessMessage;

@@ -62,7 +62,7 @@ const QuestionRow = (props) => {
     data.set('questionId', question.question_id);
     data.set('enabledValue', !question.is_enabled);
 
-    submit(data, { method: 'post', action: url });
+    submit(data, { method: 'post', action: url, replace:true });
   };
 
   const onPinChange = () => {
@@ -82,7 +82,7 @@ const QuestionRow = (props) => {
     data.set('questionId', question.question_id);
     data.set('value', newPinStatusValue);
 
-    submit(data, { method: 'post', action: url });
+    submit(data, { method: 'post', action: url, replace:true });
   };
 
   const adminPinButton =

@@ -1,25 +1,25 @@
-import PropTypes from "prop-types";
-import { formatCollapsingText } from "~/utils/stringOperations";
-import { renderDepartment, hasJobTitle } from "~/utils/questionUtils";
-import { COLLAPSED_QUESTION_MIN_LENGTH } from "~/utils/constants";
-import * as Styled from "./QuestionRow.Styled";
-import ConditionalLinkTo from "~/components/Atoms/ConditionalLinkTo";
-import Label from "~/components/Atoms/Label";
-import QuestionResponderInfo from "~/components/QuestionResponderInfo";
-import QuestionMarkdown from "~/components/QuestionMarkdown";
-import { useLoaderData, useSubmit, useSearchParams } from "@remix-run/react";
-import { useUser } from "~/utils/hooks/useUser";
-import { getDateData } from "~/utils/timeOperations";
-import { useRef } from "react";
-import { ACTIONS } from "~/utils/actions";
+import PropTypes from 'prop-types';
+import { formatCollapsingText } from '~/utils/stringOperations';
+import { renderDepartment, hasJobTitle } from '~/utils/questionUtils';
+import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
+import * as Styled from './QuestionRow.Styled';
+import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
+import Label from '~/components/Atoms/Label';
+import QuestionResponderInfo from '~/components/QuestionResponderInfo';
+import QuestionMarkdown from '~/components/QuestionMarkdown';
+import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
+import { useUser } from '~/utils/hooks/useUser';
+import { getDateData } from '~/utils/timeOperations';
+import { useRef } from 'react';
+import { ACTIONS } from '~/utils/actions';
 import {
   CircleIcon,
   DateContainer,
-} from "../QuestionResponderInfo/QuestionResponderInfo.Styled";
+} from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {
-    return "...";
+    return '...';
   }
 
   return locations.find((loc) => loc.code === location).name;
@@ -47,42 +47,42 @@ const QuestionRow = (props) => {
   const [searchParams] = useSearchParams();
 
   const handleStatusClick = () => {
-    let url = "/?index";
+    let url = '/?index';
     if (!isFromList) {
       url = `/questions/${question.question_id}`;
-      const urlSearchParam = searchParams.get("order");
+      const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     } else {
       searchParams.forEach((value, key) => {
-        url += value ? `&${key}=${value}` : "";
+        url += value ? `&${key}=${value}` : '';
       });
     }
     const data = new FormData(enabledForm.current);
-    data.set("action", ACTIONS.ENABLED_ACTION);
-    data.set("questionId", question.question_id);
-    data.set("enabledValue", !question.is_enabled);
+    data.set('action', ACTIONS.ENABLED_ACTION);
+    data.set('questionId', question.question_id);
+    data.set('enabledValue', !question.is_enabled);
 
-    submit(data, { method: "post", action: url });
+    submit(data, { method: 'post', action: url });
   };
 
   const onPinChange = () => {
-    let url = "/?index";
+    let url = '/?index';
     if (!isFromList) {
       url = `/questions/${question.question_id}`;
-      const urlSearchParam = searchParams.get("order");
+      const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     } else {
       searchParams.forEach((value, key) => {
-        url += value ? `&${key}=${value}` : "";
+        url += value ? `&${key}=${value}` : '';
       });
     }
-    const newPinStatusValue = question.is_pinned ? "false" : "true";
+    const newPinStatusValue = question.is_pinned ? 'false' : 'true';
     const data = new FormData(pinForm.current);
-    data.set("action", ACTIONS.PINNIN);
-    data.set("questionId", question.question_id);
-    data.set("value", newPinStatusValue);
+    data.set('action', ACTIONS.PINNIN);
+    data.set('questionId', question.question_id);
+    data.set('value', newPinStatusValue);
 
-    submit(data, { method: "post", action: url });
+    submit(data, { method: 'post', action: url });
   };
 
   const adminPinButton =
@@ -96,7 +96,7 @@ const QuestionRow = (props) => {
     ) : (
       <Styled.PinQuestionIconHolder
         onClick={onPinChange}
-        className="pin-tooltip"
+        className='pin-tooltip'
       >
         <Styled.UnpinActionableIconHolder />
         <Styled.PinTooltipMessage>
@@ -122,7 +122,7 @@ const QuestionRow = (props) => {
             <DateContainer hasJobTitle={hasJobTitle(question.created_by)}>
               <CircleIcon />
               <Styled.QuestionRowDate>
-                <em>{isUpdated && " (edited)"}</em>
+                <em>{isUpdated && ' (edited)'}</em>
                 {getDateData(question.createdAt)}
               </Styled.QuestionRowDate>
             </DateContainer>
@@ -136,17 +136,17 @@ const QuestionRow = (props) => {
           {profile.is_admin ? (
             <Styled.DisableControls>
               <Styled.ButtonTooltipMessage>
-                Click to {question.is_enabled ? "disable" : "enable"} this
+                Click to {question.is_enabled ? 'disable' : 'enable'} this
                 question
               </Styled.ButtonTooltipMessage>
               <Styled.ChipButton colorValue={question.is_enabled} onClick={handleStatusClick}>
-                {question.is_enabled ? "Enabled" : "Disabled"}
+                {question.is_enabled ? 'Enabled' : 'Disabled'}
               </Styled.ChipButton>
             </Styled.DisableControls>
           ) : null}
 
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
-        </Styled.RightWrapper>{" "}
+        </Styled.RightWrapper>{' '}
       </Styled.QuestionRowMetadataTop>
       <Styled.QuestionRowWrapper
         hasAnswer={hasAnswer}
@@ -176,11 +176,11 @@ const QuestionRow = (props) => {
               <>
                 <Label
                   text={renderLocation(question.location, locations)}
-                  type={"Location"}
+                  type={'Location'}
                 />
                 <Label
                   text={renderDepartment(question.Department)}
-                  type={"Department"}
+                  type={'Department'}
                 />
               </>
             )}

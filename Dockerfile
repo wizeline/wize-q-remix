@@ -1,6 +1,8 @@
 FROM node:14.18.2
 WORKDIR /usr/server/app
 
+ARG DATABASE_URL
+
 ADD package.json package-lock.json ./
 RUN npm install
 

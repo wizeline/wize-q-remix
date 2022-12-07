@@ -2,10 +2,12 @@ steps:
   - id: 'Build Image'
     dir: '/workspace'
     name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA', '.' ]
+    entrypoint: 'bash'
+    args: 
+      - -c
+      - |
+          docker build -t gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA --build-arg DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME} .
     secretEnv: ['DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_NAME']
-    env:
-      - 'DATABASE_URL=mysql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}'
   - id: 'Push Image'
     dir: '/workspace'
     name: 'gcr.io/cloud-builders/docker'

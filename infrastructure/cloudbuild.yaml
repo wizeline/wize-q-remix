@@ -2,38 +2,36 @@ steps:
   - id: 'Build Image'
     dir: '/workspace'
     name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args: 
-      - -c
-      - |
-          docker build -t gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA --build-arg DATABASE_URL=mysql://$$DB_USER:$$DB_PASSWORD@$$DB_HOST/$$DB_NAME .
+    args: [ 'build', '-t', 'gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA', '.' ]
     secretEnv: ['DB_USER', 'DB_PASSWORD', 'DB_HOST', 'DB_NAME']
-  - id: 'Push Image'
-    dir: '/workspace'
-    name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA' ]
-  - id: 'Validate Terraform'
-    name: 'hashicorp/terraform:1.3.2'
-    entrypoint: 'sh'
-    dir: '/workspace/infrastructure/terraform'
-    timeout: 600s
-    args:
-      - '-c'
-      - |
-        terraform init
-        terraform fmt
-        terraform validate
-        terraform plan -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
-  - id: 'Apply Terraform'
-    name: 'hashicorp/terraform:1.3.2'
-    entrypoint: 'sh'
-    dir: '/workspace/infrastructure/terraform'
-    args:
-      - '-c'
-      - |
-        terraform init
-        terraform workspace select $_DEPLOY_ENV  || terraform workspace new $_DEPLOY_ENV 
-        terraform apply -auto-approve -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
+    env:
+      - 'DATABASE_URL=mysql://$$DB_USER:$$DB_PASSWORD@$$DB_HOST/$$DB_NAME'
+  # - id: 'Push Image'
+  #   dir: '/workspace'
+  #   name: 'gcr.io/cloud-builders/docker'
+  #   args: [ 'push', 'gcr.io/wizeline-questions/wize-q-remix:$SHORT_SHA' ]
+  # - id: 'Validate Terraform'
+  #   name: 'hashicorp/terraform:1.3.2'
+  #   entrypoint: 'sh'
+  #   dir: '/workspace/infrastructure/terraform'
+  #   timeout: 600s
+  #   args:
+  #     - '-c'
+  #     - |
+  #       terraform init
+  #       terraform fmt
+  #       terraform validate
+  #       terraform plan -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
+  # - id: 'Apply Terraform'
+  #   name: 'hashicorp/terraform:1.3.2'
+  #   entrypoint: 'sh'
+  #   dir: '/workspace/infrastructure/terraform'
+  #   args:
+  #     - '-c'
+  #     - |
+  #       terraform init
+  #       terraform workspace select $_DEPLOY_ENV  || terraform workspace new $_DEPLOY_ENV 
+  #       terraform apply -auto-approve -var 'short_sha=$SHORT_SHA' -var-file='$_DEPLOY_ENV.tfvars'
 timeout: 1500s
 availableSecrets:
   secretManager:

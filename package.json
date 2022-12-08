@@ -7,6 +7,7 @@
     "dev:node": "cross-env NODE_ENV=development nodemon ./server.js --watch ./server.js",
     "dev:remix": "remix watch",
     "lint": "eslint '**/*.js'",
+    "prestart": "npx prisma migrate deploy",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh",
     "test:integration:watch": "dotenv -e .env.test.integration -- npx jest --runInBand --watchAll --testPathPattern=tests/integration/*",

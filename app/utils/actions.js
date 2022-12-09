@@ -12,7 +12,7 @@ const ACTIONS = {
   APPROVED_COMMENT: 'approved_comment',
   SCORE_ANSWER: 'score_answer',
   DELETE_SCORE: 'delete_answer_score',
-  ENABLED_ACTION:'enable/disable',
+  ENABLED_ACTION: 'enable/disable',
 };
 
 export default ACTIONS;

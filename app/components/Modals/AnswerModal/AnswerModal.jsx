@@ -106,7 +106,7 @@ function AnswerModal(props) {
     submit(data, {
       method: 'post',
       action: url,
-      replace: true
+      replace: true,
     });
   };
 

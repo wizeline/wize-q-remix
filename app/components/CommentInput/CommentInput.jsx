@@ -86,7 +86,7 @@ function CommentInput(props) {
     let url = `/questions/${questionId}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-    submit(data, { method: 'post', action: url });
+    submit(data, { method: 'post', action: url, replace: true });
     resetForm();
     setWritingCommentOnMobile(false);
   };

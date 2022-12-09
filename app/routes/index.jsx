@@ -15,6 +15,7 @@ import { getAuthenticatedUser, requireAuth } from '~/session.server';
 import * as Styled from '~/styles/Home.Styled';
 import dateRangeConversion from '../utils/dateRangeConversion';
 import modifyPinStatus from '../controllers/questions/modifyPinStatus';
+import modifyEnabledValue from '../controllers/questions/modifyEnableStatus';
 import voteQuestion from '../controllers/questionVotes/voteQuestion';
 import ACTIONS from '../utils/actions';
 import Loader from '../components/Loader';
@@ -60,7 +61,7 @@ export const action = async ({ request }) => {
   let questionId;
   switch (action) {
     case ACTIONS.PINNIN:
-      const questionId = parseInt(formData.get('questionId'), 10);
+      questionId = parseInt(formData.get('questionId'), 10);
       const value = formData.get('value') !== 'false';
       response = await modifyPinStatus(questionId, value);
       break;
@@ -68,6 +69,11 @@ export const action = async ({ request }) => {
       const voteQuestionId = parseInt(formData.get('questionId'), 10);
       const voteQuestionUser = JSON.parse(formData.get('user'));
       response = await voteQuestion(voteQuestionId, voteQuestionUser);
+      break;
+    case ACTIONS.ENABLED_ACTION:
+      questionId = parseInt(formData.get('questionId'), 10);
+      const enabledValue = formData.get('enabledValue') !== 'false';
+      response = await modifyEnabledValue(questionId, enabledValue);
       break;
     default:
       break;

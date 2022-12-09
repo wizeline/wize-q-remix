@@ -32,6 +32,7 @@ import ACTIONS from '../../utils/actions';
 import assignQuestion from '../../controllers/questions/assignQuestion';
 import listDepartments from '../../controllers/departments/list';
 import deleteNPS from '../../controllers/answers/nps/delete';
+import modifyEnabledValue from '../../controllers/questions/modifyEnableStatus';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -93,13 +94,13 @@ export const action = async ({ request }) => {
   const user = await getAuthenticatedUser(request);
   switch (action) {
     case ACTIONS.PINNIN:
-      const questionId = parseInt(formData.get('questionId'), 10);
+      questionId = parseInt(formData.get('questionId'), 10);
       const value = formData.get('value') !== 'false';
       response = await modifyPinStatus(questionId, value);
       break;
     case ACTIONS.ENABLED_ACTION:
-      questionId = parseInt(formData.get("questionId"));
-      const enabledValue = formData.get("enabledValue") !== "false";
+      questionId = parseInt(formData.get('questionId'), 10);
+      const enabledValue = formData.get('enabledValue') !== 'false';
       response = await modifyEnabledValue(questionId, enabledValue);
       break;
     case ACTIONS.VOTE_QUESTION:
@@ -166,7 +167,7 @@ export const action = async ({ request }) => {
       response = await deleteNPS({ id: answer_id, user });
       break;
     case ACTIONS.APPROVED_COMMENT:
-      const params = JSON.parse(formData.get("params"));
+      const params = JSON.parse(formData.get('params'));
       params.employeeId = user.employee_id;
       response = await approvedByComment(params);
       break;

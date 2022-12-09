@@ -184,6 +184,7 @@ const listQuestions = async (params) => {
       department,
       dateRange,
       search,
+      isAdmin: user ? user.is_admin : false,
     }),
     take: limit || DEFAULT_LIMIT,
     skip: offset || DEFAULT_OFFSET,

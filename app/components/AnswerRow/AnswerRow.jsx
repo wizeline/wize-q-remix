@@ -1,20 +1,21 @@
-import { useState } from 'react';
+/* eslint-disable react/no-children-prop */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { getDateData } from 'app/utils/timeOperations';
+import { showCollapseOrExpandMessage, formatCollapsingText } from 'app/utils/stringOperations';
+import { markdownFormat } from 'app/utils/markdownFormatQuestions';
+import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from 'app/utils/constants';
+import * as Styled from 'app/components/AnswerRow/AnswerRow.Styled';
+import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
+import ConditionalLinkTo from 'app/components/Atoms/ConditionalLinkTo';
+import QuestionResponderInfo from 'app/components/QuestionResponderInfo';
+import Button from 'app/components/Atoms/Button';
+import Label from 'app/components/Atoms/Label';
+import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
-import { getDateData } from '~/utils/timeOperations';
-import { showCollapseOrExpandMessage, formatCollapsingText } from '~/utils/stringOperations';
-import { markdownFormat } from '~/utils/markdownFormatQuestions';
-import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '~/utils/constants';
-
-import * as Styled from './AnswerRow.Styled';
-import MarkdownLinkRenderer from '~/components/MarkdownLinkRenderer';
-import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
-import QuestionResponderInfo from '~/components/QuestionResponderInfo';
-import Button from '~/components/Atoms/Button';
-import Label from '~/components/Atoms/Label';
-import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
-
-function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
+function AnswerRow({
+  searchTerm, isPreview, isQuestionModalOpen, ...props
+}) {
   const shouldCollapse = () => props.answer_text.length > COLLAPSED_ANSWER_MIN_LENGTH;
   const [collapsed, setCollapsed] = useState(shouldCollapse);
 
@@ -23,11 +24,11 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
       <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
         <Styled.AnswerMarkdown
           children={formatCollapsingText(
-          markdownFormat(props.answer_text, searchTerm),
-          shouldCollapse(),
-          collapsed,
-          COLLAPSED_ANSWER_MIN_LENGTH,
-        )}
+            markdownFormat(props.answer_text, searchTerm),
+            shouldCollapse(),
+            collapsed,
+            COLLAPSED_ANSWER_MIN_LENGTH,
+          )}
           components={{ link: MarkdownLinkRenderer }}
         />
       </ConditionalLinkTo>
@@ -39,27 +40,27 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
       )}
     </Styled.AnswerRow>
   );
-  
+
   const renderAnswerLabel = () => {
-    if(props.isCommentApproved) {
-      return <Label type={'Answer'} text={'Approved'} approvedBy={props.approver.full_name} />
+    if (props.isCommentApproved) {
+      return <Label type="Answer" text="Approved" approvedBy={props.approver.full_name} />;
     }
-    else if (props.isCommunityAnswer) {
-      return <Label type={'Answer'} text={'Community answer'} />
-    };
-    
+    if (props.isCommunityAnswer) {
+      return <Label type="Answer" text="Community answer" />;
+    }
+
     return (
-      <Label type={'Answer'} text={'Best Answer'} />
-    )
-  }
+      <Label type="Answer" text="Best Answer" />
+    );
+  };
 
   const getAnswerDate = () => {
     if (props.isCommunityAnswer || props.isCommentApproved) {
       return props.answered_at;
-    };
-    
-    return props.answer_date
-  }
+    }
+
+    return props.answer_date;
+  };
 
   const { user, children } = props;
 
@@ -67,7 +68,7 @@ function AnswerRow({ searchTerm, isPreview, isQuestionModalOpen, ...props }) {
 
   return (
     <Styled.AnswerContainer isPreview={isPreview} isQuestionModalOpen={isQuestionModalOpen}>
-      <Styled.AnsweredMetadata isPreview={isPreview} >
+      <Styled.AnsweredMetadata isPreview={isPreview}>
         <Styled.AnsweredMetadataLeft hasJobTitle={user !== null ? user.job_title : ''}>
           <ConditionalLinkTo to={`/questions/${props.questionId}`} condition={props.isFromList}>
             <QuestionResponderInfo createdBy={user} isAnswer>
@@ -114,6 +115,8 @@ AnswerRow.propTypes = {
     profile_picture: PropTypes.string.isRequired,
     job_title: PropTypes.string,
   }),
+  answer_date: PropTypes.string,
+  answered_at: PropTypes.string,
 };
 
 AnswerRow.defaultProps = {
@@ -121,6 +124,9 @@ AnswerRow.defaultProps = {
   isPreview: false,
   isQuestionModalOpen: false,
   isFromList: true,
+  approver: {},
+  answer_date: '',
+  answered_at: '',
 };
 
 export default AnswerRow;

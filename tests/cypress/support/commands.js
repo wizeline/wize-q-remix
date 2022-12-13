@@ -13,12 +13,12 @@
 // -- This is a parent command --
 Cypress.Commands.add('login', () => {
   cy.exec(
-    `npx ts-node ./cypress/support/login`
+    'npx ts-node ./cypress/support/login',
   ).then(({ stdout }) => {
     const cookieValue = stdout
-      .replace(/.*<cookie>(?<cookieValue>.*)<\/cookie>.*/s, "$<cookieValue>")
+      .replace(/.*<cookie>(?<cookieValue>.*)<\/cookie>.*/s, '$<cookieValue>')
       .trim();
-    cy.setCookie("__session", cookieValue);
+    cy.setCookie('__session', cookieValue);
   });
 });
 

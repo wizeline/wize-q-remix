@@ -7,7 +7,7 @@ import {
   DANGER_BUTTON,
   TEXT_BUTTON,
   ICON_BUTTON,
-} from '~/utils/constants';
+} from 'app/utils/constants';
 
 export const MainButton = styled.button`
   align-items: center;
@@ -30,9 +30,8 @@ export const MainButton = styled.button`
     outline: none;
   }
 
-  ${props =>
-    props.category === PRIMARY_BUTTON &&
-    css`
+  ${(props) => props.category === PRIMARY_BUTTON
+    && css`
       background-color: var(--color-secondary);
       border: 1px solid transparent;
       color: #fff;
@@ -77,9 +76,8 @@ export const MainButton = styled.button`
       }
     `}
 
-  ${props =>
-    props.category === SECONDARY_BUTTON &&
-    css`
+  ${(props) => props.category === SECONDARY_BUTTON
+    && css`
       background-color: #fff;
       border: 1px solid var(--color-secondary);
       color: var(--color-secondary);
@@ -101,9 +99,8 @@ export const MainButton = styled.button`
       }
     `}
 
-  ${props =>
-    props.category === DISABLED_BUTTON &&
-    css`
+  ${(props) => props.category === DISABLED_BUTTON
+    && css`
       background-color: var(--color-secondary);
       border: 1px solid transparent;
       color: #fff;
@@ -130,9 +127,8 @@ export const MainButton = styled.button`
       }
     `}
 
-  ${props =>
-    props.category === DANGER_BUTTON &&
-    css`
+  ${(props) => props.category === DANGER_BUTTON
+    && css`
       background-color: var(--color-primary);
       border: 1px solid var(--color-primary);
       color: #fff;
@@ -150,9 +146,8 @@ export const MainButton = styled.button`
       }
     `}    
 
-  ${props =>
-    props.category === TEXT_BUTTON &&
-    css`
+  ${(props) => props.category === TEXT_BUTTON
+    && css`
       background-color: transparent;
       color: var(--color-secondary);
       letter-spacing: 0.6px;
@@ -207,9 +202,8 @@ export const MainButton = styled.button`
       }
     `}
 
-  ${props =>
-    props.category === ICON_BUTTON &&
-    css`
+  ${(props) => props.category === ICON_BUTTON
+    && css`
       display: flex;
 
       &.clear-button {

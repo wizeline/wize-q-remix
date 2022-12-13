@@ -1,8 +1,9 @@
-import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
-import { profileQuestionsCreatedSchema } from "~/utils/backend/validators/profile";
-import { db } from "~/utils/db.server";
+/* eslint-disable camelcase */
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import profileQuestionsCreatedSchema from 'app/utils/backend/validators/profile';
+import { db } from 'app/utils/db.server';
 
-export const getQuestionsCreated = async(query) => {
+const getQuestionsCreated = async (query) => {
   const { error, value } = profileQuestionsCreatedSchema.validate(query);
   const { employee_id } = value;
 
@@ -16,17 +17,19 @@ export const getQuestionsCreated = async(query) => {
     const validUser = await db.users.findUniqueOrThrow({
       where: {
         employee_id,
-      }
+      },
     });
-  
+
     return await db.Questions.findMany({
       where: {
         created_by_employee_id: validUser.employee_id,
       },
     });
-  } catch (error) {
+  } catch (_error) {
     return {
-      error: { message: 'The user was not found', detail: 'ID not found' }
-    }
+      error: { message: 'The user was not found', detail: 'ID not found' },
+    };
   }
-}
+};
+
+export default getQuestionsCreated;

@@ -1,16 +1,17 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import MarkdownFormattingNote from '~/components/MarkdownFormattingNote/MarkdownFormattingNote';
-import { shouldShowMarkdownSuggestions } from '~/utils/input';
+import MarkdownFormattingNote from 'app/components/MarkdownFormattingNote/MarkdownFormattingNote';
+import { shouldShowMarkdownSuggestions } from 'app/utils/input';
 import {
   MAXIMUM_ANSWER_LENGTH,
   MINIMUM_ANSWER_LENGTH,
   MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
   MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
   inputPlaceholder,
-} from '~/utils/constants';
-import Input from '~/components/Atoms/Input/Input';
-import InputCounter from '~/components/InputCounter/InputCounter';
-import * as Styled from '~/components/AnswerInputText/AnswerInputText.Styled';
+} from 'app/utils/constants';
+import Input from 'app/components/Atoms/Input/Input';
+import InputCounter from 'app/components/InputCounter/InputCounter';
+import * as Styled from 'app/components/AnswerInputText/AnswerInputText.Styled';
 
 function AnswerTextArea(props) {
   return (
@@ -32,8 +33,10 @@ function AnswerTextArea(props) {
         <MarkdownFormattingNote
           visible={
             shouldShowMarkdownSuggestions(
-              props.answerLength, MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
-              window.innerWidth, MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
+              props.answerLength,
+              MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
+              window.innerWidth,
+              MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
             )
           }
         />
@@ -41,7 +44,6 @@ function AnswerTextArea(props) {
     </Styled.CommentInputTextArea>
   );
 }
-
 
 AnswerTextArea.propTypes = {
   inputValue: PropTypes.string.isRequired,

@@ -1,8 +1,8 @@
-import { useRef } from 'react';
-import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
+import React, { useRef } from 'react';
+import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import Button from '~/components/Atoms/Button/Button';
-import { ACTIONS } from "~/utils/actions";
+import Button from 'app/components/Atoms/Button/Button';
+import ACTIONS from 'app/utils/actions';
 import {
   answerDeleteWarning,
   ANSWER_DELETE_WARNING_SUBTITLE,
@@ -11,25 +11,26 @@ import {
   DANGER_BUTTON,
   DELETE_ANSWER,
   SECONDARY_BUTTON,
-} from '~/utils/constants';
+} from 'app/utils/constants';
 
-import * as Styled from '~/components/Modals/DeleteAnswerModal/DeleteAnswerModal.Styled';
+import * as Styled from './DeleteAnswerModal.Styled';
 
-function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
-
+function DeleteAnswerModal({
+  question, onClose,
+}) {
   const submit = useSubmit();
   const transition = useTransition();
   const deleteAnswerForm = useRef();
   const [searchParams] = useSearchParams();
 
   const onDeleteAnswer = () => {
-    if (transition.state !== "idle") {
-        return;
+    if (transition.state !== 'idle') {
+      return;
     }
 
     const data = new FormData(deleteAnswerForm.current);
-    data.set("action", ACTIONS.DELETE_ANSWER);
-    data.set("answerId", question.Answer.answer_id);
+    data.set('action', ACTIONS.DELETE_ANSWER);
+    data.set('answerId', question.Answer.answer_id);
 
     onClose();
     let url = `/questions/${question.question_id}`;
@@ -37,17 +38,16 @@ function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
 
     submit(data, {
-        method: "post",
-        action: url,
-        replace: true
+      method: 'post',
+      action: url,
+      replace: true,
     });
-
   };
 
   return (
     <div onClick={onClose}>
       <Styled.Modal show>
-        <Styled.ModalDialog onClick={e => e.stopPropagation()}>
+        <Styled.ModalDialog onClick={(e) => e.stopPropagation()}>
           <Button category={CLOSE_BUTTON} onClick={onClose} />
           <Styled.ModalHeader>
             <Styled.ModalInfo>
@@ -74,8 +74,6 @@ function DeleteAnswerModal({ question, onClose, onSubmitSuccess, ...props }) {
 DeleteAnswerModal.propTypes = {
   question: PropTypes.shape(),
   onClose: PropTypes.func.isRequired,
-  onSubmitSuccess: PropTypes.func.isRequired,
-  deleteAnswer: PropTypes.func.isRequired,
 };
 
 DeleteAnswerModal.defaultProps = {

@@ -1,14 +1,14 @@
-import { db } from "~/utils/db.server";
-import generateSessionIdHash from "~/utils/backend/crypto";
-import { generateMinMaxDates } from "~/utils/backend/comments";
-import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import { db } from 'app/utils/db.server';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import { generateMinMaxDates } from 'app/utils/backend/comments';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   UPDATE_COMMENT_ERROR_MESSAGE,
-} from "~/utils/constants";
-import { updateCommentSchema } from "~/utils/backend/validators/comments";
+} from 'app/utils/constants';
+import { updateCommentSchema } from 'app/utils/backend/validators/comments';
 
-export const updateComment = async (body) => {
+const updateComment = async (body) => {
   const { error, value } = updateCommentSchema.validate(body);
 
   if (error) {
@@ -22,7 +22,9 @@ export const updateComment = async (body) => {
     };
   }
 
-  const { commentId: id, comment, accessToken, userEmail } = value;
+  const {
+    commentId: id, comment, accessToken, userEmail,
+  } = value;
 
   const sessionHash = generateSessionIdHash(accessToken, id);
   const { minDate, maxDate } = generateMinMaxDates();
@@ -56,7 +58,7 @@ export const updateComment = async (body) => {
     return {
       error: {
         message: DEFAULT_ERROR_MESSAGE,
-        detail: "Something went wrong trying to update the comment",
+        detail: 'Something went wrong trying to update the comment',
       },
     };
   }
@@ -66,14 +68,14 @@ export const updateComment = async (body) => {
       error: {
         message: UPDATE_COMMENT_ERROR_MESSAGE,
         detail:
-          "Comment not found or user does not have edit rights over the comment",
+          'Comment not found or user does not have edit rights over the comment',
       },
     };
   }
   if (updateCommentResponse.count === 1) {
     return {
-      successMessage: "Comment was updated successfully!",
-      response: "Comment was updated successfully",
+      successMessage: 'Comment was updated successfully!',
+      response: 'Comment was updated successfully',
     };
   }
 
@@ -82,5 +84,7 @@ export const updateComment = async (body) => {
       message: UPDATE_COMMENT_ERROR_MESSAGE,
       detail: `More than one comment was updated, which should not have happened, number of affected comments: ${updateCommentResponse.count}`,
     },
-  }
+  };
 };
+
+export default updateComment;

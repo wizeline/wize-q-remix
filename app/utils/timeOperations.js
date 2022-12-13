@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { getFormattedDate } from './dateFormat';
+import getFormattedDate from './dateFormat';
 
 export function getTimeDiff(time) {
   return moment(time).fromNow();

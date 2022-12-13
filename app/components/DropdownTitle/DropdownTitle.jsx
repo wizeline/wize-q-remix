@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import * as S from './DropdownTitle.Styled';

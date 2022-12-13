@@ -1,6 +1,6 @@
-import Joi from 'joi'
-import { JOI_ID_VALIDATION, JOI_SIMPLE_STRING_VALIDATION } from '~/utils/backend/joiConstants';
-import { MINIMUM_COMMENT_LENGTH, MAXIMUM_COMMENT_LENGTH } from '~/utils/backend/constants';
+import Joi from 'joi';
+import { JOI_ID_VALIDATION, JOI_SIMPLE_STRING_VALIDATION } from 'app/utils/backend/joiConstants';
+import { MINIMUM_COMMENT_LENGTH, MAXIMUM_COMMENT_LENGTH } from 'app/utils/backend/constants';
 
 const EMAIL_VALIDATION = Joi.string().email().allow(null);
 const SIMPLE_INTEGER_VALIDATION = Joi.number().integer();
@@ -29,9 +29,9 @@ export const deleteCommentSchema = Joi.object().keys({
 });
 
 export const approvedByCommentSchema = Joi.object().keys({
-  commentId: JOI_ID_VALIDATION.required(), 
+  commentId: JOI_ID_VALIDATION.required(),
   questionId: SIMPLE_INTEGER_VALIDATION.required(),
-  employeeId : SIMPLE_INTEGER_VALIDATION.required(),
+  employeeId: SIMPLE_INTEGER_VALIDATION.required(),
   checked: Joi.boolean().required(),
 });
 

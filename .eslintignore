@@ -12,3 +12,9 @@
 /tools/internal-rules/node_modules/**
 test.js
 !.eslintrc.js
+server.js
+jest.config.js 
+remix.config.js
+/app/session.server.js
+/prisma/**
+/app/utils/db.server.js

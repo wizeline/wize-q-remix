@@ -1,8 +1,8 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import * as Styled from './QuestionResponderInfo.Styled';
-import UserImage from '~/components/Atoms/UserImage';
-import { ANONYMOUS_USER } from '~/utils/constants';
+import * as Styled from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+import UserImage from 'app/components/Atoms/UserImage';
+import { ANONYMOUS_USER } from 'app/utils/constants';
 
 function QuestionerResponderInfo(props) {
   const renderName = (createdBy) => {
@@ -35,9 +35,9 @@ function QuestionerResponderInfo(props) {
       <Styled.QuestionResponderWrapper>
         <UserImage src={profilePicture} size={props.userImgSize} />
         <Styled.QuestionerResponderInfoContainer>
-            <Styled.QuestionerResponderName>
-              {fullName}
-            </Styled.QuestionerResponderName>
+          <Styled.QuestionerResponderName>
+            {fullName}
+          </Styled.QuestionerResponderName>
           <Styled.QuestionerResponderJobTitle>
             {jobTitle}
           </Styled.QuestionerResponderJobTitle>
@@ -54,8 +54,6 @@ QuestionerResponderInfo.defaultProps = {
     profile_picture: ANONYMOUS_USER.profilePicture,
   },
   userImgSize: 'medium',
-  circumstance: '',
-  isAnswer: false,
   children: null,
 };
 
@@ -65,7 +63,6 @@ QuestionerResponderInfo.propTypes = {
     profile_picture: PropTypes.string.isRequired,
   }),
   userImgSize: PropTypes.string,
-  isAnswer: PropTypes.bool,
   children: PropTypes.node,
 };
 

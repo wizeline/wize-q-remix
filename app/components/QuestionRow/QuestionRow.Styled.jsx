@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
+import { BsFillPinAngleFill, BsPinFill } from 'react-icons/bs';
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -10,7 +10,7 @@ export const QuestionRowContainer = styled.div`
     padding-botton: 8px;
     width: 100%;
     position: relative;
-    ${props => props.isQuestionModalOpen && css`
+    ${(props) => props.isQuestionModalOpen && css`
         @media screen and (max-width: 480px) {
           padding: 0 10px;
         }
@@ -51,7 +51,6 @@ export const PinQuestionIconHolder = styled.span`
   }
 `;
 
-
 export const PinActionableIconHolder = styled(BsPinFill)`
   font-size: 15px;
   color: var(--color-dark-25);
@@ -79,8 +78,7 @@ export const PinTooltipMessage = styled.span`
   ${PinQuestionIconHolder}:hover & {
     display: block;
   }
-`
-
+`;
 
 export const UnpinActionableIconHolder = styled(BsPinFill)`
   font-size: 15px;
@@ -158,7 +156,7 @@ export const QuestionRowLine = styled.div`
         left: 42px;    
         top: 90px;
     }
-    ${props => (!props.hasAnswer || props.isQuestionModalOpen) && css`
+    ${(props) => (!props.hasAnswer || props.isQuestionModalOpen) && css`
         display: none
     `}
 `;
@@ -182,7 +180,6 @@ export const QuestionRowMetadataSectionOne = styled.div`
     align-items: center;
 `;
 
-
 export const QuestionId = styled.span`
   font-size: 12px;
   color: var(--color-dark-metadata);
@@ -191,7 +188,7 @@ export const QuestionId = styled.span`
 
 export const DisableControls = styled.div`
     display:flex;
-`
+`;
 
 export const ChipButton = styled.button`
   height: 25px;
@@ -199,9 +196,8 @@ export const ChipButton = styled.button`
   border-radius: 25px;
   font-weight: 10px;
   color: #fff;
-  background-color: ${props=>props.colorValue?'#84c9ef': '#f49c9c'}
-`
-
+  background-color: ${(props) => (props.colorValue ? '#84c9ef' : '#f49c9c')}
+`;
 
 export const ButtonTooltipMessage = styled.span`
   display: none;
@@ -221,4 +217,4 @@ export const ButtonTooltipMessage = styled.span`
   ${DisableControls}:hover & {
     display: block;
   }
-`
+`;

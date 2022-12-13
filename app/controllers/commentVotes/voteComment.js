@@ -1,9 +1,10 @@
-import { DEFAULT_ERROR_MESSAGE } from '~/utils/backend/constants';
+/* eslint-disable camelcase */
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   commentVoteExistsSchema,
   commentVoteSchema,
-} from '~/utils/backend/validators/commentVote';
-import { db } from '~/utils/db.server';
+} from 'app/utils/backend/validators/commentVote';
+import { db } from 'app/utils/db.server';
 
 const transformValue = (value) => {
   let transformedValue = 0;
@@ -37,7 +38,7 @@ const findCommentVote = async (query) => {
   return commentVote;
 };
 
-export const upsertCommentVote = async (query) => {
+const upsertCommentVote = async (query) => {
   const { error, value } = commentVoteSchema.validate(query);
   const { comment_id, user, value: newValue } = value;
 
@@ -85,3 +86,5 @@ export const upsertCommentVote = async (query) => {
 
   return { commentVote };
 };
+
+export default upsertCommentVote;

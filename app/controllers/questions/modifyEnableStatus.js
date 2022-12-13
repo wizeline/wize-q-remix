@@ -2,12 +2,11 @@ import {
   ENABLE_DISABLE_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
-} from "~/utils/constants";
-import { modifyQuestionEnabledValueParams } from "~/utils/backend/validators/question";
-import { db } from "~/utils/db.server";
+} from 'app/utils/constants';
+import { modifyQuestionEnabledValueParams } from 'app/utils/backend/validators/question';
+import { db } from 'app/utils/db.server';
 
-export const modifyEnabledValue = async (questionId, enabledValue) => {
-
+const modifyEnabledValue = async (questionId, enabledValue) => {
   const { error, value } = modifyQuestionEnabledValueParams.validate({
     questionId,
     enabledValue,
@@ -29,11 +28,11 @@ export const modifyEnabledValue = async (questionId, enabledValue) => {
     });
     return {
       successMessage: `The question has been ${
-        enabledValue ? "enabled" : "disabled"
+        enabledValue ? 'enabled' : 'disabled'
       }.`,
       question: updatedQuestion,
     };
-  } catch (error) {
+  } catch (errorCatch) {
     return {
       error: {
         message: ENABLE_DISABLE_ERROR_MESSAGE,
@@ -42,3 +41,5 @@ export const modifyEnabledValue = async (questionId, enabledValue) => {
     };
   }
 };
+
+export default modifyEnabledValue;

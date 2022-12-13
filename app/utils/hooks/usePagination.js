@@ -8,8 +8,8 @@ const range = (start, end) => {
 };
 
 export function usePagination({
-    currentPage,
-    totalPages,
+  currentPage,
+  totalPages,
 }) {
   const pagintationRange = useMemo(() => {
     const totalPageCount = totalPages;
@@ -29,13 +29,12 @@ export function usePagination({
     const firstPageIndex = 1;
     const lastPageIndex = totalPageCount;
 
-
     if (!shouldShowLeftDots && shouldShowRigthDots) {
       // eslint-disable-next-line no-mixed-operators
       const leftItemCount = 5 * sibilingCount;
       const leftRange = range(1, leftItemCount);
       return [...leftRange, DOTS, totalPageCount];
-    } else if (shouldShowLeftDots && !shouldShowRigthDots) {
+    } if (shouldShowLeftDots && !shouldShowRigthDots) {
       // eslint-disable-next-line no-mixed-operators
       const rigthItemsCount = 5 * sibilingCount;
       // eslint-disable-next-line no-mixed-operators

@@ -1,4 +1,7 @@
-import { Component } from 'react';
+/* eslint-disable class-methods-use-this */
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { json } from '@remix-run/node';
 import {
   CONTACT_REASONS_LIST,
   CONTACT_REASONS_MAP,
@@ -7,19 +10,18 @@ import {
   MAXIUMUM_EMAIL_LENGTH,
   MAXIMUM_NAME_LENGTH,
   MAXIMUM_REASON_LENGTH,
-} from '~/utils/constants';
-import Footer from '~/components/Footer';
-import mailIcon from '~/images/ic_email.svg';
-import slackIcon from '~/images/ic_slack.svg';
-import ContactGoto from '~/components/ContactGoto';
-import * as Styled from '~/styles/Contact.Styled';
-import { requireAuth } from '~/session.server';
-import { json } from '@remix-run/node';
+} from 'app/utils/constants';
+import Footer from 'app/components/Footer';
+import mailIcon from 'app/images/ic_email.svg';
+import slackIcon from 'app/images/ic_slack.svg';
+import ContactGoto from 'app/components/ContactGoto';
+import * as Styled from 'app/styles/Contact.Styled';
+import { requireAuth } from 'app/session.server';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
   return json({});
-}
+};
 
 class Contact extends Component {
   constructor(props) {
@@ -100,7 +102,7 @@ class Contact extends Component {
   };
 
   inputLengthIsValid = (input, maxLength) => (
-    input.length > 0 && input.length <= maxLength
+    this.input.length > 0 && input.length <= maxLength
   );
 
   createEmailContent = () => {
@@ -120,8 +122,12 @@ class Contact extends Component {
     const firstName = this.props.name ? this.props.name.split(' ')[0] : '';
     return (
       <Styled.ContactForm onSubmit={this.onSubmit}>
-        <Styled.ContactFormP>Hi <strong>{firstName}</strong>!
-           <br />Send us a message!
+        <Styled.ContactFormP>
+          Hi
+          <strong>{firstName}</strong>
+          !
+          <br />
+          Send us a message!
         </Styled.ContactFormP>
         <Styled.ContactSelect name="reason" onChange={this.onInputChange}>
           { this.renderOptionsList() }
@@ -140,16 +146,23 @@ class Contact extends Component {
         Thanks for contacting us! We will review your feedback shortly.
       </p>
       <p>
-        Click <a onClick={this.handleContactClick}> here </a> to contact us again.
+        Click
+        {' '}
+        <button type="button" onClick={this.handleContactClick}> here </button>
+        {' '}
+        to contact us again.
       </p>
       <p>
-        Cheers,<br /> The WizeQ team!
+        Cheers,
+        <br />
+        {' '}
+        The WizeQ team!
       </p>
     </Styled.SuccessDiv>
   );
 
-  renderOptionsList = () => CONTACT_REASONS_LIST.map(options =>
-    <option value={options.value} key={options.value}>{options.reason}</option>,
+  renderOptionsList = () => CONTACT_REASONS_LIST.map(
+    (options) => <option value={options.value} key={options.value}>{options.reason}</option>,
   );
 
   render() {
@@ -158,21 +171,24 @@ class Contact extends Component {
         <Styled.ContactInputHeader>
           <Styled.ContactInputHeaderH1>Contact Us</Styled.ContactInputHeaderH1>
           <Styled.ContactInputHeaderH2>We are here for you!</Styled.ContactInputHeaderH2>
-          <Styled.ContactInputHeaderP>We’d love to hear from you, please let us
-            know what you think and get in touch with us. </Styled.ContactInputHeaderP>
+          <Styled.ContactInputHeaderP>
+            We’d love to hear from you, please let us
+            know what you think and get in touch with us.
+            {' '}
+          </Styled.ContactInputHeaderP>
 
           <Styled.ContactInputSitesDiv>
             <ContactGoto
               icon={mailIcon}
-              text={'Email us at'}
-              goto={'wizeq@wizeline.com'}
-              dir={'mailto:wizeq@wizeline.com'}
+              text="Email us at"
+              goto="wizeq@wizeline.com"
+              dir="mailto:wizeq@wizeline.com"
             />
             <ContactGoto
               icon={slackIcon}
-              text={'Slack us at'}
-              goto={'#wize-q-support'}
-              dir={'https://wizeline.slack.com/messages/C6M652THT'}
+              text="Slack us at"
+              goto="#wize-q-support"
+              dir="https://wizeline.slack.com/messages/C6M652THT"
             />
           </Styled.ContactInputSitesDiv>
         </Styled.ContactInputHeader>
@@ -184,5 +200,12 @@ class Contact extends Component {
     );
   }
 }
+
+Contact.propTypes = {
+  name: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  sendContact: PropTypes.func.isRequired,
+  warningAlert: PropTypes.func.isRequired,
+};
 
 export default Contact;

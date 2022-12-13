@@ -1,15 +1,15 @@
-import { voteQuestion } from "~/controllers/questionVotes/voteQuestion";
-import { getQuestionById } from "~/controllers/questions/getQuestionById";
-import { createQuestion } from "~/controllers/questions/create";
-import { randomAccessToken } from "./../../utils";
+import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import getQuestionById from 'app/controllers/questions/getQuestionById';
+import createQuestion from 'app/controllers/questions/create';
+import randomAccessToken from 'tests/utils';
 
-import { db } from "~/utils/db.server";
+import { db } from 'app/utils/db.server';
 
 describe('question votes controller', () => {
   describe('vote question', () => {
-    const dbFindUniqueQuestionOrThrowSpy = jest.spyOn(db.Questions, "findUniqueOrThrow");
-    const dbCreateVoteSpy = jest.spyOn(db.Votes, "create");
-    const dbDeleteVoteSpy = jest.spyOn(db.Votes, "delete");
+    const dbFindUniqueQuestionOrThrowSpy = jest.spyOn(db.Questions, 'findUniqueOrThrow');
+    const dbCreateVoteSpy = jest.spyOn(db.Votes, 'create');
+    const dbDeleteVoteSpy = jest.spyOn(db.Votes, 'delete');
 
     it('returns an error when provided invalid id', async () => {
       const response = await voteQuestion('test', { id: 'google-oauth2|108653070533260305238' });
@@ -19,7 +19,7 @@ describe('question votes controller', () => {
       expect(response.error.detail).toBe('The question id must be an integer not minor to 1');
       expect(dbFindUniqueQuestionOrThrowSpy).toHaveBeenCalledTimes(0);
     });
-    
+
     it('returns an error when the question id is not found', async () => {
       const response = await voteQuestion(404, { id: 'google-oauth2|108653070533260305238' });
       expect(response).toBeDefined();
@@ -41,14 +41,13 @@ describe('question votes controller', () => {
     });
 
     it('deletes the previous vote record if exists for the user', async () => {
-
       const question = {
-        question: "Test question for voting",
+        question: 'Test question for voting',
         created_by_employee_id: 2,
         accessToken: randomAccessToken(),
         is_anonymous: false,
         assigned_department: 3,
-        location: "BNK",
+        location: 'BNK',
       };
 
       const createQuestionResponse = await createQuestion(question);
@@ -60,9 +59,9 @@ describe('question votes controller', () => {
 
       const testQuestionId = createQuestionResponse.question.question_id;
 
-      const firstUser = { id: "google-oauth2|108653070533260301111" };
-      const secondUser = { id: "google-oauth2|108653070533260302222" };
-      const thirdUser = { id: "google-oauth2|108653070533260303333" };
+      const firstUser = { id: 'google-oauth2|108653070533260301111' };
+      const secondUser = { id: 'google-oauth2|108653070533260302222' };
+      const thirdUser = { id: 'google-oauth2|108653070533260303333' };
 
       let voteResponse = await voteQuestion(testQuestionId, firstUser);
       expect(voteResponse.response).toBeDefined();

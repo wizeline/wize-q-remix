@@ -1,8 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { Navbar, Button } from 'react-bootstrap';
 import { AiOutlineSearch } from 'react-icons/ai';
 
-export const AppNav = styled(Navbar).attrs(props => ({
+export const AppNav = styled(Navbar).attrs(() => ({
   fluid: true,
 }))` 
   background-color: #203449;

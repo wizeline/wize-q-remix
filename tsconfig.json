@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "types": ["cypress", "node"],
     "paths": {
-      "~/*": ["./app/*"]
+      "app/*":["./app/*"],
+      "tests/*": ["./tests/*"]
     },
     "skipLibCheck": true,
     "noEmit": true,

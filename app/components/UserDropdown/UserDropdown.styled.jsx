@@ -40,7 +40,7 @@ export const UMenuItem = styled(MenuItem)`
   &:hover {
     background-color: none;
   }
-  ${props => props.footer && css`
+  ${(props) => props.footer && css`
     background-color: #f4f7f9;
     a {
       color: var(--color-secondary) !important;

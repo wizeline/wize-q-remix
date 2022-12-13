@@ -19,21 +19,21 @@ export const Label = styled.div`
   width: fit-content;
   height: fit-content;
 
-  ${props => props.text === 'Not Assigned' && css`
+  ${(props) => props.text === 'Not Assigned' && css`
     display: none;
   `}
 
-  ${props => props.type === 'Location' && css`
+  ${(props) => props.type === 'Location' && css`
     background-color: var(--color-primary-lowOpacity);
     color: var(--color-primary);
   `}
 
-  ${props => props.type === 'Department' && css`
+  ${(props) => props.type === 'Department' && css`
     background-color: var(--color-secondary-lowOpacity);
     color: var(--color-secondary);
   `}
 
-  ${props => props.type === 'Answer' && css`
+  ${(props) => props.type === 'Answer' && css`
     background-color: var(--color-green-bg);
     color: var(--color-green);
     text-transform: uppercase;
@@ -41,7 +41,7 @@ export const Label = styled.div`
     font-size: 10px;
   `}
   
-  ${props => props.text === 'Community answer' && css`
+  ${(props) => props.text === 'Community answer' && css`
     background-color: var(--color-gold-bg);
     color: var(--color-gold);
   `}

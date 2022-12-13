@@ -1,30 +1,30 @@
-import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-} from "~/utils/constants";
-import generateSessionIdHash from "~/utils/backend/crypto";
-import { createCommentSchema } from "~/utils/backend/validators/comment"
-import { db } from "~/utils/db.server";
+} from 'app/utils/constants';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import createCommentSchema from 'app/utils/backend/validators/comment';
+import { db } from 'app/utils/db.server';
 
-export const createComment = async (data) => {
+const createComment = async (data) => {
   const { error, value } = createCommentSchema.validate(data);
 
   if (error) {
     return {
       error: {
         message: DEFAULT_ERROR_MESSAGE,
-        detail: error
-      }
-    }
+        detail: error,
+      },
+    };
   }
 
   if (!value.isAnonymous && !value.user.userEmail) {
     return {
       error: {
         message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-        detail: "The comment is not anonymous but no user email was provided in the user object",
-      }
-    }
+        detail: 'The comment is not anonymous but no user email was provided in the user object',
+      },
+    };
   }
 
   const commentData = {
@@ -58,14 +58,16 @@ export const createComment = async (data) => {
         id: created.id,
       },
       data: {
-        sessionHash: sessionHash,
+        sessionHash,
       },
     });
     commentResponse = updated;
   }
 
   return {
-    successMessage: "Comment has been created succesfully.",
+    successMessage: 'Comment has been created succesfully.',
     comment: commentResponse,
   };
 };
+
+export default createComment;

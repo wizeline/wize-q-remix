@@ -1,14 +1,14 @@
-import { db } from "~/utils/db.server";
-import generateSessionIdHash from "~/utils/backend/crypto";
-import { generateMinMaxDates } from "~/utils/backend/comments";
-import { deleteCommentSchema } from "~/utils/backend/validators/comments";
-import { DEFAULT_ERROR_MESSAGE } from "~/utils/backend/constants";
+import { db } from 'app/utils/db.server';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import { generateMinMaxDates } from 'app/utils/backend/comments';
+import { deleteCommentSchema } from 'app/utils/backend/validators/comments';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   DELETE_COMMENT_ERROR_MESSAGE,
-} from "~/utils/constants";
+} from 'app/utils/constants';
 
-export const deleteComment = async (body) => {
+const deleteComment = async (body) => {
   const { error, value } = deleteCommentSchema.validate(body);
 
   if (error) {
@@ -52,13 +52,13 @@ export const deleteComment = async (body) => {
   });
 
   if (
-    deleteCommentResponse.count === undefined ||
-    typeof deleteCommentResponse.count !== "number"
+    deleteCommentResponse.count === undefined
+    || typeof deleteCommentResponse.count !== 'number'
   ) {
     return {
       error: {
         message: DEFAULT_ERROR_MESSAGE,
-        detail: "Something went wrong trying to delete the comment",
+        detail: 'Something went wrong trying to delete the comment',
       },
     };
   }
@@ -74,7 +74,7 @@ export const deleteComment = async (body) => {
   }
   if (deleteCommentResponse.count === 1) {
     return {
-      successMessage: "Comment was deleted successfully",
+      successMessage: 'Comment was deleted successfully',
     };
   }
 
@@ -85,3 +85,5 @@ export const deleteComment = async (body) => {
     },
   };
 };
+
+export default deleteComment;

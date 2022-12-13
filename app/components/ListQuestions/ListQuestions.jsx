@@ -1,20 +1,20 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSubmit, useSearchParams, useTransition } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import * as Styled from './ListQuestions.Styled';
-import Slogan from '~/components/Slogan';
-import QuestionCard from '~/components/QuestionCard';
-import { useUser } from '~/utils/hooks/useUser';
-import GoToTopButton from '~/components/GoToTopButton';
-import markdownFormatQuestion from '~/utils/markdownFormatQuestions';
-import InfiniteScrollList from '~/components/Atoms/InfiniteScrollList';
-import Filters from '~/components/Filters';
-import { ACTIONS } from '~/utils/actions';
+import * as Styled from 'app/components/ListQuestions/ListQuestions.Styled';
+import Slogan from 'app/components/Slogan';
+import QuestionCard from 'app/components/QuestionCard';
+import useUser from 'app/utils/hooks/useUser';
+import GoToTopButton from 'app/components/GoToTopButton';
+import markdownFormatQuestion from 'app/utils/markdownFormatQuestions';
+import InfiniteScrollList from 'app/components/Atoms/InfiniteScrollList';
+import Filters from 'app/components/Filters';
+import ACTIONS from 'app/utils/actions';
 
-const ListQuestions = ({
+function ListQuestions({
   questions,
   onFetchMore,
-}) => {
+}) {
   const submit = useSubmit();
   const transition = useTransition();
   const voteQuestionForm = useRef();
@@ -24,12 +24,12 @@ const ListQuestions = ({
 
   const [title, setTitle] = useState('Newest Questions');
 
-  //TODO: Implement search
+  // TODO: Implement search
   const state = {
     searchTerm: undefined,
   };
 
-  const decorateQuestion = question => ({
+  const decorateQuestion = (question) => ({
     ...question,
     question: markdownFormatQuestion(question.question, state.searchTerm),
     hasVoted: !!question.hasVoted,
@@ -62,7 +62,6 @@ const ListQuestions = ({
       searchParams.set(field, value);
     }
     setSearchParams(searchParams);
-
   };
 
   const displayUsername = (user) => {
@@ -77,17 +76,15 @@ const ListQuestions = ({
     return answeredBy;
   };
 
-
-
   const renderQuestionsList = () => {
     const onLikeButtonClick = (questionId) => {
       if (transition.state !== 'idle') {
         return;
       }
       const data = new FormData(voteQuestionForm.current);
-      data.set("action", ACTIONS.VOTE_QUESTION);
-      data.set("questionId", questionId);
-      data.set("user", JSON.stringify(profile));
+      data.set('action', ACTIONS.VOTE_QUESTION);
+      data.set('questionId', questionId);
+      data.set('user', JSON.stringify(profile));
       let actionUrl = '/?index';
       searchParams.forEach((value, key) => {
         actionUrl += value ? `&${key}=${value}` : '';
@@ -126,8 +123,8 @@ const ListQuestions = ({
     <Styled.AskButton to="/questions/new" id="ask-button">
       Ask Question
     </Styled.AskButton>
-     );
-    
+  );
+
   return (
     <Styled.Container>
       {/* TODO: Add left hashtag's panel */}
@@ -146,13 +143,13 @@ const ListQuestions = ({
           </Styled.AskQuestionButtonWrapper>
           {questions.length === 0 ? (
             <Styled.Alert>{renderNoResultMessage()}</Styled.Alert>
-            ) : (
-              <InfiniteScrollList onFetch={onFetchMore}>
-                <Styled.QuestionList id="questions-list">
-                  {renderQuestionsList(questions)}
-                </Styled.QuestionList>
-              </InfiniteScrollList>
-            )}
+          ) : (
+            <InfiniteScrollList onFetch={onFetchMore}>
+              <Styled.QuestionList id="questions-list">
+                {renderQuestionsList(questions)}
+              </Styled.QuestionList>
+            </InfiniteScrollList>
+          )}
         </Styled.QuestionsWrapper>
       </Styled.CenterWrapper>
       <Styled.RightWrapper>
@@ -166,7 +163,7 @@ const ListQuestions = ({
       <GoToTopButton />
     </Styled.Container>
   );
-};
+}
 
 ListQuestions.propTypes = {
   questions: PropTypes.arrayOf(
@@ -178,6 +175,5 @@ ListQuestions.propTypes = {
 ListQuestions.defaultProps = {
   questions: [],
 };
-
 
 export default ListQuestions;

@@ -1,18 +1,17 @@
+import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ImLocation } from 'react-icons/im';
 import PropTypes from 'prop-types';
-import * as Styled from './QuestionLocation.Styled';
-import DropdownTitle from '~/components/DropdownTitle';
+import * as Styled from 'app/components/QuestionLocation/QuestionLocation.Styled';
+import DropdownTitle from 'app/components/DropdownTitle';
 
-
-const QuestionLocation = ({
-  className,
+function QuestionLocation({
   location,
   locations,
   onSelectLocation,
-}) => {
-  const mapLocations = (locations) => {
-    const output = locations.map(loc => (
+}) {
+  const mapLocations = (_locations) => {
+    const output = _locations.map((loc) => (
       <MenuItem eventKey={loc.code} key={loc.code}>{loc.name}</MenuItem>
     ));
     return output;
@@ -23,10 +22,11 @@ const QuestionLocation = ({
       <DropdownButton
         bsStyle="default"
         noCaret
-        title={
+        title={(
           <DropdownTitle title={location} type="Location">
             <ImLocation color={location ? 'white' : 'black'} />
-          </DropdownTitle>}
+          </DropdownTitle>
+        )}
         className="question-input-dropdown"
         id="locations-dropdown"
         onSelect={onSelectLocation}
@@ -48,11 +48,6 @@ QuestionLocation.propTypes = {
       name: PropTypes.string.isRequired,
     }),
   ).isRequired,
-  className: PropTypes.string.isRequired,
-};
-
-QuestionLocation.defaultProps = {
-  className: '',
 };
 
 export default QuestionLocation;

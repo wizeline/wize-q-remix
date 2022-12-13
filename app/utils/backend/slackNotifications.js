@@ -1,6 +1,20 @@
+/* eslint-disable camelcase */
 import slackNotify from 'slack-notify';
-import { DEFAULT_DOMAIN, DEFAULT_SLACK_NAME, SLACK_ANSWER_COLOR, SLACK_ANSWER_EMOJI, SLACK_ANSWER_HEADER, SLACK_FALLBACK_STRING, SLACK_MAX_MESSAGE_SIZE_IN_BYTES, SLACK_QUESTION_COLOR, SLACK_QUESTION_DETAILS, SLACK_QUESTION_EMOJI, SLACK_QUESTION_HEADER, SLACK_QUESTION_SEE_MORE } from '~/utils/backend/slackConstants';
-import { getStringSizeInBytes, truncateStringByBytes } from "./stringUtils";
+import {
+  DEFAULT_DOMAIN,
+  DEFAULT_SLACK_NAME,
+  SLACK_ANSWER_COLOR,
+  SLACK_ANSWER_EMOJI,
+  SLACK_ANSWER_HEADER,
+  SLACK_FALLBACK_STRING,
+  SLACK_MAX_MESSAGE_SIZE_IN_BYTES,
+  SLACK_QUESTION_COLOR,
+  SLACK_QUESTION_DETAILS,
+  SLACK_QUESTION_EMOJI,
+  SLACK_QUESTION_HEADER,
+  SLACK_QUESTION_SEE_MORE,
+} from './slackConstants';
+import { getStringSizeInBytes, truncateStringByBytes } from './stringUtils';
 
 const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
 
@@ -29,7 +43,6 @@ function buildUrl(questionId) {
   return `https://${domain}/questions/${questionId}`;
 }
 
-
 async function createAnswerNotification({ questionId, questionBody, answerBody }) {
   if (!process.env.SLACK_WEBHOOK_URL) {
     return;
@@ -38,7 +51,7 @@ async function createAnswerNotification({ questionId, questionBody, answerBody }
   const url = buildUrl(questionId);
   const limit = SLACK_MAX_MESSAGE_SIZE_IN_BYTES;
 
-  let footerBody = SLACK_QUESTION_DETAILS
+  let footerBody = SLACK_QUESTION_DETAILS;
 
   const sizeBeforeTruncate = getStringSizeInBytes(questionBody + answerBody) > limit;
 
@@ -77,7 +90,7 @@ async function createAnswerNotification({ questionId, questionBody, answerBody }
   await send(options);
 }
 
-async function createQuestionNotification({questionBody, questionId}) {
+async function createQuestionNotification({ questionBody, questionId }) {
   if (!process.env.SLACK_WEBHOOK_URL) {
     return;
   }
@@ -90,7 +103,8 @@ async function createQuestionNotification({questionBody, questionId}) {
     // eslint-disable-next-line no-param-reassign
     questionBody = truncateStringByBytes(
       questionBody,
-      SLACK_MAX_MESSAGE_SIZE_IN_BYTES);
+      SLACK_MAX_MESSAGE_SIZE_IN_BYTES,
+    );
 
     footerBody = SLACK_QUESTION_SEE_MORE;
   }
@@ -113,5 +127,5 @@ async function createQuestionNotification({questionBody, questionId}) {
 
 export default {
   createQuestionNotification,
-  createAnswerNotification
-}
+  createAnswerNotification,
+};

@@ -6,7 +6,7 @@ function sanitizeHTML(content) {
     whiteList: [],
     stripIgnoreTag: true,
     stripIgnoreTagBody: ['script'],
-    escapeHtml: html => html,
+    escapeHtml: (html) => html,
   };
   const splitContent = content.split(token);
   const contentLength = splitContent.length;
@@ -21,6 +21,4 @@ function sanitizeHTML(content) {
   return finalContent;
 }
 
-export {
-  sanitizeHTML,
-}
+export default sanitizeHTML;

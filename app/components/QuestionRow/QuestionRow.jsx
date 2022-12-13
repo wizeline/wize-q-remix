@@ -1,21 +1,18 @@
 import PropTypes from 'prop-types';
-import { formatCollapsingText } from '~/utils/stringOperations';
-import { renderDepartment, hasJobTitle } from '~/utils/questionUtils';
-import { COLLAPSED_QUESTION_MIN_LENGTH } from '~/utils/constants';
-import * as Styled from './QuestionRow.Styled';
-import ConditionalLinkTo from '~/components/Atoms/ConditionalLinkTo';
-import Label from '~/components/Atoms/Label';
-import QuestionResponderInfo from '~/components/QuestionResponderInfo';
-import QuestionMarkdown from '~/components/QuestionMarkdown';
 import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
-import { useUser } from '~/utils/hooks/useUser';
-import { getDateData } from '~/utils/timeOperations';
-import { useRef } from 'react';
-import { ACTIONS } from '~/utils/actions';
-import {
-  CircleIcon,
-  DateContainer,
-} from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
+import React, { useRef } from 'react';
+import { formatCollapsingText } from 'app/utils/stringOperations';
+import { renderDepartment, hasJobTitle } from 'app/utils/questionUtils';
+import { COLLAPSED_QUESTION_MIN_LENGTH } from 'app/utils/constants';
+import * as Styled from 'app/components/QuestionRow/QuestionRow.Styled';
+import ConditionalLinkTo from 'app/components/Atoms/ConditionalLinkTo';
+import Label from 'app/components/Atoms/Label';
+import QuestionResponderInfo from 'app/components/QuestionResponderInfo';
+import QuestionMarkdown from 'app/components/QuestionMarkdown';
+import useUser from 'app/utils/hooks/useUser';
+import { getDateData } from 'app/utils/timeOperations';
+import ACTIONS from 'app/utils/actions';
+import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {
@@ -25,7 +22,7 @@ const renderLocation = (location, locations) => {
   return locations.find((loc) => loc.code === location).name;
 };
 
-const QuestionRow = (props) => {
+function QuestionRow(props) {
   const {
     question,
     isQuestionModalOpen,
@@ -62,7 +59,7 @@ const QuestionRow = (props) => {
     data.set('questionId', question.question_id);
     data.set('enabledValue', !question.is_enabled);
 
-    submit(data, { method: 'post', action: url, replace:true });
+    submit(data, { method: 'post', action: url, replace: true });
   };
 
   const onPinChange = () => {
@@ -82,42 +79,38 @@ const QuestionRow = (props) => {
     data.set('questionId', question.question_id);
     data.set('value', newPinStatusValue);
 
-    submit(data, { method: 'post', action: url, replace:true });
+    submit(
+      data,
+      { method: 'post', action: url, replace: true },
+    );
   };
 
-  const adminPinButton =
-    profile.is_admin && !question.is_pinned ? (
+  const adminPinButton = (profile.is_admin && !question.is_pinned)
+    ? (
       <Styled.PinQuestionIconHolder onClick={onPinChange}>
         <Styled.PinActionableIconHolder />
-        <Styled.PinTooltipMessage>
-          Pin question to the top of the list
-        </Styled.PinTooltipMessage>
+        <Styled.PinTooltipMessage>Pin question to the top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>
-    ) : (
-      <Styled.PinQuestionIconHolder
-        onClick={onPinChange}
-        className='pin-tooltip'
-      >
+    )
+    : (
+      <Styled.PinQuestionIconHolder onClick={onPinChange} className="pin-tooltip">
         <Styled.UnpinActionableIconHolder />
-        <Styled.PinTooltipMessage>
-          Unpin question from top of the list
-        </Styled.PinTooltipMessage>
+        <Styled.PinTooltipMessage>Unpin question from top of the list</Styled.PinTooltipMessage>
       </Styled.PinQuestionIconHolder>
     );
 
   const nonAdminPinIndicator = !profile.is_admin && question.is_pinned && (
     <Styled.PinnedIndicator>
-      <span>Pinned by admin</span> <Styled.PinnedIcon />
+      <span>Pinned by admin</span>
+      {' '}
+      <Styled.PinnedIcon />
     </Styled.PinnedIndicator>
   );
 
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
-        <ConditionalLinkTo
-          to={`/questions/${question.question_id}`}
-          condition={isFromList}
-        >
+        <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
           <QuestionResponderInfo createdBy={question.created_by}>
             <DateContainer hasJobTitle={hasJobTitle(question.created_by)}>
               <CircleIcon />
@@ -136,7 +129,11 @@ const QuestionRow = (props) => {
           {profile.is_admin ? (
             <Styled.DisableControls>
               <Styled.ButtonTooltipMessage>
-                Click to {question.is_enabled ? 'disable' : 'enable'} this
+                Click to
+                {' '}
+                {question.is_enabled ? 'disable' : 'enable'}
+                {' '}
+                this
                 question
               </Styled.ButtonTooltipMessage>
               <Styled.ChipButton colorValue={question.is_enabled} onClick={handleStatusClick}>
@@ -146,44 +143,35 @@ const QuestionRow = (props) => {
           ) : null}
 
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
-        </Styled.RightWrapper>{' '}
+        </Styled.RightWrapper>
+        {' '}
+
       </Styled.QuestionRowMetadataTop>
-      <Styled.QuestionRowWrapper
-        hasAnswer={hasAnswer}
-        isQuestionModalOpen={isQuestionModalOpen}
-      >
-        <ConditionalLinkTo
-          to={`/questions/${question.question_id}`}
-          condition={isFromList}
-        >
+      <Styled.QuestionRowWrapper hasAnswer={hasAnswer} isQuestionModalOpen={isQuestionModalOpen}>
+        <ConditionalLinkTo to={`/questions/${question.question_id}`} condition={isFromList}>
           <Styled.QuestionRowContent>
-            {
-              <QuestionMarkdown
-                source={formatCollapsingText(
-                  question.question,
-                  shouldCollapse && !isQuestionModalOpen,
-                  collapsed,
-                  COLLAPSED_QUESTION_MIN_LENGTH
-                )}
-              />
-            }
+            <QuestionMarkdown
+              source={formatCollapsingText(
+                question.question,
+                shouldCollapse && !isQuestionModalOpen,
+                collapsed,
+                COLLAPSED_QUESTION_MIN_LENGTH,
+              )}
+            />
           </Styled.QuestionRowContent>
         </ConditionalLinkTo>
         {children}
         <Styled.QuestionRowMetadataBottom>
           <Styled.QuestionRowMetadataSectionOne>
-            {isFromList && (
+            {
+              isFromList
+              && (
               <>
-                <Label
-                  text={renderLocation(question.location, locations)}
-                  type={'Location'}
-                />
-                <Label
-                  text={renderDepartment(question.Department)}
-                  type={'Department'}
-                />
+                <Label text={renderLocation(question.location, locations)} type="Location" />
+                <Label text={renderDepartment(question.Department)} type="Department" />
               </>
-            )}
+              )
+            }
           </Styled.QuestionRowMetadataSectionOne>
           <Styled.QuestionId>
             {`Question ID: Q${question.question_id}`}
@@ -193,7 +181,7 @@ const QuestionRow = (props) => {
       </Styled.QuestionRowWrapper>
     </Styled.QuestionRowContainer>
   );
-};
+}
 
 QuestionRow.propTypes = {
   question: PropTypes.shape({
@@ -204,7 +192,8 @@ QuestionRow.propTypes = {
     is_enabled: PropTypes.bool.isRequired,
     user_hash: PropTypes.string,
     can_edit: PropTypes.bool,
-    created_by_user: PropTypes.shape({
+    Department: PropTypes.string,
+    created_by: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,
       full_name: PropTypes.string,
@@ -232,7 +221,6 @@ QuestionRow.propTypes = {
   collapsed: PropTypes.bool,
   children: PropTypes.node,
   isFromList: PropTypes.bool,
-  onPinChange: PropTypes.func.isRequired,
 };
 
 QuestionRow.defaultProps = {

@@ -1,13 +1,9 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import { draftToMarkdown } from 'markdown-draft-js';
 import { convertToRaw, EditorState } from 'draft-js';
-
-import {
-  MIN_TEXTAREA_ROWS,
-  LINE_HEIGHT_IN_PX,
-} from '~/utils/constants';
-import * as Styled from './QuestionInputText.Styled';
-import QuestionTextArea from '~/components/QuestionTextArea';
+import * as Styled from 'app/components/QuestionInputText/QuestionInputText.Styled';
+import QuestionTextArea from 'app/components/QuestionTextArea';
 
 function QuestionInputText(props) {
   const {
@@ -25,7 +21,6 @@ function QuestionInputText(props) {
     onInputChange(sanitizedInputValue);
   };
 
-
   const renderInputArea = () => (
     <QuestionTextArea
       inputValue={inputValue}
@@ -33,7 +28,7 @@ function QuestionInputText(props) {
       setEditorState={setEditorState}
       onQuestionChange={onQuestionChange}
     />
-    );
+  );
 
   return (
     <Styled.QuestionInputText>
@@ -44,7 +39,7 @@ function QuestionInputText(props) {
 }
 
 QuestionInputText.propTypes = {
-  inputValue: PropTypes.string.isRequired,
+  inputValue: PropTypes.string,
   onInputChange: PropTypes.func.isRequired,
   editorState: PropTypes.objectOf(EditorState).isRequired,
   setEditorState: PropTypes.func.isRequired,
@@ -53,9 +48,6 @@ QuestionInputText.propTypes = {
 
 QuestionInputText.defaultProps = {
   inputValue: '',
-  minRows: MIN_TEXTAREA_ROWS,
-  lineHeightPx: LINE_HEIGHT_IN_PX,
-  questionLength: 0,
   submitElement: null,
 };
 

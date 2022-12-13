@@ -1,16 +1,14 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import * as S from './EditUserModal.Styled';
-import { PRIMARY_BUTTON, SECONDARY_BUTTON } from '~/utils/constants';
-import UserImage from '~/components/Atoms/UserImage/UserImage';
-import Button from '~/components/Atoms/Button';
 import { Form } from '@remix-run/react';
+import * as S from 'app/components/Modals/EditUserModal/EditUserModal.Styled';
+import { PRIMARY_BUTTON, SECONDARY_BUTTON } from 'app/utils/constants';
+import UserImage from 'app/components/Atoms/UserImage/UserImage';
+import Button from 'app/components/Atoms/Button';
 
-
-const EditUserModal = ({ user, onClose, ...props }) => {
+function EditUserModal({ user, onClose }) {
   const [uAdmin, setUAdmin] = useState(user.is_admin);
   const [uJobTitle, setUJobTitle] = useState(user.job_title);
-
 
   return (
     <S.Wrapper>
@@ -28,7 +26,7 @@ const EditUserModal = ({ user, onClose, ...props }) => {
             <h3>Roles</h3>
             <span>Edit roles for this user</span>
             <S.RolesTable>
-              <S.TableRow noBorder >
+              <S.TableRow noBorder>
                 <li><b>Name</b></li>
                 <li><b>Action</b></li>
               </S.TableRow>
@@ -38,7 +36,10 @@ const EditUserModal = ({ user, onClose, ...props }) => {
               </S.TableRow>
               <S.TableRow>
                 <li>Role Title</li>
-                <li>Employee{user.is_admin && ', Admin'}</li>
+                <li>
+                  Employee
+                  {user.is_admin && ', Admin'}
+                </li>
               </S.TableRow>
               <S.TableRow>
                 <li>Admin</li>

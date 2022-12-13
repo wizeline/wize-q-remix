@@ -1,5 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import doubleQuotes from '~/images/react-icons/ri/double-quotes-r.svg';
+import doubleQuotes from 'app/images/react-icons/ri/double-quotes-r.svg';
 
 export const QuestionTextAreaWrapper = styled.div`
   letter-spacing: 0.6px;

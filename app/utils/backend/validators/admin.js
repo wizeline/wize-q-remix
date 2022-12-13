@@ -1,8 +1,10 @@
 import Joi from 'joi';
-import { JOI_ID_VALIDATION } from '~/utils/backend/joiConstants';
+import { JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
 
-export const updateUserSchema = Joi.object({
+const updateUserSchema = Joi.object({
   employee_id: JOI_ID_VALIDATION,
   job_title: Joi.string().max(255).allow(''),
   is_admin: Joi.boolean(),
 });
+
+export default updateUserSchema;

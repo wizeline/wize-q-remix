@@ -32,7 +32,7 @@ export const QuestionCardWrapper = styled.div`
 export const QuestionCardBorder = styled.div`
   width: 100%;
 
-  ${props => props.hasAnswer && css`
+  ${(props) => props.hasAnswer && css`
     margin-bottom: 15px;
   `}
 
@@ -47,7 +47,7 @@ export const QuestionCardActions = styled.div`
   flex-direction: row;
   justify-content: space-between;
 
-  ${props => props.hasDetail && css`
+  ${(props) => props.hasDetail && css`
     padding-bottom: 8px;
     background-color: #fff;
   `}
@@ -61,7 +61,7 @@ export const CounterButtonsWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
 
-  ${props => props.isAdmin && !props.hasAnswer && css`
+  ${(props) => props.isAdmin && !props.hasAnswer && css`
     justify-content: flex-start;
   `}
   

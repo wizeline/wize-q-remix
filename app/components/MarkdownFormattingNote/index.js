@@ -1,1 +1,1 @@
-export {default} from './MarkdownFormattingNote';
+export { default } from './MarkdownFormattingNote';

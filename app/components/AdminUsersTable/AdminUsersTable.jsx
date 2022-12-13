@@ -1,33 +1,35 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { usePagination, DOTS } from '~/utils/hooks/usePagination';
-import Button from '~/components/Atoms/Button/Button';
-import Loader from '~/components/Loader';
-import { PRIMARY_BUTTON, LSPIN_MEDIUM } from '~/utils/constants';
-import logomarkX1 from '~/images/logomark_medium.png';
-import * as Styled from './AdminUsersTable.Styled';
-import { useActionData, useSearchParams } from "@remix-run/react"
-import EditUserModal from '~/components/Modals/EditUserModal/EditUserModal';
+import PropTypes from 'prop-types';
+import logomarkX1 from 'app/images/logomark_medium.png';
+import { useActionData, useSearchParams } from '@remix-run/react';
+import { usePagination, DOTS } from 'app/utils/hooks/usePagination';
+import Button from 'app/components/Atoms/Button/Button';
+import Loader from 'app/components/Loader';
+import { PRIMARY_BUTTON, LSPIN_MEDIUM } from 'app/utils/constants';
+import * as Styled from 'app/components/AdminUsersTable/AdminUsersTable.Styled';
+import EditUserModal from 'app/components/Modals/EditUserModal/EditUserModal';
 
-
-function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm, size}) {
+function AdminUsersTable({
+  users, currentPage, totalPages, isLoading, size,
+}) {
   const [modal, setModal] = useState(false);
   const [currentUser, setCurrenUser] = useState({});
   const quantityRef = useRef(0);
 
   const paginationRange = usePagination({
     currentPage: (currentPage === 0 ? 1 : currentPage + 1),
-    totalPages });
-
+    totalPages,
+  });
 
   const [, setSearchParams] = useSearchParams();
-  
+
   const data = useActionData();
 
   useEffect(() => {
     if (data && data.successMessage) {
       setModal(false);
     }
-  }, [users, data])
+  }, [users, data]);
 
   const handleModal = (u) => {
     if (!modal) {
@@ -36,24 +38,23 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
     setModal(!modal);
   };
 
-
   const changePage = (page) => {
     setSearchParams({
-      size: size,
-      page: page,
+      size,
+      page,
     });
   };
 
   const nextPageHandler = () => {
     setSearchParams({
-      size: size,
+      size,
       page: currentPage + 1,
     });
   };
 
   const prevPageHandler = () => {
     setSearchParams({
-      size: size,
+      size,
       page: currentPage - 1,
     });
   };
@@ -77,10 +78,9 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
       return createPaginationItem(__page, idx);
     });
     return [...item];
-  }
+  };
 
   const paginationItems = getPaginationItems();
-
 
   const renderHeader = () => (
     <thead>
@@ -91,16 +91,15 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
         <th className="table-desktop-view">Roles</th>
         <th>Action</th>
       </Styled.HeaderTable>
-    </thead>);
-
+    </thead>
+  );
 
   const setQTY = (value) => {
     setSearchParams({
       size: value,
-      page: currentPage
-    })
+      page: currentPage,
+    });
   };
-
 
   if (!users.length && !isLoading) {
     return (
@@ -121,47 +120,55 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
           <option value="20">20</option>
           <option value="25">25</option>
         </select>
-        {isLoading ? (<div>
+        {isLoading ? (
+          <div>
+            <Styled.UserTable>
+              {renderHeader()}
+            </Styled.UserTable>
+            <Loader src={logomarkX1} size={LSPIN_MEDIUM} />
+          </div>
+        ) : (
           <Styled.UserTable>
             {renderHeader()}
-          </Styled.UserTable>
-          <Loader src={logomarkX1} size={LSPIN_MEDIUM} />
-        </div>
-          ) : (<Styled.UserTable>
-            {renderHeader()}
             <tbody>
-              <React.Fragment>
-                {users.map(user => (
-                  <Styled.RowTable key={user.employee_id}>
-                    <td>
-                      <div>
-                        <img src={user.profile_picture} alt="" />
-                        {user.full_name}
-                      </div>
-                    </td>
-                    <td className="table-desktop-view">{user.email}</td>
-                    <td className="table-desktop-view">{user.job_title}</td>
-                    <td className="table-desktop-view">
-                    Employee{user.is_admin && ', Admin'}
-                    </td>
-                    <td>
-                      <Button
-                        category={PRIMARY_BUTTON}
-                        onClick={() => handleModal(user)}
-                        className="row-btn"
-                      >
+              {users.map((user) => (
+                <Styled.RowTable key={user.employee_id}>
+                  <td>
+                    <div>
+                      <img src={user.profile_picture} alt="" />
+                      {user.full_name}
+                    </div>
+                  </td>
+                  <td className="table-desktop-view">{user.email}</td>
+                  <td className="table-desktop-view">{user.job_title}</td>
+                  <td className="table-desktop-view">
+                    Employee
+                    {user.is_admin && ', Admin'}
+                  </td>
+                  <td>
+                    <Button
+                      category={PRIMARY_BUTTON}
+                      onClick={() => handleModal(user)}
+                      className="row-btn"
+                    >
                       Edit roles
                     </Button>
-                    </td>
-                  </Styled.RowTable>
+                  </td>
+                </Styled.RowTable>
               ))}
-              </React.Fragment>
             </tbody>
-          </Styled.UserTable>)}
+          </Styled.UserTable>
+        )}
         {!isLoading && (
           <Styled.PaginationContainer>
             <div>
-              Page {currentPage} of {totalPages}
+              Page
+              {' '}
+              {currentPage}
+              {' '}
+              of
+              {' '}
+              {totalPages}
             </div>
 
             <Styled.TablePagination boundarylinks="true">
@@ -176,13 +183,29 @@ function AdminUsersTable({users, currentPage, totalPages, isLoading, searchTerm,
             </Styled.TablePagination>
           </Styled.PaginationContainer>
         )}
-        { modal ? <EditUserModal
-          user={currentUser}
-          onClose={() => handleModal()}
-        /> : null}
+        { modal ? (
+          <EditUserModal
+            user={currentUser}
+            onClose={() => handleModal()}
+          />
+        ) : null}
       </Styled.TableContainer>
     </div>
   );
 }
+
+AdminUsersTable.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  size: PropTypes.number.isRequired,
+};
+
+AdminUsersTable.defaultProps = {
+  users: [],
+};
 
 export default AdminUsersTable;

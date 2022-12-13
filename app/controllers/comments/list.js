@@ -1,24 +1,26 @@
-import { db } from "~/utils/db.server";
-import { Prisma } from '@prisma/client'
+/* eslint-disable no-param-reassign */
+import { Prisma } from '@prisma/client';
+import { db } from 'app/utils/db.server';
 import {
-    INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-  } from "~/utils/constants";
-import { canEditComment } from "~/utils/backend/comments";
+  INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+} from 'app/utils/constants';
+import { canEditComment } from 'app/utils/backend/comments';
 
-export const listComments = async (params) => {
-const {questionId, userEmail , userId, sortBy, sessionToken} = params
+const listComments = async (params) => {
+  const {
+    questionId, userEmail, userId, sortBy, sessionToken,
+  } = params;
 
-
-if(!questionId || questionId < 1 || typeof questionId !== 'number'){
+  if (!questionId || questionId < 1 || typeof questionId !== 'number') {
     return {
-        error: {
-            message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-            details: 'The question id must be an integer not minor to 1',
-        }
-    }
-}
+      error: {
+        message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
+        details: 'The question id must be an integer not minor to 1',
+      },
+    };
+  }
 
-const fetchComments = await db.$queryRaw`
+  const fetchComments = await db.$queryRaw`
 SELECT c.id,
 c.comment,
 c.createdAt,
@@ -47,43 +49,45 @@ ON c.userEmail = User.email
 LEFT JOIN users as Approver
 ON c.approvedBy = Approver.employee_id
 WHERE c.questionId = ${questionId}
-${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_activity DESC`: Prisma.sql`ORDER BY approvedBy DESC, recent_activity DESC`}`;
+${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY approvedBy DESC, recent_activity DESC`}`;
 
-const comments = fetchComments.map((comment) => {
+  const comments = fetchComments.map((comment) => {
     comment.canEdit = canEditComment(comment, userEmail, sessionToken);
     delete comment.sessionHash;
-    
+
     const User = {
-        employee_id : comment.UserEmployee_id, 
-        full_name: comment.UserFull_name, 
-        is_admin: comment.UserIs_admin,
-        profile_picture: comment.UserProfile_picture,
-        job_title: comment.UserJob_title
+      employee_id: comment.UserEmployee_id,
+      full_name: comment.UserFull_name,
+      is_admin: comment.UserIs_admin,
+      profile_picture: comment.UserProfile_picture,
+      job_title: comment.UserJob_title,
     };
     comment.User = User;
     const Approver = {
-        employee_id : comment.ApproverEmployee_id, 
-        full_name: comment.ApproverFull_name, 
-        is_admin: comment.ApproverIs_admin,
-        profile_picture: comment.ApproverProfile_picture,
-        job_title: comment.ApproverJob_title
+      employee_id: comment.ApproverEmployee_id,
+      full_name: comment.ApproverFull_name,
+      is_admin: comment.ApproverIs_admin,
+      profile_picture: comment.ApproverProfile_picture,
+      job_title: comment.ApproverJob_title,
     };
     comment.Approver = Approver;
-    comment.has_downvoted= comment.has_downvoted === 1;
-    comment.has_upvoted= comment.has_upvoted === 1;
+    comment.has_downvoted = comment.has_downvoted === 1;
+    comment.has_upvoted = comment.has_upvoted === 1;
 
-    delete comment.UserEmployee_id
-    delete comment.UserFull_name
-    delete comment.UserIs_admin
-    delete comment.UserProfile_picture
-    delete comment.UserJob_title
-    delete comment.ApproverEmployee_id
-    delete comment.ApproverFull_name
-    delete comment.ApproverIs_admin
-    delete comment.ApproverProfile_picture
-    delete comment.ApproverJob_title
+    delete comment.UserEmployee_id;
+    delete comment.UserFull_name;
+    delete comment.UserIs_admin;
+    delete comment.UserProfile_picture;
+    delete comment.UserJob_title;
+    delete comment.ApproverEmployee_id;
+    delete comment.ApproverFull_name;
+    delete comment.ApproverIs_admin;
+    delete comment.ApproverProfile_picture;
+    delete comment.ApproverJob_title;
 
     return comment;
-});
-return { comments };
-}
+  });
+  return { comments };
+};
+
+export default listComments;

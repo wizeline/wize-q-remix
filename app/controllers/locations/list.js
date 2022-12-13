@@ -1,11 +1,13 @@
-import { db } from "~/utils/db.server"
+import { db } from 'app/utils/db.server';
 
-export const listLocations = async () => {
+const listLocations = async () => {
   const locations = await db.Locations.findMany({
     orderBy: {
       name: 'asc',
-    }
+    },
   });
 
   return locations;
 };
+
+export default listLocations;

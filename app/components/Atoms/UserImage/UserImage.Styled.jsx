@@ -7,19 +7,19 @@ export const Container = styled.div`
   height: 32px;
   min-width: 32px;
   width: fit-content;
-  ${props => props.size === 'small' && css`
+  ${(props) => props.size === 'small' && css`
     height: 20px;
     min-width: 20px;
   `}
-  ${props => props.size === 'big' && css`
+  ${(props) => props.size === 'big' && css`
     height: 46px;
     min-width: 46px;
   `}
-  ${props => props.size === 'extra big' && css`
+  ${(props) => props.size === 'extra big' && css`
     min-height: 100px;
     min-width: 100px;
   `}
-  ${props => props.customSize && css`
+  ${(props) => props.customSize && css`
     min-height: ${props.customSize};
     min-width: ${props.customSize};
   `}

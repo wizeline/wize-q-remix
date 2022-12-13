@@ -22,18 +22,18 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-} from '../../utils/constants';
-import * as Styled from './QuestionForm.Styled';
-import QuestionAssigner from '../QuestionAssigner';
-import QuestionLocation from '../QuestionLocation';
-import Switch from '../Switch';
-import InputAuthor from '../InputAuthor';
-import InputCounter from '../InputCounter';
-import SubmitWithModal from '../SubmitWithModal';
-import { deleteNoMarkupFormatHTML } from '../../utils/stringOperations';
-import { validTextLength } from '../../utils/input';
-import QuestionInputText from '../QuestionInputText';
-import useUser from '../../utils/hooks/useUser';
+} from 'app/utils/constants';
+import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';
+import QuestionAssigner from 'app/components/QuestionAssigner';
+import QuestionLocation from 'app/components/QuestionLocation';
+import Switch from 'app/components/Switch';
+import InputAuthor from 'app/components/InputAuthor';
+import InputCounter from 'app/components/InputCounter';
+import SubmitWithModal from 'app/components/SubmitWithModal';
+import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
+import { validTextLength } from 'app/utils/input';
+import QuestionInputText from 'app/components/QuestionInputText';
+import useUser from 'app/utils/hooks/useUser';
 
 function QuestionForm({
   postQuestion,

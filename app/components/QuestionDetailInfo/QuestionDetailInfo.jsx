@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLoaderData } from '@remix-run/react';
-import { renderDepartment } from '../../utils/questionUtils';
-import Label from '../Atoms/Label';
+import { renderDepartment } from 'app/utils/questionUtils';
+import Label from 'app/components/Atoms/Label';
 import * as Styled from './QuestionDetailInfo.Styled';
 
 function QuestionDetailInfo({ location, department }) {

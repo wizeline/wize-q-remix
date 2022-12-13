@@ -2,9 +2,9 @@ import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FaBuilding } from 'react-icons/fa';
-import * as S from './QuestionAssigner.Styled';
-import DropdownTitle from '../DropdownTitle';
-import { NOT_ASSIGNED_DEPARTMENT_ID } from '../../utils/constants';
+import * as S from 'app/components/QuestionAssigner/QuestionAssigner.Styled';
+import DropdownTitle from 'app/components/DropdownTitle';
+import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';
 
 function QuestionAssigner({
   department,

@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
 import { Prisma } from '@prisma/client';
-import { db } from '../../utils/db.server';
+import { db } from 'app/utils/db.server';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-} from '../../utils/constants';
-import { canEditComment } from '../../utils/backend/comments';
+} from 'app/utils/constants';
+import { canEditComment } from 'app/utils/backend/comments';
 
 const listComments = async (params) => {
   const {

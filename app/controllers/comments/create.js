@@ -1,10 +1,10 @@
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
-} from '../../utils/constants';
-import generateSessionIdHash from '../../utils/backend/crypto';
-import createCommentSchema from '../../utils/backend/validators/comment';
-import { db } from '~/utils/db.server';
+} from 'app/utils/constants';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import createCommentSchema from 'app/utils/backend/validators/comment';
+import { db } from 'app/utils/db.server';
 
 const createComment = async (data) => {
   const { error, value } = createCommentSchema.validate(data);

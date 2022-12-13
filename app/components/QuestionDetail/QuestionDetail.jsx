@@ -3,32 +3,32 @@ import React, { useState, useRef } from 'react';
 import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import likeIcon from '~/images/ic_like.svg';
-import likeIconVoted from '~/images/ic_like_pressed.svg';
+import likeIcon from 'app/images/ic_like.svg';
+import likeIconVoted from 'app/images/ic_like_pressed.svg';
 import {
   shouldRenderAdminButtons,
   renderAdminButtons,
   renderAnswer,
-} from '../../utils/questionUtils';
-import { addS } from '../../utils/stringOperations';
-import { PRIMARY_BUTTON, LSPIN_SMALL } from '../../utils/constants';
-import Button from '../Atoms/Button';
-import CounterButton from '../CounterButton';
-import QuestionCommentList from '../QuestionCommentList';
-import AssignAnswerModal from '../Modals/AssignAnswerModal/AssignAnswerModal';
-import CommentInput from '../CommentInput/CommentInput';
-import QuestionRow from '../QuestionRow';
-import AnswerModal from '../Modals/AnswerModal/AnswerModal';
-import DeleteAnswerModal from '../Modals/DeleteAnswerModal/DeleteAnswerModal';
-import NetPromoterScoreRow from '../NetPromoterScoreRow/NetPromoterScoreRow';
+} from 'app/utils/questionUtils';
+import { addS } from 'app/utils/stringOperations';
+import { PRIMARY_BUTTON, LSPIN_SMALL } from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import CounterButton from 'app/components/CounterButton';
+import QuestionCommentList from 'app/components/QuestionCommentList';
+import AssignAnswerModal from 'app/components/Modals/AssignAnswerModal/AssignAnswerModal';
+import CommentInput from 'app/components/CommentInput/CommentInput';
+import QuestionRow from 'app/components/QuestionRow';
+import AnswerModal from 'app/components/Modals/AnswerModal/AnswerModal';
+import DeleteAnswerModal from 'app/components/Modals/DeleteAnswerModal/DeleteAnswerModal';
+import NetPromoterScoreRow from 'app/components/NetPromoterScoreRow/NetPromoterScoreRow';
 import {
   QuestionCardActions, QuestionCardContainer, QuestionCardWrapper, QuestionCardBorder,
-} from '../QuestionCard/QuestionCard.Styled';
-import * as Styled from './QuestionDetail.Styled';
-import Loader from '../Loader';
-import logomark from '~/images/logomark_small.png';
-import useUser from '../../utils/hooks/useUser';
-import ACTIONS from '../../utils/actions';
+} from 'app/components/QuestionCard/QuestionCard.Styled';
+import * as Styled from 'app/components/QuestionDetail/QuestionDetail.Styled';
+import Loader from 'app/components/Loader';
+import logomark from 'app/images/logomark_small.png';
+import useUser from 'app/utils/hooks/useUser';
+import ACTIONS from 'app/utils/actions';
 
 function QuestionDetails(props) {
   const submit = useSubmit();

@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { ContainerCounterButton } from '../CounterButton/CounterButton.Styled';
-import { CommentInputTextArea } from '../CommentInput/CommentInput.styled';
+import { ContainerCounterButton } from 'app/components/CounterButton/CounterButton.Styled';
+import { CommentInputTextArea } from 'app/components/CommentInput/CommentInput.styled';
 import {
   CircleIcon,
   QuestionerResponderContainer,
   QuestionerResponderName,
-} from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
+} from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const QuestionCommentContainer = styled.div`
   border-radius: 20px;

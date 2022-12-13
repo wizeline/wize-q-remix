@@ -1,5 +1,5 @@
-import getAnswerById from '../../../../app/controllers/answers/getAnswerById';
-import { db } from '~/utils/db.server';
+import getAnswerById from 'app/controllers/answers/getAnswerById';
+import { db } from 'app/utils/db.server';
 
 describe('answers controller', () => {
   describe('getAnswerById', () => {

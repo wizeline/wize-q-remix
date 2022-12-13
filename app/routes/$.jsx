@@ -1,6 +1,6 @@
 import React from 'react';
-import notFoundImage from '~/images/404.svg';
-import * as Styled from '~/styles/NotFound.Styled';
+import notFoundImage from 'app/images/404.svg';
+import * as Styled from 'app/styles/NotFound.Styled';
 
 function NotFound() {
   return (

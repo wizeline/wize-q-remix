@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { draftToMarkdown } from 'markdown-draft-js';
 import { convertToRaw, EditorState } from 'draft-js';
-import * as Styled from './QuestionInputText.Styled';
-import QuestionTextArea from '../QuestionTextArea';
+import * as Styled from 'app/components/QuestionInputText/QuestionInputText.Styled';
+import QuestionTextArea from 'app/components/QuestionTextArea';
 
 function QuestionInputText(props) {
   const {

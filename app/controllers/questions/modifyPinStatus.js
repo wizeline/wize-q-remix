@@ -2,9 +2,9 @@ import {
   PIN_QUESTION_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
-} from '../../utils/constants';
-import { modifyQuestionPinStatusParams } from '../../utils/backend/validators/question';
-import { db } from '../../utils/db.server';
+} from 'app/utils/constants';
+import { modifyQuestionPinStatusParams } from 'app/utils/backend/validators/question';
+import { db } from 'app/utils/db.server';
 
 const modifyPinStatus = async (questionId, newPinStatus) => {
   const { error, value } = modifyQuestionPinStatusParams.validate({

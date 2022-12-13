@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { QuestionAssigner } from '../QuestionAssigner/QuestionAssigner.Styled';
-import { QuestionLocationWrapper } from '../QuestionLocation/QuestionLocation.Styled';
+import { QuestionAssigner } from 'app/components/QuestionAssigner/QuestionAssigner.Styled';
+import { QuestionLocationWrapper } from 'app/components/QuestionLocation/QuestionLocation.Styled';
 
 // Question Input Main
 export const InputForm = styled.div`

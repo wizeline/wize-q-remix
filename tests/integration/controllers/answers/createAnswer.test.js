@@ -1,6 +1,6 @@
-import createAnswer from '../../../../app/controllers/answers/create';
-import { db } from '../../../../app/utils/db.server';
-import slack from '../../../../app/utils/backend/slackNotifications';
+import createAnswer from 'app/controllers/answers/create';
+import { db } from 'app/utils/db.server';
+import slack from 'app/utils/backend/slackNotifications';
 
 describe('createAnswer', () => {
   const dbCreateSpy = jest.spyOn(db.Answers, 'create');

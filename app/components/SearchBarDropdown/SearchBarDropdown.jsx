@@ -1,10 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './SearchBarDropdown.Styled';
-import { formatCollapsingText } from '../../utils/stringOperations';
-import { markdownFormat } from '../../utils/markdownFormatQuestions';
-import { COLLAPSED_QUESTION_MIN_LENGTH } from '../../utils/constants';
+import * as Styled from 'app/components/SearchBarDropdown/SearchBarDropdown.Styled';
+import { formatCollapsingText } from 'app/utils/stringOperations';
+import { markdownFormat } from 'app/utils/markdownFormatQuestions';
+import { COLLAPSED_QUESTION_MIN_LENGTH } from 'app/utils/constants';
 
 function SearchBarDropdown({ searchTerm, questions, onQuestionClick }) {
   const renderNoResultMessage = () => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CLOSE_BUTTON } from '../../../utils/constants';
-import * as Styled from './Button.Styled';
+import { CLOSE_BUTTON } from 'app/utils/constants';
+import * as Styled from 'app/components/Atoms/Button/Button.Styled';
 
 function Button({
   id,

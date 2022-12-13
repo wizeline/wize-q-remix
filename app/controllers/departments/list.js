@@ -1,4 +1,4 @@
-import { db } from '../../utils/db.server';
+import { db } from 'app/utils/db.server';
 
 const listDepartments = async () => {
   const departments = await db.Departments.findMany({});

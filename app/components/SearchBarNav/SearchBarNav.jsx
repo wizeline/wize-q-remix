@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useFetcher, useNavigate } from '@remix-run/react';
 import { debounce } from 'lodash';
-import useClickOutside from '../../utils/hooks/useClickOutside';
-import { ICON_BUTTON } from '../../utils/constants';
-import * as Styled from './SearchBarNav.Styled';
-import Button from '../Atoms/Button';
-import SearchBarDropdown from '../SearchBarDropdown';
+import useClickOutside from 'app/utils/hooks/useClickOutside';
+import { ICON_BUTTON } from 'app/utils/constants';
+import * as Styled from 'app/components/SearchBarNav/SearchBarNav.Styled';
+import Button from 'app/components/Atoms/Button';
+import SearchBarDropdown from 'app/components/SearchBarDropdown';
 
 function SearchBarNav() {
   const [searchTerm, setSearchTerm] = useState('');

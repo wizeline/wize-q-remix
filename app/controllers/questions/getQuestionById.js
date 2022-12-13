@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable camelcase */
-import { db } from '~/utils/db.server';
+import { db } from 'app/utils/db.server';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
-} from '../../utils/constants';
-import generateSessionIdHash from '../../utils/backend/crypto';
+} from 'app/utils/constants';
+import generateSessionIdHash from 'app/utils/backend/crypto';
 
 const getQuestionById = async (questionId, user) => {
   if (!questionId || typeof questionId !== 'number' || parseInt(questionId, 10) < 1) {

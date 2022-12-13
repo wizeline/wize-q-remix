@@ -1,15 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { useSubmit, useSearchParams, useTransition } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import * as Styled from './ListQuestions.Styled';
-import Slogan from '../Slogan';
-import QuestionCard from '../QuestionCard';
-import useUser from '../../utils/hooks/useUser';
-import GoToTopButton from '../GoToTopButton';
-import markdownFormatQuestion from '../../utils/markdownFormatQuestions';
-import InfiniteScrollList from '../Atoms/InfiniteScrollList';
-import Filters from '../Filters';
-import ACTIONS from '../../utils/actions';
+import * as Styled from 'app/components/ListQuestions/ListQuestions.Styled';
+import Slogan from 'app/components/Slogan';
+import QuestionCard from 'app/components/QuestionCard';
+import useUser from 'app/utils/hooks/useUser';
+import GoToTopButton from 'app/components/GoToTopButton';
+import markdownFormatQuestion from 'app/utils/markdownFormatQuestions';
+import InfiniteScrollList from 'app/components/Atoms/InfiniteScrollList';
+import Filters from 'app/components/Filters';
+import ACTIONS from 'app/utils/actions';
 
 function ListQuestions({
   questions,

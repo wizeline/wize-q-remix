@@ -1,4 +1,4 @@
-import listLocations from '../../../app/controllers/locations/list';
+import listLocations from 'app/controllers/locations/list';
 
 describe('location controllers', () => {
   describe('listLocations', () => {

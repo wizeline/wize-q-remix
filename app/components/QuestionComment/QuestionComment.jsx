@@ -7,29 +7,29 @@ import {
 } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import { useSubmit, useSearchParams } from '@remix-run/react';
-import * as Styled from './QuestionComment.styled';
-import CounterButton from '../CounterButton';
-import QuestionerResponderInfo from '../QuestionResponderInfo';
-import Button from '../Atoms/Button';
-import Label from '../Atoms/Label';
-import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
-import editIconUnselected from '~/images/ic_edit.svg';
-import deleteIconUnselected from '~/images/ic_delete.svg';
-import editIconSelected from '~/images/ic_edit_selected.svg';
-import deleteIconSelected from '~/images/ic_delete_selected.svg';
-import { getTimeDiff } from '../../utils/timeOperations';
-import useClickOutside from '../../utils/hooks/useClickOutside';
+import * as Styled from 'app/components/QuestionComment/QuestionComment.styled';
+import CounterButton from 'app/components/CounterButton';
+import QuestionerResponderInfo from 'app/components/QuestionResponderInfo';
+import Button from 'app/components/Atoms/Button';
+import Label from 'app/components/Atoms/Label';
+import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+import editIconUnselected from 'app/images/ic_edit.svg';
+import deleteIconUnselected from 'app/images/ic_delete.svg';
+import editIconSelected from 'app/images/ic_edit_selected.svg';
+import deleteIconSelected from 'app/images/ic_delete_selected.svg';
+import { getTimeDiff } from 'app/utils/timeOperations';
+import useClickOutside from 'app/utils/hooks/useClickOutside';
 import {
   DANGER_BUTTON,
   DISABLED_BUTTON,
   SECONDARY_BUTTON,
   COMMENT_EDIT_PLACEHOLDER,
   COMMUNITY_ANSWER_TAG_TEXT,
-} from '../../utils/constants';
-import MarkdownLinkRenderer from '../MarkdownLinkRenderer';
-import CommentInputText from '../CommentInput/CommentInputText';
-import ACTIONS from '../../utils/actions';
-import useUser from '../../utils/hooks/useUser';
+} from 'app/utils/constants';
+import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
+import CommentInputText from 'app/components/CommentInput/CommentInputText';
+import ACTIONS from 'app/utils/actions';
+import useUser from 'app/utils/hooks/useUser';
 
 function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   const submit = useSubmit();

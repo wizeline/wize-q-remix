@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-import { createUserSession } from '~/session.server';
+import { createUserSession } from 'app/session.server';
 
-import authenticator from '~/auth.server';
+import authenticator from 'app/auth.server';
 
 export const loader = async ({ request }) => {
   const user = await authenticator.authenticate('auth0', request, {

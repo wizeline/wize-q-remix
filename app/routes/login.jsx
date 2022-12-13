@@ -1,7 +1,7 @@
 import React from 'react';
 import { json, redirect } from '@remix-run/node';
-import LoginContainer from '../components/Login/LoginContainer';
-import { getAuthenticatedUser } from '~/session.server';
+import LoginContainer from 'app/components/Login/LoginContainer';
+import { getAuthenticatedUser } from 'app/session.server';
 
 export const loader = async ({ request }) => {
   const authenticated = await getAuthenticatedUser(request);

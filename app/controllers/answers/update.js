@@ -3,9 +3,9 @@ import moment from 'moment';
 import {
   DATE_TIME_FORMAT,
   DEFAULT_ERROR_MESSAGE,
-} from '../../utils/backend/constants';
-import { updateAnswerSchema } from '../../utils/backend/validators/answer';
-import { db } from '~/utils/db.server';
+} from 'app/utils/backend/constants';
+import { updateAnswerSchema } from 'app/utils/backend/validators/answer';
+import { db } from 'app/utils/db.server';
 
 const updateAnswer = async (query) => {
   const { error, value } = updateAnswerSchema.validate(query);

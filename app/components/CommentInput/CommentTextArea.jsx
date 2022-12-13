@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MarkdownFormattingNote from '../MarkdownFormattingNote';
+import MarkdownFormattingNote from 'app/components/MarkdownFormattingNote';
 import {
   MAXIMUM_ANSWER_LENGTH,
   MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
   MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
   MIN_TEXTAREA_ROWS,
   MINIMUN_WINDOW_WIDTH,
-} from '../../utils/constants';
-import { shouldShowMarkdownSuggestions } from '../../utils/input';
-import Input from '../Atoms/Input';
-import InputCounter from '../InputCounter';
-import * as Styled from './CommentInput.styled';
+} from 'app/utils//constants';
+import { shouldShowMarkdownSuggestions } from 'app/utils//input';
+import Input from 'app/components/Atoms/Input';
+import InputCounter from 'app/components/InputCounter';
+import * as Styled from 'app/components/CommentInput/CommentInput.styled';
 
 function CommentTextArea({
   inputValue,

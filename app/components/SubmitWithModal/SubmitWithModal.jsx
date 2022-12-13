@@ -1,16 +1,16 @@
 /* eslint-disable camelcase */
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './SubmitWithModal.Styled';
+import * as Styled from 'app/components/SubmitWithModal/SubmitWithModal.Styled';
 import {
   IDENTITY_MESSAGE,
   SECONDARY_BUTTON,
   DANGER_BUTTON,
   CLOSE_BUTTON,
-} from '../../utils/constants';
-import useUser from '../../utils/hooks/useUser';
-import Button from '../Atoms/Button';
-import UserImage from '../Atoms/UserImage';
+} from 'app/utils/constants';
+import useUser from 'app/utils/hooks/useUser';
+import Button from 'app/components/Atoms/Button';
+import UserImage from 'app/components/Atoms/UserImage';
 
 function SubmitWithModal(props) {
   const { isAnonymous, warnings } = props;

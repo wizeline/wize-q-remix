@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLoaderData, useSearchParams } from '@remix-run/react';
-import filterIcon from '~/images/ic_filter.svg';
-import * as Styled from './Filters.Styled';
+import filterIcon from 'app/images/ic_filter.svg';
+import * as Styled from 'app/components/Filters/Filters.Styled';
 
 import {
   SORTING_OPTIONS,
@@ -25,9 +25,9 @@ import {
   LOCATION_ACCESS_VALUE,
   TEXT_BUTTON,
   DEFAULT_LOCATION_OPT,
-} from '../../utils/constants';
-import Button from '../Atoms/Button';
-import CustomDropdown from '../CustomDropdown';
+} from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import CustomDropdown from 'app/components/CustomDropdown';
 
 function Filters(props) {
   const { modifyQuery, clearFilters } = props;

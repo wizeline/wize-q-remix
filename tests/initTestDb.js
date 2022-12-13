@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { db } from '../app/utils/db.server';
+import { db } from 'app/utils/db.server';
 
 import questionsFixture from './fixtures/questions.json';
 import usersFixture from './fixtures/users.json';

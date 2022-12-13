@@ -17,6 +17,7 @@
           "extensions": [".js", ".jsx"]
       },
   ],
+  "import/extensions": [0],
     "import/no-named-as-default": "off",
     "import/no-named-as-default-member": "off",
     "jsx-a11y/no-static-element-interactions": "off", 

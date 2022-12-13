@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { assignQuestionSchema } from '../../utils/backend/validators/question';
-import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from '../../utils/constants';
-import { db } from '../../utils/db.server';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { assignQuestionSchema } from 'app/utils/backend/validators/question';
+import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from 'app/utils/constants';
+import { db } from 'app/utils/db.server';
 
 const assignQuestion = async (query) => {
   const { error, value } = assignQuestionSchema.validate(query);

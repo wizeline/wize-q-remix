@@ -1,8 +1,8 @@
 import { useActionData } from '@remix-run/react';
 import React, { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { DEFAULT_TOAST_CONFIG } from '../../utils/constants';
-import useGlobalSuccessMessage from '../../utils/hooks/useGlobalSuccessMessage';
+import { DEFAULT_TOAST_CONFIG } from 'app/utils/constants';
+import useGlobalSuccessMessage from 'app/utils/hooks/useGlobalSuccessMessage';
 
 function Notifications() {
   const globalSuccess = useGlobalSuccessMessage();

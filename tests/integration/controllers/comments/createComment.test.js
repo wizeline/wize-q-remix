@@ -1,6 +1,6 @@
-import randomAccessToken from '../../../utils';
-import createComment from '../../../../app/controllers/comments/create';
-import { db } from '~/utils/db.server';
+import randomAccessToken from 'tests/utils';
+import createComment from 'app/controllers/comments/create';
+import { db } from 'app/utils/db.server';
 
 describe('createComment', () => {
   const dbCreateSpy = jest.spyOn(db.Comments, 'create');

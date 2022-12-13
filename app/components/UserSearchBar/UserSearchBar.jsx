@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import * as Styled from './UserSearchBar.Styled';
-import { ICON_BUTTON } from '../../utils/constants';
-import Button from '../Atoms/Button';
+import * as Styled from 'app/components/UserSearchBar/UserSearchBar.Styled';
+import { ICON_BUTTON } from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
 
 export default function UserSearchBar({ onSearch }) {
   const [search, setSearch] = useState('');

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HIGHLIGHT_END, HIGHLIGHT_START } from '../../utils/constants';
-import MarkdownLinkRenderer from '../MarkdownLinkRenderer';
+import { HIGHLIGHT_END, HIGHLIGHT_START } from 'app/utils/constants';
+import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
 
 const propTypes = {
   href: PropTypes.string.isRequired,

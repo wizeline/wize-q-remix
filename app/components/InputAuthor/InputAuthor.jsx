@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '../Atoms/UserImage';
-import { ANONYMOUS_USER } from '../../utils/constants';
+import UserImage from 'app/components/Atoms/UserImage';
+import { ANONYMOUS_USER } from 'app/utils/constants';
 
 function InputAuthor(props) {
   return (

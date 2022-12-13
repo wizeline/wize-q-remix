@@ -1,6 +1,6 @@
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '../../utils/constants';
-import { db } from '~/utils/db.server';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
+import { db } from 'app/utils/db.server';
 
 const getAnswerById = async (answerId, user) => {
   if (!answerId || typeof answerId !== 'number' || parseInt(answerId, 10) < 1) {

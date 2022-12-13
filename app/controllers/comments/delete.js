@@ -1,12 +1,12 @@
-import { db } from '~/utils/db.server';
-import generateSessionIdHash from '../../utils/backend/crypto';
-import { generateMinMaxDates } from '../../utils/backend/comments';
-import { deleteCommentSchema } from '../../utils/backend/validators/comments';
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
+import { db } from 'app/utils/db.server';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import { generateMinMaxDates } from 'app/utils/backend/comments';
+import { deleteCommentSchema } from 'app/utils/backend/validators/comments';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   DELETE_COMMENT_ERROR_MESSAGE,
-} from '../../utils/constants';
+} from 'app/utils/constants';
 
 const deleteComment = async (body) => {
   const { error, value } = deleteCommentSchema.validate(body);

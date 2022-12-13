@@ -2,9 +2,9 @@ import {
   ENABLE_DISABLE_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
-} from '../../utils/constants';
-import { modifyQuestionEnabledValueParams } from '../../utils/backend/validators/question';
-import { db } from '~/utils/db.server';
+} from 'app/utils/constants';
+import { modifyQuestionEnabledValueParams } from 'app/utils/backend/validators/question';
+import { db } from 'app/utils/db.server';
 
 const modifyEnabledValue = async (questionId, enabledValue) => {
   const { error, value } = modifyQuestionEnabledValueParams.validate({

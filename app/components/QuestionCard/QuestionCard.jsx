@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import likeIcon from '~/images/ic_like.svg';
-import likeIconVoted from '~/images/ic_like_pressed.svg';
-import commentIcon from '~/images/ic_comment_non-selected.svg';
+import likeIcon from 'app/images/ic_like.svg';
+import likeIconVoted from 'app/images/ic_like_pressed.svg';
+import commentIcon from 'app/images/ic_comment_non-selected.svg';
 import {
   renderAnswer,
-} from '../../utils/questionUtils';
+} from 'app/utils/questionUtils';
 
-import * as Styled from './QuestionCard.Styled';
-import QuestionRow from '../QuestionRow';
-import CounterButton from '../CounterButton';
-import reorderHighlightedComments from '../../utils/commentUtils';
-import AnswerRow from '../AnswerRow';
+import * as Styled from 'app/components/QuestionCard/QuestionCard.Styled';
+import QuestionRow from 'app/components/QuestionRow';
+import CounterButton from 'app/components/CounterButton';
+import reorderHighlightedComments from 'app/utils/commentUtils';
+import AnswerRow from 'app/components/AnswerRow';
 
 function QuestionCard(props) {
   const {

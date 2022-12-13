@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import Button from '../../Atoms/Button/Button';
-import ACTIONS from '../../../utils/actions';
+import Button from 'app/components/Atoms/Button/Button';
+import ACTIONS from 'app/utils/actions';
 import {
   answerDeleteWarning,
   ANSWER_DELETE_WARNING_SUBTITLE,
@@ -11,7 +11,7 @@ import {
   DANGER_BUTTON,
   DELETE_ANSWER,
   SECONDARY_BUTTON,
-} from '../../../utils/constants';
+} from 'app/utils/constants';
 
 import * as Styled from './DeleteAnswerModal.Styled';
 

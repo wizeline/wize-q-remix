@@ -1,13 +1,13 @@
 import React from 'react';
-import AnswerRow from '../components/AnswerRow';
+import AnswerRow from 'app/components/AnswerRow';
 import {
   DEPARTMENT_NOT_ASSIGNED,
   ANSWER,
   REASSIGN,
   TEXT_BUTTON,
-} from './constants';
-import Button from '../components/Atoms/Button';
-import AnswerAdminOptions from '../components/AnswerAdminOptions';
+} from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import AnswerAdminOptions from 'app/components/AnswerAdminOptions';
 
 const renderDepartment = (department) => (department ? department.name : DEPARTMENT_NOT_ASSIGNED);
 

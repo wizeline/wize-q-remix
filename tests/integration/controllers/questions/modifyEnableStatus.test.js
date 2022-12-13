@@ -1,13 +1,13 @@
-import createQuestion from '../../../../app/controllers/questions/create';
-import randomAccessToken from '../../../utils';
+import createQuestion from 'app/controllers/questions/create';
+import randomAccessToken from 'tests/utils';
 import {
   ENABLE_DISABLE_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
-} from '../../../../app/utils/constants';
-import { db } from '~/utils/db.server';
-import getFormattedDate from '../../../../app/utils/dateFormat';
-import modifyEnabledValue from '../../../../app/controllers/questions/modifyEnableStatus';
+} from 'app/utils/constants';
+import { db } from 'app/utils/db.server';
+import getFormattedDate from 'app/utils/dateFormat';
+import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 
 describe('questions controller', () => {
   describe('Modify is_enabled status of a question ', () => {

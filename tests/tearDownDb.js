@@ -1,4 +1,4 @@
-import { db } from '~/utils/db.server';
+import { db } from 'app/utils/db.server';
 
 const tearDownDb = async () => {
   await db.$connect();

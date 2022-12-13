@@ -1,4 +1,4 @@
-import useFindLoaderMatch from './useFindLoaderMatch';
+import useFindLoaderMatch from 'app/utils/hooks/useFindLoaderMatch';
 
 function useUser() {
   const loader = useFindLoaderMatch('root');

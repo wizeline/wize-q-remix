@@ -4,10 +4,10 @@
 /* eslint-disable camelcase */
 import {
   DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD, DEFAULT_MONTHS,
-} from '../../utils/backend/constants';
-import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from '../../utils/backend/filterConstants';
-import createDateRange from '../../utils/backend/dateUtils';
-import { db } from '~/utils/db.server';
+} from 'app/utils/backend/constants';
+import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/filterConstants';
+import createDateRange from 'app/utils/backend/dateUtils';
+import { db } from 'app/utils/db.server';
 
 const getOrderBy = (order) => {
   const orderListBy = {

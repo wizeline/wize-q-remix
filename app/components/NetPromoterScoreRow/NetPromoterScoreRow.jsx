@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../Atoms/Button';
+import Button from 'app/components/Atoms/Button';
 import {
   DISPLAY_TEXT_BEFORE_SCORING,
   DISPLAY_TEXT_AFTER_SCORING,
   SCORES,
   UNDO_BUTTON_TEXT,
   TEXT_BUTTON,
-} from '../../utils/constants';
-import * as Styled from './NetPromoterScoreRow.styled';
+} from 'app/utils/constants';
+import * as Styled from 'app/components/NetPromoterScoreRow/NetPromoterScoreRow.styled';
 
 function NetPromoterScoreRow(props) {
   const {

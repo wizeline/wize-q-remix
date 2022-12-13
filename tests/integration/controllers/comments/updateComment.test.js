@@ -1,7 +1,7 @@
-import updateComment from '../../../../app/controllers/comments/update';
-import randomAccessToken from '../../../utils';
+import updateComment from 'app/controllers/comments/update';
+import randomAccessToken from 'tests/utils';
 
-import { db } from '~/utils/db.server';
+import { db } from 'app/utils/db.server';
 
 describe('update comment controller', () => {
   const dbUpdateManyCommentSpy = jest.spyOn(db.Comments, 'updateMany');

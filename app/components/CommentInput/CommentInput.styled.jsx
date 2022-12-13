@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { DropdownButton } from 'react-bootstrap';
-import { InputContainer, TextAreaElement } from '../Atoms/Input/Input.Styled';
-import { MainButton } from '../Atoms/Button/Button.Styled';
+import { InputContainer, TextAreaElement } from 'app/components/Atoms/Input/Input.Styled';
+import { MainButton } from 'app/components/Atoms/Button/Button.Styled';
 
 export const CommentInputMainContainer = styled.div`
     background-color: #fff;

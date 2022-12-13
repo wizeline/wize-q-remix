@@ -1,6 +1,6 @@
-import listComments from '../../../../app/controllers/comments/list';
-import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '../../../../app/utils/constants';
-import randomAccessToken from '../../../utils';
+import listComments from 'app/controllers/comments/list';
+import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
+import randomAccessToken from 'tests/utils';
 
 describe('listComments', () => {
   it('return the comments list according with the question Id', async () => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from '~/styles/Loader.Styled';
+import * as Styled from 'app/styles/Loader.Styled';
 
 function Loader({ src, size }) {
   return (

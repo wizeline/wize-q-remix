@@ -1,15 +1,15 @@
 /* eslint-disable react/no-this-in-sfc */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import AnswerTextArea from './AnswerTextArea';
-import QuestionMarkdown from '../QuestionMarkdown/QuestionMarkdown';
-import Button from '../Atoms/Button/Button';
-import * as Styled from './AnswerInputText.Styled';
+import AnswerTextArea from 'app/components/AnswerInputText/AnswerTextArea';
+import QuestionMarkdown from 'app/components/QuestionMarkdown/QuestionMarkdown';
+import Button from 'app/components/Atoms/Button/Button';
+import * as Styled from 'app/components/AnswerInputText/AnswerInputText.Styled';
 import {
   MINIMUM_ANSWER_LENGTH,
   MIN_TEXTAREA_ROWS,
   TEXT_BUTTON,
-} from '../../utils/constants';
+} from 'app/utils/constants';
 
 function AnswerInputText(props) {
   AnswerInputText.propTypes = {

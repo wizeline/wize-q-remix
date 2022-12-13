@@ -1,11 +1,11 @@
 import React from 'react';
 import { json } from '@remix-run/node';
-import * as Styled from '~/styles/About.Styled';
-import meetingIcon from '~/images/ic_meeting.svg';
-import savingFundIcon from '~/images/ic_saving_fund.svg';
-import dialogueIcon from '~/images/ic_dialogue.svg';
-import anonymousIcon from '~/images/ic_anonymous.svg';
-import { requireAuth } from '~/session.server';
+import * as Styled from 'app/styles/About.Styled';
+import meetingIcon from 'app/images/ic_meeting.svg';
+import savingFundIcon from 'app/images/ic_saving_fund.svg';
+import dialogueIcon from 'app/images/ic_dialogue.svg';
+import anonymousIcon from 'app/images/ic_anonymous.svg';
+import { requireAuth } from 'app/session.server';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);

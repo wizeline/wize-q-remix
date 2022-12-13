@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import logomarkX1 from 'app/images/logomark_medium.png';
 import { useActionData, useSearchParams } from '@remix-run/react';
-import { usePagination, DOTS } from '../../utils/hooks/usePagination';
-import Button from '../Atoms/Button/Button';
-import Loader from '../Loader';
-import { PRIMARY_BUTTON, LSPIN_MEDIUM } from '../../utils/constants';
-import logomarkX1 from '~/images/logomark_medium.png';
-import * as Styled from './AdminUsersTable.Styled';
-import EditUserModal from '../Modals/EditUserModal/EditUserModal';
+import { usePagination, DOTS } from 'app/utils/hooks/usePagination';
+import Button from 'app/components/Atoms/Button/Button';
+import Loader from 'app/components/Loader';
+import { PRIMARY_BUTTON, LSPIN_MEDIUM } from 'app/utils/constants';
+import * as Styled from 'app/components/AdminUsersTable/AdminUsersTable.Styled';
+import EditUserModal from 'app/components/Modals/EditUserModal/EditUserModal';
 
 function AdminUsersTable({
   users, currentPage, totalPages, isLoading, size,

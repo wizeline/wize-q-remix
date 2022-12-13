@@ -1,10 +1,10 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import {
   commentVoteExistsSchema,
   commentVoteSchema,
-} from '../../utils/backend/validators/commentVote';
-import { db } from '~/utils/db.server';
+} from 'app/utils/backend/validators/commentVote';
+import { db } from 'app/utils/db.server';
 
 const transformValue = (value) => {
   let transformedValue = 0;

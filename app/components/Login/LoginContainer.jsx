@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form } from '@remix-run/react';
-import logo from '~/images/logo-white.png';
-import Button from '../Atoms/Button';
-import Slogan from '../Slogan';
-import { PRIMARY_BUTTON } from '../../utils/constants';
-import * as Styled from './LoginContainer.Styled';
+import logo from 'app/images/logo-white.png';
+import Button from 'app/components/Atoms/Button';
+import Slogan from 'app/components/Slogan';
+import { PRIMARY_BUTTON } from 'app/utils/constants';
+import * as Styled from 'app/components/Login/LoginContainer.Styled';
 
 function LoginContainer() {
   const redirectTo = '/';

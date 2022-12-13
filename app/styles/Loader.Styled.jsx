@@ -1,6 +1,6 @@
 import styled, { css, keyframes } from 'styled-components';
 
-import { LSPIN_SMALL, LSPIN_LARGE, LSPIN_MEDIUM } from '../utils/constants';
+import { LSPIN_SMALL, LSPIN_LARGE, LSPIN_MEDIUM } from 'app/utils/constants';
 
 export const LoaderWrapper = styled.div`
   display: flex;

@@ -10,13 +10,13 @@ import {
   MAXIUMUM_EMAIL_LENGTH,
   MAXIMUM_NAME_LENGTH,
   MAXIMUM_REASON_LENGTH,
-} from '../utils/constants';
-import Footer from '../components/Footer';
-import mailIcon from '~/images/ic_email.svg';
-import slackIcon from '~/images/ic_slack.svg';
-import ContactGoto from '../components/ContactGoto';
-import * as Styled from '~/styles/Contact.Styled';
-import { requireAuth } from '~/session.server';
+} from 'app/utils/constants';
+import Footer from 'app/components/Footer';
+import mailIcon from 'app/images/ic_email.svg';
+import slackIcon from 'app/images/ic_slack.svg';
+import ContactGoto from 'app/components/ContactGoto';
+import * as Styled from 'app/styles/Contact.Styled';
+import { requireAuth } from 'app/session.server';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);

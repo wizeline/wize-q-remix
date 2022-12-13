@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MarkdownFormattingNote from '../MarkdownFormattingNote/MarkdownFormattingNote';
-import { shouldShowMarkdownSuggestions } from '../../utils/input';
+import MarkdownFormattingNote from 'app/components/MarkdownFormattingNote/MarkdownFormattingNote';
+import { shouldShowMarkdownSuggestions } from 'app/utils/input';
 import {
   MAXIMUM_ANSWER_LENGTH,
   MINIMUM_ANSWER_LENGTH,
   MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN,
   MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
   inputPlaceholder,
-} from '../../utils/constants';
-import Input from '../Atoms/Input/Input';
-import InputCounter from '../InputCounter/InputCounter';
-import * as Styled from './AnswerInputText.Styled';
+} from 'app/utils/constants';
+import Input from 'app/components/Atoms/Input/Input';
+import InputCounter from 'app/components/InputCounter/InputCounter';
+import * as Styled from 'app/components/AnswerInputText/AnswerInputText.Styled';
 
 function AnswerTextArea(props) {
   return (

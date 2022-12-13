@@ -11,14 +11,14 @@ import toastify from 'react-toastify/dist/ReactToastify.css';
 import reactDraftWysiwyg from 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import draftJs from 'draft-js/dist/Draft.css';
 import { json } from '@remix-run/node';
-import globalStyle from '~/styles/global.css';
-import bootstrap from '~/styles/bootstrap/css/bootstrap.min.css';
+import globalStyle from 'app/styles/global.css';
+import bootstrap from 'app/styles/bootstrap/css/bootstrap.min.css';
 
-import ErrorHandler from './components/ErrorHandler/ErrorHandler';
+import ErrorHandler from 'app/components/ErrorHandler/ErrorHandler';
 
-import { commitSession, getAuthenticatedUser, getSession } from '~/session.server';
-import AppNavbar from './components/AppNavbar';
-import listQuestions from './controllers/questions/list';
+import { commitSession, getAuthenticatedUser, getSession } from 'app/session.server';
+import AppNavbar from 'app/components/AppNavbar';
+import listQuestions from 'app/controllers/questions/list';
 
 const titleSuffix = process.env.NODE_ENV === 'development' ? ' - Local' : '';
 

@@ -2,7 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { parse } from 'cookie';
 import { installGlobals } from '@remix-run/node';
-import { createUserSession } from '../../../app/session.server';
+import { createUserSession } from 'app/session.server';
 
 installGlobals();
 

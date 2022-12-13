@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import * as Styled from './AnswerAdminOptions.Styled';
+import * as Styled from 'app/components/AnswerAdminOptions/AnswerAdminOptions.Styled';
 
-import editIcon from '~/images/ic_edit.svg';
-import deleteIcon from '~/images/ic_delete.svg';
-import { DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE } from '../../utils/constants';
+import editIcon from 'app/images/ic_edit.svg';
+import deleteIcon from 'app/images/ic_delete.svg';
+import { DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE } from 'app/utils/constants';
 
 function AnswerAdminOptions({
   isPreview,

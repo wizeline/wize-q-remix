@@ -1,5 +1,5 @@
-import upsertCommentVote from '../../../app/controllers/commentVotes/voteComment';
-import { db } from '~/utils/db.server';
+import upsertCommentVote from 'app/controllers/commentVotes/voteComment';
+import { db } from 'app/utils/db.server';
 
 describe('commentVotes', () => {
   const dbFindFirstCommentVoteSpy = jest.spyOn(db.CommentVote, 'findFirst');

@@ -2,15 +2,15 @@ import React, {
   useEffect, useState, useImperativeHandle, forwardRef,
 } from 'react';
 import PropTypes from 'prop-types';
-import CommentTextArea from './CommentTextArea';
-import QuestionMarkdown from '../QuestionMarkdown';
-import Button from '../Atoms/Button';
+import CommentTextArea from 'app/components/CommentInput/CommentTextArea';
+import QuestionMarkdown from 'app/components/QuestionMarkdown';
+import Button from 'app/components/Atoms/Button';
 import {
   TEXT_BUTTON,
   COMMENT_INPUT_PLACEHOLDER,
   MIN_COMMENT_PREVIEW_LENGTH,
-} from '../../utils/constants';
-import * as Styled from './CommentInput.styled';
+} from 'app/utils/constants';
+import * as Styled from 'app/components/CommentInput/CommentInput.styled';
 
 const CommentInputText = forwardRef((props, ref) => {
   const initialState = {

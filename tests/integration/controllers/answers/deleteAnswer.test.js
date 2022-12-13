@@ -1,4 +1,4 @@
-import deleteAnswer from '../../../../app/controllers/answers/delete';
+import deleteAnswer from 'app/controllers/answers/delete';
 
 describe('deleteAnswer', () => {
   it('delete correctly', async () => {

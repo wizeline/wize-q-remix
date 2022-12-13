@@ -2,11 +2,11 @@
 import React, { useState } from 'react';
 import { Navbar } from 'react-bootstrap';
 import { Link } from '@remix-run/react';
-import logo from '~/images/logo-white.png';
-import * as Styled from './AppNavbar.Styled';
-import UserControls from '../UserControls';
-import useUser from '../../utils/hooks/useUser';
-import SearchBarNav from '../SearchBarNav';
+import logo from 'app/images/logo-white.png';
+import * as Styled from 'app/components/AppNavbar/AppNavbar.Styled';
+import UserControls from 'app/components/UserControls';
+import useUser from 'app/utils/hooks/useUser';
+import SearchBarNav from 'app/components/SearchBarNav';
 
 function AppNavbar() {
   const [expanded, setExpanded] = useState(false);

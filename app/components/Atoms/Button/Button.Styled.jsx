@@ -7,7 +7,7 @@ import {
   DANGER_BUTTON,
   TEXT_BUTTON,
   ICON_BUTTON,
-} from '../../../utils/constants';
+} from 'app/utils/constants';
 
 export const MainButton = styled.button`
   align-items: center;

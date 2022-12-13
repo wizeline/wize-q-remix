@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import Button from '../../Atoms/Button';
-import { CLOSE_BUTTON, DANGER_BUTTON, SECONDARY_BUTTON } from '../../../utils/constants';
-import useUser from '../../../utils/hooks/useUser';
-import * as Styled from './LogoutConfirmationModal.styled';
+import Button from 'app/components/Atoms/Button';
+import { CLOSE_BUTTON, DANGER_BUTTON, SECONDARY_BUTTON } from 'app/utils/constants';
+import useUser from 'app/utils/hooks/useUser';
+import * as Styled from 'app/components/Modals/LogoutConfirmationModal/LogoutConfirmationModal.styled';
 
 function LogoutConfirmationModal({ show, onClose }) {
   const profile = useUser();

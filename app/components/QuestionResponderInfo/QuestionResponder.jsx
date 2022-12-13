@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from './QuestionResponderInfo.Styled';
-import UserImage from '../Atoms/UserImage';
-import { ANONYMOUS_USER } from '../../utils/constants';
+import * as Styled from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+import UserImage from 'app/components/Atoms/UserImage';
+import { ANONYMOUS_USER } from 'app/utils/constants';
 
 function QuestionerResponderInfo(props) {
   const renderName = (createdBy) => {

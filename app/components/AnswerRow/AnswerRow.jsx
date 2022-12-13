@@ -1,17 +1,17 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDateData } from '../../utils/timeOperations';
-import { showCollapseOrExpandMessage, formatCollapsingText } from '../../utils/stringOperations';
-import { markdownFormat } from '../../utils/markdownFormatQuestions';
-import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from '../../utils/constants';
-import * as Styled from './AnswerRow.Styled';
-import MarkdownLinkRenderer from '../MarkdownLinkRenderer';
-import ConditionalLinkTo from '../Atoms/ConditionalLinkTo';
-import QuestionResponderInfo from '../QuestionResponderInfo';
-import Button from '../Atoms/Button';
-import Label from '../Atoms/Label';
-import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
+import { getDateData } from 'app/utils/timeOperations';
+import { showCollapseOrExpandMessage, formatCollapsingText } from 'app/utils/stringOperations';
+import { markdownFormat } from 'app/utils/markdownFormatQuestions';
+import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from 'app/utils/constants';
+import * as Styled from 'app/components/AnswerRow/AnswerRow.Styled';
+import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
+import ConditionalLinkTo from 'app/components/Atoms/ConditionalLinkTo';
+import QuestionResponderInfo from 'app/components/QuestionResponderInfo';
+import Button from 'app/components/Atoms/Button';
+import Label from 'app/components/Atoms/Label';
+import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 function AnswerRow({
   searchTerm, isPreview, isQuestionModalOpen, ...props

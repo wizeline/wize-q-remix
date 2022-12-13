@@ -1,4 +1,4 @@
-import assignQuestion from '../../../../app/controllers/questions/assignQuestion';
+import assignQuestion from 'app/controllers/questions/assignQuestion';
 
 describe('assignQuestion', () => {
   it('assign question correctly', async () => {

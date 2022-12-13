@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import Markdown from 'react-markdown';
-import Button from '../Atoms/Button';
+import Button from 'app/components/Atoms/Button';
 
 export const Dropdown = styled.div`
   border-radius: 10px;

@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import profileQuestionsCreatedSchema from '../../utils/backend/validators/profile';
-import { db } from '../../utils/db.server';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import profileQuestionsCreatedSchema from 'app/utils/backend/validators/profile';
+import { db } from 'app/utils/db.server';
 
 const getQuestionsCreated = async (query) => {
   const { error, value } = profileQuestionsCreatedSchema.validate(query);

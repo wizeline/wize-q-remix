@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { Link } from '@remix-run/react';
-import img from '~/images/header-background-dots-pattern.svg';
+import img from 'app/images/header-background-dots-pattern.svg';
 
 export const BackgroundDiv = styled.div`
     background-image: url(${img});

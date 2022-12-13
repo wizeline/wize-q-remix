@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem } from 'react-bootstrap';
-import * as Styled from './CommentInput.styled';
-import useUser from '../../utils/hooks/useUser';
-import { ANONYMOUS_USER } from '../../utils/constants';
+import * as Styled from 'app/components/CommentInput/CommentInput.styled';
+import useUser from 'app/utils/hooks/useUser';
+import { ANONYMOUS_USER } from 'app/utils/constants';
 
 function CommentInputAuthor(props) {
   const {

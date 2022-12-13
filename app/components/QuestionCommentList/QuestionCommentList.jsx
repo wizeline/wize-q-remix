@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLoaderData } from '@remix-run/react';
-import * as Styled from './QuestionCommentList.styled';
-import reorderHighlightedComments from '../../utils/commentUtils';
-import QuestionComment from '../QuestionComment';
-import SortQuestionCommentsDropdown from '../SortQuestionCommentsDropdown';
+import * as Styled from 'app/components/QuestionCommentList/QuestionCommentList.styled';
+import reorderHighlightedComments from 'app/utils/commentUtils';
+import QuestionComment from 'app/components/QuestionComment';
+import SortQuestionCommentsDropdown from 'app/components/SortQuestionCommentsDropdown';
 
 function QuestionCommentList(props) {
   const { comments } = useLoaderData();

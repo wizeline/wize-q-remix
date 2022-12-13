@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '../Atoms/UserImage';
-import UserProfile from '../UserProfile';
-import * as Styled from './UserDropdown.styled';
+import UserImage from 'app/components/Atoms/UserImage';
+import UserProfile from 'app/components/UserProfile';
+import * as Styled from 'app/components/UserDropdown/UserDropdown.styled';
 
 export default function UserDropdown({
   name, title, email, picture, onLogoutClick,

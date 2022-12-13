@@ -1,14 +1,14 @@
 import React from 'react';
 import { json } from '@remix-run/node';
 import { useLoaderData, useSearchParams } from '@remix-run/react';
-import AdminUsersTable from '../components/AdminUsersTable';
-import Notifications from '../components/Notifications';
-import UserSearchBar from '../components/UserSearchBar';
-import listUsers from '../controllers/users/list';
-import updateUser from '../controllers/users/update';
-import NotFound from './$';
-import { requireAdminAuth } from '~/session.server';
-import * as Styled from '~/styles/Admin.Styled';
+import { requireAdminAuth } from 'app/session.server';
+import * as Styled from 'app/styles/Admin.Styled';
+import AdminUsersTable from 'app/components/AdminUsersTable';
+import Notifications from 'app/components/Notifications';
+import UserSearchBar from 'app/components/UserSearchBar';
+import listUsers from 'app/controllers/users/list';
+import updateUser from 'app/controllers/users/update';
+import NotFound from 'app/routes/$';
 
 export const loader = async ({ request }) => {
   await requireAdminAuth(request);

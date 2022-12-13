@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { db } from '../../utils/db.server';
+import { db } from 'app/utils/db.server';
 
 export const findUser = async (email) => {
   const user = await db.users.findUniqueOrThrow({

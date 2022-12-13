@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useSearchParams } from '@remix-run/react';
-import { DEFAULT_QUESTION_COMMENT_SORTING, ACTIVITY_TIME_QUESTION_COMMENT_SORTING } from '../../utils/constants';
-import * as Styled from './SortQuestionCommentsDropdown.styled';
+import { DEFAULT_QUESTION_COMMENT_SORTING, ACTIVITY_TIME_QUESTION_COMMENT_SORTING } from 'app/utils/constants';
+import * as Styled from 'app/components/SortQuestionCommentsDropdown/SortQuestionCommentsDropdown.styled';
 
 function SortQuestionCommentsDropdown(props) {
   SortQuestionCommentsDropdown.propTypes = {

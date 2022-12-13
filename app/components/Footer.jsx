@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { FOOTER_MESSAGE } from '../utils/constants';
-import * as Styled from '~/styles/Contact.Styled';
+import { FOOTER_MESSAGE } from 'app/utils/constants';
+import * as Styled from 'app/styles/Contact.Styled';
 
 class Footer extends Component {
   constructor(props) {

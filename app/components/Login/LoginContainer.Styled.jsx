@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { SloganContainer } from '../Slogan/Slogan.Styled';
+import { SloganContainer } from 'app/components/Slogan/Slogan.Styled';
 
 export const LoginDiv = styled.div`
   position: absolute;

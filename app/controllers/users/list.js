@@ -1,4 +1,4 @@
-import { db } from '~/utils/db.server';
+import { db } from 'app/utils/db.server';
 
 const getPagination = (page, size) => {
   // check if size is defined, if it is, convert the value to number, if not set default value to 20

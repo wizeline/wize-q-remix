@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
 import React, { useRef } from 'react';
-import { formatCollapsingText } from '../../utils/stringOperations';
-import { renderDepartment, hasJobTitle } from '../../utils/questionUtils';
-import { COLLAPSED_QUESTION_MIN_LENGTH } from '../../utils/constants';
-import * as Styled from './QuestionRow.Styled';
-import ConditionalLinkTo from '../Atoms/ConditionalLinkTo';
-import Label from '../Atoms/Label';
-import QuestionResponderInfo from '../QuestionResponderInfo';
-import QuestionMarkdown from '../QuestionMarkdown';
-import useUser from '../../utils/hooks/useUser';
-import { getDateData } from '../../utils/timeOperations';
-import ACTIONS from '../../utils/actions';
-import { CircleIcon, DateContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
+import { formatCollapsingText } from 'app/utils/stringOperations';
+import { renderDepartment, hasJobTitle } from 'app/utils/questionUtils';
+import { COLLAPSED_QUESTION_MIN_LENGTH } from 'app/utils/constants';
+import * as Styled from 'app/components/QuestionRow/QuestionRow.Styled';
+import ConditionalLinkTo from 'app/components/Atoms/ConditionalLinkTo';
+import Label from 'app/components/Atoms/Label';
+import QuestionResponderInfo from 'app/components/QuestionResponderInfo';
+import QuestionMarkdown from 'app/components/QuestionMarkdown';
+import useUser from 'app/utils/hooks/useUser';
+import { getDateData } from 'app/utils/timeOperations';
+import ACTIONS from 'app/utils/actions';
+import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {

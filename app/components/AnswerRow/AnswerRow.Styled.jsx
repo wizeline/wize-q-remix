@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { QuestionerResponderContainer } from '../QuestionResponderInfo/QuestionResponderInfo.Styled';
+import { QuestionerResponderContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const AnswerRow = styled.div` 
   font-family: 'Nunito', sans-serif;

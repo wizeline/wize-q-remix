@@ -2,8 +2,8 @@ import React from 'react';
 import { DropdownButton, MenuItem } from 'react-bootstrap';
 import { ImLocation } from 'react-icons/im';
 import PropTypes from 'prop-types';
-import * as Styled from './QuestionLocation.Styled';
-import DropdownTitle from '../DropdownTitle';
+import * as Styled from 'app/components/QuestionLocation/QuestionLocation.Styled';
+import DropdownTitle from 'app/components/DropdownTitle';
 
 function QuestionLocation({
   location,

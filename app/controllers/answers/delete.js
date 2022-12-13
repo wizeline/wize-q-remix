@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import { deleteAnswerSchema } from '../../utils/backend/validators/answer';
-import { db } from '~/utils/db.server';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { deleteAnswerSchema } from 'app/utils/backend/validators/answer';
+import { db } from 'app/utils/db.server';
 
 const deleteAnswer = async (query) => {
   const { error, value } = deleteAnswerSchema.validate(query);

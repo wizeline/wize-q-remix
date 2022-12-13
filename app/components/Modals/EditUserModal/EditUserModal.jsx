@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from '@remix-run/react';
-import * as S from './EditUserModal.Styled';
-import { PRIMARY_BUTTON, SECONDARY_BUTTON } from '../../../utils/constants';
-import UserImage from '../../Atoms/UserImage/UserImage';
-import Button from '../../Atoms/Button';
+import * as S from 'app/components/Modals/EditUserModal/EditUserModal.Styled';
+import { PRIMARY_BUTTON, SECONDARY_BUTTON } from 'app/utils/constants';
+import UserImage from 'app/components/Atoms/UserImage/UserImage';
+import Button from 'app/components/Atoms/Button';
 
 function EditUserModal({ user, onClose }) {
   const [uAdmin, setUAdmin] = useState(user.is_admin);

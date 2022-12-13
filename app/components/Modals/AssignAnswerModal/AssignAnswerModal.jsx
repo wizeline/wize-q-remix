@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import { useSubmit, useTransition, useLoaderData } from '@remix-run/react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, MenuItem } from 'react-bootstrap';
-import Button from '../../Atoms/Button/Button';
+import Button from 'app/components/Atoms/Button/Button';
 import {
   DISABLED_BUTTON, SECONDARY_BUTTON, CLOSE_BUTTON, DEPARTMENT_PLACEHOLDER,
-} from '../../../utils/constants';
-import ACTIONS from '../../../utils/actions';
-import * as Styled from './AssignAnswerModal.Styled';
+} from 'app/utils/constants';
+import ACTIONS from 'app/utils/actions';
+import * as Styled from 'app/components/Modals/AssignAnswerModal/AssignAnswerModal.Styled';
 
 function AssignAnswerModal(props) {
   const {

@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import img from '~/images/caret-down-solid.svg';
+import img from 'app/images/caret-down-solid.svg';
 
 export const FooterDiv = styled.div`
     background-color: #f4f7f9;

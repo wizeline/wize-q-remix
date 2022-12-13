@@ -4,14 +4,14 @@ import { useSubmit, useSearchParams } from '@remix-run/react';
 import {
   ANONYMOUS_USER, HTML_CODE_WARNING, PRIMARY_BUTTON,
   SECONDARY_BUTTON, MIN_SHOW_COMMENT_BTN_LENGTH,
-} from '../../utils/constants';
-import * as Styled from './CommentInput.styled';
-import Button from '../Atoms/Button';
-import { deleteNoMarkupFormatHTML } from '../../utils/stringOperations';
-import CommentInputAuthor from './CommentInputAuthor';
-import CommentInputText from './CommentInputText';
-import useUser from '../../utils/hooks/useUser';
-import ACTIONS from '../../utils/actions';
+} from 'app/utils/constants';
+import * as Styled from 'app/components/CommentInput/CommentInput.styled';
+import Button from 'app/components/Atoms/Button';
+import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
+import CommentInputAuthor from 'app/components/CommentInput/CommentInputAuthor';
+import CommentInputText from 'app/components/CommentInput/CommentInputText';
+import useUser from 'app/utils/hooks/useUser';
+import ACTIONS from 'app/utils/actions';
 
 function CommentInput(props) {
   const submit = useSubmit();

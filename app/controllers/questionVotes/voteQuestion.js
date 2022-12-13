@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
-import { db } from '../../utils/db.server';
+import { db } from 'app/utils/db.server';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
   INVALIDATE_VOTE_ERROR_MESSAGE,
-} from '../../utils/constants';
+} from 'app/utils/constants';
 
 const voteQuestion = async (questionId, user) => {
   if (

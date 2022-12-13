@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
-import * as Styled from './UserControl.styled';
-import UserDropdown from '../UserDropdown';
-import LogoutConfirmationModal from '../Modals/LogoutConfirmationModal';
-import SearchBarNav from '../SearchBarNav';
+import * as Styled from 'app/components/UserControls/UserControl.styled';
+import UserDropdown from 'app/components/UserDropdown';
+import LogoutConfirmationModal from 'app/components/Modals/LogoutConfirmationModal';
+import SearchBarNav from 'app/components/SearchBarNav';
 
 function UserControls(props) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);

@@ -1,7 +1,7 @@
-import randomAccessToken from '../../../utils';
-import createQuestion from '../../../../app/controllers/questions/create';
-import { db } from '../../../../app/utils/db.server';
-import slack from '../../../../app/utils/backend/slackNotifications';
+import randomAccessToken from 'tests/utils';
+import createQuestion from 'app/controllers/questions/create';
+import { db } from 'app/utils/db.server';
+import slack from 'app/utils/backend/slackNotifications';
 
 describe('createQuestion', () => {
   const dbCreateSpy = jest.spyOn(db.Questions, 'create');

@@ -1,11 +1,11 @@
-import { DEFAULT_ERROR_MESSAGE } from '../../utils/backend/constants';
-import generateSessionIdHash from '../../utils/backend/crypto';
-import slack from '../../utils/backend/slackNotifications';
-import { stripNewLines, truncate } from '../../utils/backend/stringUtils';
-import sanitizeHTML from '../../utils/backend/sanitizer';
-import { createQuestionSchema } from '../../utils/backend/validators/question';
-import { db } from '../../utils/db.server';
-import { SLACK_QUESTION_LIMIT } from '../../utils/backend/slackConstants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import generateSessionIdHash from 'app/utils/backend/crypto';
+import slack from 'app/utils/backend/slackNotifications';
+import { stripNewLines, truncate } from 'app/utils/backend/stringUtils';
+import sanitizeHTML from 'app/utils/backend/sanitizer';
+import { createQuestionSchema } from 'app/utils/backend/validators/question';
+import { db } from 'app/utils/db.server';
+import { SLACK_QUESTION_LIMIT } from 'app/utils/backend/slackConstants';
 
 const createQuestion = async (body) => {
   const { error, value } = createQuestionSchema.validate(body);

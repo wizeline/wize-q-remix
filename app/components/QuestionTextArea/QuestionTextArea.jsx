@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { EditorState } from 'draft-js';
 import { ClientOnly } from 'remix-utils';
-import { Editor } from '~/react-draft-wysiwyg.client';
-import bold from '~/images/react-icons/ri/bold.svg';
-import italic from '~/images/react-icons/ri/italic.svg';
-import strikethrough from '~/images/react-icons/ri/strikethrough.svg';
-import code from '~/images/react-icons/ri/code-fill.svg';
-import * as S from './QuestionTextArea.Styled';
-import { inputPlaceholder } from '../../utils/constants';
-import { MINIMUM_QUESTION_LENGTH } from '../../utils/backend/constants';
+import { Editor } from 'app/react-draft-wysiwyg.client';
+import bold from 'app/images/react-icons/ri/bold.svg';
+import italic from 'app/images/react-icons/ri/italic.svg';
+import strikethrough from 'app/images/react-icons/ri/strikethrough.svg';
+import code from 'app/images/react-icons/ri/code-fill.svg';
+import * as S from 'app/components/QuestionTextArea/QuestionTextArea.Styled';
+import { inputPlaceholder } from 'app/utils/constants';
+import { MINIMUM_QUESTION_LENGTH } from 'app/utils/backend/constants';
 
 function QuestionTextArea({
   editorState,

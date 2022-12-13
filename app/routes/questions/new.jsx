@@ -2,18 +2,18 @@ import React, { useRef } from 'react';
 import { BsCircleFill } from 'react-icons/bs';
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useSubmit } from '@remix-run/react';
-import Slogan from '../../components/Slogan';
-import * as Styled from '~/styles/CreateQuestion.Styled';
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from '../../utils/backend/constants';
-import { RECOMMENDATIONS_QUESTION } from '../../utils/constants';
-import QuestionForm from '../../components/QuestionForm';
-import listLocations from '../../controllers/locations/list';
+import * as Styled from 'app/styles/CreateQuestion.Styled';
+import Slogan from 'app/components/Slogan';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
+import { RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
+import QuestionForm from 'app/components/QuestionForm';
+import listLocations from 'app/controllers/locations/list';
 import {
   commitSession, getAuthenticatedUser, getSession, requireAuth,
-} from '~/session.server';
-import listDepartments from '../../controllers/departments/list';
-import createQuestion from '../../controllers/questions/create';
-import Notifications from '../../components/Notifications';
+} from 'app/session.server';
+import listDepartments from 'app/controllers/departments/list';
+import createQuestion from 'app/controllers/questions/create';
+import Notifications from 'app/components/Notifications';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);

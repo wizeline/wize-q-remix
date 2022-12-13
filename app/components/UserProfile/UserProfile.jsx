@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import UserImage from '../Atoms/UserImage';
-import * as Styled from './UserProfile.styled';
+import UserImage from 'app/components/Atoms/UserImage';
+import * as Styled from 'app/components/UserProfile/UserProfile.styled';
 
 function UserProfile({
   name, title, email, picture,

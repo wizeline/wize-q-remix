@@ -2,8 +2,8 @@
 /* eslint-disable no-unused-vars */
 import { Authenticator } from 'remix-auth';
 import { Auth0Strategy } from 'remix-auth-auth0';
-import { sessionStorage } from '~/session.server';
-import { findOrCreateUser } from './controllers/users/find';
+import { sessionStorage } from 'app/session.server';
+import { findOrCreateUser } from 'app/controllers/users/find';
 
 const callbackURL = `${process.env.BASE_URL}/auth/auth0/callback`;
 const clientID = process.env.AUTH0_CLIENT_ID || 'AUTH0_CLIENT_ID must be set';

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './CounterButton.Styled';
 
 function CounterButton({
-  id, icon, text, count, selected, onClick, notButton, processingFormSubmission,
+  id, icon, text, count, selected, onClick, notButton, processingFormSubmission, isDisabled,
 }) {
   const validIcon = React.isValidElement(icon);
   return (
@@ -13,6 +13,7 @@ function CounterButton({
       selected={selected}
       notButton={notButton}
       processingFormSubmission={processingFormSubmission}
+      disabled={isDisabled}
     >
       {validIcon ? icon : <img src={icon} alt="Icon" />}
 
@@ -38,6 +39,7 @@ CounterButton.defaultProps = {
   notButton: false,
   onClick: null,
   processingFormSubmission: false,
+  isDisabled: false,
 };
 
 CounterButton.propTypes = {
@@ -52,6 +54,7 @@ CounterButton.propTypes = {
   onClick: PropTypes.func,
   notButton: PropTypes.bool,
   processingFormSubmission: PropTypes.bool,
+  isDisabled: PropTypes.bool,
 };
 
 export default CounterButton;

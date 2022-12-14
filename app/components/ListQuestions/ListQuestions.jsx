@@ -77,7 +77,7 @@ function ListQuestions({
   };
 
   const renderQuestionsList = () => {
-    const onLikeButtonClick = (questionId) => {
+    const onLikeButtonClick = (questionId, isUpVote) => {
       if (transition.state !== 'idle') {
         return;
       }
@@ -85,6 +85,7 @@ function ListQuestions({
       data.set('action', ACTIONS.VOTE_QUESTION);
       data.set('questionId', questionId);
       data.set('user', JSON.stringify(profile));
+      data.set('isUpVote', isUpVote);
       let actionUrl = '/?index';
       searchParams.forEach((value, key) => {
         actionUrl += value ? `&${key}=${value}` : '';
@@ -103,7 +104,7 @@ function ListQuestions({
         displayAnsweredBy={displayAnsweredBy}
         searchTerm={state.searchTerm}
         index={index}
-        onVoteClick={() => onLikeButtonClick(question.question_id)}
+        onVoteClick={(isUpVote) => onLikeButtonClick(question.question_id, isUpVote)}
         processingFormSubmission={transition.state !== 'idle'}
       />
     ));

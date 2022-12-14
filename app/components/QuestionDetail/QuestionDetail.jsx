@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import likeIcon from 'app/images/ic_like.svg';
 import likeIconVoted from 'app/images/ic_like_pressed.svg';
+import diskilike from 'app/images/ic_dislike.svg';
+import dislikeIconVoted from 'app/images/ic_dislike_pressed.svg';
 import {
   shouldRenderAdminButtons,
   renderAdminButtons,
@@ -57,7 +59,7 @@ function QuestionDetails(props) {
   };
 
   const renderQuestionButtons = () => {
-    const onLikeButtonClick = () => {
+    const onLikeButtonClick = (isUpVote) => {
       if (transition.state !== 'idle') {
         return;
       }
@@ -65,6 +67,7 @@ function QuestionDetails(props) {
       data.set('action', ACTIONS.VOTE_QUESTION);
       data.set('questionId', question.question_id);
       data.set('user', JSON.stringify(profile));
+      data.set('isUpVote', isUpVote);
       let url = `/questions/${question.question_id}`;
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
@@ -75,18 +78,29 @@ function QuestionDetails(props) {
       });
     };
 
-    const icon = !question.hasVoted ? likeIcon : likeIconVoted;
+    const icon = !question.hasLike ? likeIcon : likeIconVoted;
+    const dislikeicon = !question.hasDislike ? diskilike : dislikeIconVoted;
+
     return (
       <Styled.CounterButtonsWrapper
         isAdmin={isAdmin}
         hasAnswer={question.Answer}
       >
         <CounterButton
-          selected={question.hasVoted}
+          selected={question.hasLike}
           icon={icon}
-          count={question.num_votes}
+          count={question.numLikes}
           processingFormSubmission={transition.state !== 'idle'}
-          onClick={onLikeButtonClick}
+          onClick={() => { onLikeButtonClick(true); }}
+          isDisabled={question.hasDislike}
+        />
+        <CounterButton
+          selected={question.hasDislike}
+          icon={dislikeicon}
+          count={question.numDisklike}
+          processingFormSubmission={transition.state !== 'idle'}
+          onClick={() => { onLikeButtonClick(false); }}
+          isDisabled={question.hasLike}
         />
       </Styled.CounterButtonsWrapper>
     );
@@ -293,7 +307,6 @@ QuestionDetails.propTypes = {
     question: PropTypes.string.isRequired,
     user_hash: PropTypes.string,
     can_edit: PropTypes.bool,
-    num_votes: PropTypes.number,
     AnsweredBy: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,
@@ -304,7 +317,6 @@ QuestionDetails.propTypes = {
     }),
     createdAt: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    Votes: PropTypes.number.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
     Answer: PropTypes.shape({
@@ -316,6 +328,10 @@ QuestionDetails.propTypes = {
       canUndoNps: PropTypes.bool,
     }),
     mostUpvoted: PropTypes.bool,
+    numLikes: PropTypes.number.isRequired,
+    numDisklike: PropTypes.number.isRequired,
+    hasLike: PropTypes.bool.isRequired,
+    hasDislike: PropTypes.bool.isRequired,
   }),
 };
 

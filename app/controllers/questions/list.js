@@ -222,6 +222,32 @@ const listQuestions = async (params) => {
 
     let can_edit;
 
+    // eslint-disable-next-line array-callback-return, consistent-return
+    const numLikes = question.Votes.filter((vote) => {
+      if (vote.is_upvote || vote.is_upvote === null) {
+        return { ...vote };
+      }
+    }).length;
+
+    // eslint-disable-next-line array-callback-return, consistent-return
+    const numDisklike = question.Votes.filter((vote) => {
+      if (!vote.is_upvote && vote.is_upvote !== null) {
+        return { ...vote };
+      }
+    }).length;
+
+    const hasLike = (hasUserData
+    && question.Votes.some(
+      (vote) => (vote.is_upvote || vote.is_upvote === null) && vote.user === user.id,
+    )
+    ) ?? false;
+
+    const hasDislike = (hasUserData
+      && question.Votes.some(
+        (vote) => (!vote.is_upvote && vote.is_upvote !== null) && vote.user === user.id,
+      )
+    ) ?? false;
+
     if (question.created_by) {
       can_edit = user && user.email && user.email === question.created_by.email;
     } else {
@@ -244,12 +270,15 @@ const listQuestions = async (params) => {
       hasVoted: (hasUserData && question.Votes.some((vote) => vote.user === user.id)) ?? false,
       hasScored: (hasUserData
         && hasAnswer && question.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
-      num_votes: question._count.Votes,
       numComments: question._count.Comments,
       can_edit,
       hasCommentApproved,
       hasCommunityAnswer,
       Comments: CommentsComplete,
+      numLikes,
+      numDisklike,
+      hasLike,
+      hasDislike,
     };
   });
 };

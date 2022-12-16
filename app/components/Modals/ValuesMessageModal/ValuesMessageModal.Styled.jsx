@@ -59,7 +59,11 @@ export const ModalFooter = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${(props) => (props.variant === 'logout' ? 'border-top: 1px solid #e5e5e5;padding: 15px;text-align: right;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout'
+    ? `border-top: 1px solid #e5e5e5;
+    padding: 15px;
+    text-align: right;`
+    : 'border-bottom: none;')}
 `;
 
 export const ModalHeader = styled.div`
@@ -68,7 +72,10 @@ export const ModalHeader = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${(props) => (props.variant === 'logout' ? 'border-bottom: 1px solid #e5e5e5;padding: 15px;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout'
+    ? `border-bottom: 1px solid #e5e5e5;
+        padding: 15px;`
+    : 'border-bottom: none;')}
 `;
 
 export const ModalTitle = styled.div`
@@ -87,12 +94,12 @@ export const ModalSubtitle = styled.div`
 `;
 
 export const ValueText = styled.span`
-color: ${(props) => props.color};
-font-weight: 600;
-font-size: 16px;
-text-decoration:  ${(props) => props.color} underline overline;
+    color: ${(props) => props.color};
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration:  ${(props) => props.color} underline overline;
 `;
 
 export const ValuesInformation = styled.div`
-margin: 20px 0 20px 20px;
+    margin: 20px 0 20px 20px;
 `;

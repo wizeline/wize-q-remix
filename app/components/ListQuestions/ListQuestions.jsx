@@ -30,15 +30,14 @@ function ListQuestions({
   // TODO: Implement search
   const state = {
     searchTerm: undefined,
-    showValuesMessage: true,
   };
 
-  const valuesMessageModal = showValuesMessage === 'true' ? (
+  const valuesMessageModal = showValuesMessage === 'true' && (
     <ValuesMessageModal
       show={showValuesMessage}
       onClose={() => { setShowValueMessage(false); setCookie('showValueMessage', false); }}
     />
-  ) : null;
+  );
 
   const decorateQuestion = (question) => ({
     ...question,

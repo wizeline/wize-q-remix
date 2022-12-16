@@ -16,7 +16,7 @@ function ValuesMessageModal({ show, onClose }) {
   if (!show) { return null; }
   return (
     <div onClick={onClose}>
-      <styled.Modal onClicl={onClose}>
+      <styled.Modal onClick={onClose}>
         <styled.ModalDialog show hide={onClose}>
           <styled.ModalHeader>
             <styled.ModalTitle>

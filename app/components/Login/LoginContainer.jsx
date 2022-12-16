@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form } from '@remix-run/react';
 import logo from 'app/images/logo-white.png';
 import Button from 'app/components/Atoms/Button';
 import Slogan from 'app/components/Slogan';
 import { PRIMARY_BUTTON } from 'app/utils/constants';
 import * as Styled from 'app/components/Login/LoginContainer.Styled';
+import { setCookie } from 'app/utils/cookies';
 
 function LoginContainer() {
   const redirectTo = '/';
+
+  useEffect(() => {
+    setCookie('showValueMessage', true);
+  }, []);
 
   return (
     <Styled.LoginDiv>

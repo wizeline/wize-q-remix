@@ -27,16 +27,6 @@ const getOrderBy = (order) => {
         question_id: 'desc',
       },
     ],
-    popular: [
-      {
-        is_pinned: 'desc',
-      },
-      {
-        Votes: {
-          _count: 'desc',
-        },
-      },
-    ],
     most_commented: [
       {
         is_pinned: 'desc',
@@ -172,6 +162,34 @@ const buildWhere = ({
   return where;
 };
 
+const sortQuestions = (sortType, questions) => {
+  let _sortQuestions;
+  switch (sortType) {
+    case 'popular':
+      _sortQuestions = questions.sort((a, b) => {
+        if (a.numVotes > b.numVotes) return -1;
+        if (a.numVotes < b.numVotes) return 1;
+        return 0;
+      });
+      break;
+    case 'unpopular':
+      _sortQuestions = questions.sort((a, b) => {
+        if (a.numVotes > b.numVotes) return 1;
+        if (a.numVotes < b.numVotes) return -1;
+        return 0;
+      });
+      break;
+    default:
+      _sortQuestions = [...questions];
+      break;
+  }
+  return _sortQuestions.sort((a, b) => {
+    if (a.is_pinned && !b.is_pinned) return -1;
+    if (!a.is_pinned && b.is_pinned) return 1;
+    return 0;
+  });
+};
+
 const listQuestions = async (params) => {
   const {
     limit, offset, orderBy, status, location, department, dateRange, search, user,
@@ -217,7 +235,7 @@ const listQuestions = async (params) => {
 
   const hasUserData = user && user.id;
 
-  return fetchedQuestions.map((question) => {
+  let questions = fetchedQuestions.map((question) => {
     const hasAnswer = question.Answers.length > 0;
 
     let can_edit;
@@ -271,6 +289,7 @@ const listQuestions = async (params) => {
       hasScored: (hasUserData
         && hasAnswer && question.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
       numComments: question._count.Comments,
+      numVotes: numLikes - numDisklike,
       can_edit,
       hasCommentApproved,
       hasCommunityAnswer,
@@ -281,6 +300,9 @@ const listQuestions = async (params) => {
       hasDislike,
     };
   });
+
+  questions = sortQuestions(orderBy, questions);
+  return questions;
 };
 
 export default listQuestions;

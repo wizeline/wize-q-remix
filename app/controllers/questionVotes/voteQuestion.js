@@ -6,7 +6,7 @@ import {
   INVALIDATE_VOTE_ERROR_MESSAGE,
 } from 'app/utils/constants';
 
-const voteQuestion = async (questionId, user) => {
+const voteQuestion = async (questionId, user, isUpVote) => {
   if (
     !questionId
     || typeof questionId !== 'number'
@@ -51,7 +51,7 @@ const voteQuestion = async (questionId, user) => {
         data: {
           question_id: targetQuestion.question_id,
           user: user.id,
-          is_upvote: null,
+          is_upvote: isUpVote,
         },
       });
 

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import likeIcon from 'app/images/ic_like.svg';
+import diskilike from 'app/images/ic_dislike.svg';
+import dislikeIconVoted from 'app/images/ic_dislike_pressed.svg';
 import likeIconVoted from 'app/images/ic_like_pressed.svg';
 import commentIcon from 'app/images/ic_comment_non-selected.svg';
 import {
@@ -42,17 +44,28 @@ function QuestionCard(props) {
   const navigate = useNavigate();
 
   const renderButtons = () => {
-    const icon = !question.hasVoted ? likeIcon : likeIconVoted;
+    const icon = !question.hasLike ? likeIcon : likeIconVoted;
+    const dislikeicon = !question.hasDislike ? diskilike : dislikeIconVoted;
 
     return (
       <Styled.CounterButtonsWrapper isAdmin={false} hasAnswer={hasAnswer}>
         <CounterButton
           id={`like-button-${question.question_id}`}
-          selected={question.hasVoted}
+          selected={question.hasLike}
           icon={icon}
-          count={question.num_votes}
-          onClick={() => onVoteClick(question)}
+          count={question.numLikes}
+          onClick={() => onVoteClick(true)}
           processingFormSubmission={processingFormSubmission}
+          isDisabled={question.hasDislike}
+        />
+        <CounterButton
+          id={`like-button-${question.question_id}`}
+          selected={question.hasDislike}
+          icon={dislikeicon}
+          count={question.numDisklike}
+          onClick={() => onVoteClick(false)}
+          processingFormSubmission={processingFormSubmission}
+          isDisabled={question.hasLike}
         />
         <CounterButton
           id={`comments-button-${question.question_id}`}
@@ -126,7 +139,6 @@ QuestionCard.propTypes = {
     question: PropTypes.string.isRequired,
     user_hash: PropTypes.string,
     can_edit: PropTypes.bool,
-    num_votes: PropTypes.number.isRequired,
     created_by_user: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,
@@ -147,6 +159,10 @@ QuestionCard.propTypes = {
     Comments: PropTypes.arrayOf(
       PropTypes.shape(),
     ),
+    numLikes: PropTypes.number.isRequired,
+    numDisklike: PropTypes.number.isRequired,
+    hasLike: PropTypes.bool.isRequired,
+    hasDislike: PropTypes.bool.isRequired,
   }).isRequired,
   onVoteClick: PropTypes.func.isRequired,
   currentUserEmail: PropTypes.string,

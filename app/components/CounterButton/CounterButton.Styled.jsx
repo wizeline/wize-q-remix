@@ -35,6 +35,9 @@ export const ContainerCounterButton = styled.button`
   :hover {
     background-color: #f4f7f9;
   }
+  :disabled {
+    cursor: not-allowed;
+  }
   img,
   span {
     align-items: flex-end;

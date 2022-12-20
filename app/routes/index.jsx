@@ -68,7 +68,8 @@ export const action = async ({ request }) => {
     case ACTIONS.VOTE_QUESTION:
       const voteQuestionId = parseInt(formData.get('questionId'), 10);
       const voteQuestionUser = JSON.parse(formData.get('user'));
-      response = await voteQuestion(voteQuestionId, voteQuestionUser);
+      const isUpVote = formData.get('isUpVote') === 'true';
+      response = await voteQuestion(voteQuestionId, voteQuestionUser, isUpVote);
       break;
     case ACTIONS.ENABLED_ACTION:
       questionId = parseInt(formData.get('questionId'), 10);

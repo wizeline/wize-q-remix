@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const StyledMenu = styled.div`
     display:flex;
     background-color: #f1f1f1;
@@ -32,20 +31,22 @@ export const StyledMenu = styled.div`
       }
 
      & button{
-        background-color: ${props => props.item === null ? '#f1f1f1' : 'var(--color-secondary)'};
+        background-color: ${(props) => (props.item === null ? '#f1f1f1' : 'var(--color-secondary)')};
         color: ${(props) => (props.item === null ? 'var(--color-dark-50)' : '#fff')};
       }
 
       & button:focus{
-        background-color: ${props => props.item === null ? '#f1f1f1' : 'var(--color-secondary)'};
+        background-color: ${(props) => (props.item === null ? '#f1f1f1' : 'var(--color-secondary)')};
         color: ${(props) => (props.item === null ? 'var(--color-dark-50)' : '#fff')};
       }
 
       & button:hover{
-        background-color: ${props => props.item === null ? '#f1f1f1' : 'var(--color-secondary)'};
+        background-color: ${(props) => (props.item === null ? '#f1f1f1' : 'var(--color-secondary)')};
         color: ${(props) => (props.item === null ? 'var(--color-dark-50)' : '#fff')};
       }
 
     
      
-`
+`;
+
+export default StyledMenu;

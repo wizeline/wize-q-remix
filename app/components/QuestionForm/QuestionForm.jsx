@@ -32,7 +32,7 @@ import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
 import { validTextLength } from 'app/utils/input';
 import QuestionInputText from 'app/components/QuestionInputText';
 import useUser from 'app/utils/hooks/useUser';
-import DropdownMenu from '../DropdownMenu';
+import DropdownMenu from 'app/components/DropdownMenu';
 
 function QuestionForm({
   postQuestion,
@@ -302,9 +302,9 @@ function QuestionForm({
               location={state.fullLocation}
             >
               <DropdownMenu name="Deparment" type="Build" handler={handleDepartmentSelectChange} selectedOption={null} options={departments} />
-              {state.assignedDepartment.department_id !== -1 ?
-                <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} /> :
-                null}
+              {state.assignedDepartment.department_id !== -1 &&
+                <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} /> 
+              }
               <DropdownMenu name="Location" type="Location" handler={onLocationChange} selectedOption={null} options={locations} />
             </Styled.Options>
           </Styled.InputTopWrapper>

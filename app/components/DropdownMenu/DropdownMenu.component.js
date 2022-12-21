@@ -4,7 +4,7 @@ import DropdownTitle from 'app/components/DropdownTitle';
 import { FaBuilding, FaUser } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import PropTypes from 'prop-types';
-import { StyledMenu } from './DropdownMenu.Styled';
+import { StyledMenu } from 'app/components/DropdownMenu/DropdownMenu.Styled';
 
 function DropdownMenu({
   name, handler, type, selectedOption, options,

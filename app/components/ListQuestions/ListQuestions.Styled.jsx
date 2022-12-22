@@ -36,6 +36,9 @@ export const RightWrapper = styled.div`
     display: contents;
     position: sticky;
   }
+  @media (min-width: 1440px) {
+    overflow: auto;
+  }
 `;
 
 export const SloganWrapper = styled.div`

@@ -20,7 +20,6 @@ export const loader = async ({ request }) => {
 
   const locations = await listLocations();
   const departments = await listDepartments();
-
   return json({
     locations,
     departments,
@@ -30,16 +29,17 @@ export const loader = async ({ request }) => {
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const form = Object.fromEntries(formData.entries());
-
   const user = await getAuthenticatedUser(request);
-
   const parsedDepartment = parseInt(form.assignedDepartment, 10);
+  const assignedEmployeeValue = parseInt(form.assigned_to_employee_id, 10);
+
 
   const payload = {
     question: form.question,
     created_by_employee_id: form.isAnonymous === 'true' ? null : user.employee_id,
     is_anonymous: form.isAnonymous === 'true',
     assigned_department: Number.isNaN(parsedDepartment) ? null : parsedDepartment,
+    assigned_to_employee_id: Number.isNaN(assignedEmployeeValue)? null: assignedEmployeeValue,
     location: form.location,
     accessToken: user.accessToken,
   };
@@ -78,6 +78,7 @@ function CreateQuestion() {
       data.set(key, value);
     }
 
+
     submit(
       data,
       { method: 'post', action: '/questions/new' },
@@ -98,6 +99,7 @@ function CreateQuestion() {
             postQuestion={postQuestion}
             locations={locations}
             departments={departments}
+
           />
         </Styled.QuestionInput>
         <Styled.QuestionRecommendations>

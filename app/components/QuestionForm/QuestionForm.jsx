@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-useless-catch */
 import React, { useState, useEffect } from 'react';
+import { useFetcher } from '@remix-run/react';
 import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
 import { RiArrowRightSFill } from 'react-icons/ri';
-
 import {
   DEFAULT_LOCATION,
   ANONYMOUS_USER,
@@ -24,8 +24,6 @@ import {
   NOT_ASSIGNED_DEPARTMENT_ID,
 } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';
-import QuestionAssigner from 'app/components/QuestionAssigner';
-import QuestionLocation from 'app/components/QuestionLocation';
 import Switch from 'app/components/Switch';
 import InputAuthor from 'app/components/InputAuthor';
 import InputCounter from 'app/components/InputCounter';
@@ -34,6 +32,7 @@ import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
 import { validTextLength } from 'app/utils/input';
 import QuestionInputText from 'app/components/QuestionInputText';
 import useUser from 'app/utils/hooks/useUser';
+import DropdownMenu from 'app/components/DropdownMenu';
 
 function QuestionForm({
   postQuestion,
@@ -44,7 +43,7 @@ function QuestionForm({
   initialIsAnonymous,
 }) {
   const { full_name, picture } = useUser();
-
+  const fetcher = useFetcher();
   const initialState = {
     inputValue: initialValue,
     isAnonymous: initialIsAnonymous,
@@ -59,7 +58,11 @@ function QuestionForm({
     fullLocation: '',
     isShowPreview: false,
     askBtbEnabled: false,
+    assignedEmployee: null,
+    employeesByDepartment: []
   };
+
+
 
   const [state, setState] = useState(initialState);
   const [editorState, setEditorState] = useState(
@@ -78,12 +81,36 @@ function QuestionForm({
   };
 
   useEffect(() => {
+    const fetchEmployees = async () => {
+      if (state.assignedDepartment.department_id !== -1) {
+        fetcher.load(`/employees/getByDeparment/${state.assignedDepartment.department_id}`)
+
+        setState({
+          ...state,
+          assignedEmployee: null
+        });
+
+      }
+    }
+    fetchEmployees();
+  }, [state.assignedDepartment])
+
+
+  useEffect(()=>{
+    setState({
+      ...state,
+      employeesByDepartment: fetcher.data
+    });
+  },[fetcher.data])
+
+  useEffect(() => {
     selectPostingAs(full_name);
   }, [full_name]);
 
   const clearTextArea = () => {
     setEditorState(() => EditorState.push(editorState, ContentState.createFromText(''), 'remove-range'));
   };
+
 
   const onSubmitWithModalSuccess = async () => {
     const {
@@ -96,6 +123,7 @@ function QuestionForm({
       question: deleteNoMarkupFormatHTML(inputValue.trim()),
       location: location === NONE_LOCATION ? DEFAULT_LOCATION : location,
       assignedDepartment: assignedDepartment.department_id || 'wizeq',
+      assigned_to_employee_id: state.assignedEmployee? state.assignedEmployee.employee_id:null
     };
 
     try {
@@ -154,9 +182,9 @@ function QuestionForm({
   const onLocationChange = (selectedLocation) => {
     setState({
       ...state,
-      location: selectedLocation,
+      location: selectedLocation.code,
       fullLocation: locations.find(
-        (loc) => loc.code === selectedLocation,
+        (loc) => loc.code === selectedLocation.code,
       ).name,
     });
   };
@@ -194,6 +222,13 @@ function QuestionForm({
     });
   };
 
+  const selectEmployeeHandler = (selectedEmployee) => {
+    setState({
+      ...state,
+      assignedEmployee: selectedEmployee
+    })
+  }
+
   const isAllowedToSubmitQuestion = () => {
     const {
       assignedDepartment,
@@ -226,12 +261,12 @@ function QuestionForm({
   };
 
   const renderTooltip = (tooltipMessage) => tooltipMessage && (
-  <Styled.SubmitTooltipText>
-    <span>{tooltipMessage}</span>
-    {' '}
-    <br />
-    {DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP}
-  </Styled.SubmitTooltipText>
+    <Styled.SubmitTooltipText>
+      <span>{tooltipMessage}</span>
+      {' '}
+      <br />
+      {DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP}
+    </Styled.SubmitTooltipText>
   );
 
   const getQuestionLength = (question) => deleteNoMarkupFormatHTML(question.trim()).length;
@@ -266,17 +301,11 @@ function QuestionForm({
               department={state.assignedDepartment.name}
               location={state.fullLocation}
             >
-              <QuestionAssigner
-                department={state.assignedDepartment}
-                onSelectDepartment={handleDepartmentSelectChange}
-                departments={departments}
-              />
-              <QuestionLocation
-                onSelectLocation={onLocationChange}
-                location={state.fullLocation}
-                locations={locations}
-                className={locationDropdownClass}
-              />
+              <DropdownMenu name="Deparment" type="Build" handler={handleDepartmentSelectChange} selectedOption={null} options={departments} />
+              {state.assignedDepartment.department_id !== -1 &&
+                <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} /> 
+              }
+              <DropdownMenu name="Location" type="Location" handler={onLocationChange} selectedOption={null} options={locations} />
             </Styled.Options>
           </Styled.InputTopWrapper>
           <QuestionInputText

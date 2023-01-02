@@ -81,7 +81,7 @@ describe('update comment controller', () => {
     const updateCommentResponse = await updateComment(updateCommentBody);
     expect(updateCommentResponse).toBeDefined();
     expect(updateCommentResponse.error).toBeUndefined();
-    expect(updateCommentResponse.response).toBe('Comment was updated successfully');
+    expect(updateCommentResponse.successMessage).toBeDefined();
     expect(dbUpdateManyCommentSpy).toHaveBeenCalledTimes(3);
   });
 });

@@ -74,8 +74,7 @@ const updateComment = async (body) => {
   }
   if (updateCommentResponse.count === 1) {
     return {
-      successMessage: 'Comment was updated successfully!',
-      response: 'Comment was updated successfully',
+      successMessage: 'The comment was updated successfully!',
     };
   }
 

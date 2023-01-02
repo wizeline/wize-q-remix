@@ -21,7 +21,7 @@ const assignQuestion = async (query) => {
     });
 
     return {
-      successMessage: 'Department has been assigned successfully',
+      successMessage: 'The question department has been reassigned successfully',
       assignedQuestion,
     };
   } catch (_error) {

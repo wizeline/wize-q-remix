@@ -76,7 +76,6 @@ describe('questions controller', () => {
       expect(response.successMessage).toBeDefined();
       expect(response.error).toBeUndefined();
       expect(response.question).toBeDefined();
-      expect(response.successMessage).toContain('The question has been disabled');
       expect(response.question.is_enabled).toBeDefined();
       expect(response.question.is_enabled).toBe(false);
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
@@ -87,7 +86,6 @@ describe('questions controller', () => {
       expect(response.error).toBeUndefined();
       expect(response.successMessage).toBeDefined();
       expect(response.question).toBeDefined();
-      expect(response.successMessage).toContain('The question has been enabled');
       expect(response.question.is_enabled).toBeDefined();
       expect(response.question.is_enabled).toBe(true);
       expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));

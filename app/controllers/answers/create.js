@@ -52,7 +52,7 @@ const createAnswer = async (body) => {
   });
 
   return {
-    successMessage: 'Answer has been created successfully.',
+    successMessage: 'The answer was submitted successfully.',
     answer,
   };
 };

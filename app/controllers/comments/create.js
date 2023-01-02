@@ -65,7 +65,7 @@ const createComment = async (data) => {
   }
 
   return {
-    successMessage: 'Comment has been created succesfully.',
+    successMessage: 'The comment was created succesfully.',
     comment: commentResponse,
   };
 };

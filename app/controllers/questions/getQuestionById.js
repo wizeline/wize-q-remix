@@ -114,7 +114,6 @@ const getQuestionById = async (questionId, user) => {
     };
 
     return {
-      successMessage: true,
       question: mappedQuestion,
     };
   } catch (error) {

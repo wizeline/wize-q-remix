@@ -22,13 +22,13 @@ const deleteNPS = async (params) => {
     });
 
     return {
-      successMessage: 'NetScore has been deleted succesfully.',
+      successMessage: 'Your answer score was cleared.',
     };
   } catch (errorCatch) {
     return {
       errors: [
         {
-          message: 'Something went wrong at delete the netscore',
+          message: 'Something went wrong when resetting the answer score',
           detail: errorCatch,
         },
       ],

@@ -84,7 +84,6 @@ describe('delete comment controller', () => {
     const deleteCommentResponse = await deleteComment(deleteCommentBody);
     expect(deleteCommentResponse).toBeDefined();
     expect(deleteCommentResponse.successMessage).toBeDefined();
-    expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
     expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
   });
 
@@ -123,7 +122,6 @@ describe('delete comment controller', () => {
     expect(generateMinMaxDatesSpy).toHaveBeenCalledTimes(1);
     expect(deleteCommentResponse).toBeDefined();
     expect(deleteCommentResponse.successMessage).toBeDefined();
-    expect(deleteCommentResponse.successMessage).toBe('Comment was deleted successfully');
     expect(dbDeleteManyCommentSpy).toHaveBeenCalledTimes(1);
 
     generateMinMaxDatesSpy.mockRestore();

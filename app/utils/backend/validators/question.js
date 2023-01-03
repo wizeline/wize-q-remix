@@ -13,6 +13,7 @@ export const createQuestionSchema = Joi.object().keys({
   location: Joi.string().required(),
   created_by_employee_id: Joi.number().integer().min(1).allow(null),
   assigned_department: Joi.number().integer().min(1).allow(null),
+  assigned_to_employee_id: Joi.number().integer().min(1).allow(null),
 });
 
 export const modifyQuestionPinStatusParams = Joi.object().keys({

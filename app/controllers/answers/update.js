@@ -29,7 +29,7 @@ const updateAnswer = async (query) => {
   });
 
   return {
-    successMessage: 'Answer has been updated succesfully.',
+    successMessage: 'The answer has been updated succesfully.',
     updatedAnswer,
   };
 };

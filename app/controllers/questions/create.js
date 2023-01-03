@@ -48,7 +48,7 @@ const createQuestion = async (body) => {
   });
 
   return {
-    successMessage: 'Question has been created succesfully!',
+    successMessage: 'The question has been created succesfully!',
     question: created,
   };
 };

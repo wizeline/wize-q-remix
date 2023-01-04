@@ -6,6 +6,7 @@ const listEmployees = async (id) => {
     where: {
       department_id: idValue,
     },
+    distinct: ['email'],
     include: {
       users: true,
     },

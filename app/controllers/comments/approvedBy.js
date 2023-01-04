@@ -64,8 +64,8 @@ const approvedByComment = async (params) => {
   }
 
   return {
-    successMessage: `Comment ${checked ? 'marked' : 'unmarked'} as an answer successfully`,
-    response: `Comment ${checked ? 'marked' : 'unmarked'} as an answer successfully`,
+    successMessage: `Comment ${checked ? 'marked' : 'unmarked'} as an approved answer successfully`,
+    response: `Comment ${checked ? 'marked' : 'unmarked'} as an approved answer successfully`,
   };
 };
 

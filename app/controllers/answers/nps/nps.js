@@ -19,7 +19,7 @@ const nps = async (query) => {
     });
 
     return {
-      successMessage: 'Score has been assigned successfully',
+      successMessage: 'Your score was submitted succesfully.',
       scored,
     };
   } catch (errorCatch) {

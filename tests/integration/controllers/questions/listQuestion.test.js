@@ -184,10 +184,10 @@ describe('listQuestions', () => {
       expect(response).toBeDefined();
     });
 
-    it('returns results sorted by newest', () => {
+    it('returns results sorted by popular', () => {
       const secondQuestion = response[response.length - 2];
       const lastQuestion = response[response.length - 1];
-      expect(secondQuestion.num_votes).toBeGreaterThanOrEqual(lastQuestion.num_votes);
+      expect(secondQuestion.numVotes).toBeGreaterThanOrEqual(lastQuestion.numVotes);
     });
 
     it('top results are pinned', () => {

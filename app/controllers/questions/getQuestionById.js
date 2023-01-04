@@ -72,6 +72,31 @@ const getQuestionById = async (questionId, user) => {
       };
 
     let can_edit;
+    // eslint-disable-next-line array-callback-return, consistent-return
+    const numLikes = unmappedQuestion.Votes.filter((vote) => {
+      if (vote.is_upvote || vote.is_upvote === null) {
+        return { ...vote };
+      }
+    }).length;
+
+    // eslint-disable-next-line array-callback-return, consistent-return
+    const numDisklike = unmappedQuestion.Votes.filter((vote) => {
+      if (!vote.is_upvote && vote.is_upvote !== null) {
+        return { ...vote };
+      }
+    }).length;
+
+    const hasLike = (hasUserData
+      && unmappedQuestion.Votes.some(
+        (vote) => (vote.is_upvote || vote.is_upvote === null) && vote.user === user.id,
+      )
+    ) ?? false;
+
+    const hasDislike = (hasUserData
+        && unmappedQuestion.Votes.some(
+          (vote) => (!vote.is_upvote && vote.is_upvote !== null) && vote.user === user.id,
+        )
+    ) ?? false;
     // eslint-disable-next-line max-len
     if (unmappedQuestion.created_by) can_edit = user && user.email && user.email === unmappedQuestion.created_by.email;
 
@@ -82,10 +107,13 @@ const getQuestionById = async (questionId, user) => {
       numComments: unmappedQuestion._count.Comments,
       Answer,
       can_edit,
+      numLikes,
+      numDisklike,
+      hasLike,
+      hasDislike,
     };
 
     return {
-      successMessage: true,
       question: mappedQuestion,
     };
   } catch (error) {

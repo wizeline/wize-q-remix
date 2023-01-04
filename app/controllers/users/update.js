@@ -29,7 +29,7 @@ const updateUser = async (query) => {
   });
 
   return {
-    successMessage: 'User has been updated succesfully.',
+    successMessage: 'The user has been updated succesfully.',
     updatedUser,
   };
 };

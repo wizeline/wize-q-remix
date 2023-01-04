@@ -90,7 +90,7 @@ model Employees {
 model EmployeesDepartments {
   id            Int     @id @default(autoincrement())
   email         String  @db.VarChar(255)
-  department_id Boolean
+  department_id Int
   employee_id   Int?
   users         users?  @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
 

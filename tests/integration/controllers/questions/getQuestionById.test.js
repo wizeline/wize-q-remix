@@ -35,8 +35,6 @@ describe('questions controller', () => {
     it('returns the question with all aggregated properties', async () => {
       const response = await getQuestionById(2, { id: 'google-oauth2|108653070533260305238' });
       expect(response).toBeDefined();
-      expect(response.successMessage).toBeDefined();
-      expect(response.successMessage).toBe(true);
       expect(response.question).toBeDefined();
 
       const { question } = response;

@@ -10,6 +10,8 @@ import markdownFormatQuestion from 'app/utils/markdownFormatQuestions';
 import InfiniteScrollList from 'app/components/Atoms/InfiniteScrollList';
 import Filters from 'app/components/Filters';
 import ACTIONS from 'app/utils/actions';
+import { setCookie, getCookie } from 'app/utils/cookies';
+import ValuesMessageModal from '../Modals/ValuesMessageModal/ValuesMessageModal';
 
 function ListQuestions({
   questions,
@@ -19,6 +21,7 @@ function ListQuestions({
   const transition = useTransition();
   const voteQuestionForm = useRef();
   const profile = useUser();
+  const [showValuesMessage, setShowValueMessage] = useState(getCookie('showValueMessage'));
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -28,6 +31,13 @@ function ListQuestions({
   const state = {
     searchTerm: undefined,
   };
+
+  const valuesMessageModal = showValuesMessage === 'true' && (
+    <ValuesMessageModal
+      show={showValuesMessage}
+      onClose={() => { setShowValueMessage(false); setCookie('showValueMessage', false); }}
+    />
+  );
 
   const decorateQuestion = (question) => ({
     ...question,
@@ -77,7 +87,7 @@ function ListQuestions({
   };
 
   const renderQuestionsList = () => {
-    const onLikeButtonClick = (questionId) => {
+    const onLikeButtonClick = (questionId, isUpVote) => {
       if (transition.state !== 'idle') {
         return;
       }
@@ -85,6 +95,7 @@ function ListQuestions({
       data.set('action', ACTIONS.VOTE_QUESTION);
       data.set('questionId', questionId);
       data.set('user', JSON.stringify(profile));
+      data.set('isUpVote', isUpVote);
       let actionUrl = '/?index';
       searchParams.forEach((value, key) => {
         actionUrl += value ? `&${key}=${value}` : '';
@@ -103,7 +114,7 @@ function ListQuestions({
         displayAnsweredBy={displayAnsweredBy}
         searchTerm={state.searchTerm}
         index={index}
-        onVoteClick={() => onLikeButtonClick(question.question_id)}
+        onVoteClick={(isUpVote) => onLikeButtonClick(question.question_id, isUpVote)}
         processingFormSubmission={transition.state !== 'idle'}
       />
     ));
@@ -161,6 +172,7 @@ function ListQuestions({
         </Styled.FiltersWrapper>
       </Styled.RightWrapper>
       <GoToTopButton />
+      {valuesMessageModal}
     </Styled.Container>
   );
 }

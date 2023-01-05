@@ -130,11 +130,23 @@ function QuestionRow(props) {
         <Styled.RightWrapper>
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
           {profile.is_admin && (
-          <Switch
+
+            <Styled.DisableControls>
+              <Styled.ButtonTooltipMessage>
+                Click to
+                {' '}
+                {question.is_enabled ? 'disable' : 'enable'}
+                {' '}
+                this
+                question
+              </Styled.ButtonTooltipMessage>
+              <Switch
             id={`question-${question.question_id}`}
             checked={question.is_enabled}
             onChange={handleStatusClick}
           />
+            </Styled.DisableControls>
+
           )}
         </Styled.RightWrapper>
 

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as S from './Switch.Styled';
 
-function Switch({ checked, onChange }) {
+function Switch({ id, checked, onChange }) {
   return (
-    <S.Switch htmlFor="react-switch-new">
-      <input type="checkbox" checked={checked} onChange={onChange} id="react-switch-new" />
+    <S.Switch htmlFor={id || 'react-switch-new'}>
+      <input type="checkbox" checked={checked} onChange={onChange} id={id || 'react-switch-new'} />
       <S.Slider />
     </S.Switch>
   );
@@ -14,6 +14,11 @@ function Switch({ checked, onChange }) {
 export default Switch;
 
 Switch.propTypes = {
+  id: PropTypes.string,
   checked: PropTypes.bool.isRequired,
   onChange: PropTypes.func.isRequired,
+};
+
+Switch.defaultProps = {
+  id: 'react-switch-new',
 };

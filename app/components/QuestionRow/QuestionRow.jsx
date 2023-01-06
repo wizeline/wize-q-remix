@@ -13,6 +13,7 @@ import useUser from 'app/utils/hooks/useUser';
 import { getDateData } from 'app/utils/timeOperations';
 import ACTIONS from 'app/utils/actions';
 import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+import Switch from 'app/components/Switch';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {
@@ -125,8 +126,11 @@ function QuestionRow(props) {
           isQuestionModalOpen={isQuestionModalOpen}
           hasAnswer={hasAnswer}
         />
+
         <Styled.RightWrapper>
-          {profile.is_admin ? (
+          {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
+          {profile.is_admin && (
+
             <Styled.DisableControls>
               <Styled.ButtonTooltipMessage>
                 Click to
@@ -136,15 +140,15 @@ function QuestionRow(props) {
                 this
                 question
               </Styled.ButtonTooltipMessage>
-              <Styled.ChipButton colorValue={question.is_enabled} onClick={handleStatusClick}>
-                {question.is_enabled ? 'Enabled' : 'Disabled'}
-              </Styled.ChipButton>
+              <Switch
+            id={`question-${question.question_id}`}
+            checked={question.is_enabled}
+            onChange={handleStatusClick}
+          />
             </Styled.DisableControls>
-          ) : null}
 
-          {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
+          )}
         </Styled.RightWrapper>
-        {' '}
 
       </Styled.QuestionRowMetadataTop>
       <Styled.QuestionRowWrapper hasAnswer={hasAnswer} isQuestionModalOpen={isQuestionModalOpen}>
@@ -166,10 +170,10 @@ function QuestionRow(props) {
             {
               isFromList
               && (
-              <>
-                <Label text={renderLocation(question.location, locations)} type="Location" />
-                <Label text={renderDepartment(question.Department)} type="Department" />
-              </>
+                <>
+                  <Label text={renderLocation(question.location, locations)} type="Location" />
+                  <Label text={renderDepartment(question.Department)} type="Department" />
+                </>
               )
             }
           </Styled.QuestionRowMetadataSectionOne>

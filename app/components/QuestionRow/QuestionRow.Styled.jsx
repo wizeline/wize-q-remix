@@ -173,6 +173,7 @@ export const QuestionRowDate = styled.div`
 export const RightWrapper = styled.div`
     display: flex;
     padding-top: 5px;
+    gap:10px;
 `;
 
 export const QuestionRowMetadataSectionOne = styled.div`
@@ -188,15 +189,7 @@ export const QuestionId = styled.span`
 
 export const DisableControls = styled.div`
     display:flex;
-`;
-
-export const ChipButton = styled.button`
-  height: 25px;
-  font-size: 12px;
-  border-radius: 25px;
-  font-weight: 10px;
-  color: #fff;
-  background-color: ${(props) => (props.colorValue ? '#84c9ef' : '#f49c9c')}
+    margin
 `;
 
 export const ButtonTooltipMessage = styled.span`

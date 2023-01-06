@@ -192,7 +192,7 @@ function QuestionDetailPage() {
     <Styled.Container>
       <Notifications />
       <Styled.BackToHomeQuestion>
-        <Button onClick={() => { navigate('/'); }}>
+        <Button onClick={() => { navigate(-1); }}>
           <strong>
             <MdArrowBackIosNew style={{ verticalAlign: 'middle' }} />
             {' '}

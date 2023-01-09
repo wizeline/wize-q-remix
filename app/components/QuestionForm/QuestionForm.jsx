@@ -118,7 +118,7 @@ function QuestionForm({
       question: deleteNoMarkupFormatHTML(inputValue.trim()),
       location: location === NONE_LOCATION ? DEFAULT_LOCATION : location,
       assignedDepartment: assignedDepartment.department_id || 'wizeq',
-      assigned_to_employee_id: state.assignedEmployee ?  state.assignedEmployee.id:null,
+      assigned_to_employee_id: state.assignedEmployee ? state.assignedEmployee.id : null,
     };
 
     try {
@@ -274,7 +274,7 @@ function QuestionForm({
   };
 
   const { tooltipMessage, askBtbEnabled } = isAllowedToSubmitQuestion();
-  const { askBtnClass, locationDropdownClass } = getClasses(
+  const { askBtnClass } = getClasses(
     askBtbEnabled,
     state.assignedDepartment.department_id,
   );

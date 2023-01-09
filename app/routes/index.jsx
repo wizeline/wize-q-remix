@@ -1,25 +1,21 @@
-/* eslint-disable no-shadow */
-/* eslint-disable no-restricted-globals */
 import { json } from '@remix-run/node';
 import {
-  useFetcher, useLoaderData, useSearchParams, useLocation, useNavigate,
+  useFetcher, useLoaderData, useSearchParams,
 } from '@remix-run/react';
 import React, { useEffect, useState } from 'react';
 import { getAuthenticatedUser, requireAuth } from 'app/session.server';
 import * as Styled from 'app/styles/Home.Styled';
-import logomarkX1 from 'app/images/logomark_medium.png';
 import ListQuestions from 'app/components/ListQuestions';
 import Notifications from 'app/components/Notifications';
 import listDepartments from 'app/controllers/departments/list';
 import listLocations from 'app/controllers/locations/list';
 import listQuestions from 'app/controllers/questions/list';
-import { PAGE_QUESTIONS_LIMIT, LSPIN_MEDIUM } from 'app/utils/constants';
+import { PAGE_QUESTIONS_LIMIT } from 'app/utils/constants';
 import dateRangeConversion from 'app/utils/dateRangeConversion';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
 import ACTIONS from 'app/utils/actions';
-import Loader from 'app/components/Loader';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
@@ -38,7 +34,7 @@ export const loader = async ({ request }) => {
     user,
     orderBy: order,
     status,
-    department: isNaN(department) ? undefined : department,
+    department: Number.isNaN(department) ? undefined : department,
     location,
     dateRange,
     offset: (page - 1) * PAGE_QUESTIONS_LIMIT,
@@ -56,10 +52,10 @@ export const loader = async ({ request }) => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const action = formData.get('action');
+  const formAction = formData.get('action');
   let response;
   let questionId;
-  switch (action) {
+  switch (formAction) {
     case ACTIONS.PINNIN:
       questionId = parseInt(formData.get('questionId'), 10);
       const value = formData.get('value') !== 'false';
@@ -90,29 +86,12 @@ export default function Index() {
   const fetcher = useFetcher();
   const [shouldFetch, setShouldFetch] = useState(true);
   const [page, setPage] = useState(2);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchParams] = useSearchParams();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const onFetchMore = () => {
     if (!shouldFetch) return;
     fetcher.load(`/?index&${searchParams.toString()}&page=${page}`);
   };
-
-  useEffect(() => {
-    if (location.hash.includes('questionId')) {
-      const hashQuestion = location.hash;
-      const questionId = hashQuestion.substring(hashQuestion.indexOf('questionId=') + 11, hashQuestion.length);
-      if (parseInt(questionId, 10)) {
-        navigate(`/questions/${questionId}`);
-      } else {
-        setIsLoading(false);
-      }
-    } else {
-      setIsLoading(false);
-    }
-  }, []);
 
   useEffect(() => {
     if (fetcher.data && fetcher.data.questions && fetcher.data.questions.length === 0) {
@@ -122,7 +101,7 @@ export default function Index() {
 
     if (fetcher.data && fetcher.data.questions && fetcher.data.questions.length > 0) {
       setQuestions((prevQuestions) => [...prevQuestions, ...fetcher.data.questions]);
-      setPage((page) => page + 1);
+      setPage((prevPage) => prevPage + 1);
       setShouldFetch(true);
     }
   }, [fetcher.data]);
@@ -137,15 +116,11 @@ export default function Index() {
     <>
       <Notifications />
       <Styled.Container>
-        { isLoading
-          ? <Loader src={logomarkX1} size={LSPIN_MEDIUM} />
-          : (
-            <ListQuestions
-              type="all"
-              questions={questions}
-              onFetchMore={onFetchMore}
-            />
-          )}
+        <ListQuestions
+          type="all"
+          questions={questions}
+          onFetchMore={onFetchMore}
+        />
       </Styled.Container>
     </>
   );

@@ -34,7 +34,6 @@ export const AssignModalDialog = styled.div`
     width: 100%;
     display: block;
     max-height: calc(100vh - 150px);
-    overflow-y: visible;
 
     @media (max-width: 768px) {
         max-height: 100%;
@@ -101,6 +100,11 @@ export const SelectContainer = styled.div`
     padding-left: 0;
     position: relative;
     max-width: 100%;
+
+    & ul {
+        max-height:300px;
+        overflow-y:scroll;
+    }
 `;
 
 export const CustDropDownButton = styled(DropdownButton)`

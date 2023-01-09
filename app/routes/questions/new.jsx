@@ -1,10 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BsCircleFill } from 'react-icons/bs';
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useSubmit } from '@remix-run/react';
 import * as Styled from 'app/styles/CreateQuestion.Styled';
 import Slogan from 'app/components/Slogan';
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/constants';
 import { RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
 import QuestionForm from 'app/components/QuestionForm';
 import listLocations from 'app/controllers/locations/list';
@@ -33,13 +33,12 @@ export const action = async ({ request }) => {
   const parsedDepartment = parseInt(form.assignedDepartment, 10);
   const assignedEmployeeValue = parseInt(form.assigned_to_employee_id, 10);
 
-
   const payload = {
     question: form.question,
     created_by_employee_id: form.isAnonymous === 'true' ? null : user.employee_id,
     is_anonymous: form.isAnonymous === 'true',
     assigned_department: Number.isNaN(parsedDepartment) ? null : parsedDepartment,
-    assigned_to_employee_id: Number.isNaN(assignedEmployeeValue)? null: assignedEmployeeValue,
+    assigned_to_employee_id: Number.isNaN(assignedEmployeeValue) ? null : assignedEmployeeValue,
     location: form.location,
     accessToken: user.accessToken,
   };
@@ -65,6 +64,10 @@ function CreateQuestion() {
   const submit = useSubmit();
   const formRef = useRef();
 
+  useEffect(() => {
+    departments.unshift({ name: 'I don\'t know whom to assign it.', department_id: NOT_ASSIGNED_DEPARTMENT_ID });
+  }, []);
+
   const renderBulletPoint = () => (
     <div>
       <BsCircleFill color="var(--color-secondary)" size="7px" style={{ marginTop: '3px', marginRight: '10px' }} />
@@ -77,7 +80,6 @@ function CreateQuestion() {
     for (const [key, value] of Object.entries(question)) {
       data.set(key, value);
     }
-
 
     submit(
       data,

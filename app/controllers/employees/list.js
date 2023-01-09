@@ -1,6 +1,9 @@
 import { db } from 'app/utils/db.server';
 
 const listEmployees = async (id) => {
+  if (typeof id !== 'number') {
+    return [];
+  }
   const idValue = parseInt(id, 10);
   const relations = await db.EmployeesDepartments.findMany({
     where: {

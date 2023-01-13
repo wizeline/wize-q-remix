@@ -59,10 +59,8 @@ function QuestionForm({
     isShowPreview: false,
     askBtbEnabled: false,
     assignedEmployee: null,
-    employeesByDepartment: []
+    employeesByDepartment: [],
   };
-
-
 
   const [state, setState] = useState(initialState);
   const [editorState, setEditorState] = useState(
@@ -83,25 +81,23 @@ function QuestionForm({
   useEffect(() => {
     const fetchEmployees = async () => {
       if (state.assignedDepartment.department_id !== -1) {
-        fetcher.load(`/employees/getByDeparment/${state.assignedDepartment.department_id}`)
+        fetcher.load(`/employees/getByDeparment/${state.assignedDepartment.department_id}`);
 
         setState({
           ...state,
-          assignedEmployee: null
+          assignedEmployee: null,
         });
-
       }
-    }
+    };
     fetchEmployees();
-  }, [state.assignedDepartment])
+  }, [state.assignedDepartment]);
 
-
-  useEffect(()=>{
+  useEffect(() => {
     setState({
       ...state,
-      employeesByDepartment: fetcher.data
+      employeesByDepartment: fetcher.data,
     });
-  },[fetcher.data])
+  }, [fetcher.data]);
 
   useEffect(() => {
     selectPostingAs(full_name);
@@ -110,7 +106,6 @@ function QuestionForm({
   const clearTextArea = () => {
     setEditorState(() => EditorState.push(editorState, ContentState.createFromText(''), 'remove-range'));
   };
-
 
   const onSubmitWithModalSuccess = async () => {
     const {
@@ -123,7 +118,7 @@ function QuestionForm({
       question: deleteNoMarkupFormatHTML(inputValue.trim()),
       location: location === NONE_LOCATION ? DEFAULT_LOCATION : location,
       assignedDepartment: assignedDepartment.department_id || 'wizeq',
-      assigned_to_employee_id: state.assignedEmployee? state.assignedEmployee.employee_id:null
+      assigned_to_employee_id: state.assignedEmployee ? state.assignedEmployee.id : null,
     };
 
     try {
@@ -225,9 +220,9 @@ function QuestionForm({
   const selectEmployeeHandler = (selectedEmployee) => {
     setState({
       ...state,
-      assignedEmployee: selectedEmployee
-    })
-  }
+      assignedEmployee: selectedEmployee,
+    });
+  };
 
   const isAllowedToSubmitQuestion = () => {
     const {
@@ -279,7 +274,7 @@ function QuestionForm({
   };
 
   const { tooltipMessage, askBtbEnabled } = isAllowedToSubmitQuestion();
-  const { askBtnClass, locationDropdownClass } = getClasses(
+  const { askBtnClass } = getClasses(
     askBtbEnabled,
     state.assignedDepartment.department_id,
   );
@@ -302,9 +297,8 @@ function QuestionForm({
               location={state.fullLocation}
             >
               <DropdownMenu name="Deparment" type="Build" handler={handleDepartmentSelectChange} selectedOption={null} options={departments} />
-              {state.assignedDepartment.department_id !== -1 &&
-                <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} /> 
-              }
+              {state.assignedDepartment.department_id !== -1
+                && <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} />}
               <DropdownMenu name="Location" type="Location" handler={onLocationChange} selectedOption={null} options={locations} />
             </Styled.Options>
           </Styled.InputTopWrapper>

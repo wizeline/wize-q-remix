@@ -27,11 +27,6 @@ function ListQuestions({
 
   const [title, setTitle] = useState('Newest Questions');
 
-  // TODO: Implement search
-  const state = {
-    searchTerm: undefined,
-  };
-
   const valuesMessageModal = showValuesMessage === 'true' && (
     <ValuesMessageModal
       show={showValuesMessage}
@@ -41,7 +36,7 @@ function ListQuestions({
 
   const decorateQuestion = (question) => ({
     ...question,
-    question: markdownFormatQuestion(question.question, state.searchTerm),
+    question: markdownFormatQuestion(question.question, undefined),
     hasVoted: !!question.hasVoted,
   });
 
@@ -112,7 +107,7 @@ function ListQuestions({
         isAdmin={profile.is_admin}
         displayUsername={displayUsername}
         displayAnsweredBy={displayAnsweredBy}
-        searchTerm={state.searchTerm}
+        searchTerm={undefined}
         index={index}
         onVoteClick={(isUpVote) => onLikeButtonClick(question.question_id, isUpVote)}
         processingFormSubmission={transition.state !== 'idle'}
@@ -121,9 +116,6 @@ function ListQuestions({
   };
 
   const renderNoResultMessage = () => {
-    if (state.searchTerm) {
-      return 'Oops! There are no results for your search';
-    }
     if (!questions) {
       return 'Loading questions...';
     }

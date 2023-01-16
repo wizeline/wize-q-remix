@@ -1,9 +1,9 @@
-import { DEFAULT_ERROR_MESSAGE } from '~/utils/backend/constants';
-import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from '~/utils/constants';
-import { db } from '~/utils/db.server';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
+import { db } from 'app/utils/db.server';
 
-export const getAnswerById = async (answerId, user) => {
-  if (!answerId || typeof answerId !== 'number' || parseInt(answerId) < 1) {
+const getAnswerById = async (answerId, user) => {
+  if (!answerId || typeof answerId !== 'number' || parseInt(answerId, 10) < 1) {
     return {
       error: {
         message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
@@ -27,7 +27,6 @@ export const getAnswerById = async (answerId, user) => {
     });
 
     return {
-      successMessage: 'Answer successfully read!',
       answer,
     };
   } catch (error) {
@@ -39,3 +38,5 @@ export const getAnswerById = async (answerId, user) => {
     };
   }
 };
+
+export default getAnswerById;

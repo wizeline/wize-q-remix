@@ -1,10 +1,9 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
 display: flex;
 justify-content: center;
 `;
-
 
 export const QuestionDetail = styled.div`
 border-radius: 15px;
@@ -15,16 +14,12 @@ margin-bottom: 30px
 
 export const CounterButtonsWrapper = styled.div`
     display: inline-flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     width: 100%;
 
     @media (max-width: 768px) {
         padding-left: 10px;
     }
-
-    ${props => props.isAdmin && !props.hasAnswer && css`
-        justify-content: flex-start;
-  `}
 `;
 
 export const NumComments = styled.div`

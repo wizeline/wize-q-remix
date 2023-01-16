@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
 import { AiOutlineSearch } from 'react-icons/ai';

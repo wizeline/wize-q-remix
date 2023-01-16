@@ -1,9 +1,10 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 const handleColorType = (props) => {
   if (props.selected) {
     return 'var(--color-secondary-active)';
-  } else if (props.notButton) {
+  } if (props.notButton) {
     return 'var(--color-secondary)';
   }
   return '#31425a';
@@ -21,8 +22,8 @@ export const ContainerCounterButton = styled.button`
   background-color: transparent;
   border: none;
   border-radius: 3px;
-  color: ${props => handleColorType(props)};
-  cursor: ${props => setCursorType(props)};
+  color: ${(props) => handleColorType(props)};
+  cursor: ${(props) => setCursorType(props)};
   display: inline-flex;
   flex-direction: row;
   font-family: "Nunito", sans-serif;
@@ -33,6 +34,9 @@ export const ContainerCounterButton = styled.button`
   transition: all 0.3s ease-in-out;
   :hover {
     background-color: #f4f7f9;
+  }
+  :disabled {
+    cursor: not-allowed;
   }
   img,
   span {

@@ -1,37 +1,42 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSubmit, useSearchParams, useTransition } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import * as Styled from './ListQuestions.Styled';
-import Slogan from '~/components/Slogan';
-import QuestionCard from '~/components/QuestionCard';
-import { useUser } from '~/utils/hooks/useUser';
-import GoToTopButton from '~/components/GoToTopButton';
-import markdownFormatQuestion from '~/utils/markdownFormatQuestions';
-import InfiniteScrollList from '~/components/Atoms/InfiniteScrollList';
-import Filters from '~/components/Filters';
-import { ACTIONS } from '~/utils/actions';
+import * as Styled from 'app/components/ListQuestions/ListQuestions.Styled';
+import Slogan from 'app/components/Slogan';
+import QuestionCard from 'app/components/QuestionCard';
+import useUser from 'app/utils/hooks/useUser';
+import GoToTopButton from 'app/components/GoToTopButton';
+import markdownFormatQuestion from 'app/utils/markdownFormatQuestions';
+import InfiniteScrollList from 'app/components/Atoms/InfiniteScrollList';
+import Filters from 'app/components/Filters';
+import ACTIONS from 'app/utils/actions';
+import { setCookie, getCookie } from 'app/utils/cookies';
+import ValuesMessageModal from '../Modals/ValuesMessageModal/ValuesMessageModal';
 
-const ListQuestions = ({
+function ListQuestions({
   questions,
   onFetchMore,
-}) => {
+}) {
   const submit = useSubmit();
   const transition = useTransition();
   const voteQuestionForm = useRef();
   const profile = useUser();
+  const [showValuesMessage, setShowValueMessage] = useState(getCookie('showValueMessage'));
 
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [title, setTitle] = useState('Newest Questions');
 
-  //TODO: Implement search
-  const state = {
-    searchTerm: undefined,
-  };
+  const valuesMessageModal = showValuesMessage === 'true' && (
+    <ValuesMessageModal
+      show={showValuesMessage}
+      onClose={() => { setShowValueMessage(false); setCookie('showValueMessage', false); }}
+    />
+  );
 
-  const decorateQuestion = question => ({
+  const decorateQuestion = (question) => ({
     ...question,
-    question: markdownFormatQuestion(question.question, state.searchTerm),
+    question: markdownFormatQuestion(question.question, undefined),
     hasVoted: !!question.hasVoted,
   });
 
@@ -62,7 +67,6 @@ const ListQuestions = ({
       searchParams.set(field, value);
     }
     setSearchParams(searchParams);
-
   };
 
   const displayUsername = (user) => {
@@ -77,22 +81,21 @@ const ListQuestions = ({
     return answeredBy;
   };
 
-
-
   const renderQuestionsList = () => {
-    const onLikeButtonClick = (questionId) => {
+    const onLikeButtonClick = (questionId, isUpVote) => {
       if (transition.state !== 'idle') {
         return;
       }
       const data = new FormData(voteQuestionForm.current);
-      data.set("action", ACTIONS.VOTE_QUESTION);
-      data.set("questionId", questionId);
-      data.set("user", JSON.stringify(profile));
+      data.set('action', ACTIONS.VOTE_QUESTION);
+      data.set('questionId', questionId);
+      data.set('user', JSON.stringify(profile));
+      data.set('isUpVote', isUpVote);
       let actionUrl = '/?index';
       searchParams.forEach((value, key) => {
         actionUrl += value ? `&${key}=${value}` : '';
       });
-      submit(data, { method: 'post', action: actionUrl, replace: false });
+      submit(data, { method: 'post', action: actionUrl, replace: true });
     };
 
     if (questions.length === 0) { return null; }
@@ -104,18 +107,15 @@ const ListQuestions = ({
         isAdmin={profile.is_admin}
         displayUsername={displayUsername}
         displayAnsweredBy={displayAnsweredBy}
-        searchTerm={state.searchTerm}
+        searchTerm={undefined}
         index={index}
-        onVoteClick={() => onLikeButtonClick(question.question_id)}
+        onVoteClick={(isUpVote) => onLikeButtonClick(question.question_id, isUpVote)}
         processingFormSubmission={transition.state !== 'idle'}
       />
     ));
   };
 
   const renderNoResultMessage = () => {
-    if (state.searchTerm) {
-      return 'Oops! There are no results for your search';
-    }
     if (!questions) {
       return 'Loading questions...';
     }
@@ -126,8 +126,8 @@ const ListQuestions = ({
     <Styled.AskButton to="/questions/new" id="ask-button">
       Ask Question
     </Styled.AskButton>
-     );
-    
+  );
+
   return (
     <Styled.Container>
       {/* TODO: Add left hashtag's panel */}
@@ -146,13 +146,13 @@ const ListQuestions = ({
           </Styled.AskQuestionButtonWrapper>
           {questions.length === 0 ? (
             <Styled.Alert>{renderNoResultMessage()}</Styled.Alert>
-            ) : (
-              <InfiniteScrollList onFetch={onFetchMore}>
-                <Styled.QuestionList id="questions-list">
-                  {renderQuestionsList(questions)}
-                </Styled.QuestionList>
-              </InfiniteScrollList>
-            )}
+          ) : (
+            <InfiniteScrollList onFetch={onFetchMore}>
+              <Styled.QuestionList id="questions-list">
+                {renderQuestionsList(questions)}
+              </Styled.QuestionList>
+            </InfiniteScrollList>
+          )}
         </Styled.QuestionsWrapper>
       </Styled.CenterWrapper>
       <Styled.RightWrapper>
@@ -164,9 +164,10 @@ const ListQuestions = ({
         </Styled.FiltersWrapper>
       </Styled.RightWrapper>
       <GoToTopButton />
+      {valuesMessageModal}
     </Styled.Container>
   );
-};
+}
 
 ListQuestions.propTypes = {
   questions: PropTypes.arrayOf(
@@ -178,6 +179,5 @@ ListQuestions.propTypes = {
 ListQuestions.defaultProps = {
   questions: [],
 };
-
 
 export default ListQuestions;

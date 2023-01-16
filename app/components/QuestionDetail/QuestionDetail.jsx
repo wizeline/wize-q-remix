@@ -1,31 +1,36 @@
-import { useState, useRef } from "react";
-import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
-import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
-import likeIcon from "~/images/ic_like.svg";
-import likeIconVoted from "~/images/ic_like_pressed.svg";
+/* eslint-disable camelcase */
+import React, { useState, useRef } from 'react';
+import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
+import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import likeIcon from 'app/images/ic_like.svg';
+import likeIconVoted from 'app/images/ic_like_pressed.svg';
+import diskilike from 'app/images/ic_dislike.svg';
+import dislikeIconVoted from 'app/images/ic_dislike_pressed.svg';
 import {
   shouldRenderAdminButtons,
   renderAdminButtons,
   renderAnswer,
-} from "~/utils/questionUtils";
-import { addS } from "~/utils/stringOperations";
-import { PRIMARY_BUTTON, LSPIN_SMALL } from "~/utils/constants";
-import Button from "~/components/Atoms/Button";
-import CounterButton from "~/components/CounterButton";
-import QuestionCommentList  from '~/components/QuestionCommentList';
-import AssignAnswerModal from "~/components/Modals/AssignAnswerModal/AssignAnswerModal";
-import CommentInput from '~/components/CommentInput/CommentInput';
-import QuestionRow from "~/components/QuestionRow";
-import AnswerModal from "~/components/Modals/AnswerModal/AnswerModal";
-import DeleteAnswerModal from "~/components/Modals/DeleteAnswerModal/DeleteAnswerModal";
-import NetPromoterScoreRow from "~/components/NetPromoterScoreRow/NetPromoterScoreRow";
-import { QuestionCardActions, QuestionCardContainer, QuestionCardWrapper, QuestionCardBorder } from "~/components/QuestionCard/QuestionCard.Styled";
-import * as Styled from "~/components/QuestionDetail/QuestionDetail.Styled";
-import Loader from "~/components/Loader";
-import logomark from "~/images/logomark_small.png";
-import { useUser } from "~/utils/hooks/useUser";
-import { ACTIONS } from "~/utils/actions";
+} from 'app/utils/questionUtils';
+import { addS } from 'app/utils/stringOperations';
+import { PRIMARY_BUTTON, LSPIN_SMALL } from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import CounterButton from 'app/components/CounterButton';
+import QuestionCommentList from 'app/components/QuestionCommentList';
+import AssignAnswerModal from 'app/components/Modals/AssignAnswerModal/AssignAnswerModal';
+import CommentInput from 'app/components/CommentInput/CommentInput';
+import QuestionRow from 'app/components/QuestionRow';
+import AnswerModal from 'app/components/Modals/AnswerModal/AnswerModal';
+import DeleteAnswerModal from 'app/components/Modals/DeleteAnswerModal/DeleteAnswerModal';
+import NetPromoterScoreRow from 'app/components/NetPromoterScoreRow/NetPromoterScoreRow';
+import {
+  QuestionCardActions, QuestionCardContainer, QuestionCardWrapper, QuestionCardBorder,
+} from 'app/components/QuestionCard/QuestionCard.Styled';
+import * as Styled from 'app/components/QuestionDetail/QuestionDetail.Styled';
+import Loader from 'app/components/Loader';
+import logomark from 'app/images/logomark_small.png';
+import useUser from 'app/utils/hooks/useUser';
+import ACTIONS from 'app/utils/actions';
 
 function QuestionDetails(props) {
   const submit = useSubmit();
@@ -54,35 +59,48 @@ function QuestionDetails(props) {
   };
 
   const renderQuestionButtons = () => {
-    const onLikeButtonClick = () => {
-      if (transition.state !== "idle") {
+    const onLikeButtonClick = (isUpVote) => {
+      if (transition.state !== 'idle') {
         return;
       }
       const data = new FormData(voteQuestionForm.current);
-      data.set("action", ACTIONS.VOTE_QUESTION);
-      data.set("questionId", question.question_id);
-      data.set("user", JSON.stringify(profile));
+      data.set('action', ACTIONS.VOTE_QUESTION);
+      data.set('questionId', question.question_id);
+      data.set('user', JSON.stringify(profile));
+      data.set('isUpVote', isUpVote);
       let url = `/questions/${question.question_id}`;
       const urlSearchParam = searchParams.get('order');
       url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
       submit(data, {
-        method: "post",
+        method: 'post',
         action: url,
+        replace: true,
       });
     };
 
-    const icon = !question.hasVoted ? likeIcon : likeIconVoted;
+    const icon = !question.hasLike ? likeIcon : likeIconVoted;
+    const dislikeicon = !question.hasDislike ? diskilike : dislikeIconVoted;
+
     return (
       <Styled.CounterButtonsWrapper
         isAdmin={isAdmin}
         hasAnswer={question.Answer}
       >
         <CounterButton
-          selected={question.hasVoted}
+          selected={question.hasLike}
           icon={icon}
-          count={question.num_votes}
-          processingFormSubmission={transition.state !== "idle"}
-          onClick={onLikeButtonClick}
+          count={question.numLikes}
+          processingFormSubmission={transition.state !== 'idle'}
+          onClick={() => { onLikeButtonClick(true); }}
+          isDisabled={question.hasDislike}
+        />
+        <CounterButton
+          selected={question.hasDislike}
+          icon={dislikeicon}
+          count={question.numDisklike}
+          processingFormSubmission={transition.state !== 'idle'}
+          onClick={() => { onLikeButtonClick(false); }}
+          isDisabled={question.hasLike}
         />
       </Styled.CounterButtonsWrapper>
     );
@@ -90,7 +108,9 @@ function QuestionDetails(props) {
 
   const renderNumCommentsRow = () => (
     <Styled.NumComments>
-      {question.numComments} {addS('Comment', question.numComments)}
+      {question.numComments}
+      {' '}
+      {addS('Comment', question.numComments)}
     </Styled.NumComments>
   );
 
@@ -127,7 +147,11 @@ function QuestionDetails(props) {
   };
 
   const answerModal = state.showAnswerModal ? (
-    <AnswerModal question={question} onClose={handleAnswerModalClose} openAssignAnswerModal={openAssignAnswerModal}/>
+    <AnswerModal
+      question={question}
+      onClose={handleAnswerModalClose}
+      openAssignAnswerModal={openAssignAnswerModal}
+    />
   ) : null;
 
   const deleteAnswerModal = state.showDeleteAnswerModal ? (
@@ -145,8 +169,8 @@ function QuestionDetails(props) {
     let url = `/questions/${question.question_id}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-    submit(data, {method:'post', action: url });
-  }
+    submit(data, { method: 'post', action: url, replace: true });
+  };
 
   const deleteScore = (answer_id) => {
     const data = new FormData();
@@ -155,12 +179,13 @@ function QuestionDetails(props) {
     let url = `/questions/${question.question_id}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
-    submit(data, {method:'post', action: url });
-  }
+    submit(data, { method: 'post', action: url, replace: true });
+  };
 
-  const renderNPS = answer => answer && 
-  answer.AnsweredBy.email !== currentUserEmail && 
-  (<div>
+  const renderNPS = (answer) => answer
+  && answer.AnsweredBy.email !== currentUserEmail
+  && (
+  <div>
     <NetPromoterScoreRow
       answer_id={answer.answer_id}
       hasScored={!!answer.hasScored}
@@ -168,7 +193,8 @@ function QuestionDetails(props) {
       scoreAnswer={scoreAnswer}
       deleteScore={deleteScore}
     />
-  </div>)
+  </div>
+  );
 
   const isEmpty = (obj) => Object.keys(obj).length === 0;
 
@@ -188,13 +214,13 @@ function QuestionDetails(props) {
       onClose={handleAssignAnswerModalClose}
       onSubmitSuccess={handleAssignAnswerModalSubmitSuccess}
     />
-      ) : null;
+  ) : null;
 
   return (
     <Styled.Container>
-      {!isEmpty(question) &&
-      question.question_id === parseInt(questionId, 10) &&
-      isAdmin !== undefined ? (
+      {!isEmpty(question)
+      && question.question_id === parseInt(questionId, 10)
+      && isAdmin !== undefined ? (
         <Styled.QuestionDetail>
           <Styled.QuestionDetailHeader>
             <QuestionCardContainer>
@@ -207,13 +233,13 @@ function QuestionDetails(props) {
                     isQuestionModalOpen
                   >
                     {renderQuestionButtons()}
-                    {shouldRenderAdminButtons(question, isAdmin) &&
-                      renderAdminButtons({
+                    {shouldRenderAdminButtons(question, isAdmin)
+                      && renderAdminButtons({
                         question,
                         onAnswerClick: () => {
                           setState({ ...state, showAnswerModal: true });
                         },
-                        onAssignAnswerClick: () => { openAssignAnswerModal(question) },
+                        onAssignAnswerClick: () => { openAssignAnswerModal(question); },
                       })}
                   </QuestionCardActions>
                 </QuestionCardBorder>
@@ -245,19 +271,19 @@ function QuestionDetails(props) {
             </QuestionCommentList>
           </Styled.QuestionDetailBody>
           <Styled.QuestionDetailFooter
-            className={writingCommentOnMobile ? "writing-mobile" : ""}
+            className={writingCommentOnMobile ? 'writing-mobile' : ''}
           >
             <Button
               type="button"
               category={PRIMARY_BUTTON}
               className={
-                writingCommentOnMobile ? "writing-mobile" : "add-comment-button"
+                writingCommentOnMobile ? 'writing-mobile' : 'add-comment-button'
               }
               onClick={addComment}
             >
-                Add Comment
-              </Button>
-              <CommentInput
+              Add Comment
+            </Button>
+            <CommentInput
               isWritingCommentMobile={writingCommentOnMobile}
               setWritingCommentOnMobile={setWritingCommentOnMobile}
               questionId={parseInt(questionId, 10)}
@@ -265,9 +291,9 @@ function QuestionDetails(props) {
 
           </Styled.QuestionDetailFooter>
         </Styled.QuestionDetail>
-      ) : (
-        <Loader src={logomark} size={LSPIN_SMALL} />
-      )}
+        ) : (
+          <Loader src={logomark} size={LSPIN_SMALL} />
+        )}
       {answerModal}
       {deleteAnswerModal}
       {assignAnswerModal}
@@ -291,7 +317,6 @@ QuestionDetails.propTypes = {
     }),
     createdAt: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
-    Votes: PropTypes.number.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
     Answer: PropTypes.shape({
@@ -303,6 +328,10 @@ QuestionDetails.propTypes = {
       canUndoNps: PropTypes.bool,
     }),
     mostUpvoted: PropTypes.bool,
+    numLikes: PropTypes.number.isRequired,
+    numDisklike: PropTypes.number.isRequired,
+    hasLike: PropTypes.bool.isRequired,
+    hasDislike: PropTypes.bool.isRequired,
   }),
 };
 

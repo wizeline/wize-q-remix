@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 export const Button = styled.button`
@@ -10,7 +11,7 @@ export const Button = styled.button`
   display: flex;
   height: 40px;
   justify-content: center;
-  opacity: ${props => props.display === true ? 0.9 : 0};
+  opacity: ${(props) => (props.display === true ? 0.9 : 0)};
   padding-left: 11px;
   position: fixed;
   right: 0px;

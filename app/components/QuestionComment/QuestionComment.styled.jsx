@@ -1,27 +1,27 @@
 import styled, { css } from 'styled-components';
 import Markdown from 'react-markdown';
-import { ContainerCounterButton } from '~/components/CounterButton/CounterButton.Styled';
-import { CommentInputTextArea } from '~/components/CommentInput/CommentInput.styled';
-import { 
+import { ContainerCounterButton } from 'app/components/CounterButton/CounterButton.Styled';
+import { CommentInputTextArea } from 'app/components/CommentInput/CommentInput.styled';
+import {
   CircleIcon,
   QuestionerResponderContainer,
-  QuestionerResponderName 
-} from '~/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
+  QuestionerResponderName,
+} from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 
 export const QuestionCommentContainer = styled.div`
   border-radius: 20px;
   margin-bottom: 24px;
   width: 100%;
-  padding-bottom: ${props => (!props.isDeleting ? '16px' : '10px')};
+  padding-bottom: ${(props) => (!props.isDeleting ? '16px' : '10px')};
   display: flex;
   flex-direction: column-reverse;
   justify-content: space-between;
   background-color: #fff;
   box-shadow: 0 2px 4px 0 rgba(225, 229, 233, 0.8);
   padding: 15px 20px 10px;
-  ${props => props.isDeleting && css`border: 1px solid #cd3140;`}
-  ${props => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
-  ${props => props.isCommunityAnswer && css`border: 1px solid var(--color-gold-border);`}
+  ${(props) => props.isDeleting && css`border: 1px solid #cd3140;`}
+  ${(props) => props.hadApprover && css`border: 1px solid var(--color-green-border);`}
+  ${(props) => props.isCommunityAnswer && css`border: 1px solid var(--color-gold-border);`}
 
   ${ContainerCounterButton} {
     :hover {
@@ -34,7 +34,7 @@ export const QuestionCommentContainer = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    ${props => (props.isEditing && `
+    ${(props) => (props.isEditing && `
       position: relative;
     `)};
   }
@@ -77,7 +77,7 @@ export const QuestionCommentText = styled.div`
   padding-left: 43px;
 
   @media screen and (max-width: 768px) {
-    ${props => (props.isEditing && `
+    ${(props) => (props.isEditing && `
     max-height: 100%;
     overflow-y: auto;
     `)};
@@ -141,7 +141,7 @@ export const QuestionCommentEdit = styled.div`
 export const QuestionCommentShowMore = styled.span`
   color: var(--color-secondary);
   cursor: pointer;
-  display:${props => (props.isEditing && 'none')};
+  display:${(props) => (props.isEditing && 'none')};
 `;
 
 export const QuestionCommentButtons = styled.div`
@@ -159,14 +159,14 @@ export const QuestionCommentWrapper = styled.div`
 
   ${CommentInputTextArea} {
     @media screen and (max-width: 768px) {
-      ${props => (props.isEditing && `
+      ${(props) => (props.isEditing && `
         height: 200px;
       `)};
     }
   }
 
   @media screen and (max-width: 768px) {
-    ${props => (props.isEditing && `
+    ${(props) => (props.isEditing && `
       background-color: #fff;
       position: fixed;
       padding: 20px 15px;
@@ -184,11 +184,11 @@ export const QuestionCommentCounterSpan = styled.span`
   display: flex;
   justify-content: center;
 
-  ${props => (props.upVoteActive && `
+  ${(props) => (props.upVoteActive && `
     color: var(--color-green);
   `)};
 
-  ${props => (props.downVoteActive && `
+  ${(props) => (props.downVoteActive && `
     color: var(--color-primary);
   `)};
 `;
@@ -205,7 +205,6 @@ export const QuestionCommentDate = styled.div`
   font-size: 12px;
   letter-spacing: 0.7px;
 `;
-
 
 // tooltip
 export const CommentAsAnswerToolTipText = styled.span`
@@ -236,7 +235,7 @@ export const ArrowUp = styled.div`
   width: 1.8em;
   margin-right: 5px;
 
-  ${props => (props.upVoteActive && `
+  ${(props) => (props.upVoteActive && `
     background-color: var(--color-green-bg);
   `)};
 `;
@@ -247,7 +246,7 @@ export const ArrowDown = styled.div`
   width: 1.8em;
   margin-left: 5px;
 
-  ${props => (props.downVoteActive && `
+  ${(props) => (props.downVoteActive && `
     background-color: var(--color-primary-lowOpacity);
   `)};
 `;

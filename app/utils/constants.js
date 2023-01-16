@@ -18,10 +18,9 @@ export const MAXIMUM_NAME_LENGTH = 50;
 // reason length is a constant with a direct relationship to CONTACT_REASONS_LIST attribute value.
 export const MAXIMUM_REASON_LENGTH = 7;
 
-export const QUESTION_LENGHT_RESTRICTIONS =
-  `Question must be between ${MINIMUM_QUESTION_LENGTH} and ${MAXIMUM_QUESTION_LENGTH} characters`;
+export const QUESTION_LENGHT_RESTRICTIONS = `Question must be between ${MINIMUM_QUESTION_LENGTH} and ${MAXIMUM_QUESTION_LENGTH} characters`;
 // warnings
-export const answerDeleteWarning = questionId => `You're about to delete the answer to question Q${questionId}`;
+export const answerDeleteWarning = (questionId) => `You're about to delete the answer to question Q${questionId}`;
 export const ANSWER_DELETE_WARNING_SUBTITLE = 'Do you want to continue?';
 export const ANONYMOUS_SWITCH_WARNING = 'You are about to change the privacy to anonymous, after logging out, your question will not be editable anymore';
 export const IDENTITY_MESSAGE = 'You are about to post a question';
@@ -208,10 +207,10 @@ export const ANSWER_PLACE_HOLDER = 'Type your answer here...';
 export const MINIMUM_INPUT_LENGTH_TO_SHOW_MARKDOWN = 2;
 export const MINIMUM_WIDTH_TO_SHOW_MARKDOWN = 767;
 export const MINIMUN_WINDOW_WIDTH = 768;
-export const editAnswerMessage = questionId => `Edit answer to question Q${questionId}?`;
+export const editAnswerMessage = (questionId) => `Edit answer to question Q${questionId}?`;
 export const editAnswerInfo = (fullName, timeDiff) => `Question answered by ${fullName}, ${timeDiff}`;
 export const addAnswerInfo = (fullName, timeDiff) => `Question asked by ${fullName}, ${timeDiff}`;
-export const addAnswerMessage = questionId => `Do you have the answer to question Q${questionId}?`;
+export const addAnswerMessage = (questionId) => `Do you have the answer to question Q${questionId}?`;
 
 // Buttons
 export const CANCEL = 'Cancel';
@@ -228,7 +227,7 @@ export const HIGHLIGHT_START = 'HIGHLIGHT_START_INDICATOR';
 export const HIGHLIGHT_END = 'HIGHLIGHT_END_INDICATOR';
 
 // Input
-export const inputPlaceholder = minCharacters => `Type at least ${minCharacters} characters`;
+export const inputPlaceholder = (minCharacters) => `Type at least ${minCharacters} characters`;
 
 // textarea
 export const MIN_TEXTAREA_ROWS = 1;
@@ -276,7 +275,7 @@ export const FAKE_SOCKET = {
   on: () => { },
   emit: () => { },
   close: () => { },
-};   // used instead of an actual socket when reactivity is disabled
+}; // used instead of an actual socket when reactivity is disabled
 
 // Back to top
 export const BACK_TO_TOP = 'Back to top';
@@ -333,3 +332,4 @@ export const QUESTION_NOT_FOUND_ERROR_MESSAGE = 'The question with the id provid
 export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vote in the question';
 export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';
 export const DELETE_COMMENT_ERROR_MESSAGE = 'Error trying to delete the comment';
+export const ENABLE_DISABLE_ERROR_MESSAGE = 'Error trying to enable/disable this question';

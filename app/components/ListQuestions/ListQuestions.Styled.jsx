@@ -1,4 +1,5 @@
 import { Link } from '@remix-run/react';
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -34,6 +35,9 @@ export const RightWrapper = styled.div`
     width: 100%;
     display: contents;
     position: sticky;
+  }
+  @media (min-width: 1440px) {
+    overflow: auto;
   }
 `;
 

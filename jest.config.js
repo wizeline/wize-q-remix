@@ -6,6 +6,8 @@ module.exports = {
       "^.+\\.[t|j]sx?$": "babel-jest"
     },
     moduleNameMapper: {
-      "~(.*)$": "<rootDir>/app$1"
-    }
+      "app/(.*)":"<rootDir>/app/$1",
+      "tests/(.*)": "<rootDir>/tests/$1"
+    },
+    moduleDirectories: ['node_modules', 'app']
 }

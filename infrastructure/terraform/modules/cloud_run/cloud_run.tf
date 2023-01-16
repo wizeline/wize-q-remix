@@ -93,7 +93,7 @@ resource "google_cloud_run_service_iam_policy" "noauth" {
 
 resource "google_vpc_access_connector" "connector" {
   region         = var.region
-  name           = "${var.prefix}-connector"
+  name           = substr("${var.prefix}-connector", 0, 25)
   ip_cidr_range  = var.cidr_range
   network        = "default"
   max_throughput = 1000

@@ -1,16 +1,17 @@
+import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Markdown from 'react-markdown';
-import SearchedLinkRenderer from '~/components/SearchedLinkRenderer';
-import { HIGHLIGHT_END, HIGHLIGHT_START } from '~/utils/constants';
+import SearchedLinkRenderer from 'app/components/SearchedLinkRenderer';
+import { HIGHLIGHT_END, HIGHLIGHT_START } from './constants';
 
-const addTagsToText = srcText => srcText.replace(
+const addTagsToText = (srcText) => srcText.replace(
   /(#[a-z\d]+)/ig,
-  x => ` [${x}](/?tag=${x.slice(1)})`,
+  (x) => ` [${x}](/?tag=${x.slice(1)})`,
 );
 
-const removeQuestionLinksInsideCode = srcText => srcText.replace(
+const removeQuestionLinksInsideCode = (srcText) => srcText.replace(
   /`.*?`/g,
-  x => x.replace(
+  (x) => x.replace(
     /\[(Q\d+)\]\(\/\?questionId=\d+\)/g,
     '$1',
   ),
@@ -21,9 +22,9 @@ const removeQuestionLinksInsideCode = srcText => srcText.replace(
  *
  * All formats are supported but code `Q23`, in this case the link is not inserted
  */
-const addQuestionsToText = srcText => removeQuestionLinksInsideCode(srcText.replace(
+const addQuestionsToText = (srcText) => removeQuestionLinksInsideCode(srcText.replace(
   /\b(?!`)\b(Q[0-9]+)\b(?!`)/g,
-  x => `[${x}](/?questionId=${x.slice(1)})`,
+  (x) => `[${x}](/?questionId=${x.slice(1)})`,
 ));
 
 const highlightText = (srcText, searchTerm) => {
@@ -34,7 +35,7 @@ const highlightText = (srcText, searchTerm) => {
 
   let formattedText = srcText.replace(
     searchRegExp,
-    text => HIGHLIGHT_START + text + HIGHLIGHT_END,
+    (text) => HIGHLIGHT_START + text + HIGHLIGHT_END,
   );
 
   formattedText = renderToStaticMarkup((

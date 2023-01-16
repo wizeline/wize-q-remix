@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 export const LogoutModal = styled.div` 
@@ -45,7 +46,7 @@ export const ModalFooter = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? 'border-top: 1px solid #e5e5e5;padding: 15px;text-align: right;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout' ? 'border-top: 1px solid #e5e5e5;padding: 15px;text-align: right;' : 'border-bottom: none;')}
 `;
 
 export const ModalHeader = styled.div`
@@ -54,7 +55,7 @@ export const ModalHeader = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? 'border-bottom: 1px solid #e5e5e5;padding: 15px;' : 'border-bottom: none;')}
+    ${(props) => (props.variant === 'logout' ? 'border-bottom: 1px solid #e5e5e5;padding: 15px;' : 'border-bottom: none;')}
 `;
 
 export const ModalBody = styled.div`

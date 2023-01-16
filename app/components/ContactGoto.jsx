@@ -1,8 +1,11 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from '~/styles/Contact.Styled';
+import * as Styled from 'app/styles/Contact.Styled';
 
-const ContactGoto = (props) => {
-  const { icon, text, goto, dir } = props;
+function ContactGoto(props) {
+  const {
+    icon, text, goto, dir,
+  } = props;
   return (
     <Styled.ContactInputGoTo>
       <Styled.ContactInputGoToImg src={icon} />
@@ -10,7 +13,7 @@ const ContactGoto = (props) => {
       <Styled.ContactInputGoToA href={dir} target="_blank" rel="noopener noreferrer">{goto}</Styled.ContactInputGoToA>
     </Styled.ContactInputGoTo>
   );
-};
+}
 
 ContactGoto.propTypes = {
   icon: PropTypes.string.isRequired,

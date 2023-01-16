@@ -1,5 +1,5 @@
-import { getAnswerById } from '~/controllers/answers/getAnswerById';
-import { db } from '~/utils/db.server';
+import getAnswerById from 'app/controllers/answers/getAnswerById';
+import { db } from 'app/utils/db.server';
 
 describe('answers controller', () => {
   describe('getAnswerById', () => {
@@ -51,11 +51,9 @@ describe('answers controller', () => {
         id: 'google-oauth2|108653070533260305238',
       });
       expect(response).toBeDefined();
-      expect(response.successMessage).toBeDefined();
-      expect(response.successMessage).toBe('Answer successfully read!');
       expect(response.answer).toBeDefined();
 
-      const answer = response.answer;
+      const { answer } = response;
       expect(answer.answer_id).toBe(2);
       expect(answer.answer_text).toContain('variations');
       expect(answer.answered_by_employee_id).toBe(2);

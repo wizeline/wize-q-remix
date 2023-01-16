@@ -90,7 +90,7 @@ model Employees {
 model EmployeesDepartments {
   id            Int     @id @default(autoincrement())
   email         String  @db.VarChar(255)
-  department_id Boolean
+  department_id Int
   employee_id   Int?
   users         users?  @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
 
@@ -135,6 +135,7 @@ model Questions {
   numComments                  Int?           @default(0)
   num_votes                    Int?           @default(0)
   is_pinned                    Boolean        @default(false)
+  is_enabled                   Boolean        @default(true)
   Locations                    Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
   assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
   created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")

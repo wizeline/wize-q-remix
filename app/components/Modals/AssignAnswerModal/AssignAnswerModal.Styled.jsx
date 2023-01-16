@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { DropdownButton } from 'react-bootstrap';
 
@@ -33,7 +34,6 @@ export const AssignModalDialog = styled.div`
     width: 100%;
     display: block;
     max-height: calc(100vh - 150px);
-    overflow-y: visible;
 
     @media (max-width: 768px) {
         max-height: 100%;
@@ -48,11 +48,11 @@ export const ModalHeader = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? `
+    ${(props) => (props.variant === 'logout' ? `
         border-bottom: 1px solid #e5e5e5;
         padding: 15px;` : `
         border-bottom: none;`
-    )}
+  )}
 `;
 
 export const ModalBody = styled.div`
@@ -74,12 +74,12 @@ export const ModalFooter = styled.div`
     box-sizing: border-box;
     display: block;
     font-size: 14px;
-    ${props => (props.variant === 'logout' ? `
+    ${(props) => (props.variant === 'logout' ? `
         border-top: 1px solid #e5e5e5;
         padding: 15px;text-align: right;`
-        : `
+    : `
         border-bottom: none;`
-    )}
+  )}
 `;
 
 export const ModalTitle = styled.div`
@@ -100,6 +100,11 @@ export const SelectContainer = styled.div`
     padding-left: 0;
     position: relative;
     max-width: 100%;
+
+    & ul {
+        max-height:300px;
+        overflow-y:scroll;
+    }
 `;
 
 export const CustDropDownButton = styled(DropdownButton)`

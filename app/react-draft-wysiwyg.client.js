@@ -1,1 +1,1 @@
-export * from 'react-draft-wysiwyg'
+export * from 'react-draft-wysiwyg';

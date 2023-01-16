@@ -1,10 +1,11 @@
-import { useState, useRef } from 'react';
-import { useSubmit, useTransition, useSearchParams } from "@remix-run/react";
+/* eslint-disable camelcase */
+import React, { useState, useRef } from 'react';
+import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
 import PropTypes from 'prop-types';
-import AnswerInputText from '~/components/AnswerInputText/AnswerInputText';
-import Button from "~/components/Atoms/Button";
-import { useUser } from "~/utils/hooks/useUser";
-import { ACTIONS } from "~/utils/actions";
+import AnswerInputText from 'app/components/AnswerInputText/AnswerInputText';
+import Button from 'app/components/Atoms/Button';
+import useUser from 'app/utils/hooks/useUser';
+import ACTIONS from 'app/utils/actions';
 import {
   CANCEL,
   SUBMIT,
@@ -20,13 +21,12 @@ import {
   DISABLED_BUTTON,
   SECONDARY_BUTTON,
   CLOSE_BUTTON,
-} from '~/utils/constants';
-import { deleteNoMarkupFormatHTML } from '~/utils/stringOperations';
-import { getTimeDiff } from '~/utils/timeOperations';
-import QuestionMarkdown from '~/components/QuestionMarkdown/QuestionMarkdown';
-import * as Styled from "~/components/Modals/AnswerModal/AnswerModal.Styled";
-import { validTextLength } from '~/utils/input';
-
+} from 'app/utils/constants';
+import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
+import { getTimeDiff } from 'app/utils/timeOperations';
+import QuestionMarkdown from 'app/components/QuestionMarkdown/QuestionMarkdown';
+import * as Styled from 'app/components/Modals/AnswerModal/AnswerModal.Styled';
+import { validTextLength } from 'app/utils/input';
 
 function AnswerModal(props) {
   AnswerModal.propTypes = {
@@ -67,8 +67,8 @@ function AnswerModal(props) {
     return ANONYMOUS_USER.username;
   };
 
-  const onSubmitAnswer = (e) => {
-    if (transition.state !== "idle") {
+  const onSubmitAnswer = () => {
+    if (transition.state !== 'idle') {
       return;
     }
     const {
@@ -82,19 +82,21 @@ function AnswerModal(props) {
       return;
     }
 
-    const action = question.Answer ? ACTIONS.UPDATE_QUESTION_ANSWER : ACTIONS.CREATE_QUESTION_ANSWER;
+    const action = question.Answer
+      ? ACTIONS.UPDATE_QUESTION_ANSWER
+      : ACTIONS.CREATE_QUESTION_ANSWER;
 
     const data = new FormData(submitAnswerForm.current);
-    data.set("action", action);
+    data.set('action', action);
 
     if (question.Answer) {
-      data.set("answerId", question.Answer.answer_id);
+      data.set('answerId', question.Answer.answer_id);
     } else {
-      data.set("employee_id", profile.employee_id);
-      data.set("questionId", question.question_id);
+      data.set('employee_id', profile.employee_id);
+      data.set('questionId', question.question_id);
     }
-    
-    data.set("answer", answerValueNoHTML);
+
+    data.set('answer', answerValueNoHTML);
 
     onClose();
     let url = `/questions/${question.question_id}`;
@@ -102,8 +104,9 @@ function AnswerModal(props) {
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
 
     submit(data, {
-      method: "post",
+      method: 'post',
       action: url,
+      replace: true,
     });
   };
 
@@ -134,13 +137,13 @@ function AnswerModal(props) {
     question,
     question: { question_id },
   } = props;
-  const Answer = question.Answer;
+  const { Answer } = question;
   const sanitizedInputLength = answerData.sanitizedInput.length;
 
   return (
     <div onClick={props.onClose}>
       <Styled.Modal show hide={props.onClose}>
-        <Styled.ModalDialog onClick={e => e.stopPropagation()}>
+        <Styled.ModalDialog onClick={(e) => e.stopPropagation()}>
           <Button
             category={CLOSE_BUTTON}
             onClick={props.onClose}

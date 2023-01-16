@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { MAXIMUM_ANSWER_LENGTH, MINIMUM_ANSWER_LENGTH } from '../constants';
-import { JOI_ID_VALIDATION } from '../joiConstants';
+import { MAXIMUM_ANSWER_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
+import { JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
 
 export const createAnswerSchema = Joi.object().keys({
   answer_text: Joi.string()
@@ -25,5 +25,6 @@ export const deleteAnswerSchema = Joi.object().keys({
 
 export const npsSchema = Joi.object().keys({
   id: JOI_ID_VALIDATION,
-  score: Joi.number().integer().required().min(1).max(5),
+  score: Joi.number().integer().required().min(1)
+    .max(5),
 });

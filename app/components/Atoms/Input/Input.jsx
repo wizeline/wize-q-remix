@@ -1,19 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Styled from '~/components/Atoms/Input/Input.Styled';
+import * as Styled from './Input.Styled';
 
-const Input = React.forwardRef(function Input (props, ref){
-  const { id, type, classContainer, classInput, inputLeftElement,
+const Input = React.forwardRef((props, ref) => {
+  const {
+    id, type, classContainer, classInput, inputLeftElement,
     inputRightElement, classLeftElement,
-    classRightElement, rows, ...inputParams } = props;
+    classRightElement, rows, ...inputParams
+  } = props;
   return (
     <Styled.InputContainer id={id} className={classContainer}>
-      {inputLeftElement && <Styled.InputLeftElement className={classLeftElement}>
-        {inputLeftElement}</Styled.InputLeftElement>}
+      {inputLeftElement && (
+      <Styled.InputLeftElement className={classLeftElement}>
+        {inputLeftElement}
+      </Styled.InputLeftElement>
+      )}
       {type !== 'text-area' && <Styled.InputElement ref={ref} className={classInput} {...inputParams} />}
       {type === 'text-area' && <Styled.TextAreaElement ref={ref} className={classInput} rows={rows} {...inputParams} />}
-      {inputRightElement && <Styled.InputRightElement className={classRightElement}>
-        {inputRightElement}</Styled.InputRightElement>}
+      {inputRightElement && (
+      <Styled.InputRightElement className={classRightElement}>
+        {inputRightElement}
+      </Styled.InputRightElement>
+      )}
     </Styled.InputContainer>
   );
 });

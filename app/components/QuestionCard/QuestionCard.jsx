@@ -1,32 +1,33 @@
+import React from 'react';
 import PropTypes from 'prop-types';
-import likeIcon from '~/images/ic_like.svg';
-import likeIconVoted from '~/images/ic_like_pressed.svg';
-import commentIcon from '~/images/ic_comment_non-selected.svg';
+import { useNavigate } from 'react-router-dom';
+import likeIcon from 'app/images/ic_like.svg';
+import diskilike from 'app/images/ic_dislike.svg';
+import dislikeIconVoted from 'app/images/ic_dislike_pressed.svg';
+import likeIconVoted from 'app/images/ic_like_pressed.svg';
+import commentIcon from 'app/images/ic_comment_non-selected.svg';
 import {
   renderAnswer,
-} from '~/utils/questionUtils';
+} from 'app/utils/questionUtils';
 
-import * as Styled from './QuestionCard.Styled';
-import { useNavigate } from 'react-router-dom';
-import QuestionRow from '~/components/QuestionRow';
-import CounterButton from '~/components/CounterButton';
-import { reorderHighlightedComments } from '~/utils/commentUtils';
-import AnswerRow from '../AnswerRow';
+import * as Styled from 'app/components/QuestionCard/QuestionCard.Styled';
+import QuestionRow from 'app/components/QuestionRow';
+import CounterButton from 'app/components/CounterButton';
+import reorderHighlightedComments from 'app/utils/commentUtils';
+import AnswerRow from 'app/components/AnswerRow';
 
-const QuestionCard = (props) => {
+function QuestionCard(props) {
   const {
     question,
     currentUserEmail,
-    question: { Answer },
+    question: { Answers },
     onVoteClick,
     searchTerm,
-    fetchQuestionsList,
     processingFormSubmission,
   } = props;
 
-
   const renderAnswerProps = {
-    Answer,
+    Answers,
     isAdmin: false,
     currentUserEmail,
     onAnswerClick: () => {},
@@ -39,22 +40,32 @@ const QuestionCard = (props) => {
     isAnswer: true,
   };
 
-  const hasAnswer = question.Answer;
+  const hasAnswer = question.Answers.length > 0;
   const navigate = useNavigate();
 
-
   const renderButtons = () => {
-    const icon = !question.hasVoted ? likeIcon : likeIconVoted;
+    const icon = !question.hasLike ? likeIcon : likeIconVoted;
+    const dislikeicon = !question.hasDislike ? diskilike : dislikeIconVoted;
 
     return (
       <Styled.CounterButtonsWrapper isAdmin={false} hasAnswer={hasAnswer}>
         <CounterButton
           id={`like-button-${question.question_id}`}
-          selected={question.hasVoted}
+          selected={question.hasLike}
           icon={icon}
-          count={question.num_votes}
-          onClick={() => onVoteClick(question)}
+          count={question.numLikes}
+          onClick={() => onVoteClick(true)}
           processingFormSubmission={processingFormSubmission}
+          isDisabled={question.hasDislike}
+        />
+        <CounterButton
+          id={`like-button-${question.question_id}`}
+          selected={question.hasDislike}
+          icon={dislikeicon}
+          count={question.numDisklike}
+          onClick={() => onVoteClick(false)}
+          processingFormSubmission={processingFormSubmission}
+          isDisabled={question.hasLike}
         />
         <CounterButton
           id={`comments-button-${question.question_id}`}
@@ -66,37 +77,41 @@ const QuestionCard = (props) => {
     );
   };
 
-  const renderCommentAnswer = () =>{
-    if((!question.hasCommentApproved && !question.hasCommunityAnswer) || 
-       question.Answers.length > 0  ){
+  // eslint-disable-next-line consistent-return
+  const renderCommentAnswer = () => {
+    if ((!question.hasCommentApproved && !question.hasCommunityAnswer)
+       || question.Answers.length > 0) {
       return null;
     }
 
-    let commentAsAnswer = {}
-    if(question.hasCommentApproved){
-      commentAsAnswer = question.Comments.find(comment => comment.approvedBy !== null);
-    }
-    else if(question.hasCommunityAnswer){
-      const [communityAnswerCommentId, ] = reorderHighlightedComments(question.Comments);
-      commentAsAnswer =  question.Comments.find(comment => comment.id === communityAnswerCommentId);
+    let commentAsAnswer = {};
+    if (question.hasCommentApproved) {
+      commentAsAnswer = question.Comments.find((comment) => comment.approvedBy !== null);
+    } else if (question.hasCommunityAnswer) {
+      const [communityAnswerCommentId] = reorderHighlightedComments(question.Comments);
+      commentAsAnswer = question.Comments.find(
+        (comment) => comment.id === communityAnswerCommentId,
+      );
     }
 
-    if(commentAsAnswer){
-      return (<AnswerRow 
-      answer_text={commentAsAnswer.comment}
-      user={commentAsAnswer.User}
-      answered_at={commentAsAnswer.createdAt}
-      searchTerm={renderAnswerProps.searchTerm}
-      isPreview={renderAnswerProps.isPreview}
-      isFromList={renderAnswerProps.isFromList}
-      questionId={question.question_id}
-      isAnswer={question.Answers.length > 0}
-      isCommunityAnswer={question.hasCommunityAnswer}
-      isCommentApproved={question.hasCommentApproved}
-      approver={commentAsAnswer.Approver}
-      />)    
+    if (commentAsAnswer) {
+      return (
+        <AnswerRow
+          answer_text={commentAsAnswer.comment}
+          user={commentAsAnswer.User}
+          answered_at={commentAsAnswer.createdAt}
+          searchTerm={renderAnswerProps.searchTerm}
+          isPreview={renderAnswerProps.isPreview}
+          isFromList={renderAnswerProps.isFromList}
+          questionId={question.question_id}
+          isAnswer={question.Answers.length > 0}
+          isCommunityAnswer={question.hasCommunityAnswer}
+          isCommentApproved={question.hasCommentApproved}
+          approver={commentAsAnswer.Approver}
+        />
+      );
     }
-  }
+  };
 
   return (
     <Styled.QuestionCardContainer>
@@ -106,7 +121,6 @@ const QuestionCard = (props) => {
             question={question}
             isQuestionModalOpen={false}
             hasAnswer={hasAnswer}
-            fetchQuestionsList={fetchQuestionsList}
           />
           <Styled.QuestionCardActions hasAnswer={hasAnswer} isQuestionModalOpen={false}>
             {renderButtons()}
@@ -117,7 +131,7 @@ const QuestionCard = (props) => {
       {renderCommentAnswer()}
     </Styled.QuestionCardContainer>
   );
-};
+}
 
 QuestionCard.propTypes = {
   question: PropTypes.shape({
@@ -133,18 +147,22 @@ QuestionCard.propTypes = {
       job_title: PropTypes.string,
       profile_picture: PropTypes.string,
     }),
-    Answer: PropTypes.shape({
-      answer: PropTypes.string,
-      answer_id: PropTypes.number,
-      answered_at: PropTypes.string,
-      answered_by_id: PropTypes.number,
-      hasScored: PropTypes.bool,
-      canUndoNps: PropTypes.bool,
-    }),
+    Answers: PropTypes.arrayOf(
+      PropTypes.shape(),
+    ),
     createdAt: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
+    hasCommentApproved: PropTypes.bool.isRequired,
+    hasCommunityAnswer: PropTypes.bool.isRequired,
+    Comments: PropTypes.arrayOf(
+      PropTypes.shape(),
+    ),
+    numLikes: PropTypes.number.isRequired,
+    numDisklike: PropTypes.number.isRequired,
+    hasLike: PropTypes.bool.isRequired,
+    hasDislike: PropTypes.bool.isRequired,
   }).isRequired,
   onVoteClick: PropTypes.func.isRequired,
   currentUserEmail: PropTypes.string,
@@ -155,6 +173,7 @@ QuestionCard.propTypes = {
 QuestionCard.defaultProps = {
   currentUserEmail: '',
   searchTerm: '',
+  processingFormSubmission: false,
 };
 
 export default QuestionCard;

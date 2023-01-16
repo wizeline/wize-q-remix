@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -17,14 +18,14 @@ const buildLinkAttributes = (href) => {
   return { target, rel };
 };
 
-const MarkdownLinkRenderer = ({ href, children }) => {
+function MarkdownLinkRenderer({ href, children }) {
   const { target, rel } = buildLinkAttributes(href);
   return (
     <a href={href} target={target} rel={rel}>
       {children}
     </a>
   );
-};
+}
 
 MarkdownLinkRenderer.propTypes = propTypes;
 

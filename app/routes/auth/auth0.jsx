@@ -1,8 +1,6 @@
-import { redirect } from "@remix-run/node";
-import { authenticator } from "~/auth.server";
+import { redirect } from '@remix-run/node';
+import authenticator from 'app/auth.server';
 
-export let loader = () => redirect("/login");
+export const loader = () => redirect('/login');
 
-export const action = async ({ request }) => {
-  return authenticator.authenticate("auth0", request);
-};
+export const action = async ({ request }) => authenticator.authenticate('auth0', request);

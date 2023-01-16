@@ -1,12 +1,13 @@
+/* eslint-disable camelcase */
+import moment from 'moment';
 import {
   DATE_TIME_FORMAT,
   DEFAULT_ERROR_MESSAGE,
-} from '~/utils/backend/constants';
-import { updateAnswerSchema } from '~/utils/backend/validators/answer';
-import { db } from '~/utils/db.server';
-import moment from 'moment';
+} from 'app/utils/backend/constants';
+import { updateAnswerSchema } from 'app/utils/backend/validators/answer';
+import { db } from 'app/utils/db.server';
 
-export const updateAnswer = async (query) => {
+const updateAnswer = async (query) => {
   const { error, value } = updateAnswerSchema.validate(query);
   const { answer_id, answer_text } = value;
 
@@ -16,7 +17,7 @@ export const updateAnswer = async (query) => {
     };
   }
 
-  let updatedAnswer = await db.Answers.update({
+  const updatedAnswer = await db.Answers.update({
     where: {
       answer_id,
     },
@@ -28,7 +29,9 @@ export const updateAnswer = async (query) => {
   });
 
   return {
-    successMessage: 'Answer has been updated succesfully.',
+    successMessage: 'The answer has been updated succesfully.',
     updatedAnswer,
   };
 };
+
+export default updateAnswer;

@@ -5,9 +5,9 @@ const useClickOutside = (exceptionState = false) => {
   const [state, setState] = useState(false);
 
   const handleClickOutside = (event) => {
-    if (wrapperRef.current &&
-      !wrapperRef.current.contains(event.target) &&
-      state && !exceptionState) {
+    if (wrapperRef.current
+      && !wrapperRef.current.contains(event.target)
+      && state && !exceptionState) {
       setState(false);
     }
   };

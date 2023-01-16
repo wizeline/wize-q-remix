@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -72,7 +73,7 @@ export const RolesTable = styled.div`
 `;
 
 export const TableRow = styled.ul`
-  border-top: ${props => (props.noBorder ? 'none' : '1px solid #d8d8d8')};
+  border-top: ${(props) => (props.noBorder ? 'none' : '1px solid #d8d8d8')};
   list-style: none;
   margin: 0;
   padding: 15px;

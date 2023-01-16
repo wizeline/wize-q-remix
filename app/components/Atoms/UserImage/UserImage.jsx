@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import * as S from './UserImage.Styled';
-import PlaceHolderImage from '~/images/placeholder_user_img.png';
+import * as S from 'app/components/Atoms/UserImage/UserImage.Styled';
+import PlaceHolderImage from 'app/images/placeholder_user_img.png';
 
-const UserImage = ({ src, alt, customSize, size }) => {
+function UserImage({
+  src, alt, customSize, size,
+}) {
   const [imageSrc, setImageSrc] = useState(src);
 
   return (

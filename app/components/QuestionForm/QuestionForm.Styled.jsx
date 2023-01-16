@@ -1,6 +1,5 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
-import { QuestionAssigner } from '~/components/QuestionAssigner/QuestionAssigner.Styled';
-import { QuestionLocationWrapper } from '~/components/QuestionLocation/QuestionLocation.Styled';
 
 // Question Input Main
 export const InputForm = styled.div`
@@ -108,50 +107,16 @@ export const Submit = styled.div`
 // Dropdown Menus Buttons and List
 export const Options = styled.div`
   display: flex;
-  align items: center;
+  align-items: center;
+  gap:10px;
+  width: fit-content;
   .btn-group {
     width: 100%;
   }
   @media screen and (max-width: 767px) {
     flex-wrap: wrap;
   }
-  ${QuestionAssigner},
-  ${QuestionLocationWrapper} {
-    align-items: center;
-    display: flex;
-    margin-right: 10px;
-    min-width: 150px;
-    @media screen and (max-width: 767px) {
-      margin-bottom: 10px;
-    }
-    .question-input-dropdown.btn-default[role=button] {
-      background-color: #f1f1f1;
-      border: none;
-      border-radius: 20px;
-      box-shadow: none;
-      display: flex;
-      font-family: "Nunito", sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.4px;
-      min-width: 150px;
-      width: 100%;
-      @media screen and (max-width: 767px) {
-        min-width: 250px;
-      }
-    }
-  }
-  ${QuestionAssigner} {
-    .question-input-dropdown.btn-default[role=button] {
-      background-color: ${props => (props.department === '' ? '#f1f1f1' : 'var(--color-secondary)')};
-      color: ${props => (props.department === '' ? 'var(--color-dark-50)' : '#fff')};
-    }
-  }
-  ${QuestionLocationWrapper} {
-    .question-input-dropdown.btn-default[role=button] {
-      background-color: ${props => (props.location === '' ? '#f1f1f1' : 'var(--color-secondary)')};
-      color: ${props => (props.location === '' ? 'var(--color-dark-50)' : '#fff')};
-    }
-  }
+
 `;
 
 // Tooltip

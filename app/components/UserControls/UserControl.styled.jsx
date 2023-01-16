@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import styled from 'styled-components';
 import { Nav, NavItem } from 'react-bootstrap';
 

@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { BsFillPinAngleFill, BsPinFill } from "react-icons/bs";
+import { BsFillPinAngleFill, BsPinFill } from 'react-icons/bs';
 
 export const QuestionRowContainer = styled.div`
     align-items: flex-start;
@@ -10,7 +10,7 @@ export const QuestionRowContainer = styled.div`
     padding-botton: 8px;
     width: 100%;
     position: relative;
-    ${props => props.isQuestionModalOpen && css`
+    ${(props) => props.isQuestionModalOpen && css`
         @media screen and (max-width: 480px) {
           padding: 0 10px;
         }
@@ -51,7 +51,6 @@ export const PinQuestionIconHolder = styled.span`
   }
 `;
 
-
 export const PinActionableIconHolder = styled(BsPinFill)`
   font-size: 15px;
   color: var(--color-dark-25);
@@ -79,8 +78,7 @@ export const PinTooltipMessage = styled.span`
   ${PinQuestionIconHolder}:hover & {
     display: block;
   }
-`
-
+`;
 
 export const UnpinActionableIconHolder = styled(BsPinFill)`
   font-size: 15px;
@@ -158,7 +156,7 @@ export const QuestionRowLine = styled.div`
         left: 42px;    
         top: 90px;
     }
-    ${props => (!props.hasAnswer || props.isQuestionModalOpen) && css`
+    ${(props) => (!props.hasAnswer || props.isQuestionModalOpen) && css`
         display: none
     `}
 `;
@@ -175,6 +173,7 @@ export const QuestionRowDate = styled.div`
 export const RightWrapper = styled.div`
     display: flex;
     padding-top: 5px;
+    gap:10px;
 `;
 
 export const QuestionRowMetadataSectionOne = styled.div`
@@ -182,9 +181,33 @@ export const QuestionRowMetadataSectionOne = styled.div`
     align-items: center;
 `;
 
-
 export const QuestionId = styled.span`
   font-size: 12px;
   color: var(--color-dark-metadata);
   font-weight: 500;
+`;
+
+export const DisableControls = styled.div`
+    display:flex;
+    margin
+`;
+
+export const ButtonTooltipMessage = styled.span`
+  display: none;
+  width: 210px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0px;
+  position: absolute;
+  z-index: 1000;
+  right: 25px;
+  top: -25px;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+
+  ${DisableControls}:hover & {
+    display: block;
+  }
 `;

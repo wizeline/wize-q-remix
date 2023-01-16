@@ -1,22 +1,22 @@
-import AnswerRow from '~/components/AnswerRow';
+import React from 'react';
+import AnswerRow from 'app/components/AnswerRow';
 import {
   DEPARTMENT_NOT_ASSIGNED,
   ANSWER,
   REASSIGN,
   TEXT_BUTTON,
-} from '~/utils/constants';
-import Button from '~/components/Atoms/Button';
-import AnswerAdminOptions from '~/components/AnswerAdminOptions';
+} from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import AnswerAdminOptions from 'app/components/AnswerAdminOptions';
 
-const renderDepartment = department =>
-  (department ? department.name : DEPARTMENT_NOT_ASSIGNED);
+const renderDepartment = (department) => (department ? department.name : DEPARTMENT_NOT_ASSIGNED);
 
 function shouldRenderAdminButtons(question, isAdmin) {
   return !question.Answer && isAdmin;
 }
 
 function hasJobTitle(createdBy) {
-  if(!createdBy) return;
+  if (!createdBy) return '';
 
   return createdBy.job_title;
 }
@@ -24,7 +24,7 @@ function hasJobTitle(createdBy) {
 function renderAdminButtons(renderAdminBtnProps) {
   const { question, onAnswerClick, onAssignAnswerClick } = renderAdminBtnProps;
   return (
-    <div className="question-row__admin-buttons--container" style={{display: 'flex'}}>
+    <div className="question-row__admin-buttons--container" style={{ display: 'flex' }}>
       <Button
         type="button"
         category={TEXT_BUTTON}
@@ -46,7 +46,6 @@ function renderAdminButtons(renderAdminBtnProps) {
 }
 
 function renderAnswer(renderAnswerProps) {
-
   const {
     isAdmin,
     currentUserEmail,
@@ -60,7 +59,8 @@ function renderAnswer(renderAnswerProps) {
   } = renderAnswerProps;
 
   let Answer;
-  if (question.Answers.length > 0 ){
+  if (question.Answers.length > 0) {
+    // eslint-disable-next-line prefer-destructuring
     Answer = question.Answers[0];
   }
 
@@ -98,7 +98,7 @@ function renderAnswer(renderAnswerProps) {
   );
 }
 
-module.exports = {
+export {
   renderDepartment,
   shouldRenderAdminButtons,
   hasJobTitle,

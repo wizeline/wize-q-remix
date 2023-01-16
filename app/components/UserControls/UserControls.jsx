@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LinkContainer } from 'react-router-bootstrap';
 import { ButtonToolbar } from 'react-bootstrap';
-import * as Styled from '~/components/UserControls/UserControl.styled';
-import UserDropdown from '~/components/UserDropdown';
-import LogoutConfirmationModal from '~/components/Modals/LogoutConfirmationModal';
-import SearchBarNav from '~/components/SearchBarNav';
+import * as Styled from 'app/components/UserControls/UserControl.styled';
+import UserDropdown from 'app/components/UserDropdown';
+import LogoutConfirmationModal from 'app/components/Modals/LogoutConfirmationModal';
+import SearchBarNav from 'app/components/SearchBarNav';
 
 function UserControls(props) {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -18,7 +18,9 @@ function UserControls(props) {
     setShowLogoutModal(false);
   };
 
-  const { name, title, email, picture, isAdmin } = props;
+  const {
+    name, title, email, picture, isAdmin,
+  } = props;
 
   return (
     <Styled.NavBar pullRight>
@@ -39,7 +41,7 @@ function UserControls(props) {
           <Styled.Navitem>Admin</Styled.Navitem>
         </LinkContainer>
       )}
-      <Styled.NavLi >
+      <Styled.NavLi>
         <ButtonToolbar>
           <UserDropdown
             name={name}

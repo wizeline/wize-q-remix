@@ -1,1 +1,1 @@
-export {default} from './SortQuestionCommentsDropdown';
+export { default } from './SortQuestionCommentsDropdown';

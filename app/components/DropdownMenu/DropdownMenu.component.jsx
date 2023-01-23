@@ -78,7 +78,7 @@ function DropdownMenu({
 DropdownMenu.propTypes = {
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
-  selectedOption: PropTypes.oneOfType(
+  selectedOption: PropTypes.oneOfType([
     PropTypes.shape([
       {
         department_id: PropTypes.string,
@@ -91,7 +91,7 @@ DropdownMenu.propTypes = {
         name: PropTypes.string,
       },
     ]),
-  ).isRequired,
+  ]).isRequired,
   options: PropTypes.oneOfType([
     PropTypes.arrayOf(
       PropTypes.shape([

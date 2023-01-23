@@ -45,3 +45,18 @@ data "google_secret_manager_secret_version" "Wizeq_url" {
 data "google_secret_manager_secret_version" "Session_secret" {
   secret = "${var.secret_prefix}_SESSION_SECRET"
 }
+data "google_secret_manager_secret_version" "Email_host" {
+  secret = "${var.secret_prefix}_REMIX_EMAIL_HOST"
+}
+
+data "google_secret_manager_secret_version" "Email_port" {
+  secret = "${var.secret_prefix}_REMIX_EMAIL_PORT"
+}
+
+data "google_secret_manager_secret_version" "Email_auth_user" {
+  secret = "${var.secret_prefix}_REMIX_EMAIL_AUTH_USER"
+}
+
+data "google_secret_manager_secret_version" "Email_auth_password" {
+  secret = "${var.secret_prefix}_REMIX_EMAIL_AUTH_PASSWORD"
+}

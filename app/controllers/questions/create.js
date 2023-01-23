@@ -6,6 +6,9 @@ import sanitizeHTML from 'app/utils/backend/sanitizer';
 import { createQuestionSchema } from 'app/utils/backend/validators/question';
 import { db } from 'app/utils/db.server';
 import { SLACK_QUESTION_LIMIT } from 'app/utils/backend/slackConstants';
+import { EMAILS } from 'app/utils/backend/emails/emailConstants';
+import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
+import { sendEmail } from 'app/utils/backend/emails/emailHandler';
 
 const createQuestion = async (body) => {
   const { error, value } = createQuestionSchema.validate(body);
@@ -40,12 +43,29 @@ const createQuestion = async (body) => {
         user_hash: sessionHash,
       },
     });
-  }
 
-  await slack.createQuestionNotification({
-    questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
-    questionId: created.question_id,
-  });
+    const userAssigned = await db.users.findUnique({
+      where: {
+        employee_id: created.assigned_to_employee_id,
+      },
+    });
+
+    await sendEmail({
+      to: userAssigned.email,
+      subject: EMAILS.anonymousQuestionAssigned.subject,
+      template: EMAILS.anonymousQuestionAssigned.template,
+      context: {
+        name: userAssigned.full_name,
+        question_url: getQuestionDetailUrl(created.question_id),
+        question_text: created.question,
+      },
+    });
+  } else {
+    await slack.createQuestionNotification({
+      questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
+      questionId: created.question_id,
+    });
+  }
 
   return {
     successMessage: 'The question has been created succesfully!',

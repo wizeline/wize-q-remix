@@ -72,6 +72,22 @@ variable "base_url" {
   type = string
 }
 
+variable "email_host" {
+  type = string
+}
+
+variable "email_port" {
+  type = string
+}
+
+variable "email_auth_user" {
+  type = string
+}
+
+variable "email_auth_password" {
+  type = string
+}
+
 # variable "db_connection_name" {
 #   type = string
 # }

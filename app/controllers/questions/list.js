@@ -145,7 +145,7 @@ const buildWhereIsAdminSearch = (isAdmin) => {
     return {};
   }
 
-  return { is_enabled: true, is_public: true};
+  return { is_enabled: true, is_public: true };
 };
 
 const buildWhere = ({

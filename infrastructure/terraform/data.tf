@@ -60,3 +60,7 @@ data "google_secret_manager_secret_version" "Email_auth_user" {
 data "google_secret_manager_secret_version" "Email_auth_password" {
   secret = "${var.secret_prefix}_REMIX_EMAIL_AUTH_PASSWORD"
 }
+
+data "google_secret_manager_secret_version" "Email_service" {
+  secret = "${var.secret_prefix}_REMIX_EMAIL_SERVICE"
+}

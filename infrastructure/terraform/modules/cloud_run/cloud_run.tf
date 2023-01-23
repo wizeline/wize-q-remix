@@ -64,6 +64,10 @@ resource "google_cloud_run_service" "app" {
           name = "EMAIL_AUTH_PASSWORD"
           value = var.email_auth_password
         }
+        env {
+          name = "EMAIL_SERVICE"
+          value = var.email_service
+        }
       }
 
     }

@@ -72,6 +72,10 @@ variable "base_url" {
   type = string
 }
 
+variable "email_service" {
+  type = string
+}
+
 variable "email_host" {
   type = string
 }

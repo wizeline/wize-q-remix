@@ -5,21 +5,37 @@ const path = require('path');
 
 const instantiateTransporter = () => {
   const {
-    EMAIL_HOST, EMAIL_PORT, EMAIL_AUTH_USER, EMAIL_AUTH_PASSWORD,
+    EMAIL_SERVICE, EMAIL_HOST, EMAIL_PORT, EMAIL_AUTH_USER, EMAIL_AUTH_PASSWORD,
   } = process.env;
 
-  if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_AUTH_USER || !EMAIL_AUTH_PASSWORD) {
-    return undefined;
-  }
+  let transporter;
 
-  const transporter = nodemailer.createTransport({
-    host: EMAIL_HOST,
-    port: EMAIL_PORT,
-    auth: {
-      user: EMAIL_AUTH_USER,
-      pass: EMAIL_AUTH_PASSWORD,
-    },
-  });
+  if (EMAIL_SERVICE && EMAIL_SERVICE.toLowerCase() === 'gmail') {
+    if (!EMAIL_AUTH_USER || !EMAIL_AUTH_PASSWORD) {
+      return undefined;
+    }
+
+    transporter = nodemailer.createTransport({
+      service: EMAIL_SERVICE,
+      auth: {
+        user: EMAIL_AUTH_USER,
+        pass: EMAIL_AUTH_PASSWORD,
+      },
+    });
+  } else {
+    if (!EMAIL_HOST || !EMAIL_PORT || !EMAIL_AUTH_USER || !EMAIL_AUTH_PASSWORD) {
+      return undefined;
+    }
+
+    transporter = nodemailer.createTransport({
+      host: EMAIL_HOST,
+      port: EMAIL_PORT,
+      auth: {
+        user: EMAIL_AUTH_USER,
+        pass: EMAIL_AUTH_PASSWORD,
+      },
+    });
+  }
 
   const handlebarOptions = {
     viewEngine: {

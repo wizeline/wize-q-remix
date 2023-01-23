@@ -23,7 +23,7 @@ module "cloud_run" {
   email_port = data.google_secret_manager_secret_version.Email_port
   email_auth_user = data.google_secret_manager_secret_version.Email_auth_user
   email_auth_password = data.google_secret_manager_secret_version.Email_auth_password
-
+  email_service = data.google_secret_manager_secret_version.Email_service
   // db_host            = module.cloud_sql.db_host
   // db_connection_name = module.cloud_sql.db_connection_name
 }

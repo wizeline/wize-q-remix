@@ -48,6 +48,26 @@ resource "google_cloud_run_service" "app" {
           name  = "BASE_URL"
           value = var.base_url
         }
+        env {
+          name = "EMAIL_HOST"
+          value = var.email_host
+        }
+        env {
+          name = "EMAIL_PORT"
+          value = var.email_port
+        }
+        env {
+          name = "EMAIL_AUTH_USER"
+          value = var.email_auth_user
+        }
+        env {
+          name = "EMAIL_AUTH_PASSWORD"
+          value = var.email_auth_password
+        }
+        env {
+          name = "EMAIL_SERVICE"
+          value = var.email_service
+        }
       }
 
     }

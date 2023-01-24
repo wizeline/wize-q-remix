@@ -19,6 +19,11 @@ module "cloud_run" {
   db_url         = "mysql://${data.google_secret_manager_secret_version.Db_user.secret_data}:${data.google_secret_manager_secret_version.Db_password.secret_data}@${module.cloud_sql.db_host}/${data.google_secret_manager_secret_version.Db_name.secret_data}"
   base_url       = data.google_secret_manager_secret_version.Wizeq_url.secret_data
   session_secret = data.google_secret_manager_secret_version.Session_secret.secret_data
+  email_host = data.google_secret_manager_secret_version.Email_host
+  email_port = data.google_secret_manager_secret_version.Email_port
+  email_auth_user = data.google_secret_manager_secret_version.Email_auth_user
+  email_auth_password = data.google_secret_manager_secret_version.Email_auth_password
+  email_service = data.google_secret_manager_secret_version.Email_service
   // db_host            = module.cloud_sql.db_host
   // db_connection_name = module.cloud_sql.db_connection_name
 }

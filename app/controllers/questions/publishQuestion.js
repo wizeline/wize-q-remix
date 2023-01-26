@@ -1,7 +1,7 @@
 import { db } from 'app/utils/db.server';
-import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
+import { PIN_QUESTION_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE, PUBLISH_QUESTION_ERROR_MESSAE } from 'app/utils/constants';
 
-const publish = async (questionId) => {
+const publishQuestion = async (questionId) => {
   if (typeof questionId !== 'number'
         || questionId === undefined
         || questionId < 1) {
@@ -19,17 +19,17 @@ const publish = async (questionId) => {
     });
 
     return {
-      successMessage: 'The questions has been published',
+      successMessage: 'The question has been published',
       question: updatedQuestion,
     };
   } catch (error) {
     return {
       error: {
-        message: 'publishQuestiosn.js error',
-        detail: error,
+        message: PUBLISH_QUESTION_ERROR_MESSAE,
+        detail: PUBLISH_QUESTION_ERROR_MESSAE,
       },
     };
   }
 };
 
-export default publish;
+export default publishQuestion;

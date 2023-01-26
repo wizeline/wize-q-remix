@@ -16,7 +16,7 @@ import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
 import ACTIONS from 'app/utils/actions';
-import publish from 'app/controllers/questions/publishQuestion';
+import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
@@ -75,7 +75,7 @@ export const action = async ({ request }) => {
       break;
     case ACTIONS.PUBLISH_QUESTION:
       questionId = parseInt(formData.get('questionId'), 10);
-      response = await publish(questionId);
+      response = await publishQuestion(questionId);
       break;
     default:
       break;

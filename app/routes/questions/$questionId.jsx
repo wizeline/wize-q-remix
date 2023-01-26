@@ -33,7 +33,7 @@ import assignQuestion from 'app/controllers/questions/assignQuestion';
 import listDepartments from 'app/controllers/departments/list';
 import deleteNPS from 'app/controllers/answers/nps/delete';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
-import publish from 'app/controllers/questions/publishQuestion';
+import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -175,7 +175,7 @@ export const action = async ({ request }) => {
       break;
     case ACTIONS.PUBLISH_QUESTION:
       questionId = parseInt(formData.get('questionId'), 10);
-      response = await publish(questionId);
+      response = await publishQuestion(questionId);
       break;
     default:
       break;

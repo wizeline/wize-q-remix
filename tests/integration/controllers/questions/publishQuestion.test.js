@@ -1,4 +1,4 @@
-import publish from 'app/controllers/questions/publishQuestion';
+import publishQuestion from 'app/controllers/questions/publishQuestion';
 import randomAccessToken from 'tests/utils';
 import createQuestion from 'app/controllers/questions/create';
 import {
@@ -8,7 +8,7 @@ import {
 
 describe('question controller: publish question', () => {
   it('return an error when provied no parameters', async () => {
-    const response = await publish();
+    const response = await publishQuestion();
 
     expect(response.error).toBeDefined();
     expect(response.error.message).toBeDefined();
@@ -20,7 +20,7 @@ describe('question controller: publish question', () => {
   });
 
   it('return an error when provide wrong paramaters', async () => {
-    const response = await publish('1');
+    const response = await publishQuestion('1');
 
     expect(response.error).toBeDefined();
     expect(response.error).toBeDefined();
@@ -33,7 +33,7 @@ describe('question controller: publish question', () => {
   });
 
   it('return an error when questionId is less that 1', async () => {
-    const response = await publish(-1);
+    const response = await publishQuestion(-1);
 
     expect(response.error).toBeDefined();
     expect(response.error).toBeDefined();
@@ -63,11 +63,12 @@ describe('question controller: publish question', () => {
     expect(createQuestionResponse.question.question_id).toBeDefined();
     expect(createQuestionResponse.question.is_public).toBeDefined();
 
-    const publishQuestionResponse = await publish(createQuestionResponse.question.question_id);
+    // eslint-disable-next-line max-len
+    const publishQuestionResponse = await publishQuestion(createQuestionResponse.question.question_id);
     expect(publishQuestionResponse).toBeDefined();
     expect(publishQuestionResponse.successMessage).toBeDefined();
     expect(publishQuestionResponse.error).toBeUndefined();
-    expect(publishQuestionResponse.successMessage).toBe('The questions has been published');
+    expect(publishQuestionResponse.successMessage).toBe('The question has been published');
     expect(publishQuestionResponse.question.is_public).toBe(true);
   });
 });

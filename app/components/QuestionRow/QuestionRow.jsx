@@ -167,12 +167,18 @@ function QuestionRow(props) {
                 />
               </Styled.DisableControls>
               {(!question.is_public && question.is_enabled) && (
-                <Button
-                  id={`question-publish-${question.question_id}`}
-                  onClick={() => { publishQuestion(question.question_id); }}
-                >
-                  <MdOutlinePublishedWithChanges color="var(--toastify-color-progress-success)" size="2em" />
-                </Button>
+                <Styled.DisableControls>
+                  <Styled.ButtonTooltipMessage>
+                    Click to publish a question.
+                  </Styled.ButtonTooltipMessage>
+                  <Button
+                    id={`question-publish-${question.question_id}`}
+                    onClick={() => { publishQuestion(question.question_id); }}
+                  >
+                    <MdOutlinePublishedWithChanges color="var(--toastify-color-progress-success)" size="2em" />
+                  </Button>
+
+                </Styled.DisableControls>
               )}
 
             </>

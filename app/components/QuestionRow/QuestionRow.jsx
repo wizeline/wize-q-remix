@@ -169,7 +169,7 @@ function QuestionRow(props) {
               {(!question.is_public && question.is_enabled) && (
                 <Styled.DisableControls>
                   <Styled.ButtonTooltipMessage>
-                    Click to publish a question.
+                    Click to publish this question.
                   </Styled.ButtonTooltipMessage>
                   <Button
                     id={`question-publish-${question.question_id}`}

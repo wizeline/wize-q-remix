@@ -10,6 +10,7 @@ import answersFixture from './fixtures/answers.json';
 import votesFixture from './fixtures/votes.json';
 import npsFixture from './fixtures/nps.json';
 import commentVotes from './fixtures/commentVotes.json';
+import employeeDepartmentFixture from './fixtures/employeeDepartment.json';
 
 const initTestDb = async () => {
   await db.$connect();
@@ -92,6 +93,12 @@ const initTestDb = async () => {
   // Create CommentVotes
   await db.CommentVote.createMany({
     data: commentVotes,
+    skipDuplicates: true,
+  });
+
+  // Create EmployeeDepartment
+  await db.EmployeesDepartments.createMany({
+    data: employeeDepartmentFixture,
     skipDuplicates: true,
   });
 };

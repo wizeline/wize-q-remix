@@ -2,16 +2,22 @@ import { db } from 'app/utils/db.server';
 
 const listEmployees = async (id) => {
   const idValue = parseInt(id, 10);
-  const relations = await db.EmployeesDepartments.findMany({
+  const employees = await db.EmployeesDepartments.findMany({
     where: {
       department_id: idValue,
     },
     distinct: ['email'],
-    include: {
-      users: true,
+    select: {
+      users: {
+        select: {
+          full_name: true,
+          employee_id: true,
+        },
+      },
     },
   });
-  return relations.map((rel) => ({ name: rel.users.full_name, id: rel.employee_id }));
+  const filtered = employees.filter((employee) => employee.users !== null);
+  return filtered.map((employee) => employee.users);
 };
 
 export default listEmployees;

@@ -269,6 +269,7 @@ export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
+export const ANON_QUESTION_REQUIRES_ASSIGNEE = 'Select an assigned employee';
 
 // Sockets & Reactivity
 export const FAKE_SOCKET = {

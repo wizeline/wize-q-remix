@@ -12,6 +12,7 @@ describe('createQuestion', () => {
   const emailHandlerSpy = jest.spyOn(emailHandler, 'sendEmail').mockImplementation();
 
   afterEach(() => {
+    dbCreateSpy.mockClear();
     slackSpy.mockClear();
     emailHandlerSpy.mockClear();
   });
@@ -55,6 +56,27 @@ describe('createQuestion', () => {
     expect(dbUpdateSpy).toHaveBeenCalledTimes(0);
 
     expect(slackSpy).toHaveBeenCalled();
+    expect(emailHandlerSpy).toHaveBeenCalledTimes(0);
+  });
+
+  it('require assigned employee on anonymous question', async () => {
+    const question = {
+      question: '_This_ is a **sample** ~~question~~',
+      created_by_employee_id: 1,
+      accessToken: randomAccessToken(),
+      is_anonymous: true,
+      assigned_department: 3,
+      location: 'BNK',
+    };
+
+    const response = await createQuestion(question);
+
+    expect(response).toBeDefined();
+    expect(response.errors).toBeDefined();
+    expect(response.successMessage).toBeUndefined();
+    expect(response.question).toBeUndefined();
+
+    expect(dbCreateSpy).toHaveBeenCalledTimes(0);
     expect(emailHandlerSpy).toHaveBeenCalledTimes(0);
   });
 

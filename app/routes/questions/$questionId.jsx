@@ -33,6 +33,7 @@ import assignQuestion from 'app/controllers/questions/assignQuestion';
 import listDepartments from 'app/controllers/departments/list';
 import deleteNPS from 'app/controllers/answers/nps/delete';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
+import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -171,6 +172,10 @@ export const action = async ({ request }) => {
       const params = JSON.parse(formData.get('params'));
       params.employeeId = user.employee_id;
       response = await approvedByComment(params);
+      break;
+    case ACTIONS.PUBLISH_QUESTION:
+      questionId = parseInt(formData.get('questionId'), 10);
+      response = await publishQuestion(questionId);
       break;
     default:
       break;

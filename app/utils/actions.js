@@ -13,6 +13,7 @@ const ACTIONS = {
   SCORE_ANSWER: 'score_answer',
   DELETE_SCORE: 'delete_answer_score',
   ENABLED_ACTION: 'enable/disable',
+  PUBLISH_QUESTION: 'publish_question',
 };
 
 export default ACTIONS;

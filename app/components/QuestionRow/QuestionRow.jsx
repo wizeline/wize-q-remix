@@ -14,6 +14,8 @@ import { getDateData } from 'app/utils/timeOperations';
 import ACTIONS from 'app/utils/actions';
 import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 import Switch from 'app/components/Switch';
+import { MdOutlinePublishedWithChanges } from 'react-icons/md';
+import Button from '../Atoms/Button';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {
@@ -86,6 +88,23 @@ function QuestionRow(props) {
     );
   };
 
+  const publishQuestion = (questionId) => {
+    let url = '/?index';
+    if (!isFromList) {
+      url = `/questions/${question.question_id}`;
+      const urlSearchParam = searchParams.get('order');
+      url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    } else {
+      searchParams.forEach((value, key) => {
+        url += value ? `&${key}=${value}` : '';
+      });
+    }
+    const data = new FormData();
+    data.set('action', ACTIONS.PUBLISH_QUESTION);
+    data.set('questionId', questionId);
+    submit(data, { method: 'post', action: url, replace: true });
+  };
+
   const adminPinButton = (profile.is_admin && !question.is_pinned)
     ? (
       <Styled.PinQuestionIconHolder onClick={onPinChange}>
@@ -131,21 +150,38 @@ function QuestionRow(props) {
           {profile.is_admin ? adminPinButton : nonAdminPinIndicator}
           {profile.is_admin && (
 
-            <Styled.DisableControls>
-              <Styled.ButtonTooltipMessage>
-                Click to
-                {' '}
-                {question.is_enabled ? 'disable' : 'enable'}
-                {' '}
-                this
-                question
-              </Styled.ButtonTooltipMessage>
-              <Switch
-            id={`question-${question.question_id}`}
-            checked={question.is_enabled}
-            onChange={handleStatusClick}
-          />
-            </Styled.DisableControls>
+            <>
+              <Styled.DisableControls>
+                <Styled.ButtonTooltipMessage>
+                  Click to
+                  {' '}
+                  {question.is_enabled ? 'disable' : 'enable'}
+                  {' '}
+                  this
+                  question
+                </Styled.ButtonTooltipMessage>
+                <Switch
+                  id={`question-${question.question_id}`}
+                  checked={question.is_enabled}
+                  onChange={handleStatusClick}
+                />
+              </Styled.DisableControls>
+              {(!question.is_public && question.is_enabled) && (
+                <Styled.DisableControls>
+                  <Styled.ButtonTooltipMessage>
+                    Click to publish this question.
+                  </Styled.ButtonTooltipMessage>
+                  <Button
+                    id={`question-publish-${question.question_id}`}
+                    onClick={() => { publishQuestion(question.question_id); }}
+                  >
+                    <MdOutlinePublishedWithChanges color="var(--toastify-color-progress-success)" size="2em" />
+                  </Button>
+
+                </Styled.DisableControls>
+              )}
+
+            </>
 
           )}
         </Styled.RightWrapper>
@@ -191,6 +227,7 @@ QuestionRow.propTypes = {
   question: PropTypes.shape({
     question_id: PropTypes.number.isRequired,
     question: PropTypes.string.isRequired,
+    is_public: PropTypes.bool.isRequired,
     is_anonymous: PropTypes.bool.isRequired,
     is_pinned: PropTypes.bool.isRequired,
     is_enabled: PropTypes.bool.isRequired,

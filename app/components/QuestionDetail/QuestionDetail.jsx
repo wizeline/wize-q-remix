@@ -333,6 +333,7 @@ QuestionDetails.propTypes = {
     numDisklike: PropTypes.number.isRequired,
     hasLike: PropTypes.bool.isRequired,
     hasDislike: PropTypes.bool.isRequired,
+    is_public: PropTypes.bool,
   }),
 };
 

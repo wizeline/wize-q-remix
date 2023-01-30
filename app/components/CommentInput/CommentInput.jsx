@@ -168,14 +168,14 @@ CommentInput.propTypes = {
   questionId: PropTypes.number,
   isWritingCommentMobile: PropTypes.bool,
   setWritingCommentOnMobile: PropTypes.func,
-  is_public: PropTypes.bool.isRequired,
+  is_public: PropTypes.bool,
 };
 
 CommentInput.defaultProps = {
   questionId: null,
   isWritingCommentMobile: false,
   setWritingCommentOnMobile: () => {},
-  is_public: false
+  is_public: false,
 };
 
 export default CommentInput;

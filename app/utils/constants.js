@@ -334,6 +334,9 @@ export const RECOMMENDATIONS_QUESTION = [
   'Do not demean or degrade others because of their gender, race, age, religion, etc.',
   'Avoid posting questions that include sexually explicit comments, hate speech, prejudicial remarks, and profanity.',
   'Do not mock other members, their comments, profiles, threads, or experiences. Remember, what is funny for you may be offensive to others.',
+  'For anonymous questions, you have to select a specific employee according to the department selected.',
+  'Anonymous questions will not appear on the home page until an admin has published it.',
+  'Although the question has not been published, you can the link of your question to followup on answers.',
 ];
 
 // Recurring error messages

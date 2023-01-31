@@ -1,16 +1,30 @@
 import { useActionData } from '@remix-run/react';
 import React, { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { DEFAULT_TOAST_CONFIG } from 'app/utils/constants';
+import { DEFAULT_TOAST_CONFIG, QUESTION_CREATED_TOAST_CONFIG } from 'app/utils/constants';
 import useGlobalSuccessMessage from 'app/utils/hooks/useGlobalSuccessMessage';
 
 function Notifications() {
   const globalSuccess = useGlobalSuccessMessage();
   const data = useActionData();
 
+  const successAnonMessage = (message, questionUrl) => (
+    <div>
+      <p>{message}</p>
+      <a href={questionUrl}>
+        {questionUrl}
+      </a>
+    </div>
+  );
+
   useEffect(() => {
     if (globalSuccess) {
-      toast.success(globalSuccess, DEFAULT_TOAST_CONFIG);
+      const { message, questionUrl } = globalSuccess;
+      if (questionUrl) {
+        toast.info(successAnonMessage(message, questionUrl), QUESTION_CREATED_TOAST_CONFIG);
+      } else {
+        toast.info(message, QUESTION_CREATED_TOAST_CONFIG);
+      }
     }
     if (!data) return;
 

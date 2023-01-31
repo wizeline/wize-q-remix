@@ -50,6 +50,7 @@ describe('createQuestion', () => {
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
     expect(response.question).toBeDefined();
+    expect(response.question.is_public).toBe(true);
     expect(response.question.user_hash).toBe('');
 
     expect(dbCreateSpy).toHaveBeenCalled();
@@ -96,6 +97,7 @@ describe('createQuestion', () => {
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
     expect(response.question).toBeDefined();
+    expect(response.question.is_public).toBe(false);
     expect(response.question.user_hash).not.toBe('');
 
     expect(dbCreateSpy).toHaveBeenCalled();

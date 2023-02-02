@@ -149,6 +149,7 @@ function CommentInput(props) {
           <CommentInputAuthor
             profilePicture={profilePicture}
             selectPostingAs={selectPostingAs}
+            is_public={props.is_public}
           />
           <CommentInputText
             ref={CommentInputTextRef}
@@ -167,12 +168,14 @@ CommentInput.propTypes = {
   questionId: PropTypes.number,
   isWritingCommentMobile: PropTypes.bool,
   setWritingCommentOnMobile: PropTypes.func,
+  is_public: PropTypes.bool,
 };
 
 CommentInput.defaultProps = {
   questionId: null,
   isWritingCommentMobile: false,
   setWritingCommentOnMobile: () => {},
+  is_public: false,
 };
 
 export default CommentInput;

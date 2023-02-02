@@ -32,13 +32,14 @@ export const action = async ({ request }) => {
   const user = await getAuthenticatedUser(request);
   const parsedDepartment = parseInt(form.assignedDepartment, 10);
   const assignedEmployeeValue = parseInt(form.assigned_to_employee_id, 10);
+  const isAnonymous = form.isAnonymous === 'true';
 
   const payload = {
     question: form.question,
-    created_by_employee_id: form.isAnonymous === 'true' ? null : user.employee_id,
-    is_anonymous: form.isAnonymous === 'true',
+    created_by_employee_id: isAnonymous ? null : user.employee_id,
+    is_anonymous: isAnonymous,
     assigned_department: Number.isNaN(parsedDepartment) ? null : parsedDepartment,
-    assigned_to_employee_id: Number.isNaN(assignedEmployeeValue) ? null : assignedEmployeeValue,
+    assigned_to_employee_id: assignedEmployeeValue,
     location: form.location,
     accessToken: user.accessToken,
   };
@@ -47,9 +48,11 @@ export const action = async ({ request }) => {
 
   if (response.successMessage) {
     const session = await getSession(request);
-    session.flash('globalSuccess', response.successMessage);
+    const { question, successMessage } = response;
+    session.flash('globalSuccess', successMessage);
+    const destination = isAnonymous ? `/questions/${question.question_id}` : '/?index';
 
-    return redirect('/?index', {
+    return redirect(destination, {
       headers: {
         'Set-Cookie': await commitSession(session),
       },

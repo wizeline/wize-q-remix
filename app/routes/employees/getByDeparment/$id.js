@@ -5,8 +5,11 @@ export const loader = async (data) => {
   if (params.id === -1 || params.id === 'undefined') {
     return [];
   }
-  const employess = await listEmployees(params.id);
-  return employess;
+  const employees = await listEmployees(params.id);
+  return employees.map((employee) => ({
+    name: employee.full_name,
+    id: employee.employee_id,
+  }));
 };
 
 export default loader;

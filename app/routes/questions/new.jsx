@@ -28,10 +28,12 @@ export const loader = async ({ request }) => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  // values passed as strings
   const form = Object.fromEntries(formData.entries());
+  const { assignedDepartment, assigned_to_employee_id: assignedEmployeeId } = form;
   const user = await getAuthenticatedUser(request);
-  const parsedDepartment = parseInt(form.assignedDepartment, 10);
-  const assignedEmployeeValue = parseInt(form.assigned_to_employee_id, 10);
+  const parsedDepartment = parseInt(assignedDepartment, 10);
+  const assignedEmployeeValue = assignedEmployeeId !== 'undefined' ? parseInt(assignedEmployeeId, 10) : undefined;
   const isAnonymous = form.isAnonymous === 'true';
 
   const payload = {

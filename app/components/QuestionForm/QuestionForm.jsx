@@ -59,7 +59,7 @@ function QuestionForm({
     fullLocation: '',
     isShowPreview: false,
     askBtbEnabled: false,
-    assignedEmployee: null,
+    assignedEmployee: undefined,
     employeesByDepartment: [],
   };
 
@@ -86,7 +86,7 @@ function QuestionForm({
 
         setState({
           ...state,
-          assignedEmployee: null,
+          assignedEmployee: undefined,
         });
       }
     };
@@ -113,13 +113,12 @@ function QuestionForm({
       location, isAnonymous, inputValue, assignedDepartment,
     } = state;
     setState({ ...state, showSubmitWithModal: false });
-
     const question = {
       isAnonymous,
       question: deleteNoMarkupFormatHTML(inputValue.trim()),
       location: location === NONE_LOCATION ? DEFAULT_LOCATION : location,
       assignedDepartment: assignedDepartment.department_id || 'wizeq',
-      assigned_to_employee_id: state.assignedEmployee ? state.assignedEmployee.id : null,
+      assigned_to_employee_id: state.assignedEmployee ? state.assignedEmployee.id : undefined,
     };
 
     try {

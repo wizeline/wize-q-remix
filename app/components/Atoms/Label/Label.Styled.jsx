@@ -33,6 +33,11 @@ export const Label = styled.div`
     color: var(--color-secondary);
   `}
 
+  ${(props) => props.type === 'Employee' && css`
+    background-color: var(--color-green-lowOpacity);
+    color: var(--color-green);
+  `}
+
   ${(props) => props.type === 'Answer' && css`
     background-color: var(--color-green-bg);
     color: var(--color-green);

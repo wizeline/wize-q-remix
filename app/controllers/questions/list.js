@@ -230,6 +230,7 @@ const listQuestions = async (params) => {
         },
       },
       created_by: true,
+      assigned_to: { select: { full_name: true } },
       Department: true,
     },
   });

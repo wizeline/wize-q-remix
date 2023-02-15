@@ -209,6 +209,7 @@ function QuestionRow(props) {
                 <>
                   <Label text={renderLocation(question.location, locations)} type="Location" />
                   <Label text={renderDepartment(question.Department)} type="Department" />
+                  {question.assigned_to && <Label text={question.assigned_to.full_name} type="Employee" />}
                 </>
               )
             }
@@ -234,6 +235,9 @@ QuestionRow.propTypes = {
     user_hash: PropTypes.string,
     can_edit: PropTypes.bool,
     Department: PropTypes.string,
+    assigned_to: PropTypes.shape({
+      full_name: PropTypes.string,
+    }),
     created_by: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,

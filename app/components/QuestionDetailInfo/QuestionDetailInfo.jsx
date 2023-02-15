@@ -5,7 +5,7 @@ import { renderDepartment } from 'app/utils/questionUtils';
 import Label from 'app/components/Atoms/Label';
 import * as Styled from './QuestionDetailInfo.Styled';
 
-function QuestionDetailInfo({ location, department }) {
+function QuestionDetailInfo({ location, department, employeeName }) {
   const { locations } = useLoaderData();
 
   const renderLocation = (_location, _locations) => {
@@ -27,9 +27,15 @@ function QuestionDetailInfo({ location, department }) {
         {
           department
             ? <Label text={renderDepartment(department)} type="Department" />
-            : <Styled.NotAssigned>Not Assinged</Styled.NotAssigned>
+            : <Styled.NotAssigned>Not Assigned</Styled.NotAssigned>
         }
       </Styled.QuestionDetailInfoSection>
+      {employeeName && (
+      <Styled.QuestionDetailInfoSection>
+        <Styled.QuestionDetailInfoTitle>Assigned to</Styled.QuestionDetailInfoTitle>
+        <Label text={employeeName} type="Employee" />
+      </Styled.QuestionDetailInfoSection>
+      )}
     </Styled.QuestionDetailInfoContainer>
   );
 }
@@ -37,6 +43,7 @@ function QuestionDetailInfo({ location, department }) {
 QuestionDetailInfo.propTypes = {
   location: PropTypes.string.isRequired,
   department: PropTypes.string.isRequired,
+  employeeName: PropTypes.string.isRequired,
 };
 
 export default QuestionDetailInfo;

@@ -205,7 +205,11 @@ function QuestionDetailPage() {
             {' '}
           </strong>
         </Button>
-        <QuestionDetailInfo location={question.location} department={question.Department} />
+        <QuestionDetailInfo
+          location={question.location}
+          department={question.Department}
+          employeeName={question.assigned_to?.full_name}
+        />
       </Styled.BackToHomeQuestion>
       <Styled.QuestionDetail>
         <QuestionDetail question={question} />

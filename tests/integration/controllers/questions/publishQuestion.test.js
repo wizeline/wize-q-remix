@@ -1,12 +1,20 @@
 import publishQuestion from 'app/controllers/questions/publishQuestion';
 import randomAccessToken from 'tests/utils';
 import createQuestion from 'app/controllers/questions/create';
+import slack from 'app/utils/backend/slackNotifications';
+
 import {
   PIN_QUESTION_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
 } from 'app/utils/constants';
 
 describe('question controller: publish question', () => {
+  const slackSpy = jest.spyOn(slack, 'createQuestionNotification').mockImplementation();
+
+  afterEach(() => {
+    slackSpy.mockClear();
+  });
+
   it('return an error when provied no parameters', async () => {
     const response = await publishQuestion();
 
@@ -45,7 +53,7 @@ describe('question controller: publish question', () => {
     expect(response.question).toBeUndefined();
   });
 
-  it('return a success messaje', async () => {
+  it('makes question public with valid parameters', async () => {
     // create a anonymous questions
     const anonymousQuestion = {
       question: 'This is an example of anonymous question',
@@ -70,5 +78,8 @@ describe('question controller: publish question', () => {
     expect(publishQuestionResponse.error).toBeUndefined();
     expect(publishQuestionResponse.successMessage).toBe('The question has been published');
     expect(publishQuestionResponse.question.is_public).toBe(true);
+
+    // Send slack notification
+    expect(slackSpy).toHaveBeenCalledTimes(1);
   });
 });

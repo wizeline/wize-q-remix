@@ -26,7 +26,7 @@ const questionsAnswered = async (query) => {
       };
     }
 
-    const questions = await db.Questions.findMany({
+    const fetchQuestions = await db.Questions.findMany({
       where: {
         Answers: {
           some: {
@@ -34,6 +34,33 @@ const questionsAnswered = async (query) => {
           },
         },
       },
+      include: {
+        _count: {
+          select: {
+            Comments: true,
+            Votes: true,
+          },
+        },
+        Votes: true,
+      },
+    });
+
+    const questions = fetchQuestions.map((question) => {
+      // eslint-disable-next-line array-callback-return, consistent-return
+      const numLikes = question.Votes.filter((vote) => {
+        if (vote.is_upvote || vote.is_upvote === null) {
+          return { ...vote };
+        }
+      }).length;
+
+      // eslint-disable-next-line array-callback-return, consistent-return
+      const numDisklike = question.Votes.filter((vote) => {
+        if (!vote.is_upvote && vote.is_upvote !== null) {
+          return { ...vote };
+        }
+      }).length;
+
+      return { ...question, numLikes, numDisklike };
     });
 
     return { questions };

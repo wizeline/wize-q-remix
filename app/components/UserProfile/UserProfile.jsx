@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserImage from 'app/components/Atoms/UserImage';
 import * as Styled from 'app/components/UserProfile/UserProfile.styled';
+import { Link } from 'react-router-dom';
 
 function UserProfile({
   name, title, email, picture,
@@ -9,7 +10,9 @@ function UserProfile({
   return (
     <Styled.ProfileDropdown>
       <Styled.ProfileDropdownInfo>
-        <UserImage src={picture} size="big" alt="user" />
+        <Link to="/profile">
+          <UserImage src={picture} size="big" alt="user" />
+        </Link>
         <Styled.ProfileDropdownUser>
           <Styled.ProfileDropdownName>{name}</Styled.ProfileDropdownName>
           <p>{title}</p>

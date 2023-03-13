@@ -33,6 +33,7 @@ export const PAGE_COMMENTS_LIMIT = 100;
 export const FIRST_PAGE_NUMBER = 1;
 export const DEFAULT_ACCESS_VALUE = 'value';
 export const DEFAULT_LOCATION_ACCESS_VALUE = 'code';
+export const DEFAULT_ENABLED_ACCESS_VALUE = 'is_enabled';
 
 export const SORTING_OPTIONS = [
   { name: 'Newest', value: 'newest' },
@@ -70,6 +71,12 @@ export const DEPARTMENT_OPTIONS = [
   { department_id: 0, name: 'Not Assigned' },
 ];
 
+export const ENABLED_OPTIONS = [
+  { is_enabled: -1, name: 'All' },
+  { is_enabled: 0, name: 'Disabled' },
+  { is_enabled: 1, name: 'Enabled' },
+];
+
 export const DEPARTMENT_LABEL = 'Department';
 export const DEFAULT_DEPARTMENT_OPT = DEPARTMENT_OPTIONS[0];
 export const DEFAULT_DEPARTMENT_ID = DEFAULT_DEPARTMENT_OPT.department_id;
@@ -79,6 +86,11 @@ export const LOCATION_LABEL = 'Location';
 export const DEFAULT_LOCATION = 'ALL';
 export const LOCATION_ACCESS_VALUE = DEFAULT_LOCATION_ACCESS_VALUE;
 export const DEFAULT_LOCATION_OPT = { name: 'All', code: DEFAULT_LOCATION };
+
+export const ENABLED_LABEL = 'Enabled';
+export const DEFAULT_ENABLED = -1;
+export const ENABLED_ACCESS_VALUE = DEFAULT_ENABLED_ACCESS_VALUE;
+export const DEFAULT_ENABLED_OPT = { name: 'All', is_enabled: DEFAULT_ENABLED };
 
 export const FILTER_BY_USER_TEXT = 'All questions';
 export const DEFAULT_FILTER_BY_USER = 'ALL_QUESTIONS';

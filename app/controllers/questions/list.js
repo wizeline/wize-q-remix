@@ -122,7 +122,7 @@ const buildWhereSearch = (search) => {
   };
 };
 
-const buildWhereLastXMonths = (numMonths, dateRange, search, isAdmin) => {
+const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   if (typeof numMonths === 'number' && (!dateRange && !search)) {
     const { initialDate, lastDate } = createDateRange(new Date(), numMonths);
     return {
@@ -160,7 +160,7 @@ const buildWhere = ({
     ...buildWhereDepartment(department),
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
-    ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search, isAdmin),
+    ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search),
     ...buildWhereIsAdminSearch(isAdmin, enabled),
   };
   return where;
@@ -198,7 +198,7 @@ const listQuestions = async (params) => {
   const {
     limit, offset, orderBy, status, location, department, dateRange, search, user, enabled,
   } = params;
-  
+
   const fetchedQuestions = await db.Questions.findMany({
     where: buildWhere({
       status,

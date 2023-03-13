@@ -127,6 +127,9 @@ function QuestionRow(props) {
     </Styled.PinnedIndicator>
   );
 
+  const isPublishButtonAllowed = !question.is_public && question.is_enabled
+    && profile.employee_id === question.assigned_to_employee_id;
+
   return (
     <Styled.QuestionRowContainer isQuestionModalOpen={isQuestionModalOpen}>
       <Styled.QuestionRowMetadataTop>
@@ -166,7 +169,7 @@ function QuestionRow(props) {
                   onChange={handleStatusClick}
                 />
               </Styled.DisableControls>
-              {(!question.is_public && question.is_enabled) && (
+              {isPublishButtonAllowed && (
                 <Styled.DisableControls>
                   <Styled.ButtonTooltipMessage>
                     Click to publish this question.
@@ -238,6 +241,7 @@ QuestionRow.propTypes = {
     assigned_to: PropTypes.shape({
       full_name: PropTypes.string,
     }),
+    assigned_to_employee_id: PropTypes.number,
     created_by: PropTypes.shape({
       email: PropTypes.string,
       employee_id: PropTypes.number,

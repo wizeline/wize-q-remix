@@ -75,7 +75,7 @@ function ProfileUserInformation(props) {
 
           <div style={{ margin: '15px' }}>
             <div>
-              <QuestionTable questions={questionsAnswered} title="Questions Answered" />
+              {questionsAnswered.length > 0 && profile.is_admin && <QuestionTable questions={questionsAnswered} title="Questions Answered" />}
             </div>
           </div>
 

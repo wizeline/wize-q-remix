@@ -28,6 +28,7 @@ export const loader = async ({ request }) => {
   const status = url.searchParams.get('status');
   const department = Number.parseInt(url.searchParams.get('department'), 10);
   const location = url.searchParams.get('location');
+  const enabled = url.searchParams.get('is_enabled');
   const dateRange = dateRangeConversion(url.searchParams.get('dateRange'));
   const page = url.searchParams.get('page') ?? 1;
 
@@ -38,6 +39,7 @@ export const loader = async ({ request }) => {
     department: Number.isNaN(department) ? undefined : department,
     location,
     dateRange,
+    enabled,
     offset: (page - 1) * PAGE_QUESTIONS_LIMIT,
   });
 

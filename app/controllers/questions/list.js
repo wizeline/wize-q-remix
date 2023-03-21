@@ -140,8 +140,11 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   return {};
 };
 
-const buildWhereIsAdminSearch = (isAdmin) => {
+const buildWhereIsAdminSearch = (isAdmin, enabled) => {
   if (isAdmin) {
+    if (enabled) {
+      return { is_enabled: Boolean(+enabled) };
+    }
     return {};
   }
 
@@ -149,7 +152,7 @@ const buildWhereIsAdminSearch = (isAdmin) => {
 };
 
 const buildWhere = ({
-  status, search, location, department, dateRange, isAdmin,
+  status, search, location, department, dateRange, isAdmin, enabled,
 }) => {
   const where = {
     ...buildWhereStatus(status),
@@ -158,7 +161,7 @@ const buildWhere = ({
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
     ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search),
-    ...buildWhereIsAdminSearch(isAdmin),
+    ...buildWhereIsAdminSearch(isAdmin, enabled),
   };
   return where;
 };
@@ -193,7 +196,7 @@ const sortQuestions = (sortType, questions) => {
 
 const listQuestions = async (params) => {
   const {
-    limit, offset, orderBy, status, location, department, dateRange, search, user,
+    limit, offset, orderBy, status, location, department, dateRange, search, user, enabled,
   } = params;
 
   const fetchedQuestions = await db.Questions.findMany({
@@ -204,6 +207,7 @@ const listQuestions = async (params) => {
       dateRange,
       search,
       isAdmin: user ? user.is_admin : false,
+      enabled,
     }),
     take: limit || DEFAULT_LIMIT,
     skip: offset || DEFAULT_OFFSET,

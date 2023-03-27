@@ -36,6 +36,9 @@ function UserControls(props) {
       <LinkContainer to="/contact">
         <Styled.Navitem>Contact</Styled.Navitem>
       </LinkContainer>
+      <LinkContainer to="/profile">
+        <Styled.Navitem>Profile</Styled.Navitem>
+      </LinkContainer>
       {isAdmin && (
         <LinkContainer to="/admin">
           <Styled.Navitem>Admin</Styled.Navitem>

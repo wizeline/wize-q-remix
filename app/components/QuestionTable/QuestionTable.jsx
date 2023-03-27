@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable no-underscore-dangle */
 import React from 'react';
 import Table from 'app/components/Atoms/Table/Table';
@@ -14,7 +15,7 @@ function QuestionTable({ questions, title }) {
       id: idx,
       data: [{
         item: (
-          <div style={{ display: 'flex', width: '100%' }}>
+          <div style={{ display: 'flex', width: '100%' }} key={`${idx}-question${question.question_id}-1`}>
             <ConditionalLinkTo to={`/questions/${question.question_id}`} condition className="">
               {' '}
               { question.question }
@@ -25,7 +26,7 @@ function QuestionTable({ questions, title }) {
         icon: null,
       }, {
         item: (
-          <div style={{ display: 'flex', padding: '0px 10px' }}>
+          <div style={{ display: 'flex', padding: '0px 10px' }} key={`${idx}-question${question.question_id}-2`}>
             <img src={commentIcon} alt="" />
             <div style={{ padding: '0px 5px' }}>
               {' '}
@@ -38,7 +39,7 @@ function QuestionTable({ questions, title }) {
       },
       {
         item: (
-          <div style={{ display: 'flex', padding: '0px 10px' }}>
+          <div style={{ display: 'flex', padding: '0px 10px' }} key={`${idx}-question${question.question_id}-3`}>
             <img src={likeIconVoted} alt="" />
             <div style={{ padding: '0px 5px' }}>
               {' '}
@@ -52,7 +53,7 @@ function QuestionTable({ questions, title }) {
 
   return (
     <styled.Container>
-      <Table theaders={questionsHeaders} tdata={questionData} />
+      <Table theaders={questionsHeaders} tdata={questionData} key={title} />
     </styled.Container>
   );
 }

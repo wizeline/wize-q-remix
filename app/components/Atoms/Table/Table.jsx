@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as styled from 'app/components/Atoms/Table/Table.styled';
@@ -9,10 +10,10 @@ function Table(props) {
     <styled.Table>
       <styled.TableHeader>
         <styled.TableRow>
-          { theaders.map((header) => (
+          { theaders.map((header, idx) => (
             <styled.TableCol
-              key={header}
               title={header}
+              key={`${header}-${idx}`}
             >
               {header}
             </styled.TableCol>
@@ -21,10 +22,10 @@ function Table(props) {
       </styled.TableHeader>
       <tbody>
         {
-            tdata.map((items) => (
-              <styled.TableRow>
-                {items.data.map((info) => (
-                  <styled.TableCol>
+            tdata.map((items, idx) => (
+              <styled.TableRow key={`row-${idx}`}>
+                {items.data.map((info, cidx) => (
+                  <styled.TableCol key={`col-${cidx}`}>
                     {' '}
                     {info.item}
                     {' '}

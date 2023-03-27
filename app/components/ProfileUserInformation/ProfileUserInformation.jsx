@@ -69,13 +69,13 @@ function ProfileUserInformation(props) {
           <div style={{ margin: '15px' }}>
             <div>
               {questionCommented.length > 0
-                 && <QuestionTable questions={questionCommented} title="Questions Commented" />}
+                 && <QuestionTable questions={questionCommented} title="Questions-Commented" />}
             </div>
           </div>
 
           <div style={{ margin: '15px' }}>
             <div>
-              {questionsAnswered.length > 0 && profile.is_admin && <QuestionTable questions={questionsAnswered} title="Questions Answered" />}
+              {questionsAnswered.length > 0 && profile.is_admin && <QuestionTable questions={questionsAnswered} title="Questions-Answered" />}
             </div>
           </div>
 

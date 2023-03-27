@@ -15,7 +15,7 @@ ConditionalLinkTo.propTypes = {
   children: PropTypes.node.isRequired,
   to: PropTypes.string.isRequired,
   condition: PropTypes.bool.isRequired,
-  className: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 ConditionalLinkTo.defaultProps = {

@@ -37,18 +37,17 @@ const getQuestionsCreated = async (query) => {
     });
 
     const questions = fetchQuestions.map((question) => {
-    // eslint-disable-next-line array-callback-return, consistent-return
       const numLikes = question.Votes.filter((vote) => {
         if (vote.is_upvote || vote.is_upvote === null) {
           return { ...vote };
         }
+        return {};
       }).length;
-
-      // eslint-disable-next-line array-callback-return, consistent-return
       const numDisklike = question.Votes.filter((vote) => {
         if (!vote.is_upvote && vote.is_upvote !== null) {
           return { ...vote };
         }
+        return {};
       }).length;
 
       return { ...question, numLikes, numDisklike };
@@ -56,7 +55,6 @@ const getQuestionsCreated = async (query) => {
 
     return questions;
   } catch (_error) {
-    console.log(_error);
     return {
       error: { message: 'The user was not found', detail: 'ID not found' },
     };

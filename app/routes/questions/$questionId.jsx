@@ -62,7 +62,7 @@ export const loader = async ({ request, params }) => {
   const { questionId } = params;
   const { question } = await getQuestionById(parseInt(questionId, 10), user);
 
-  if (!question || (!user.is_admin && !question.is_enabled)) {
+  if (!question) {
     return redirect('/404');
   }
 

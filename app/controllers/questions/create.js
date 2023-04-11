@@ -44,6 +44,18 @@ const createQuestion = async (body) => {
       },
     });
 
+    if (created.assigned_to_employee_id == null || created.assigned_to_employee_id === undefined) {
+      const user = await db.users.findFirst({
+        where: {
+          email: process.env.EMAIL_AUTH_USER,
+        },
+      });
+
+      if (user) {
+        created.assigned_to_employee_id = user.employee_id;
+      }
+    }
+
     const userAssigned = await db.users.findUnique({
       where: {
         employee_id: created.assigned_to_employee_id,

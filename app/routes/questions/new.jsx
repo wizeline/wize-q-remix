@@ -49,9 +49,11 @@ export const action = async ({ request }) => {
 
   if (response.successMessage) {
     const session = await getSession(request);
-    session.flash('globalSuccess', response.successMessage);
+    const { question, successMessage } = response;
+    session.flash('globalSuccess', successMessage);
+    const destination = `/questions/${question.question_id}`;
 
-    return redirect('/?index', {
+    return redirect(destination, {
       headers: {
         'Set-Cookie': await commitSession(session),
       },

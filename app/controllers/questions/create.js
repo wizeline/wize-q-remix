@@ -29,10 +29,8 @@ const createQuestion = async (body) => {
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
-      is_public: !((value.is_anonymous && value.is_anonymous === true)),
     },
   });
-  let successMessage;
 
   if (value.is_anonymous) {
     const sessionHash = generateSessionIdHash(accessToken, created.question_id);
@@ -51,11 +49,7 @@ const createQuestion = async (body) => {
         employee_id: created.assigned_to_employee_id,
       },
     });
-    const questionDetailUrl = getQuestionDetailUrl(created.question_id);
-    successMessage = {
-      message: 'The anonymous question has been created succesfully!\n\nPlease save the attached link for followup on answers: ',
-      questionUrl: questionDetailUrl,
-    };
+
     await sendEmail({
       to: userAssigned.email,
       subject: EMAILS.anonymousQuestionAssigned.subject,
@@ -71,13 +65,10 @@ const createQuestion = async (body) => {
       questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
       questionId: created.question_id,
     });
-    successMessage = {
-      message: 'The question has been created succesfully!',
-    };
   }
 
   return {
-    successMessage,
+    successMessage: 'The question has been created succesfully!',
     question: created,
   };
 };

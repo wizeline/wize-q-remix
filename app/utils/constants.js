@@ -269,7 +269,6 @@ export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
-export const ANON_QUESTION_REQUIRES_ASSIGNEE = 'Select an assigned employee';
 
 // Sockets & Reactivity
 export const FAKE_SOCKET = {
@@ -318,25 +317,12 @@ export const DEFAULT_TOAST_CONFIG = {
   progress: undefined,
 };
 
-export const QUESTION_CREATED_TOAST_CONFIG = {
-  position: 'top-right',
-  autoClose: false,
-  hideProgressBar: false,
-  closeOnClick: false,
-  pauseOnHover: true,
-  draggable: false,
-  progress: undefined,
-};
-
 // Things to Keep in Mind
 export const RECOMMENDATIONS_QUESTION = [
   'Strive for constructive open communication. Avoid vagueness.',
   'Do not demean or degrade others because of their gender, race, age, religion, etc.',
   'Avoid posting questions that include sexually explicit comments, hate speech, prejudicial remarks, and profanity.',
   'Do not mock other members, their comments, profiles, threads, or experiences. Remember, what is funny for you may be offensive to others.',
-  'For anonymous questions, you have to select a specific employee according to the department selected.',
-  'Anonymous questions will not appear on the home page until an admin has published it.',
-  'Although the question has not been published, you can the link of your question to followup on answers.',
 ];
 
 // Recurring error messages

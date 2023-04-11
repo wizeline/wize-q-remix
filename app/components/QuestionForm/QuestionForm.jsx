@@ -22,7 +22,6 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-  ANON_QUESTION_REQUIRES_ASSIGNEE,
 } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';
 import Switch from 'app/components/Switch';
@@ -228,8 +227,6 @@ function QuestionForm({
     const {
       assignedDepartment,
       inputValue,
-      isAnonymous,
-      assignedEmployee,
     } = state;
 
     const sanitizedInput = deleteNoMarkupFormatHTML(inputValue.trim());
@@ -249,11 +246,6 @@ function QuestionForm({
     if (locations.length === 0) {
       askBtbEnabled = false;
       tooltipMessage = NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE;
-    }
-
-    if (isAnonymous && !assignedEmployee) {
-      askBtbEnabled = false;
-      tooltipMessage = ANON_QUESTION_REQUIRES_ASSIGNEE;
     }
 
     return {

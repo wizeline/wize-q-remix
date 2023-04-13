@@ -63,10 +63,14 @@ model Comments {
 }
 
 model Departments {
-  department_id Int         @id @default(autoincrement())
-  name          String      @db.VarChar(255)
-  is_active     Boolean     @default(true)
-  Questions     Questions[]
+  department_id       Int         @id @default(autoincrement())
+  name                String      @db.VarChar(255)
+  is_active           Boolean     @default(true)
+  manager_employee_id Int?
+  ManagerDepartmet    users?      @relation(fields: [manager_employee_id], references: [employee_id])
+  Questions           Questions[]
+
+  @@index([manager_employee_id], map: "Departments_manager_employee_id")
 }
 
 model DraftAnswers {
@@ -189,8 +193,9 @@ model users {
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
-  CommentsApproved    Comments[]             @relation("Comments_approvedByTousers")
-  CommentsCreated     Comments[]             @relation("Comments_userEmailTousers")
+  CommentsApproved     Comments[]             @relation("Comments_approvedByTousers")
+  CommentsCreated      Comments[]             @relation("Comments_userEmailTousers")
+  ManagerDepartments   Departments[]
 
   @@index([email], map: "users_email")
 }

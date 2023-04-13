@@ -287,7 +287,6 @@ function QuestionDetails(props) {
               isWritingCommentMobile={writingCommentOnMobile}
               setWritingCommentOnMobile={setWritingCommentOnMobile}
               questionId={parseInt(questionId, 10)}
-              is_public={question.is_public}
             />
 
           </Styled.QuestionDetailFooter>
@@ -333,7 +332,6 @@ QuestionDetails.propTypes = {
     numDisklike: PropTypes.number.isRequired,
     hasLike: PropTypes.bool.isRequired,
     hasDislike: PropTypes.bool.isRequired,
-    is_public: PropTypes.bool,
   }),
 };
 

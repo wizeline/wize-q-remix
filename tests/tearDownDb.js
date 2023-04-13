@@ -4,7 +4,6 @@ const tearDownDb = async () => {
   await db.$connect();
 
   // Delete in reverse order
-  await db.EmployeesDepartments.deleteMany();
   await db.Nps.deleteMany();
   await db.Votes.deleteMany();
   await db.Answers.deleteMany();

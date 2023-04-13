@@ -56,6 +56,7 @@ export const Recommendations = styled.div`
       font-size: 14px;
       margin-bottom: 15px;
     }
+    margin-bottom: 10px; 
     &:nth-child(2),
     &:nth-child(3),
     &:nth-child(4) {

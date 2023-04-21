@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { Form } from '@remix-run/react';
+import { Form, useSubmit } from '@remix-run/react';
 import * as S from 'app/components/Modals/EditUserModal/EditUserModal.Styled';
 import { PRIMARY_BUTTON, SECONDARY_BUTTON } from 'app/utils/constants';
 import UserImage from 'app/components/Atoms/UserImage/UserImage';
 import Button from 'app/components/Atoms/Button';
+import ACTIONS from 'app/utils/actions';
 
 function EditUserModal({ user, onClose }) {
+  const formRef = useRef();
+  const submit = useSubmit();
   const [uAdmin, setUAdmin] = useState(user.is_admin);
   const [uJobTitle, setUJobTitle] = useState(user.job_title);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const data = new FormData(formRef.current);
+    data.set('action', ACTIONS.UPDATE_USER);
+    submit(data, { method: 'post', action: '/admin', replace: true });
+  };
+
   return (
     <S.Wrapper>
-      <Form method="post">
+      <Form onSubmit={onSubmit} ref={formRef}>
         <S.Container>
           <S.User>
             <UserImage src={user.profile_picture} size="extra big" />

@@ -66,7 +66,7 @@ export const loader = async ({ request, params }) => {
   }
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
 
   const parametros = {
     questionId: parseInt(questionId, 10),

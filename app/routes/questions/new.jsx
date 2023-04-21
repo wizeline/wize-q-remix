@@ -19,7 +19,7 @@ export const loader = async ({ request }) => {
   await requireAuth(request);
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
   return json({
     locations,
     departments,

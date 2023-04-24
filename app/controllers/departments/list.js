@@ -1,3 +1,5 @@
+/* eslint-disable one-var */
+/* eslint-disable one-var-declaration-per-line */
 import { db } from 'app/utils/db.server';
 import { getPagination } from 'app/controllers/users/list';
 
@@ -23,7 +25,7 @@ const calOffset = (allPages, offset, limit, totalPages) => {
 };
 
 const listDepartments = async (params) => {
-  let page; let size; let search; let allPages;
+  let page, size, search, allPages;
 
   if (params === undefined) {
     page = 0;

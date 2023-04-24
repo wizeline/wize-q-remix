@@ -3,32 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as S from 'app/components/SearchDropdown/SearchDropdown.styled';
 
-// const SearchDropdown = React.forwardRef((ref, props) => {
-//   console.log('SearchDropdown', props);
-//   const {
-//     data, onChange, showDropdown, onDropdownClick,
-//   } = props;
-//   return (
-//     <div>
-//       <S.InputSearch
-//         ref={ref}
-//         type="search"
-//         onChange={onChange}
-//         placeholder="users"
-//       />
-//       {/* { (showDropdown && data)
-//       && (
-//       <S.DropdownSearch>
-//         {data.map((user) => (
-//           <div onClick={() => { onDropdownClick(user); }}>
-//             {user.full_name}
-//           </div>
-//         ))}
-//       </S.DropdownSearch>
-//       )} */}
-//     </div>
-//   );
-// });
 function SearchDropdown({
   data, onChange, showDropdown, onDropdownClick, defaultValue, inputId,
   keyValue,

@@ -17,7 +17,7 @@ import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION, DEFAULT_QUESTION_C
 import getQuestionById from 'app/controllers/questions/getQuestionById';
 import listLocations from 'app/controllers/locations/list';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
-import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';
 import createAnswer from 'app/controllers/answers/create';
 import updateAnswer from 'app/controllers/answers/update';
 import deleteAnswer from 'app/controllers/answers/delete';

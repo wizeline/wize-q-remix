@@ -99,7 +99,8 @@ function QuestionForm({
   useEffect(() => {
     setState({
       ...state,
-      employeesByDepartment: fetcher.data,
+      employeesByDepartment: (fetcher.data !== undefined && fetcher.data.employees !== undefined)
+        ? fetcher.data.employees : [],
     });
   }, [fetcher.data]);
 

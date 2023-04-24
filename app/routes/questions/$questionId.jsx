@@ -17,7 +17,7 @@ import { COMMENT_INPUT_PLACEHOLDER, RECOMMENDATIONS_QUESTION, DEFAULT_QUESTION_C
 import getQuestionById from 'app/controllers/questions/getQuestionById';
 import listLocations from 'app/controllers/locations/list';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
-import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';
 import createAnswer from 'app/controllers/answers/create';
 import updateAnswer from 'app/controllers/answers/update';
 import deleteAnswer from 'app/controllers/answers/delete';
@@ -33,7 +33,6 @@ import assignQuestion from 'app/controllers/questions/assignQuestion';
 import listDepartments from 'app/controllers/departments/list';
 import deleteNPS from 'app/controllers/answers/nps/delete';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
-import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -62,12 +61,12 @@ export const loader = async ({ request, params }) => {
   const { questionId } = params;
   const { question } = await getQuestionById(parseInt(questionId, 10), user);
 
-  if (!question || (!user.is_admin && !question.is_enabled)) {
+  if (!question) {
     return redirect('/404');
   }
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
 
   const parametros = {
     questionId: parseInt(questionId, 10),
@@ -172,10 +171,6 @@ export const action = async ({ request }) => {
       const params = JSON.parse(formData.get('params'));
       params.employeeId = user.employee_id;
       response = await approvedByComment(params);
-      break;
-    case ACTIONS.PUBLISH_QUESTION:
-      questionId = parseInt(formData.get('questionId'), 10);
-      response = await publishQuestion(questionId);
       break;
     default:
       break;

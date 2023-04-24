@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useLoaderData, useSearchParams } from "@remix-run/react";
-import filterIcon from "app/images/ic_filter.svg";
-import * as Styled from "app/components/Filters/Filters.Styled";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useLoaderData, useSearchParams } from '@remix-run/react';
+import filterIcon from 'app/images/ic_filter.svg';
+import * as Styled from 'app/components/Filters/Filters.Styled';
 
 import {
   SORTING_OPTIONS,
@@ -17,11 +17,6 @@ import {
   STATUS_LABEL,
   STATUS_ACCESS_VALUE,
   DEPARTMENT_OPTIONS,
-  ENABLED_OPTIONS,
-  ENABLED_LABEL,
-  ENABLED_ACCESS_VALUE,
-  DEFAULT_ENABLED_OPT,
-  DEFAULT_ENABLED,
   DEFAULT_DEPARTMENT_OPT,
   DEPARTMENT_LABEL,
   DEPARTMENT_ACCESS_VALUE,
@@ -30,14 +25,11 @@ import {
   LOCATION_ACCESS_VALUE,
   TEXT_BUTTON,
   DEFAULT_LOCATION_OPT,
-} from "app/utils/constants";
-import Button from "app/components/Atoms/Button";
-import CustomDropdown from "app/components/CustomDropdown";
-import useUser from 'app/utils/hooks/useUser';
+} from 'app/utils/constants';
+import Button from 'app/components/Atoms/Button';
+import CustomDropdown from 'app/components/CustomDropdown';
 
 function Filters(props) {
-  const { is_admin: isAdmin } = useUser();
-  
   const { modifyQuery, clearFilters } = props;
 
   const { departments, locations } = useLoaderData();
@@ -45,11 +37,9 @@ function Filters(props) {
   const [searchParams] = useSearchParams();
 
   const getDefaultStatus = () => {
-    const searchParam = searchParams.get("status");
+    const searchParam = searchParams.get('status');
     if (searchParam) {
-      const found = STATUS_OPTIONS.find(
-        (status) => status.value === searchParam
-      );
+      const found = STATUS_OPTIONS.find((status) => status.value === searchParam);
       if (found) return found;
     }
 
@@ -57,11 +47,9 @@ function Filters(props) {
   };
 
   const getDefaultSortOption = () => {
-    const searchParam = searchParams.get("order");
+    const searchParam = searchParams.get('order');
     if (searchParam) {
-      const found = SORTING_OPTIONS.find(
-        (order) => order.value === searchParam
-      );
+      const found = SORTING_OPTIONS.find((order) => order.value === searchParam);
       if (found) return found;
     }
 
@@ -69,11 +57,9 @@ function Filters(props) {
   };
 
   const getDefaultDateRangeOption = () => {
-    const searchParam = searchParams.get("dateRange");
+    const searchParam = searchParams.get('dateRange');
     if (searchParam) {
-      const found = DATE_RANGE_OPTIONS.find(
-        (date) => date.value === searchParam
-      );
+      const found = DATE_RANGE_OPTIONS.find((date) => date.value === searchParam);
       if (found) return found;
     }
 
@@ -81,132 +67,89 @@ function Filters(props) {
   };
 
   const getDefaultDepartmentOption = () => {
-    const searchParam = parseInt(searchParams.get("department"), 10);
+    const searchParam = parseInt(searchParams.get('department'), 10);
     if (searchParam !== undefined) {
-      const found = DEPARTMENT_OPTIONS.find(
-        (option) => option.department_id === searchParam
-      );
+      const found = DEPARTMENT_OPTIONS.find((option) => option.department_id === searchParam);
       if (found) return found;
       const foundInData = departments.find(
-        (department) => department.department_id === searchParam
+        (department) => department.department_id === searchParam,
       );
 
       if (foundInData) return foundInData;
     }
 
-    return DEFAULT_DEPARTMENT_OPT;
+    return DEFAULT_DATE_RANGE_OPT;
   };
 
   const getDefaultLocationOption = () => {
-    const searchParam = searchParams.get("location");
+    const searchParam = searchParams.get('location');
     if (searchParam) {
-      const foundInData = locations.find(
-        (location) => location.code === searchParam
-      );
+      const foundInData = locations.find((location) => location.code === searchParam);
       if (foundInData) return foundInData;
     }
 
     return DEFAULT_LOCATION_OPT;
   };
 
-  const getDefaultEnabledOption = () => {
-    const searchParam = searchParams.get("is_enabled");
-    if (searchParam) {
-      const found = ENABLED_OPTIONS.find(
-        (enabled) => enabled.is_enabled === +searchParam
-      );
-      if (found) return found;
-    }
-
-    return DEFAULT_ENABLED_OPT;
-  };
-
-  const [selectedOrderBy, setSelectedOrderBy] = useState(
-    getDefaultSortOption()
-  );
-  const [selectedDateRange, setSelectedDateRange] = useState(
-    getDefaultDateRangeOption()
-  );
+  const [selectedOrderBy, setSelectedOrderBy] = useState(getDefaultSortOption());
+  const [selectedDateRange, setSelectedDateRange] = useState(getDefaultDateRangeOption());
   const [selectedStatus, setSelectedStatus] = useState(getDefaultStatus());
-  const [selectedDepartment, setSelectedDepartment] = useState(
-    getDefaultDepartmentOption()
-  );
-  const [selectedLocation, setSelectedLocation] = useState(
-    getDefaultLocationOption()
-  );
-  const [selectedEnabled, setSelectedEnabled] = useState(
-    getDefaultEnabledOption()
-  );
+  const [selectedDepartment, setSelectedDepartment] = useState(getDefaultDepartmentOption());
+  const [selectedLocation, setSelectedLocation] = useState(getDefaultLocationOption());
   const [showClearButton, setShowClearButton] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
-  const [filtersButtonName, setFiltersButtonName] = useState("Show filters");
+  const [filtersButtonName, setFiltersButtonName] = useState('Show filters');
 
   useEffect(() => {
     if (selectedLocation !== null && selectedLocation !== undefined) {
       if (
-        selectedDateRange.name === DEFAULT_DATE_RANGE_OPT.name &&
-        selectedDepartment.name === DEFAULT_DEPARTMENT_OPT.name &&
-        selectedStatus.name === DEFAULT_STATUS_OPT.name &&
-        selectedLocation.code === DEFAULT_LOCATION &&
-        selectedEnabled.is_enabled === DEFAULT_ENABLED
+        selectedDateRange.name === DEFAULT_DATE_RANGE_OPT.name
+        && selectedDepartment.name === DEFAULT_DEPARTMENT_OPT.name
+        && selectedStatus.name === DEFAULT_STATUS_OPT.name
+        && selectedLocation.code === DEFAULT_LOCATION
       ) {
         setShowClearButton(false);
       } else {
         setShowClearButton(true);
       }
     }
-  }, [
-    selectedDateRange,
-    selectedStatus,
-    selectedDepartment,
-    selectedLocation,
-    selectedEnabled,
-  ]);
+  }, [selectedDateRange, selectedStatus, selectedDepartment, selectedLocation]);
 
   const selectOrderByFilter = (selectOrderBy) => {
     setSelectedOrderBy(selectOrderBy);
-    modifyQuery("order", selectOrderBy.value);
+    modifyQuery('order', selectOrderBy.value);
   };
 
   const selectDateRangeFilter = (selectDateRange) => {
     setSelectedDateRange(selectDateRange);
-    if (selectDateRange.value === "all") {
-      modifyQuery("dateRange", undefined);
+    if (selectDateRange.value === 'all') {
+      modifyQuery('dateRange', undefined);
     } else {
-      modifyQuery("dateRange", selectDateRange.value);
+      modifyQuery('dateRange', selectDateRange.value);
     }
   };
 
   const selectStatusFilter = (selectStatus) => {
     setSelectedStatus(selectStatus);
-    if (selectStatus.value === "all") {
-      modifyQuery("status", undefined);
+    if (selectStatus.value === 'all') {
+      modifyQuery('status', undefined);
     } else {
-      modifyQuery("status", selectStatus.value);
+      modifyQuery('status', selectStatus.value);
     }
   };
 
   const selectDepartmentFilter = (selectDepartment) => {
     setSelectedDepartment(selectDepartment);
     if (selectDepartment.department_id === -1) {
-      modifyQuery("department", undefined);
+      modifyQuery('department', undefined);
     } else {
-      modifyQuery("department", selectDepartment.department_id);
-    }
-  };
-
-  const selectEnabledFilter = (selectEnabled) => {
-    setSelectedEnabled(selectEnabled);
-    if (selectEnabled.is_enabled === -1) {
-      modifyQuery("is_enabled", undefined);
-    } else {
-      modifyQuery("is_enabled", selectEnabled.is_enabled);
+      modifyQuery('department', selectDepartment.department_id);
     }
   };
 
   const selectLocationFilter = (selectLocation) => {
     setSelectedLocation(selectLocation);
-    modifyQuery("location", selectLocation.code);
+    modifyQuery('location', selectLocation.code);
   };
 
   const clearAllFilters = () => {
@@ -214,17 +157,22 @@ function Filters(props) {
     selectStatusFilter(DEFAULT_STATUS_OPT, false);
     selectDepartmentFilter(DEFAULT_DEPARTMENT_OPT, false);
     selectLocationFilter(DEFAULT_LOCATION_OPT, false);
-    selectEnabledFilter(DEFAULT_ENABLED_OPT, false);
 
-    clearFilters(["location", "department", "status", "dateRange", "enabled"]);
+    clearFilters([
+      'location',
+      'department',
+      'status',
+      'dateRange',
+      'location',
+    ]);
   };
 
   const selectFilters = () => {
     if (!showFilters) {
-      setFiltersButtonName("Hide filters");
+      setFiltersButtonName('Hide filters');
       setShowFilters(true);
     } else {
-      setFiltersButtonName("Show filters");
+      setFiltersButtonName('Show filters');
       setShowFilters(false);
     }
   };
@@ -287,16 +235,6 @@ function Filters(props) {
     accessValueName: STATUS_ACCESS_VALUE,
   };
 
-  const enabledFilterConfig = {
-    elements: [...ENABLED_OPTIONS],
-    text: selectedEnabled.name,
-    label: ENABLED_LABEL,
-    onSelectFunc: selectEnabledFilter,
-    selectedValue: selectedEnabled.is_enabled,
-    isHihlighted: selectedEnabled !== DEFAULT_ENABLED_OPT,
-    accessValueName: ENABLED_ACCESS_VALUE,
-  };
-
   return (
     <Styled.Filters>
       <Button
@@ -309,7 +247,9 @@ function Filters(props) {
         <span>{filtersButtonName}</span>
       </Button>
       <Styled.FiltersLine secondary visibility="none" />
-      <Styled.FiltersWrapper hideComponent={!showFilters ? "none" : "block"}>
+      <Styled.FiltersWrapper
+        hideComponent={!showFilters ? 'none' : 'block'}
+      >
         <Styled.FiltersContainer>
           <Styled.FiltersBlock>
             <Styled.FiltersLabel>Order by:</Styled.FiltersLabel>
@@ -319,11 +259,10 @@ function Filters(props) {
           </Styled.FiltersBlock>
           <Styled.FiltersBlock>
             <Styled.FiltersLabel>
-              Filter by:{" "}
+              Filter by:
+              {' '}
               {showClearButton && (
-                <button type="button" onClick={clearAllFilters}>
-                  Clear All Filters
-                </button>
+              <button type="button" onClick={clearAllFilters}>Clear All Filters</button>
               )}
             </Styled.FiltersLabel>
             <Styled.FiltersField>
@@ -338,11 +277,6 @@ function Filters(props) {
             <Styled.FiltersField>
               <CustomDropdown {...getLocationFilterConfig()} />
             </Styled.FiltersField>
-            {isAdmin && (
-              <Styled.FiltersField>
-                <CustomDropdown {...enabledFilterConfig} />
-              </Styled.FiltersField>
-            )}
           </Styled.FiltersBlock>
         </Styled.FiltersContainer>
       </Styled.FiltersWrapper>

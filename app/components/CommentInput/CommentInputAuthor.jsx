@@ -12,7 +12,6 @@ function CommentInputAuthor(props) {
     anonymousProfilePicture,
     profilePicture,
     selectPostingAs,
-    is_public,
   } = props;
 
   const profile = useUser();
@@ -48,16 +47,13 @@ function CommentInputAuthor(props) {
         dropup
       >
         {renderUserProfile(profile)}
-        {is_public
-          && (
-            <MenuItem eventKey={anonymousUsername}>
-              <Styled.AuthorImg
-                variant="dropdown"
-                src={anonymousProfilePicture}
-              />
-              Anonymous
-            </MenuItem>
-          )}
+        <MenuItem eventKey={anonymousUsername}>
+          <Styled.AuthorImg
+            variant="dropdown"
+            src={anonymousProfilePicture}
+          />
+          Anonymous
+        </MenuItem>
       </Styled.DropdownButtonStyled>
     </Styled.CommentInputAuthor>
   );
@@ -68,13 +64,11 @@ CommentInputAuthor.propTypes = {
   anonymousProfilePicture: PropTypes.string,
   profilePicture: PropTypes.string.isRequired,
   selectPostingAs: PropTypes.func.isRequired,
-  is_public: PropTypes.bool,
 };
 
 CommentInputAuthor.defaultProps = {
   anonymousUsername: ANONYMOUS_USER.username,
   anonymousProfilePicture: ANONYMOUS_USER.profilePicture,
-  is_public: false,
 };
 
 export default CommentInputAuthor;

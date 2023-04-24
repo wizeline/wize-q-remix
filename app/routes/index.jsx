@@ -14,9 +14,8 @@ import { PAGE_QUESTIONS_LIMIT } from 'app/utils/constants';
 import dateRangeConversion from 'app/utils/dateRangeConversion';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
-import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';
 import ACTIONS from 'app/utils/actions';
-import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
@@ -28,7 +27,6 @@ export const loader = async ({ request }) => {
   const status = url.searchParams.get('status');
   const department = Number.parseInt(url.searchParams.get('department'), 10);
   const location = url.searchParams.get('location');
-  const enabled = url.searchParams.get('is_enabled');
   const dateRange = dateRangeConversion(url.searchParams.get('dateRange'));
   const page = url.searchParams.get('page') ?? 1;
 
@@ -39,12 +37,11 @@ export const loader = async ({ request }) => {
     department: Number.isNaN(department) ? undefined : department,
     location,
     dateRange,
-    enabled,
     offset: (page - 1) * PAGE_QUESTIONS_LIMIT,
   });
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments({});
 
   return json({
     questions,
@@ -74,10 +71,6 @@ export const action = async ({ request }) => {
       questionId = parseInt(formData.get('questionId'), 10);
       const enabledValue = formData.get('enabledValue') !== 'false';
       response = await modifyEnabledValue(questionId, enabledValue);
-      break;
-    case ACTIONS.PUBLISH_QUESTION:
-      questionId = parseInt(formData.get('questionId'), 10);
-      response = await publishQuestion(questionId);
       break;
     default:
       break;

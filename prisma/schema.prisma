@@ -63,10 +63,14 @@ model Comments {
 }
 
 model Departments {
-  department_id Int         @id @default(autoincrement())
-  name          String      @db.VarChar(255)
-  is_active     Boolean     @default(true)
-  Questions     Questions[]
+  department_id       Int         @id @default(autoincrement())
+  name                String      @db.VarChar(255)
+  is_active           Boolean     @default(true)
+  manager_employee_id Int?
+  ManagerDepartmet    users?      @relation(fields: [manager_employee_id], references: [employee_id])
+  Questions           Questions[]
+
+  @@index([manager_employee_id], map: "Departments_manager_employee_id")
 }
 
 model DraftAnswers {
@@ -136,7 +140,6 @@ model Questions {
   num_votes                    Int?           @default(0)
   is_pinned                    Boolean        @default(false)
   is_enabled                   Boolean        @default(true)
-  is_public                    Boolean        @default(true)
   Locations                    Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
   assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
   created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
@@ -190,8 +193,9 @@ model users {
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
-  CommentsApproved    Comments[]             @relation("Comments_approvedByTousers")
-  CommentsCreated     Comments[]             @relation("Comments_userEmailTousers")
+  CommentsApproved     Comments[]             @relation("Comments_approvedByTousers")
+  CommentsCreated      Comments[]             @relation("Comments_userEmailTousers")
+  ManagerDepartments   Departments[]
 
   @@index([email], map: "users_email")
 }

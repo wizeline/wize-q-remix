@@ -139,20 +139,16 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   }
   return {};
 };
-
-const buildWhereIsAdminSearch = (isAdmin, enabled) => {
+const buildWhereIsAdminSearch = (isAdmin) => {
   if (isAdmin) {
-    if (enabled) {
-      return { is_enabled: Boolean(+enabled) };
-    }
     return {};
   }
 
-  return { is_enabled: true, is_public: true };
+  return { is_enabled: true };
 };
 
 const buildWhere = ({
-  status, search, location, department, dateRange, isAdmin, enabled,
+  status, search, location, department, dateRange, isAdmin,
 }) => {
   const where = {
     ...buildWhereStatus(status),
@@ -161,7 +157,7 @@ const buildWhere = ({
     ...buildWhereDateRange(dateRange),
     ...buildWhereSearch(search),
     ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search),
-    ...buildWhereIsAdminSearch(isAdmin, enabled),
+    ...buildWhereIsAdminSearch(isAdmin),
   };
   return where;
 };
@@ -196,7 +192,7 @@ const sortQuestions = (sortType, questions) => {
 
 const listQuestions = async (params) => {
   const {
-    limit, offset, orderBy, status, location, department, dateRange, search, user, enabled,
+    limit, offset, orderBy, status, location, department, dateRange, search, user,
   } = params;
 
   const fetchedQuestions = await db.Questions.findMany({
@@ -207,7 +203,6 @@ const listQuestions = async (params) => {
       dateRange,
       search,
       isAdmin: user ? user.is_admin : false,
-      enabled,
     }),
     take: limit || DEFAULT_LIMIT,
     skip: offset || DEFAULT_OFFSET,

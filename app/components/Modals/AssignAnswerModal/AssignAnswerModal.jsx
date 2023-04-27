@@ -1,5 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { useSubmit, useTransition, useLoaderData } from '@remix-run/react';
+import React, { useState, useRef, useEffect } from 'react';
+import {
+  useSubmit, useTransition, useLoaderData, useFetcher,
+} from '@remix-run/react';
 import PropTypes from 'prop-types';
 import { FormGroup, ControlLabel, MenuItem } from 'react-bootstrap';
 import Button from 'app/components/Atoms/Button/Button';
@@ -18,10 +20,27 @@ function AssignAnswerModal(props) {
   const [departmentsDropdownSelected, setDeparmentsDropdownSelected] = useState(null);
   const [department, setDepartment] = useState({ name: DEPARTMENT_PLACEHOLDER, department_id: 0 });
   const { departments: departmentData } = useLoaderData();
+  const [employees, setEmployees] = useState([]);
+  const [currentEmployee, setCurrentEmployee] = useState({ name: 'Select an employee', id: 0 });
 
+  const fetcher = useFetcher();
   const submit = useSubmit();
   const transition = useTransition();
   const assignQuestionForm = useRef();
+
+  const fetchEmployees = async (departmentId) => {
+    if (departmentId) {
+      fetcher.load(`/employees/getByDeparment/${parseInt(departmentId, 10)}`);
+    }
+  };
+
+  useEffect(() => {
+    if (fetcher.data) {
+      if (fetcher.data.employees !== undefined) {
+        setEmployees(fetcher.data.employees);
+      }
+    }
+  }, [fetcher.data]);
 
   const resetModal = () => {
     setDeparmentsDropdownSelected(null);
@@ -40,6 +59,7 @@ function AssignAnswerModal(props) {
     data.set('action', ACTIONS.ASSIGN_QUESTION);
     data.set('questionId', question.question_id);
     data.set('assigned_department', department.department_id);
+    data.set('assigned_to_employee_id', currentEmployee.id);
     submit(data, { method: 'post', action: `/questions/${question.question_id}`, replace: true });
 
     setDepartment(
@@ -56,6 +76,12 @@ function AssignAnswerModal(props) {
 
     setDeparmentsDropdownSelected(departmentData[selectedDepartmentIndex]);
     setDepartment(departmentData[selectedDepartmentIndex]);
+    setCurrentEmployee({ name: 'Select an employee', id: 0 });
+    fetchEmployees(departmentData[selectedDepartmentIndex].department_id);
+  };
+
+  const handleEmployeeSelectChange = (employeeSelected) => {
+    setCurrentEmployee(employeeSelected);
   };
 
   const isSubmitEnabled = () => departmentsDropdownSelected;
@@ -65,6 +91,19 @@ function AssignAnswerModal(props) {
       {department2.name}
     </MenuItem>
   ));
+
+  const renderEmployeesOptions = () => {
+    if (employees) {
+      return (
+        employees.map((employee) => (
+          <MenuItem eventKey={employee} key={employee.id}>
+            {employee.name }
+          </MenuItem>
+        ))
+      );
+    }
+    return null;
+  };
 
   const renderDepartmentSelectBox = () => (
     <FormGroup controlId="formControlsSelectMultiple">
@@ -80,6 +119,15 @@ function AssignAnswerModal(props) {
           id="dropdown"
         >
           {renderDepartmentOptions()}
+        </Styled.CustDropDownButton>
+
+        <Styled.CustDropDownButton
+          bsStyle="default"
+          title={currentEmployee.name}
+          onSelect={handleEmployeeSelectChange}
+          id="dropdown"
+        >
+          {renderEmployeesOptions()}
         </Styled.CustDropDownButton>
       </Styled.SelectContainer>
     </FormGroup>

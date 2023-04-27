@@ -24,6 +24,7 @@ export const modifyQuestionPinStatusParams = Joi.object().keys({
 export const assignQuestionSchema = Joi.object().keys({
   question_id: JOI_ID_VALIDATION,
   assigned_department: JOI_ID_VALIDATION,
+  assigned_to_employee_id: JOI_ID_VALIDATION,
 });
 
 export const modifyQuestionEnabledValueParams = Joi.object().keys({

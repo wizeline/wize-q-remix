@@ -1,3 +1,5 @@
 {
-  "requireEmployeeAssigned": false
+  "requireEmployeeAssigned": false,
+  "sendEmailToManagerOnQuestionCreation": true,
+  "sendSlackOnQuestionCreation": true
 }

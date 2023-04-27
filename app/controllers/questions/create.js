@@ -9,8 +9,13 @@ import { SLACK_QUESTION_LIMIT } from 'app/utils/backend/slackConstants';
 import { EMAILS } from 'app/utils/backend/emails/emailConstants';
 import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
 import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation } from 'app/config/flags.json';
+import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
-const createQuestion = async (body) => {
+const createQuestion = async (
+  body,
+  config = { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation },
+) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
     return {
@@ -43,39 +48,43 @@ const createQuestion = async (body) => {
         user_hash: sessionHash,
       },
     });
+  }
 
-    if (created.assigned_to_employee_id == null || created.assigned_to_employee_id === undefined) {
-      const user = await db.users.findFirst({
-        where: {
-          email: process.env.EMAIL_AUTH_USER,
-        },
-      });
-
-      if (user) {
-        created.assigned_to_employee_id = user.employee_id;
-      }
-    }
-
-    const userAssigned = await db.users.findUnique({
-      where: {
-        employee_id: created.assigned_to_employee_id,
-      },
-    });
-
-    await sendEmail({
-      to: userAssigned.email,
-      subject: EMAILS.anonymousQuestionAssigned.subject,
-      template: EMAILS.anonymousQuestionAssigned.template,
-      context: {
-        name: userAssigned.full_name,
-        question_url: getQuestionDetailUrl(created.question_id),
-        question_text: created.question,
-      },
-    });
-  } else {
+  if (config.sendSlackOnQuestionCreation) {
     await slack.createQuestionNotification({
       questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
       questionId: created.question_id,
+    });
+  }
+
+  if (config.sendEmailToManagerOnQuestionCreation) {
+    let departmentManager;
+
+    if (created.assigned_department) {
+      departmentManager = (await db.Departments.findUnique(({
+        where: {
+          department_id: created.assigned_department,
+        },
+        include: { ManagerDepartmet: true },
+      }))).ManagerDepartmet;
+    }
+
+    const destinationEmail = departmentManager ? departmentManager.email : defaultManagerEmail;
+    const destinationName = departmentManager ? departmentManager.full_name : defaultManagerName;
+
+    const emailProperties = value.is_anonymous
+      ? EMAILS.anonymousQuestionAssigned
+      : EMAILS.publicQuestionAssigned;
+
+    await sendEmail({
+      to: destinationEmail,
+      subject: emailProperties.subject,
+      template: emailProperties.template,
+      context: {
+        name: destinationName,
+        question_url: getQuestionDetailUrl(created.question_id),
+        question_text: created.question,
+      },
     });
   }
 

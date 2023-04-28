@@ -6,7 +6,7 @@ import { db } from 'app/utils/db.server';
 
 const assignQuestion = async (query) => {
   const { error, value } = assignQuestionSchema.validate(query);
-  const { question_id, assigned_department } = value;
+  const { question_id, assigned_department, assigned_to_employee_id } = value;
 
   if (error) {
     return { errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
@@ -17,6 +17,7 @@ const assignQuestion = async (query) => {
       where: { question_id },
       data: {
         assigned_department,
+        assigned_to_employee_id,
       },
     });
 

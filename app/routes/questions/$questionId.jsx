@@ -134,6 +134,7 @@ export const action = async ({ request }) => {
       const assignQuestionBody = {
         question_id: parseInt(formData.get('questionId'), 10),
         assigned_department: parseInt(formData.get('assigned_department'), 10),
+        assigned_to_employee_id: parseInt(formData.get('assigned_to_employee_id'), 10),
       };
       response = await assignQuestion(assignQuestionBody);
       break;

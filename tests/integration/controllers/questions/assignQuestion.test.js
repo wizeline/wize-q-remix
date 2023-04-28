@@ -5,6 +5,7 @@ describe('assignQuestion', () => {
     const payload = {
       question_id: 4,
       assigned_department: 4,
+      assigned_to_employee_id: 4,
     };
 
     const response = await assignQuestion(payload);
@@ -17,6 +18,7 @@ describe('assignQuestion', () => {
     const errPayload = {
       question_id: 11,
       assigned_department: 4,
+      assigned_to_employee_id: 4,
     };
 
     const response = await assignQuestion(errPayload);

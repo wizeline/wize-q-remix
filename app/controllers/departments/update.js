@@ -22,8 +22,10 @@ const updateDepartement = async (params) => {
     data: {
       name,
       is_active,
-      manager_employee_id: ManagerDepartmet ? ManagerDepartmet.employee_id : null,
-      alternate_manager_id: SubstituteManager ? SubstituteManager.employee_id : null,
+      manager_employee_id: (ManagerDepartmet && ManagerDepartmet.employee_id !== undefined)
+        ? ManagerDepartmet.employee_id : null,
+      alternate_manager_id: (SubstituteManager && SubstituteManager.employee_id !== undefined)
+        ? SubstituteManager.employee_id : null,
     },
   });
 

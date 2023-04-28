@@ -43,6 +43,11 @@ function EditDepartmentModal({ department, onClose }) {
   const delayedQuery = useCallback(debounce((value) => sendQuery(value), 400), []);
 
   const onChange = (e) => {
+    if (e.target.value === '') {
+      if (e.target.id === 'search-id') setCurrentUser({});
+      if (e.target.id === 'search-substitute') setCurrentSubstitute({});
+      return;
+    }
     if (e.target.id === 'search-id') setShowDropdown(e.target.value !== '');
     if (e.target.id === 'search-substitute') setShowSubstitute(e.target.value !== '');
     delayedQuery(e.target.value);

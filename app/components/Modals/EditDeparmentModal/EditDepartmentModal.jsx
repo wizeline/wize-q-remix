@@ -15,24 +15,26 @@ function EditDepartmentModal({ department, onClose }) {
   const fetcher = useFetcher();
   const submit = useSubmit();
   const [currentUser, setCurrentUser] = useState({});
+  const [currentSubstitute, setCurrentSubstitute] = useState({});
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showSubstitute, setShowSubstitute] = useState(false);
 
   const {
-    department_id, name, is_active, ManagerDepartmet,
+    department_id, name, is_active, ManagerDepartmet, AlternateManager,
   } = department;
 
   useEffect(() => {
     if (ManagerDepartmet && ManagerDepartmet.full_name !== undefined) {
-      const element = document.getElementById('search-id');
-      element.value = ManagerDepartmet.full_name;
+      const managerInput = document.getElementById('search-id');
+      managerInput.value = ManagerDepartmet.full_name;
+      setCurrentUser(ManagerDepartmet);
+    }
+    if (AlternateManager && AlternateManager.full_name !== undefined) {
+      const substituteInput = document.getElementById('search-substitute');
+      substituteInput.value = AlternateManager.full_name;
+      setCurrentSubstitute(AlternateManager);
     }
   }, []);
-
-  useEffect(() => {
-    if (fetcher.data && fetcher.data.searchUsers !== undefined) {
-      setShowDropdown(fetcher.data.searchUsers.length > 0);
-    }
-  }, [fetcher.data]);
 
   const sendQuery = (searchValue) => {
     fetcher.load(`/?userSearch=${searchValue}`);
@@ -41,15 +43,41 @@ function EditDepartmentModal({ department, onClose }) {
   const delayedQuery = useCallback(debounce((value) => sendQuery(value), 400), []);
 
   const onChange = (e) => {
-    setShowDropdown(e.target.value !== '');
+    if (e.target.value === '') {
+      if (e.target.id === 'search-id') setCurrentUser({});
+      if (e.target.id === 'search-substitute') setCurrentSubstitute({});
+      return;
+    }
+    if (e.target.id === 'search-id') setShowDropdown(e.target.value !== '');
+    if (e.target.id === 'search-substitute') setShowSubstitute(e.target.value !== '');
     delayedQuery(e.target.value);
   };
 
-  const onHandlerClick = (value) => {
-    const element = document.getElementById('search-id');
-    element.value = value.full_name;
-    setCurrentUser(value);
-    setShowDropdown(false);
+  const onDropdownClick = (elementId, user) => {
+    const element = document.getElementById(elementId);
+    element.value = user.full_name;
+    switch (elementId) {
+      case 'search-id':
+        setCurrentUser(user);
+        setShowDropdown(false);
+        break;
+      case 'search-substitute':
+        setCurrentSubstitute(user);
+        setShowSubstitute(false);
+        break;
+      default:
+        setShowDropdown(false);
+        setShowSubstitute(false);
+        break;
+    }
+  };
+
+  const onHandlerClick = (user) => {
+    onDropdownClick('search-id', user);
+  };
+
+  const onHandlerClickSubstitute = (user) => {
+    onDropdownClick('search-substitute', user);
   };
 
   const onSubmit = (e) => {
@@ -60,6 +88,7 @@ function EditDepartmentModal({ department, onClose }) {
     data.set('department_id', department_id);
     data.set('name', name);
     data.set('ManagerDepartmet', JSON.stringify(currentUser));
+    data.set('AlternateManager', JSON.stringify(currentSubstitute));
 
     submit(data, { method: 'post', action: '/admin', replace: true });
 
@@ -90,7 +119,7 @@ function EditDepartmentModal({ department, onClose }) {
               </S.TableRow>
               <S.TableRow>
                 <li>
-                  <b>User:</b>
+                  <b>Manager:</b>
                   {' '}
                 </li>
                 <li>
@@ -101,6 +130,22 @@ function EditDepartmentModal({ department, onClose }) {
                     data={buildData()}
                     showDropdown={showDropdown}
                     onDropdownClick={onHandlerClick}
+                  />
+                </li>
+              </S.TableRow>
+              <S.TableRow>
+                <li>
+                  <b>Substitute : (manager)</b>
+                  {' '}
+                </li>
+                <li>
+                  <SearchDropdown
+                    keyValue="full_name"
+                    inputId="search-substitute"
+                    onChange={(e) => { onChange(e); }}
+                    data={buildData()}
+                    showDropdown={showSubstitute}
+                    onDropdownClick={onHandlerClickSubstitute}
                   />
                 </li>
               </S.TableRow>
@@ -126,6 +171,9 @@ EditDepartmentModal.propTypes = {
         full_name: PropTypes.string,
       },
     ),
+    AlternateManager: PropTypes.shape({
+      full_name: PropTypes.string,
+    }),
   }),
   onClose: PropTypes.func.isRequired,
 
@@ -137,6 +185,9 @@ EditDepartmentModal.defaultProps = {
     name: '',
     is_active: true,
     ManagerDepartmet: {
+      full_name: '',
+    },
+    AlternateManager: {
       full_name: '',
     },
   },

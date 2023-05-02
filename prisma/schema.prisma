@@ -67,10 +67,13 @@ model Departments {
   name                String      @db.VarChar(255)
   is_active           Boolean     @default(true)
   manager_employee_id Int?
-  ManagerDepartmet    users?      @relation(fields: [manager_employee_id], references: [employee_id])
+  alternate_manager_id  Int?
+  ManagerDepartmet    users?      @relation("Manager", fields: [manager_employee_id], references: [employee_id])
+  AlternateManager    users?       @relation("SubManager", fields: [alternate_manager_id], references: [employee_id])
   Questions           Questions[]
 
   @@index([manager_employee_id], map: "Departments_manager_employee_id")
+  @@index([alternate_manager_id], map: "Departments_alternate_manager_employee_id")
 }
 
 model DraftAnswers {
@@ -195,7 +198,8 @@ model users {
   Answers              Answers[]
   CommentsApproved     Comments[]             @relation("Comments_approvedByTousers")
   CommentsCreated      Comments[]             @relation("Comments_userEmailTousers")
-  ManagerDepartments   Departments[]
+  ManagerDepartments   Departments[]          @relation("Manager")
+  AlternateManager     Departments[]          @relation("SubManager")
 
   @@index([email], map: "users_email")
 }

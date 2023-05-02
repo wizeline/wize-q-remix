@@ -49,7 +49,7 @@ const listDepartments = async (params) => {
     where: buildWhere(search),
     take: calLimit(allPages, count, limit),
     skip: calOffset(allPages, offset, limit, totalPages),
-    include: { ManagerDepartmet: true },
+    include: { ManagerDepartmet: true, AlternateManager: true },
   });
   return { departments, totalPages };
 };

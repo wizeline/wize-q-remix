@@ -4,7 +4,7 @@ import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 
 const updateDepartement = async (params) => {
   const {
-    department_id, name, is_active, ManagerDepartmet,
+    department_id, name, is_active, ManagerDepartmet, SubstituteManager,
   } = params;
 
   if (typeof department_id !== 'number') {
@@ -22,7 +22,10 @@ const updateDepartement = async (params) => {
     data: {
       name,
       is_active,
-      manager_employee_id: ManagerDepartmet.employee_id,
+      manager_employee_id: (ManagerDepartmet && ManagerDepartmet.employee_id !== undefined)
+        ? ManagerDepartmet.employee_id : null,
+      alternate_manager_id: (SubstituteManager && SubstituteManager.employee_id !== undefined)
+        ? SubstituteManager.employee_id : null,
     },
   });
 

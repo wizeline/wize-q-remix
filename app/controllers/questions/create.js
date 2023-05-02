@@ -65,23 +65,35 @@ const createQuestion = async (
         where: {
           department_id: created.assigned_department,
         },
-        include: { ManagerDepartmet: true },
-      }))).ManagerDepartmet;
+        include: { ManagerDepartmet: true, AlternateManager: true },
+      })));
     }
+    const { ManagerDepartmet, AlternateManager } = departmentManager;
 
-    const destinationEmail = departmentManager ? departmentManager.email : defaultManagerEmail;
-    const destinationName = departmentManager ? departmentManager.full_name : defaultManagerName;
+    const destinationEmail = ManagerDepartmet ? ManagerDepartmet.email : defaultManagerEmail;
+    const destinationName = ManagerDepartmet ? ManagerDepartmet.full_name : defaultManagerName;
+
+    const mailList = [destinationEmail];
+    const nameList = [destinationName];
+
+    const destinationEmailSub = AlternateManager ? AlternateManager.email : undefined;
+    const destinationNameSub = AlternateManager ? AlternateManager.full_name : undefined;
+
+    if (destinationEmailSub) {
+      mailList.push(destinationEmailSub);
+      nameList.push(destinationNameSub);
+    }
 
     const emailProperties = value.is_anonymous
       ? EMAILS.anonymousQuestionAssigned
       : EMAILS.publicQuestionAssigned;
 
     await sendEmail({
-      to: destinationEmail,
+      to: mailList.join(','),
       subject: emailProperties.subject,
       template: emailProperties.template,
       context: {
-        name: destinationName,
+        name: nameList.join(' | '),
         question_url: getQuestionDetailUrl(created.question_id),
         question_text: created.question,
       },

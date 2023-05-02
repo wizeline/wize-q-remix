@@ -3,8 +3,16 @@ import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
 import { assignQuestionSchema } from 'app/utils/backend/validators/question';
 import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
+import { EMAILS } from 'app/utils/backend/emails/emailConstants';
+import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
+import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { sendEmailOnQuestionReassigned } from 'app/config/flags.json';
+import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
-const assignQuestion = async (query) => {
+const assignQuestion = async (
+  query,
+  config = { sendEmailOnQuestionReassigned },
+) => {
   const { error, value } = assignQuestionSchema.validate(query);
   const { question_id, assigned_department, assigned_to_employee_id } = value;
 
@@ -21,6 +29,33 @@ const assignQuestion = async (query) => {
       },
     });
 
+    if (config.sendEmailOnQuestionReassigned) {
+      const user = await db.users.findUnique({
+        where:
+       {
+         employee_id: assigned_to_employee_id,
+       },
+      });
+
+      const destinationEmail = user && user.email !== undefined ? user.email : defaultManagerEmail;
+      const destinationName = user && user.full_name !== undefined
+        ? user.full_name : defaultManagerName;
+
+      const emailProperties = assignedQuestion.is_anonymous
+        ? EMAILS.anonymousQuestionAssigned
+        : EMAILS.publicQuestionAssigned;
+
+      await sendEmail({
+        to: destinationEmail,
+        subject: emailProperties.subject,
+        template: emailProperties.template,
+        context: {
+          name: destinationName,
+          question_url: getQuestionDetailUrl(assignedQuestion.question_id),
+          question_text: assignedQuestion.question,
+        },
+      });
+    }
     return {
       successMessage: 'The question department has been reassigned successfully',
       assignedQuestion,

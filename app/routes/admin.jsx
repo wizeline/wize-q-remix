@@ -68,6 +68,7 @@ export const action = async ({ request }) => {
           department_id: parseInt(formData.get('department_id'), 10),
           name: formData.get('name'),
           ManagerDepartmet: JSON.parse(formData.get('ManagerDepartmet')),
+          SubstituteManager: JSON.parse(formData.get('AlternateManager')),
         },
       );
       break;

@@ -106,6 +106,11 @@ function AdminDepartments({
     });
   };
 
+  const setManager = (deparment) => {
+    const { ManagerDepartmet, AlternateManager } = deparment;
+    return `${ManagerDepartmet.full_name} ${AlternateManager ? `/ ${AlternateManager.full_name}` : ''}`;
+  };
+
   return (
     <div>
       <Styled.TableContainer>
@@ -136,7 +141,7 @@ function AdminDepartments({
                 <td>{deparment.name}</td>
                 <td>
                   {' '}
-                  {(deparment.ManagerDepartmet && deparment.ManagerDepartmet.full_name !== undefined) ? deparment.ManagerDepartmet.full_name : ''}
+                  {(deparment.ManagerDepartmet && deparment.ManagerDepartmet.full_name !== undefined) ? setManager(deparment) : ''}
                   {' '}
                 </td>
                 <td>

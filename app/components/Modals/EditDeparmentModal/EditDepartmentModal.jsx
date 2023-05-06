@@ -17,14 +17,15 @@ function EditDepartmentModal({ department, onClose }) {
   const [currentUser, setCurrentUser] = useState({});
   const [currentSubstitute, setCurrentSubstitute] = useState({});
   const [showDropdown, setShowDropdown] = useState(false);
-  const [isActive, setIsActive] = useState(department.is_active);
+  const [isActive, setIsActive] = useState(true);
   const [showSubstitute, setShowSubstitute] = useState(false);
 
   const {
-    department_id, name, ManagerDepartmet, AlternateManager,
+    department_id, name, is_active, ManagerDepartmet, AlternateManager,
   } = department;
 
   useEffect(() => {
+    setIsActive(is_active);
     if (ManagerDepartmet && ManagerDepartmet.full_name !== undefined) {
       const managerInput = document.getElementById('search-id');
       managerInput.value = ManagerDepartmet.full_name;

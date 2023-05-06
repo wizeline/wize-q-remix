@@ -17,10 +17,11 @@ function EditDepartmentModal({ department, onClose }) {
   const [currentUser, setCurrentUser] = useState({});
   const [currentSubstitute, setCurrentSubstitute] = useState({});
   const [showDropdown, setShowDropdown] = useState(false);
+  const [isActive, setIsActive] = useState(department.is_active);
   const [showSubstitute, setShowSubstitute] = useState(false);
 
   const {
-    department_id, name, is_active, ManagerDepartmet, AlternateManager,
+    department_id, name, ManagerDepartmet, AlternateManager,
   } = department;
 
   useEffect(() => {
@@ -86,6 +87,7 @@ function EditDepartmentModal({ department, onClose }) {
     const data = new FormData();
     data.set('action', ACTIONS.UPDATE_DEPARTMENT);
     data.set('department_id', department_id);
+    data.set('is_active', isActive);
     data.set('name', name);
     data.set('ManagerDepartmet', JSON.stringify(currentUser));
     data.set('AlternateManager', JSON.stringify(currentSubstitute));
@@ -95,6 +97,9 @@ function EditDepartmentModal({ department, onClose }) {
     onClose();
   };
 
+  const onChecked = (e) => {
+    setIsActive(e.target.checked);
+  };
   const buildData = () => {
     if (fetcher.data && fetcher.data.searchUsers !== undefined) return fetcher.data.searchUsers;
     return [];
@@ -115,7 +120,15 @@ function EditDepartmentModal({ department, onClose }) {
               </S.TableRow>
               <S.TableRow>
                 <li><b> Active: </b></li>
-                <li><input name="is_admin" type="checkbox" checked={is_active} /></li>
+                <li>
+                  <input
+                    name="is_admin"
+                    type="checkbox"
+                    checked={isActive}
+                    onChange={(e) => { onChecked(e); }}
+                  />
+
+                </li>
               </S.TableRow>
               <S.TableRow>
                 <li>

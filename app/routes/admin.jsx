@@ -35,6 +35,7 @@ export const loader = async ({ request }) => {
     page: currentPage,
     search,
     size,
+    active: undefined,
     allPages: false,
   });
 
@@ -67,6 +68,7 @@ export const action = async ({ request }) => {
         {
           department_id: parseInt(formData.get('department_id'), 10),
           name: formData.get('name'),
+          is_active: formData.get('is_active') === 'true',
           ManagerDepartmet: JSON.parse(formData.get('ManagerDepartmet')),
           SubstituteManager: JSON.parse(formData.get('AlternateManager')),
         },

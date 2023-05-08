@@ -24,7 +24,6 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-  NO_EMPLOYEE_SELECTED_ID,
   NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE,
 } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';

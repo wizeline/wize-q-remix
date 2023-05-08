@@ -286,7 +286,7 @@ describe('listQuestions', () => {
       expect(response.length).toEqual(5);
 
       response.forEach((question) => {
-        expect(question.assigned_department).toEqual(null);
+        expect(question.assigned_department).toEqual(NOT_ASSIGNED_DEPARTMENT_ID);
       });
     });
   });

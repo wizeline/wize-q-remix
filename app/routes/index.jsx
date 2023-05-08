@@ -41,7 +41,7 @@ export const loader = async ({ request }) => {
   });
 
   const locations = await listLocations();
-  const { departments } = await listDepartments({});
+  const { departments } = await listDepartments();
 
   return json({
     questions,

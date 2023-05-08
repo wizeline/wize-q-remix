@@ -1,8 +1,8 @@
 [
   {
     "department_id": 1,
-    "name": "Founders",
-    "is_active": 0
+    "name": "I don't know whom to assign it",
+    "is_active": 1
   },
   {
     "department_id": 2,
@@ -87,7 +87,37 @@
   },
   {
     "department_id": 18,
+    "name": "Technical Writing",
+    "is_active": 1
+  },
+  {
+    "department_id": 19,
     "name": "Legal",
     "is_active": 1
+  },
+  {
+    "department_id": 20,
+    "name": "Mentorship Program",
+    "is_active": 1
+  },
+  {
+    "department_id": 21,
+    "name": "Bench",
+    "is_active": 1
+  },
+  {
+    "department_id": 22,
+    "name": "Talent Acquisition + Capacity",
+    "is_active": 1
+  },
+  {
+    "department_id": 23,
+    "name": "'DE&I'",
+    "is_active": 1
+  },
+  {
+    "department_id": 24,
+    "name": "Founders",
+    "is_active": 0
   }
 ]

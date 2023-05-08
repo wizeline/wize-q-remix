@@ -3,7 +3,7 @@ import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
 import React, { useRef } from 'react';
 import { formatCollapsingText } from 'app/utils/stringOperations';
 import { renderDepartment, hasJobTitle } from 'app/utils/questionUtils';
-import { COLLAPSED_QUESTION_MIN_LENGTH } from 'app/utils/constants';
+import { COLLAPSED_QUESTION_MIN_LENGTH, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionRow/QuestionRow.Styled';
 import ConditionalLinkTo from 'app/components/Atoms/ConditionalLinkTo';
 import Label from 'app/components/Atoms/Label';
@@ -141,10 +141,10 @@ function QuestionRow(props) {
                 question
               </Styled.ButtonTooltipMessage>
               <Switch
-            id={`question-${question.question_id}`}
-            checked={question.is_enabled}
-            onChange={handleStatusClick}
-          />
+                id={`question-${question.question_id}`}
+                checked={question.is_enabled}
+                onChange={handleStatusClick}
+              />
             </Styled.DisableControls>
 
           )}
@@ -172,7 +172,9 @@ function QuestionRow(props) {
               && (
                 <>
                   <Label text={renderLocation(question.location, locations)} type="Location" />
-                  <Label text={renderDepartment(question.Department)} type="Department" />
+                  {question.Department
+                   && question.Department.department_id !== NOT_ASSIGNED_DEPARTMENT_ID
+                   && <Label text={renderDepartment(question.Department)} type="Department" />}
                   {question.assigned_to && <Label text={question.assigned_to.full_name} type="Employee" />}
                 </>
               )

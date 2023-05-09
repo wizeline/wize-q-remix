@@ -5,6 +5,11 @@ const listEmployees = async (id) => {
   const relations = await db.EmployeesDepartments.findMany({
     where: {
       department_id: idValue,
+      NOT: [
+        {
+          employee_id: null,
+        },
+      ],
     },
     distinct: ['email'],
     include: {

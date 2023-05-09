@@ -92,7 +92,7 @@ function QuestionForm({
         });
       }
     };
-    fetchEmployees();
+    if (requireEmployeeAssigned) fetchEmployees();
   }, [state.assignedDepartment]);
 
   useEffect(() => {

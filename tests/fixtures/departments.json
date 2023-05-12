@@ -88,6 +88,7 @@
   {
     "department_id": 18,
     "name": "Legal",
-    "is_active": 1
+    "is_active": 1,
+    "last_manager_email_notification_date": "2011-04-11T10:20:30Z"
   }
 ]

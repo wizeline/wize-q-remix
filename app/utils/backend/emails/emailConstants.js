@@ -9,4 +9,8 @@ export const EMAILS = {
     subject: 'A new question assigned to you',
     template: 'publicQuestionAssigned',
   },
+  questionPendingReminder: {
+    subject: '[Reminder] List of questions missing an answer',
+    template: 'questionPendingReminder',
+  },
 };

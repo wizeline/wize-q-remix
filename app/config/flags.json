@@ -2,5 +2,6 @@
   "requireEmployeeAssigned": false,
   "sendEmailToManagerOnQuestionCreation": true,
   "sendSlackOnQuestionCreation": true,
-  "sendEmailOnQuestionReassigned": true
+  "sendEmailOnQuestionReassigned": true,
+  "sendManagersEmailReminder": true
 }

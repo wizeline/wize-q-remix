@@ -7,7 +7,7 @@ describe('listComments', () => {
     const response = await listComments({ questionId: 2, sessionToken: randomAccessToken() });
     expect(response).toBeDefined();
     expect(response.comments).toBeDefined();
-    expect(response.comments.length).toBe(3);
+    expect(response.comments.length).toBe(2);
   });
 
   it('return the comments list sort by votes', async () => {

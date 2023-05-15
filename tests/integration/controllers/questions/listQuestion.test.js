@@ -283,10 +283,10 @@ describe('listQuestions', () => {
     });
 
     it('returns questions with no deparment set', () => {
-      expect(response.length).toEqual(5);
+      expect(response.length).toEqual(6);
 
       response.forEach((question) => {
-        expect(question.assigned_department).toEqual(null);
+        expect(question.assigned_department).toEqual(NOT_ASSIGNED_DEPARTMENT_ID);
       });
     });
   });

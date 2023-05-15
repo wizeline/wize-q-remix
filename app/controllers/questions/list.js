@@ -79,7 +79,7 @@ const buildWhereDepartment = (department) => {
 
   if (department === NOT_ASSIGNED_DEPARTMENT_ID) {
     return {
-      assigned_department: null,
+      assigned_department: NOT_ASSIGNED_DEPARTMENT_ID,
     };
   }
 

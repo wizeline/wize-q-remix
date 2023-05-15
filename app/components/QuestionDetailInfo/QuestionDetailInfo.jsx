@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useLoaderData } from '@remix-run/react';
 import { renderDepartment } from 'app/utils/questionUtils';
 import Label from 'app/components/Atoms/Label';
-import * as Styled from './QuestionDetailInfo.Styled';
+import * as Styled from 'app/components/QuestionDetailInfo/QuestionDetailInfo.Styled';
+import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';
 
 function QuestionDetailInfo({ location, department, employeeName }) {
   const { locations } = useLoaderData();
@@ -25,7 +26,7 @@ function QuestionDetailInfo({ location, department, employeeName }) {
       <Styled.QuestionDetailInfoSection>
         <Styled.QuestionDetailInfoTitle>Department</Styled.QuestionDetailInfoTitle>
         {
-          department
+          department && department.department_id !== NOT_ASSIGNED_DEPARTMENT_ID
             ? <Label text={renderDepartment(department)} type="Department" />
             : <Styled.NotAssigned>Not Assigned</Styled.NotAssigned>
         }

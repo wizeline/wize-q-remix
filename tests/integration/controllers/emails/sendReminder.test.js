@@ -47,7 +47,7 @@ describe('sendReminder', () => {
   it('calls pending emails for active deparments', () => {
     expect(getPendingEmailsForDepartments).toHaveBeenCalledTimes(1);
     const departmentsList = getPendingEmailsForDepartments.mock.calls[0][0];
-    expect(departmentsList.length).toEqual(14);
+    expect(departmentsList.length).toEqual(20);
   });
 
   it('sends email list', async () => {

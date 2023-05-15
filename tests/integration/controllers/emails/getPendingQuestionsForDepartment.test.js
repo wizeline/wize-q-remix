@@ -53,6 +53,6 @@ describe('getPendingQuestionsForDeparment', () => {
 
   it('returns list of questions', () => {
     expect(results).toBeDefined();
-    expect(results.pendingQuestions.length).toEqual(1);
+    expect(results.pendingQuestions.length).toEqual(4);
   });
 });

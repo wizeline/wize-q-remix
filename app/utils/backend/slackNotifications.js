@@ -17,6 +17,7 @@ import {
 import { getStringSizeInBytes, truncateStringByBytes } from './stringUtils';
 
 const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
+const slackAdmins = slackNotify(process.env.SLACK_WEBHOOK_URL_ADMIN);
 
 async function send(options) {
   const { icon_emoji, attachments } = options;
@@ -36,6 +37,7 @@ async function send(options) {
     ],
   };
   await slack.send(defaults);
+  await slackAdmins.send(defaults);
 }
 
 function buildUrl(questionId) {

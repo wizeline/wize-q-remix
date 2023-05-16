@@ -18,6 +18,10 @@ data "google_secret_manager_secret_version" "Slack_webhook_url" {
   secret = "${var.secret_prefix}_SLACK_WEBHOOK_URL"
 }
 
+data "google_secret_manager_secret_version" "Slack_webhook_url_admin" {
+  secret = "${var.secret_prefix}_SLACK_WEBHOOK_URL_ADMIN"
+}
+
 data "google_secret_manager_secret_version" "Slack_wizeq_domain" {
   secret = "${var.secret_prefix}_SLACK_WIZEQ_DOMAIN"
 }

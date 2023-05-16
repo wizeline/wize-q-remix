@@ -37,6 +37,10 @@ resource "google_cloud_run_service" "app" {
           value = var.slack_webhook_url
         }
         env {
+          name = "SLACK_WEBHOOK_URL_ADMIN"
+          value = var.slack_webhook_url_admin
+        }
+        env {
           name  = "SLACK_WIZEQ_DOMAIN"
           value = var.slack_wizeq_domain
         }

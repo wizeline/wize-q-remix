@@ -60,6 +60,10 @@ variable "slack_webhook_url" {
   type = string
 }
 
+variable "slack_webhook_url_admin" {
+  type = string
+}
+
 variable "slack_wizeq_domain" {
   type = string
 }

@@ -64,3 +64,7 @@ data "google_secret_manager_secret_version" "Email_auth_password" {
 data "google_secret_manager_secret_version" "Email_service" {
   secret = "${var.secret_prefix}_REMIX_EMAIL_SERVICE"
 }
+
+data "google_secret_manager_secret_version" "Api_key" {
+  secret = "${var.secret_prefix}_REMIX_API_KEY"
+}

@@ -4,9 +4,18 @@
 import { sendManagerReminder } from 'app/controllers/emails/sendManagerReminder';
 import { json } from '@remix-run/node';
 import { sendManagersEmailReminder } from 'app/config/flags.json';
+import validateKey from 'app/utils/backend/api/validateKey';
 
-export const loader = async () => {
-  // INSERT KEY VALIDATION
+export const loader = () => {
+  throw new Response(null, { status: 404, statusText: 'Not Found' });
+};
+
+export const action = async ({ request }) => {
+  const { error: keyValidationError } = validateKey(request);
+
+  if (keyValidationError) {
+    return json({ success: false, detail: keyValidationError }, 400);
+  }
 
   if (sendManagersEmailReminder) {
     const { error, emailsQueue } = await sendManagerReminder();

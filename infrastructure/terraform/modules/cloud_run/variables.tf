@@ -92,6 +92,10 @@ variable "email_auth_password" {
   type = string
 }
 
+variable "api_key" {
+  type = string
+}
+
 # variable "db_connection_name" {
 #   type = string
 # }

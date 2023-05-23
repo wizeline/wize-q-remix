@@ -4,9 +4,12 @@ const { db } = require('app/utils/db.server');
 
 const { managerEmailFrequencyHours } = require('app/config/emails.json');
 
-const subtractHours = (date, hours) => {
+const subtractOriginalDate = (date, hours) => {
   const result = new Date(date);
   result.setHours(result.getHours() - hours);
+
+  // Substract an offset of minutes to not have race conditions with scheduler
+  result.setMinutes(result.getMinutes() - 5);
   return result;
 };
 
@@ -15,7 +18,7 @@ const sendManagerReminder = async (
   emailFrequency = managerEmailFrequencyHours,
 ) => {
   const originalDate = currentDate;
-  const previousDate = subtractHours(originalDate, emailFrequency);
+  const previousDate = subtractOriginalDate(originalDate, emailFrequency);
 
   try {
     const departments = await db.Departments.findMany({

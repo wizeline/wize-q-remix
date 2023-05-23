@@ -44,6 +44,13 @@ describe('sendReminder', () => {
     expect(dbDepartmentsListSpy).toHaveBeenCalledTimes(1);
   });
 
+  it('uses previous date with offset to check for last notification timedate', () => {
+    const mockCall = dbDepartmentsListSpy.mock.calls[0][0];
+    const { last_manager_email_notification_date: lastDate } = mockCall.where.OR[0];
+    expect(lastDate.lte).toBeDefined();
+    expect(lastDate.lte.getTime()).toBeLessThan(currentDateMock.getTime());
+  });
+
   it('calls pending emails for active deparments', () => {
     expect(getPendingEmailsForDepartments).toHaveBeenCalledTimes(1);
     const departmentsList = getPendingEmailsForDepartments.mock.calls[0][0];

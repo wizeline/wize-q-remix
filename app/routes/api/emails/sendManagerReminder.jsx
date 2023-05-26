@@ -3,7 +3,7 @@
 
 import { sendManagerReminder } from 'app/controllers/emails/sendManagerReminder';
 import { json } from '@remix-run/node';
-import { sendManagersEmailReminder } from 'app/config/flags.json';
+import { sendManagersEmailReminder, sendEmployeesEmailReminder } from 'app/config/flags.json';
 import validateKey from 'app/utils/backend/api/validateKey';
 
 export const loader = () => {
@@ -19,6 +19,14 @@ export const action = async ({ request }) => {
 
   if (sendManagersEmailReminder) {
     const { error, emailsQueue } = await sendManagerReminder();
+    if (error) {
+      return json({ success: false, detail: error }, 500);
+    }
+    return json({ success: true, emailsQueue: emailsQueue.length }, 200);
+  }
+
+  if (sendEmployeesEmailReminder) {
+    const { error, emailsQueue } = await sendManagersEmailReminder();
     if (error) {
       return json({ success: false, detail: error }, 500);
     }

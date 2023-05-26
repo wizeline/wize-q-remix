@@ -13,4 +13,8 @@ export const EMAILS = {
     subject: '[Reminder] List of questions missing an answer',
     template: 'questionPendingReminder',
   },
+  questionPendingReminderByEmployee: {
+    subject: '[Reminder] List of questions missing an answer',
+    template: 'questionPendingReminderByEmployee',
+  },
 };

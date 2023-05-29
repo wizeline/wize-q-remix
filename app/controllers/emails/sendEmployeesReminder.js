@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-// const { managerEmailFrequencyHours } = require('app/config/emails.json');
 const createDateRange = require('app/utils/backend/dateUtils');
 const { db } = require('app/utils/db.server');
 const { getPendingQuestionsByEmployeed } = require('app/controllers/emails/getPendingQuestionsByEmployeed');
@@ -7,12 +6,9 @@ const { DEFAULT_MONTHS } = require('app/utils/backend/constants');
 const { EMAILS } = require('app/utils/backend/emails/emailConstants');
 const { getQuestionDetailUrl } = require('app/utils/backend/urlUtils');
 const { sendEmail } = require('app/utils/backend/emails/emailHandler');
-// const { subtractOriginalDate } = require('app/utils/timeOperations');
+
 const sendEmployesReminder = async () => {
   const currentDate = new Date();
-  // const emailFrecuency = managerEmailFrequencyHours;
-
-  // const previousDate = subtractOriginalDate(currentDate, emailFrecuency);
 
   const { initialDate, lastDate } = createDateRange(currentDate, DEFAULT_MONTHS);
   try {

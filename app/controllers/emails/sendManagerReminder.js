@@ -33,7 +33,9 @@ const sendManagerReminder = async (
       return { emailsQueue: [] };
     }
 
-    const emailsQueue = await getPendingEmailsForDepartments(departments);
+    const { error, emailsQueue } = await getPendingEmailsForDepartments(departments);
+    if (error) return { emailsQueue: [] };
+
     emailsQueue.forEach(async (email) => {
       await sendEmail(email);
     });

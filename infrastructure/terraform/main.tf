@@ -62,4 +62,20 @@ module "cloud_scheduler_manager_email_queue" {
   }
 }
 
+module "cloud_scheduler_employee_email_queue" {
+  source      = "./modules/cloud_scheduler"
+
+  prefix = local.prefix
+
+  name        = "api_employee_email_queue_call"
+  description = "API call for employee email queue"
+  enabled     = true
+
+  http_target = {
+    http_method = "POST",
+    uri         = join("/", [data.google_secret_manager_secret_version.Wizeq_url.secret_data, "api", "emails", "sendEmployeesReminder"])
+    body        = "{}"
+    apiKey      = data.google_secret_manager_secret_version.Api_key.secret_data
+  }
+}
 

@@ -8,7 +8,7 @@ const getPendingQuestionsForDepartment = async (department, pastMonths = DEFAULT
     const pendingQuestions = await db.Questions.findMany({
       where: {
         assigned_to_employee_id: null,
-        assigned_department: department.id,
+        assigned_department: department.department_id,
         Answers: { none: {} },
         createdAt: {
           lte: new Date(lastDate),

@@ -1,9 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 // API routing doesn't work if we export this as default.
 
-import { sendManagerReminder } from 'app/controllers/emails/sendManagerReminder';
+import { sendEmployesReminder } from 'app/controllers/emails/sendEmployeesReminder';
 import { json } from '@remix-run/node';
-import { sendManagersEmailReminder } from 'app/config/flags.json';
+import { sendEmployeesEmailReminder } from 'app/config/flags.json';
 import validateKey from 'app/utils/backend/api/validateKey';
 
 export const loader = () => {
@@ -18,12 +18,12 @@ export const action = async ({ request }) => {
       return json({ success: false, detail: keyValidationError }, 400);
     }
 
-    if (sendManagersEmailReminder) {
-      const { error, emailsQueue } = await sendManagerReminder();
+    if (sendEmployeesEmailReminder) {
+      const { error, emailsQueue } = await sendEmployesReminder();
       if (error) {
-        return json({ success: false, detail: `sendManagersEmailReminder -  ${error}` }, 500);
+        return json({ success: false, detail: ` sendEmployesReminder -  ${error}` }, 500);
       }
-      return json({ success: true, managerEmails: emailsQueue.length }, 200);
+      return json({ success: true, employeeEmails: emailsQueue.length }, 200);
     }
 
     return json({ detail: 'This feature is currently disabled.' }, 200);

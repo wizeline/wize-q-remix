@@ -1,18 +1,8 @@
 const { getPendingEmailsForDepartments } = require('app/controllers/emails/getPendingEmailsForDeparments');
 const { sendEmail } = require('app/utils/backend/emails/emailHandler');
 const { db } = require('app/utils/db.server');
-
-const { managerEmailFrequencyHours, scheduledMinutesOffset } = require('app/config/emails.json');
-
-const subtractOriginalDate = (date, hours) => {
-  const result = new Date(date);
-  result.setHours(result.getHours() - hours);
-
-  // Substract an offset of minutes to not have race conditions with scheduler
-  const minutesOffset = scheduledMinutesOffset ?? 5;
-  result.setMinutes(result.getMinutes() - minutesOffset);
-  return result;
-};
+const { subtractOriginalDate } = require('app/utils/timeOperations');
+const { managerEmailFrequencyHours } = require('app/config/emails.json');
 
 const sendManagerReminder = async (
   currentDate = new Date(),
@@ -43,7 +33,9 @@ const sendManagerReminder = async (
       return { emailsQueue: [] };
     }
 
-    const emailsQueue = await getPendingEmailsForDepartments(departments);
+    const { error, emailsQueue } = await getPendingEmailsForDepartments(departments);
+    if (error) return { emailsQueue: [] };
+
     emailsQueue.forEach(async (email) => {
       await sendEmail(email);
     });

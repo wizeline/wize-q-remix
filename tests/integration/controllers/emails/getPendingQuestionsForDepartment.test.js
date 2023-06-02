@@ -10,7 +10,7 @@ describe('getPendingQuestionsForDeparment', () => {
   let results;
 
   const department = {
-    id: 1,
+    department_id: 1,
   };
 
   const initialDate = '02-02-2020';

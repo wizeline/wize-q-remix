@@ -22,7 +22,7 @@ describe('sendReminder', () => {
   let emails;
   let error;
 
-  getPendingEmailsForDepartments.mockReturnValue(mockEmails);
+  getPendingEmailsForDepartments.mockReturnValue({ emailsQueue: mockEmails });
   sendEmail.mockReturnValue(undefined);
 
   const currentDateMock = new Date('2011-04-11T10:20:30Z');

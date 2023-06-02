@@ -36,13 +36,13 @@ describe('getPendingEmailsForDeparments', () => {
   });
 
   it('returns empty array when no departments provided', async () => {
-    const results = await getPendingEmailsForDepartments([]);
+    const { emailsQueue: results } = await getPendingEmailsForDepartments([]);
     expect(results.length).toEqual(0);
   });
 
   it('filters out departments that do not have an assigned manager or alternate manager', async () => {
     getPendingQuestionsForDepartment.mockReturnValue({ pendingQuestions: [{}, {}] });
-    const results = await getPendingEmailsForDepartments(
+    const { emailsQueue: results } = await getPendingEmailsForDepartments(
       [
         ...mockValidDepartments,
         {
@@ -75,7 +75,7 @@ describe('getPendingEmailsForDeparments', () => {
   it('filters out departments that do not have pending questions', async () => {
     getPendingQuestionsForDepartment.mockReturnValueOnce({ pendingQuestions: [{}, {}] })
       .mockReturnValueOnce({ pendingQuestions: [] }).mockReturnValueOnce({ pendingQuestions: [] });
-    const results = await getPendingEmailsForDepartments(mockValidDepartments);
+    const { emailsQueue: results } = await getPendingEmailsForDepartments(mockValidDepartments);
     expect(results.length).toEqual(1);
   });
 
@@ -87,7 +87,7 @@ describe('getPendingEmailsForDeparments', () => {
         question_url: 'https://questions.wizeline.com/1',
       }],
     });
-    const results = await getPendingEmailsForDepartments(mockValidDepartments);
+    const { emailsQueue: results } = await getPendingEmailsForDepartments(mockValidDepartments);
     const emailData = results[0];
     expect(emailData.to).toEqual('manager@mail.com,alternate@mail.com');
     expect(emailData.context.questions.length).toEqual(1);

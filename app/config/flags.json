@@ -3,5 +3,6 @@
   "sendEmailToManagerOnQuestionCreation": true,
   "sendSlackOnQuestionCreation": true,
   "sendEmailOnQuestionReassigned": true,
-  "sendManagersEmailReminder": true
+  "sendManagersEmailReminder": true,
+  "sendEmployeesEmailReminder": true
 }

@@ -47,7 +47,7 @@ const sendEmployesReminder = async () => {
       return { emailsQueue: [] };
     }
 
-    const promises = employees.map(({ assigned_to }) => {
+    const emails = employees.map(({ assigned_to }) => {
       const {
         email: destinationEmail,
         full_name: destinationName,
@@ -60,7 +60,7 @@ const sendEmployesReminder = async () => {
         return null;
       }
 
-      if (!questionsByEmployee) {
+      if (!questionsByEmployee || questions.length === 0) {
         return null;
       }
 
@@ -84,10 +84,10 @@ const sendEmployesReminder = async () => {
       return newEmail;
     });
 
-    const emailsQueue = promises;
+    const emailsQueue = emails;
     if (emailsQueue) {
       emailsQueue.forEach(async (email) => {
-        await sendEmail(email);
+        if (email !== null) await sendEmail(email);
       });
     }
 

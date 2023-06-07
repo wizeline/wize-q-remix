@@ -50,23 +50,23 @@ data "google_secret_manager_secret_version" "Session_secret" {
   secret = "${var.secret_prefix}_SESSION_SECRET"
 }
 data "google_secret_manager_secret_version" "Email_host" {
-  secret = "PROD_REMIX_EMAIL_HOST"
+  secret = "PROD_EMAIL_HOST"
 }
 
 data "google_secret_manager_secret_version" "Email_port" {
-  secret = "PROD_REMIX_EMAIL_PORT"
+  secret = "PROD_EMAIL_PORT"
 }
 
 data "google_secret_manager_secret_version" "Email_auth_user" {
-  secret = "PROD_REMIX_EMAIL_AUTH_USER"
+  secret = "PROD_EMAIL_AUTH_USER"
 }
 
 data "google_secret_manager_secret_version" "Email_auth_password" {
-  secret = "PROD_REMIX_EMAIL_AUTH_PASSWORD"
+  secret = "PROD_EMAIL_AUTH_PASSWORD"
 }
 
 data "google_secret_manager_secret_version" "Email_service" {
-  secret = "PROD_REMIX_EMAIL_SERVICE"
+  secret = "PROD_EMAIL_SERVICE"
 }
 
 data "google_secret_manager_secret_version" "Api_key" {

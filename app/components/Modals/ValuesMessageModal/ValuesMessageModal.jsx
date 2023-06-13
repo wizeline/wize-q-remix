@@ -61,7 +61,7 @@ function ValuesMessageModal({ show, onClose }) {
             </styled.ValuesInformation>
             <p>
               Consider that other channels:
-              (ticketing portal, Slack, your manager or people partner)
+              (ticketing portal, Slack, your TPLs or people partner)
               might be more effective for finding the right answer quickly.
             </p>
             <p>Thanks for being a valuable contributor to our community! </p>

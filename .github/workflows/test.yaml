@@ -33,10 +33,4 @@ jobs:
       run: npm run test:unit
     - name: Run integration tests
       run: npm run test:integration
-    - name: Cypress run
-      run: npm run test:cypress:run
-    - uses: actions/upload-artifact@v3
-      if: always()
-      with:
-        name: Cypress_${{ github.sha }}
-        path: ./tests/cypress/videos/
+

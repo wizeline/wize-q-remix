@@ -6,7 +6,3 @@ node_modules
 .env
 .DS_Store
 **/.DS_Store
-
-# Cypress
-*.mp4
-/tests/cypress/screenshots/*

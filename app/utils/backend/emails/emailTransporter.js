@@ -5,8 +5,12 @@ const path = require('path');
 
 const instantiateTransporter = () => {
   const {
-    EMAIL_SERVICE, EMAIL_HOST, EMAIL_PORT, EMAIL_AUTH_USER, EMAIL_AUTH_PASSWORD,
+    EMAIL_SERVICE, EMAIL_HOST, EMAIL_PORT, EMAIL_AUTH_USER, EMAIL_AUTH_PASSWORD, NODE_ENV,
   } = process.env;
+
+  // Comment out if you want to test emails in unit/integration tests
+  // but be careful real emails are not sent.
+  if (NODE_ENV === 'test') return undefined;
 
   let transporter;
 

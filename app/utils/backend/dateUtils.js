@@ -10,4 +10,4 @@ const createDateRange = (startDate, months) => {
   };
 };
 
-export default createDateRange;
+module.exports = createDateRange;

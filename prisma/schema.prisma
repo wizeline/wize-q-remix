@@ -20,7 +20,7 @@ model Answers {
   answered_by_employee_id Int
   answered_question_id    Int
   createdAt               DateTime  @default(now()) @db.DateTime(0)
-  updatedAt               DateTime  @default(now()) @db.DateTime(0) @updatedAt
+  updatedAt               DateTime  @default(now()) @updatedAt @db.DateTime(0)
   num_scores              Int?      @default(0)
   average_score           Float?    @default(0) @db.Float
   Nps                     Nps[]
@@ -50,7 +50,7 @@ model Comments {
   sessionHash String?       @db.VarChar(255)
   userName    String?       @db.VarChar(255)
   userEmail   String?       @db.VarChar(255)
-  updatedAt   DateTime?     @default(now()) @db.DateTime(0) @updatedAt
+  updatedAt   DateTime?     @default(now()) @updatedAt @db.DateTime(0)
   approvedBy  Int?
   Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
   User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
@@ -63,10 +63,19 @@ model Comments {
 }
 
 model Departments {
-  department_id Int         @id @default(autoincrement())
-  name          String      @db.VarChar(255)
-  is_active     Boolean     @default(true)
-  Questions     Questions[]
+  department_id                        Int       @id @default(autoincrement())
+  name                                 String    @db.VarChar(255)
+  is_active                            Boolean   @default(true)
+  manager_employee_id                  Int?
+  alternate_manager_id                 Int?
+  last_manager_email_notification_date DateTime? @db.DateTime(0)
+
+  ManagerDepartmet users?      @relation("Manager", fields: [manager_employee_id], references: [employee_id])
+  AlternateManager users?      @relation("SubManager", fields: [alternate_manager_id], references: [employee_id])
+  Questions        Questions[]
+
+  @@index([manager_employee_id], map: "Departments_manager_employee_id")
+  @@index([alternate_manager_id], map: "Departments_alternate_manager_employee_id")
 }
 
 model DraftAnswers {
@@ -88,11 +97,11 @@ model Employees {
 }
 
 model EmployeesDepartments {
-  id            Int     @id @default(autoincrement())
-  email         String  @db.VarChar(255)
+  id            Int    @id @default(autoincrement())
+  email         String @db.VarChar(255)
   department_id Int
   employee_id   Int?
-  users         users?  @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
+  users         users? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
 
   @@index([employee_id], map: "employee_id_foreign_idx")
 }
@@ -126,7 +135,7 @@ model Questions {
   user_hash                    String         @default("") @db.VarChar(255)
   is_anonymous                 Boolean
   createdAt                    DateTime       @default(now()) @db.DateTime(0)
-  updatedAt                    DateTime       @default(now()) @db.DateTime(0) @updatedAt
+  updatedAt                    DateTime       @default(now()) @updatedAt @db.DateTime(0)
   location                     String?        @default("ALL") @db.VarChar(255)
   last_email_notification_date DateTime?      @db.DateTime(0)
   assigned_department          Int?
@@ -136,7 +145,6 @@ model Questions {
   num_votes                    Int?           @default(0)
   is_pinned                    Boolean        @default(false)
   is_enabled                   Boolean        @default(true)
-  is_public                    Boolean        @default(true)
   Locations                    Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
   assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
   created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
@@ -190,8 +198,10 @@ model users {
   Assigned             Questions[]            @relation("AssignedQuestion")
   Created              Questions[]            @relation("CreatedQuestion")
   Answers              Answers[]
-  CommentsApproved    Comments[]             @relation("Comments_approvedByTousers")
-  CommentsCreated     Comments[]             @relation("Comments_userEmailTousers")
+  CommentsApproved     Comments[]             @relation("Comments_approvedByTousers")
+  CommentsCreated      Comments[]             @relation("Comments_userEmailTousers")
+  ManagerDepartments   Departments[]          @relation("Manager")
+  AlternateManager     Departments[]          @relation("SubManager")
 
   @@index([email], map: "users_email")
 }

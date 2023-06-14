@@ -14,7 +14,7 @@ import { PAGE_QUESTIONS_LIMIT } from 'app/utils/constants';
 import dateRangeConversion from 'app/utils/dateRangeConversion';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
-import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';
 import ACTIONS from 'app/utils/actions';
 
 export const loader = async ({ request }) => {
@@ -41,7 +41,7 @@ export const loader = async ({ request }) => {
   });
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
 
   return json({
     questions,

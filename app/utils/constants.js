@@ -67,7 +67,6 @@ export const STATUS_ACCESS_VALUE = DEFAULT_ACCESS_VALUE;
 
 export const DEPARTMENT_OPTIONS = [
   { department_id: -1, name: 'All' },
-  { department_id: 0, name: 'Not Assigned' },
 ];
 
 export const DEPARTMENT_LABEL = 'Department';
@@ -296,7 +295,7 @@ export const EMPLOYEE_PLACEHOLDER = 'Select a collaborator';
 export const DEPARTMENT_PLACEHOLDER = 'Select a department';
 export const NO_DEPARTMENT_SELECTED_ID = -1;
 export const NO_EMPLOYEE_SELECTED_ID = -1;
-export const NOT_ASSIGNED_DEPARTMENT_ID = 0;
+export const NOT_ASSIGNED_DEPARTMENT_ID = 1;
 
 // Buttons Categories
 export const PRIMARY_BUTTON = 'primary_button';

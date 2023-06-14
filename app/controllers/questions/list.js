@@ -79,7 +79,7 @@ const buildWhereDepartment = (department) => {
 
   if (department === NOT_ASSIGNED_DEPARTMENT_ID) {
     return {
-      assigned_department: null,
+      assigned_department: NOT_ASSIGNED_DEPARTMENT_ID,
     };
   }
 
@@ -139,13 +139,12 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   }
   return {};
 };
-
 const buildWhereIsAdminSearch = (isAdmin) => {
   if (isAdmin) {
     return {};
   }
 
-  return { is_enabled: true, is_public: true };
+  return { is_enabled: true };
 };
 
 const buildWhere = ({
@@ -230,6 +229,7 @@ const listQuestions = async (params) => {
         },
       },
       created_by: true,
+      assigned_to: { select: { full_name: true } },
       Department: true,
     },
   });

@@ -30,19 +30,20 @@ export function usePagination({
     const lastPageIndex = totalPageCount;
 
     if (!shouldShowLeftDots && shouldShowRigthDots) {
-      // eslint-disable-next-line no-mixed-operators
       const leftItemCount = 5 * sibilingCount;
       const leftRange = range(1, leftItemCount);
       return [...leftRange, DOTS, totalPageCount];
     } if (shouldShowLeftDots && !shouldShowRigthDots) {
-      // eslint-disable-next-line no-mixed-operators
       const rigthItemsCount = 5 * sibilingCount;
-      // eslint-disable-next-line no-mixed-operators
-      const rigthRange = range(totalPageCount - rigthItemsCount, totalPageCount + 1);
+      const maxNumber = Math.max(totalPageCount, rigthItemsCount);
+      const minNubmber = Math.min(totalPageCount, rigthItemsCount);
+      const start = (maxNumber - minNubmber) > 1 ? maxNumber - minNubmber : 2;
+      const rigthRange = range(start, totalPageCount + 1);
       return [firstPageIndex, DOTS, ...rigthRange];
     }
 
-    const middleRange = range(leftSiblingIndex, rigthSiblingIndex + 1);
+    const start = leftSiblingIndex > 1 ? leftSiblingIndex : 2;
+    const middleRange = range(start, rigthSiblingIndex + 1);
     return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
   }, [currentPage, totalPages]);
   return pagintationRange;

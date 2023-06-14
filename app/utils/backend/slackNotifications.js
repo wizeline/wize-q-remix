@@ -17,6 +17,7 @@ import {
 import { getStringSizeInBytes, truncateStringByBytes } from './stringUtils';
 
 const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
+const slackAdmins = slackNotify(process.env.SLACK_WEBHOOK_URL_ADMIN);
 
 async function send(options) {
   const { icon_emoji, attachments } = options;
@@ -35,7 +36,8 @@ async function send(options) {
       },
     ],
   };
-  await slack.send(defaults);
+  if (process.env.SLACK_WEBHOOK_URL) await slack.send(defaults);
+  if (process.env.SLACK_WEBHOOK_URL_ADMIN) await slackAdmins.send(defaults);
 }
 
 function buildUrl(questionId) {
@@ -44,10 +46,6 @@ function buildUrl(questionId) {
 }
 
 async function createAnswerNotification({ questionId, questionBody, answerBody }) {
-  if (!process.env.SLACK_WEBHOOK_URL) {
-    return;
-  }
-
   const url = buildUrl(questionId);
   const limit = SLACK_MAX_MESSAGE_SIZE_IN_BYTES;
 
@@ -91,10 +89,6 @@ async function createAnswerNotification({ questionId, questionBody, answerBody }
 }
 
 async function createQuestionNotification({ questionBody, questionId }) {
-  if (!process.env.SLACK_WEBHOOK_URL) {
-    return;
-  }
-
   const url = buildUrl(questionId);
 
   let footerBody = SLACK_QUESTION_DETAILS;

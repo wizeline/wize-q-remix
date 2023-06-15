@@ -13,11 +13,7 @@ export const createQuestionSchema = Joi.object().keys({
   location: Joi.string().required(),
   created_by_employee_id: Joi.number().integer().min(1).allow(null),
   assigned_department: Joi.number().integer().min(1).allow(null),
-  assigned_to_employee_id: Joi.number().integer().min(1).when('is_anonymous', {
-    is: false,
-    then: Joi.optional(),
-    otherwise: Joi.required(),
-  }),
+  assigned_to_employee_id: Joi.number().integer().min(1).allow(null),
 });
 
 export const modifyQuestionPinStatusParams = Joi.object().keys({
@@ -28,6 +24,7 @@ export const modifyQuestionPinStatusParams = Joi.object().keys({
 export const assignQuestionSchema = Joi.object().keys({
   question_id: JOI_ID_VALIDATION,
   assigned_department: JOI_ID_VALIDATION,
+  assigned_to_employee_id: JOI_ID_VALIDATION,
 });
 
 export const modifyQuestionEnabledValueParams = Joi.object().keys({

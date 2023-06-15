@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { BsCircleFill } from 'react-icons/bs';
 import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useSubmit } from '@remix-run/react';
 import * as Styled from 'app/styles/CreateQuestion.Styled';
 import Slogan from 'app/components/Slogan';
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/constants';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
 import { RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
 import QuestionForm from 'app/components/QuestionForm';
 import listLocations from 'app/controllers/locations/list';
@@ -19,7 +19,7 @@ export const loader = async ({ request }) => {
   await requireAuth(request);
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
   return json({
     locations,
     departments,
@@ -28,18 +28,19 @@ export const loader = async ({ request }) => {
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
+  // values passed as strings
   const form = Object.fromEntries(formData.entries());
+  const { assignedDepartment, assigned_to_employee_id: assignedEmployeeId } = form;
   const user = await getAuthenticatedUser(request);
-  const parsedDepartment = parseInt(form.assignedDepartment, 10);
-  const assignedEmployeeValue = parseInt(form.assigned_to_employee_id, 10);
-  const isAnonymous = form.isAnonymous === 'true';
+  const parsedDepartment = parseInt(assignedDepartment, 10);
+  const assignedEmployeeValue = assignedEmployeeId !== 'undefined' ? parseInt(assignedEmployeeId, 10) : undefined;
 
   const payload = {
     question: form.question,
-    created_by_employee_id: isAnonymous ? null : user.employee_id,
-    is_anonymous: isAnonymous,
+    created_by_employee_id: form.isAnonymous === 'true' ? null : user.employee_id,
+    is_anonymous: form.isAnonymous === 'true',
     assigned_department: Number.isNaN(parsedDepartment) ? null : parsedDepartment,
-    assigned_to_employee_id: assignedEmployeeValue,
+    assigned_to_employee_id: Number.isNaN(assignedEmployeeValue) ? null : assignedEmployeeValue,
     location: form.location,
     accessToken: user.accessToken,
   };
@@ -50,7 +51,7 @@ export const action = async ({ request }) => {
     const session = await getSession(request);
     const { question, successMessage } = response;
     session.flash('globalSuccess', successMessage);
-    const destination = isAnonymous ? `/questions/${question.question_id}` : '/?index';
+    const destination = `/questions/${question.question_id}`;
 
     return redirect(destination, {
       headers: {
@@ -66,10 +67,6 @@ function CreateQuestion() {
   const { locations, departments } = useLoaderData();
   const submit = useSubmit();
   const formRef = useRef();
-
-  useEffect(() => {
-    departments.unshift({ name: 'I don\'t know whom to assign it.', department_id: NOT_ASSIGNED_DEPARTMENT_ID });
-  }, []);
 
   const renderBulletPoint = () => (
     <div>

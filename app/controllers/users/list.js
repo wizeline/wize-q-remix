@@ -1,6 +1,6 @@
 import { db } from 'app/utils/db.server';
 
-const getPagination = (page, size) => {
+export const getPagination = (page, size) => {
   // check if size is defined, if it is, convert the value to number, if not set default value to 20
   const limit = size || 20;
   // check if page is defined,

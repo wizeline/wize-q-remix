@@ -52,12 +52,12 @@ function UserControls(props) {
           />
         </ButtonToolbar>
       </Styled.NavLi>
-      {/* <Styled.XSNavItem
+      <Styled.XSNavItem
         eventKey={2}
         onClick={handleLogoutClick}
       >
         Logout
-      </Styled.XSNavItem> */}
+      </Styled.XSNavItem>
       <LogoutConfirmationModal
         show={showLogoutModal}
         onClose={handleCancelLogoutClick}

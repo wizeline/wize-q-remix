@@ -119,11 +119,6 @@ export const ENDPOINT_VOTE = '/api/vote';
 export const ENDPOINT_CONTACT = '/api/contact';
 export const ENDPOINT_LOCATIONS = '/api/locations';
 
-export const ROUTES = {
-  about: '/about',
-  contact: 'http://wizeq.wizeline.com/contact/',
-};
-
 export const ANONYMOUS_USER = {
   username: 'Anonymous',
   profilePicture: '/anonymous.png',

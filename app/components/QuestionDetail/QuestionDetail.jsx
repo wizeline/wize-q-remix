@@ -11,8 +11,8 @@ import {
   shouldRenderAdminButtons,
   renderAdminButtons,
   renderAnswer,
-} from 'app/utils/questionUtils';
-import { addS } from 'app/utils/stringOperations';
+} from 'app/utils/questions/questionUtils';
+import { addS } from 'app/utils/strings/stringOperations';
 import { PRIMARY_BUTTON, LSPIN_SMALL } from 'app/utils/constants';
 import Button from 'app/components/Atoms/Button';
 import CounterButton from 'app/components/CounterButton';

@@ -1,5 +1,5 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import { questionCommentedSchema } from 'app/utils/backend/validators/comments';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import { questionCommentedSchema } from 'app/utils/validators/comments';
 import { db } from 'app/utils/db.server';
 import { findUser } from 'app/controllers/users/find';
 

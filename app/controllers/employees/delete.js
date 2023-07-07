@@ -2,7 +2,7 @@ import { db } from 'app/utils/db.server';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
 } from 'app/utils/constants';
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
 
 const removeEmployeeToDepartment = async (params) => {
   const { employeeId, departmentId } = params;

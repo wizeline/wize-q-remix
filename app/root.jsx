@@ -27,7 +27,7 @@ export const meta = () => ({
   charset: 'utf-8',
   title: `Wizeline Questions${titleSuffix}`,
   viewport: 'width=device-width,initial-scale=1',
-  robots: 'noindex'
+  robots: 'noindex',
 });
 
 export function links() {

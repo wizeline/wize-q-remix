@@ -9,7 +9,7 @@ import strikethrough from 'app/images/react-icons/ri/strikethrough.svg';
 import code from 'app/images/react-icons/ri/code-fill.svg';
 import * as S from 'app/components/QuestionTextArea/QuestionTextArea.Styled';
 import { inputPlaceholder } from 'app/utils/constants';
-import { MINIMUM_QUESTION_LENGTH } from 'app/utils/backend/constants';
+import { MINIMUM_QUESTION_LENGTH } from 'app/utils/constants';
 
 function QuestionTextArea({
   editorState,

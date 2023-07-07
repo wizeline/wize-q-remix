@@ -1,4 +1,4 @@
-import { COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD } from './constants';
+import { COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD } from '../constants';
 
 function reorderHighlightedComments(comments) {
   if (comments.length === 0) {

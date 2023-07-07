@@ -1,5 +1,5 @@
 import moment from 'moment';
-import generateSessionIdHash from './crypto';
+import generateSessionIdHash from '../crypto';
 
 export function generateMinMaxDates() {
   const DATE_FORMAT = 'YYYY-MM-DD HH:mm:ss';

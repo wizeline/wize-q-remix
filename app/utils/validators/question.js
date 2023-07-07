@@ -2,8 +2,8 @@ import Joi from 'joi';
 import {
   MAXIMUM_QUESTION_LENGTH,
   MINIMUM_QUESTION_LENGTH,
-} from 'app/utils/backend/constants';
-import { JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
+} from 'app/utils/constants';
+import { JOI_ID_VALIDATION } from 'app/utils/validators/joiConstants';
 
 export const createQuestionSchema = Joi.object().keys({
   username: Joi.string().allow(null),

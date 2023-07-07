@@ -1,7 +1,7 @@
 import createComment from 'app/controllers/comments/create';
 import deleteComment from 'app/controllers/comments/delete';
 import randomAccessToken from 'tests/utils';
-import * as commentsUtils from 'app/utils/backend/comments';
+import * as commentsUtils from 'app/utils/comments/comments';
 
 import { db } from 'app/utils/db.server';
 

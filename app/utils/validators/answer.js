@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { MAXIMUM_ANSWER_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
-import { JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
+import { MAXIMUM_ANSWER_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/constants';
+import { JOI_ID_VALIDATION } from 'app/utils/validators/joiConstants';
 
 export const createAnswerSchema = Joi.object().keys({
   answer_text: Joi.string()

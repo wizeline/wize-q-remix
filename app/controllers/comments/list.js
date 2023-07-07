@@ -4,7 +4,7 @@ import { db } from 'app/utils/db.server';
 import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
 } from 'app/utils/constants';
-import { canEditComment } from 'app/utils/backend/comments';
+import { canEditComment } from 'app/utils/comments/comments';
 
 const listComments = async (params) => {
   const {

@@ -14,7 +14,7 @@ import {
   SLACK_QUESTION_HEADER,
   SLACK_QUESTION_SEE_MORE,
 } from './slackConstants';
-import { getStringSizeInBytes, truncateStringByBytes } from './stringUtils';
+import { getStringSizeInBytes, truncateStringByBytes } from '../strings/stringUtils';
 
 const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
 const slackAdmins = slackNotify(process.env.SLACK_WEBHOOK_URL_ADMIN);

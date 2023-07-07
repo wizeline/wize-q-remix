@@ -1,6 +1,6 @@
 import assignQuestion from 'app/controllers/questions/assignQuestion';
-import emailHandler from 'app/utils/backend/emails/emailHandler';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
+import emailHandler from 'app/utils/emails/emailHandler';
+import { EMAILS } from 'app/utils/emails/emailConstants';
 
 describe('assignQuestion', () => {
   const emailHandlerSpy = jest.spyOn(emailHandler, 'sendEmail').mockImplementation();

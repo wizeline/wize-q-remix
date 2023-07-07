@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-const { DEFAULT_MONTHS } = require('app/utils/backend/constants');
-const createDateRange = require('app/utils/backend/dateUtils');
+const { DEFAULT_MONTHS } = require('app/utils/constants');
+const createDateRange = require('app/utils/dates/dateUtils');
 const { db } = require('app/utils/db.server');
-const { subtractOriginalDate } = require('app/utils/timeOperations');
+const { subtractOriginalDate } = require('app/utils/dates/timeOperations');
 const { managerEmailFrequencyHours } = require('app/config/emails.json');
 
 const getPendingQuestionsByEmployeed = async (employees) => {

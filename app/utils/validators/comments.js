@@ -1,6 +1,6 @@
 import Joi from 'joi';
-import { JOI_ID_VALIDATION, JOI_SIMPLE_STRING_VALIDATION } from 'app/utils/backend/joiConstants';
-import { MINIMUM_COMMENT_LENGTH, MAXIMUM_COMMENT_LENGTH } from 'app/utils/backend/constants';
+import { JOI_ID_VALIDATION, JOI_SIMPLE_STRING_VALIDATION } from 'app/utils/validators/joiConstants';
+import { MINIMUM_COMMENT_LENGTH, MAXIMUM_COMMENT_LENGTH } from 'app/utils/constants';
 
 const EMAIL_VALIDATION = Joi.string().email().allow(null);
 const SIMPLE_INTEGER_VALIDATION = Joi.number().integer();

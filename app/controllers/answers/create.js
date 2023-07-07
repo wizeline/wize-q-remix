@@ -3,12 +3,12 @@ import moment from 'moment';
 import {
   DATE_TIME_FORMAT,
   DEFAULT_ERROR_MESSAGE,
-} from 'app/utils/backend/constants';
-import { createAnswerSchema } from 'app/utils/backend/validators/answer';
-import sanitizeHTML from 'app/utils/backend/sanitizer';
+} from 'app/utils/constants';
+import { createAnswerSchema } from 'app/utils/validators/answer';
+import sanitizeHTML from 'app/utils/strings/sanitizer';
 import { db } from 'app/utils/db.server';
-import slack from 'app/utils/backend/slackNotifications';
-import { stripNewLines } from 'app/utils/backend/stringUtils';
+import slack from 'app/utils/slack/slackNotifications';
+import { stripNewLines } from 'app/utils/strings/stringUtils';
 
 const createAnswer = async (body) => {
   const { error, value } = createAnswerSchema.validate(body);

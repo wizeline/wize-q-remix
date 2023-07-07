@@ -1,11 +1,11 @@
 import { db } from 'app/utils/db.server';
-import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { sendEmail } from 'app/utils/emails/emailHandler';
 import { sendManagerReminder } from 'app/controllers/emails/sendManagerReminder';
 import { getPendingEmailsForDepartments } from 'app/controllers/emails/getPendingEmailsForDeparments';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
+import { EMAILS } from 'app/utils/emails/emailConstants';
 
 jest.mock('app/controllers/emails/getPendingEmailsForDeparments');
-jest.mock('app/utils/backend/emails/emailHandler');
+jest.mock('app/utils/emails/emailHandler');
 
 describe('sendReminder', () => {
   const dbDepartmentsListSpy = jest.spyOn(db.Departments, 'findMany');

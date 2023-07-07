@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
-const createDateRange = require('app/utils/backend/dateUtils');
+const createDateRange = require('app/utils/dates/dateUtils');
 const { db } = require('app/utils/db.server');
 const { getPendingQuestionsByEmployeed } = require('app/controllers/emails/getPendingQuestionsByEmployeed');
-const { DEFAULT_MONTHS } = require('app/utils/backend/constants');
-const { EMAILS } = require('app/utils/backend/emails/emailConstants');
-const { getQuestionDetailUrl } = require('app/utils/backend/urlUtils');
-const { sendEmail } = require('app/utils/backend/emails/emailHandler');
+const { DEFAULT_MONTHS } = require('app/utils/constants');
+const { EMAILS } = require('app/utils/emails/emailConstants');
+const { getQuestionDetailUrl } = require('app/utils/urls/urlUtils');
+const { sendEmail } = require('app/utils/emails/emailHandler');
 
 const sendEmployesReminder = async () => {
   const currentDate = new Date();

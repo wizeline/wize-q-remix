@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
+import { JOI_ID_VALIDATION } from 'app/utils/validators/joiConstants';
 
 export const commentVoteExistsSchema = Joi.object().keys({
   comment_id: JOI_ID_VALIDATION,

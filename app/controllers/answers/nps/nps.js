@@ -1,5 +1,5 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import { npsSchema } from 'app/utils/backend/validators/answer';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import { npsSchema } from 'app/utils/validators/answer';
 import { db } from 'app/utils/db.server';
 
 const nps = async (query) => {

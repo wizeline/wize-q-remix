@@ -327,3 +327,19 @@ export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vot
 export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';
 export const DELETE_COMMENT_ERROR_MESSAGE = 'Error trying to delete the comment';
 export const ENABLE_DISABLE_ERROR_MESSAGE = 'Error trying to enable/disable this question';
+
+// Database string limit constant. It should hold about one page worth of text.
+export const MINIMUM_COMMENT_LENGTH = 2;
+export const DATE_FORMAT = 'MM-DD-YYYY';
+export const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ';
+export const BASE_NUMBER = 10;
+export const NOTIFICATION_MINUTE_INTERVAL = 3;
+export const MAXIMUM_QUESTION_EXPORT_CSV_DAYS_RANGE = 90;
+export const MAXIMUM_QUESTION_EXPORT_CSV_MONTHS_RANGE = 3;
+export const DEFAULT_LIMIT = 20;
+export const DEFAULT_OFFSET = 0;
+export const MIN_NET_PROMOTER_SCORE = 1;
+export const MAX_NET_PROMOTER_SCORE = 4;
+export const DEFAULT_ERROR_MESSAGE = 'An unknown error has occurred with your request.';
+export const COMMENT_AS_AN_ANSWER = 'This question already has a comment as answer';
+export const DEFAULT_MONTHS = -3;

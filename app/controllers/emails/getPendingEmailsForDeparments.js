@@ -1,6 +1,6 @@
 const { getPendingQuestionsForDepartment } = require('app/controllers/emails/getPendingQuestionsForDepartment');
-const { EMAILS } = require('app/utils/backend/emails/emailConstants');
-const { getQuestionDetailUrl } = require('app/utils/backend/urlUtils');
+const { EMAILS } = require('app/utils/emails/emailConstants');
+const { getQuestionDetailUrl } = require('app/utils/urls/urlUtils');
 
 const getPendingEmailsForDepartments = async (departments) => {
   try {

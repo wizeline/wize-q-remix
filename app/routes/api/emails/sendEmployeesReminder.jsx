@@ -4,7 +4,7 @@
 import { sendEmployesReminder } from 'app/controllers/emails/sendEmployeesReminder';
 import { json } from '@remix-run/node';
 import { sendEmployeesEmailReminder } from 'app/config/flags.json';
-import validateKey from 'app/utils/backend/api/validateKey';
+import validateKey from 'app/utils/api/validateKey';
 
 export const loader = () => {
   throw new Response(null, { status: 404, statusText: 'Not Found' });

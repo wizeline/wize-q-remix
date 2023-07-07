@@ -1,9 +1,9 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { getDateData } from 'app/utils/timeOperations';
-import { showCollapseOrExpandMessage, formatCollapsingText } from 'app/utils/stringOperations';
-import { markdownFormat } from 'app/utils/markdownFormatQuestions';
+import { getDateData } from 'app/utils/dates/timeOperations';
+import { showCollapseOrExpandMessage, formatCollapsingText } from 'app/utils/strings/stringOperations';
+import { markdownFormat } from 'app/utils/questions/markdownFormatQuestions';
 import { COLLAPSED_ANSWER_MIN_LENGTH, TEXT_BUTTON } from 'app/utils/constants';
 import * as Styled from 'app/components/AnswerRow/AnswerRow.Styled';
 import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';

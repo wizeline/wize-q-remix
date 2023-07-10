@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useLoaderData } from '@remix-run/react';
-import { renderDepartment } from 'app/utils/questionUtils';
+import { renderDepartment } from 'app/utils/questions/questionUtils';
 import Label from 'app/components/Atoms/Label';
 import * as Styled from 'app/components/QuestionDetailInfo/QuestionDetailInfo.Styled';
 import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';

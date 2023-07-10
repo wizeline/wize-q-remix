@@ -1,5 +1,5 @@
-const { DEFAULT_MONTHS } = require('app/utils/backend/constants');
-const createDateRange = require('app/utils/backend/dateUtils');
+const { DEFAULT_MONTHS } = require('app/utils/constants');
+const createDateRange = require('app/utils/dates/dateUtils');
 const { db } = require('app/utils/db.server');
 
 const getPendingQuestionsForDepartment = async (department, pastMonths = DEFAULT_MONTHS) => {

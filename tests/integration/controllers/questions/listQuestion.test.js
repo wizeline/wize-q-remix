@@ -1,7 +1,7 @@
 import { db } from 'app/utils/db.server';
 import listQuestions from 'app/controllers/questions/list';
-import { DEFAULT_LIMIT } from 'app/utils/backend/constants';
-import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/filterConstants';
+import { DEFAULT_LIMIT } from 'app/utils/constants';
+import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/filterConstants';
 
 describe('listQuestions', () => {
   const dbListSpy = jest.spyOn(db.Questions, 'findMany');

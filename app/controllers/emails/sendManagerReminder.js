@@ -1,7 +1,7 @@
 const { getPendingEmailsForDepartments } = require('app/controllers/emails/getPendingEmailsForDeparments');
-const { sendEmail } = require('app/utils/backend/emails/emailHandler');
+const { sendEmail } = require('app/utils/emails/emailHandler');
 const { db } = require('app/utils/db.server');
-const { subtractOriginalDate } = require('app/utils/timeOperations');
+const { subtractOriginalDate } = require('app/utils/dates/timeOperations');
 const { managerEmailFrequencyHours } = require('app/config/emails.json');
 
 const sendManagerReminder = async (

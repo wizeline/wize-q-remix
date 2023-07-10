@@ -1,12 +1,12 @@
 import { db } from 'app/utils/db.server';
-import generateSessionIdHash from 'app/utils/backend/crypto';
-import { generateMinMaxDates } from 'app/utils/backend/comments';
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import generateSessionIdHash from 'app/utils/crypto';
+import { generateMinMaxDates } from 'app/utils/comments/comments';
 import {
+  DEFAULT_ERROR_MESSAGE,
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   UPDATE_COMMENT_ERROR_MESSAGE,
 } from 'app/utils/constants';
-import { updateCommentSchema } from 'app/utils/backend/validators/comments';
+import { updateCommentSchema } from 'app/utils/validators/comments';
 
 const updateComment = async (body) => {
   const { error, value } = updateCommentSchema.validate(body);

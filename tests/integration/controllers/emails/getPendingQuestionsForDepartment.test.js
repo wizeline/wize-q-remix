@@ -1,8 +1,8 @@
 import { getPendingQuestionsForDepartment } from 'app/controllers/emails/getPendingQuestionsForDepartment';
-import createDateRange from 'app/utils/backend/dateUtils';
+import createDateRange from 'app/utils/dates/dateUtils';
 import { db } from 'app/utils/db.server';
 
-jest.mock('app/utils/backend/dateUtils', () => jest.fn());
+jest.mock('app/utils/dates/dateUtils', () => jest.fn());
 
 describe('getPendingQuestionsForDeparment', () => {
   const dbQuestionListSpy = jest.spyOn(db.Questions, 'findMany');

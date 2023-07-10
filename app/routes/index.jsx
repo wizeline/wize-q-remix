@@ -11,7 +11,7 @@ import listDepartments from 'app/controllers/departments/list';
 import listLocations from 'app/controllers/locations/list';
 import listQuestions from 'app/controllers/questions/list';
 import { PAGE_QUESTIONS_LIMIT } from 'app/utils/constants';
-import dateRangeConversion from 'app/utils/dateRangeConversion';
+import dateRangeConversion from 'app/utils/dates/dateRangeConversion';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';

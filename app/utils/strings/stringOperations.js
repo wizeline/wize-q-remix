@@ -1,5 +1,5 @@
 import XSS from 'xss';
-import { SHOW_LESS_TEXT, SHOW_MORE_TEXT } from './constants';
+import { SHOW_LESS_TEXT, SHOW_MORE_TEXT } from '../constants';
 
 export function deleteNoMarkupFormatHTML(content) {
   const token = '`';

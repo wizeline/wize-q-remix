@@ -1,14 +1,14 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import generateSessionIdHash from 'app/utils/backend/crypto';
-import slack from 'app/utils/backend/slackNotifications';
-import { stripNewLines, truncate } from 'app/utils/backend/stringUtils';
-import sanitizeHTML from 'app/utils/backend/sanitizer';
-import { createQuestionSchema } from 'app/utils/backend/validators/question';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import generateSessionIdHash from 'app/utils/crypto';
+import slack from 'app/utils/slack/slackNotifications';
+import { stripNewLines, truncate } from 'app/utils/strings/stringUtils';
+import sanitizeHTML from 'app/utils/strings/sanitizer';
+import { createQuestionSchema } from 'app/utils/validators/question';
 import { db } from 'app/utils/db.server';
-import { SLACK_QUESTION_LIMIT } from 'app/utils/backend/slackConstants';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
-import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
-import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { SLACK_QUESTION_LIMIT } from 'app/utils/slack/slackConstants';
+import { EMAILS } from 'app/utils/emails/emailConstants';
+import { getQuestionDetailUrl } from 'app/utils/urls/urlUtils';
+import { sendEmail } from 'app/utils/emails/emailHandler';
 import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation } from 'app/config/flags.json';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 

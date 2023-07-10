@@ -3,8 +3,8 @@ import moment from 'moment';
 import {
   DATE_TIME_FORMAT,
   DEFAULT_ERROR_MESSAGE,
-} from 'app/utils/backend/constants';
-import { updateAnswerSchema } from 'app/utils/backend/validators/answer';
+} from 'app/utils/constants';
+import { updateAnswerSchema } from 'app/utils/validators/answer';
 import { db } from 'app/utils/db.server';
 
 const updateAnswer = async (query) => {

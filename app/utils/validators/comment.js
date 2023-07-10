@@ -1,7 +1,6 @@
 import Joi from 'joi';
-import { MINIMUM_COMMENT_LENGTH } from 'app/utils/backend/constants';
-import { JOI_EMAIL_VALIDATION, JOI_ID_VALIDATION } from 'app/utils/backend/joiConstants';
-import { MAXIMUM_COMMENT_LENGTH } from 'app/utils/constants';
+import { MINIMUM_COMMENT_LENGTH, MAXIMUM_COMMENT_LENGTH } from 'app/utils/constants';
+import { JOI_EMAIL_VALIDATION, JOI_ID_VALIDATION } from 'app/utils/validators/joiConstants';
 
 const COMMENT_VALIDATION = Joi.string()
   .min(MINIMUM_COMMENT_LENGTH)

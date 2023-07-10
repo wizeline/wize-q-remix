@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-const { EMAIL_SUBJECT_PREFIX } = require('app/utils/backend/emails/emailConstants');
-const { instantiateTransporter } = require('app/utils/backend/emails/emailTransporter');
-const { sendEmailSchema } = require('app/utils/backend/validators/email');
+const { EMAIL_SUBJECT_PREFIX } = require('app/utils/emails/emailConstants');
+const { instantiateTransporter } = require('app/utils/emails/emailTransporter');
+const { sendEmailSchema } = require('app/utils/validators/email');
 
 const sendEmail = async (message) => {
   const { error } = sendEmailSchema.validate(message);

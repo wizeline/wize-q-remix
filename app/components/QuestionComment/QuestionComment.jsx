@@ -17,7 +17,7 @@ import editIconUnselected from 'app/images/ic_edit.svg';
 import deleteIconUnselected from 'app/images/ic_delete.svg';
 import editIconSelected from 'app/images/ic_edit_selected.svg';
 import deleteIconSelected from 'app/images/ic_delete_selected.svg';
-import { getTimeDiff } from 'app/utils/timeOperations';
+import { getTimeDiff } from 'app/utils/dates/timeOperations';
 import useClickOutside from 'app/utils/hooks/useClickOutside';
 import {
   DANGER_BUTTON,

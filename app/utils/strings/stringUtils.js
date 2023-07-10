@@ -1,4 +1,4 @@
-import { HTTP_PREFIX, TRUNCATE_ENDING } from './utilConstants';
+import { HTTP_PREFIX, TRUNCATE_ENDING } from '../utilConstants';
 
 export function stripNewLines(str) {
   // Replace series of newline characters for a single space

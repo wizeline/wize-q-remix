@@ -4,7 +4,7 @@ import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useSubmit } from '@remix-run/react';
 import * as Styled from 'app/styles/CreateQuestion.Styled';
 import Slogan from 'app/components/Slogan';
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/backend/constants';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/constants';
 import { RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
 import QuestionForm from 'app/components/QuestionForm';
 import listLocations from 'app/controllers/locations/list';

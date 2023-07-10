@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Markdown from 'react-markdown';
 import SearchedLinkRenderer from 'app/components/SearchedLinkRenderer';
-import { HIGHLIGHT_END, HIGHLIGHT_START } from './constants';
+import { HIGHLIGHT_END, HIGHLIGHT_START } from '../constants';
 
 const addTagsToText = (srcText) => srcText.replace(
   /(#[a-z\d]+)/ig,

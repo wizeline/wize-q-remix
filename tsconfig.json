@@ -1,5 +1,4 @@
 {
-  "exclude": ["./cypress"],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2019"],
@@ -14,7 +13,7 @@
     "allowJs": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
-    "types": ["cypress", "node"],
+    "types": ["node"],
     "paths": {
       "app/*":["./app/*"],
       "tests/*": ["./tests/*"]

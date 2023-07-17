@@ -19,6 +19,7 @@ import ErrorHandler from 'app/components/ErrorHandler/ErrorHandler';
 import { commitSession, getAuthenticatedUser, getSession } from 'app/session.server';
 import AppNavbar from 'app/components/AppNavbar';
 import listQuestions from 'app/controllers/questions/list';
+import listUsers from 'app/controllers/users/list';
 
 const titleSuffix = process.env.NODE_ENV === 'development' ? ' - Local' : '';
 
@@ -26,6 +27,7 @@ export const meta = () => ({
   charset: 'utf-8',
   title: `Wizeline Questions${titleSuffix}`,
   viewport: 'width=device-width,initial-scale=1',
+  robots: 'noindex',
 });
 
 export function links() {
@@ -43,6 +45,7 @@ export const loader = async ({ request }) => {
   const session = await getSession(request);
   const url = new URL(request.url);
   const search = url.searchParams.get('search');
+  const userSearch = url.searchParams.get('userSearch');
 
   let searchResults = [];
 
@@ -61,6 +64,7 @@ export const loader = async ({ request }) => {
       profile,
       globalSuccess,
       searchResults,
+      searchUsers: userSearch ? (await listUsers({ search: userSearch, size: 5 })).users : [],
     },
     {
       headers: {

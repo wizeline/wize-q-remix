@@ -1,5 +1,5 @@
 import updateAnswer from 'app/controllers/answers/update';
-import getFormattedDate from 'app/utils/dateFormat';
+import getFormattedDate from 'app/utils/dates/dateFormat';
 
 describe('updateAnswer', () => {
   it('should validate fields', async () => {

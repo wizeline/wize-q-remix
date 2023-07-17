@@ -5,7 +5,7 @@ import {
   INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
 } from 'app/utils/constants';
-import generateSessionIdHash from 'app/utils/backend/crypto';
+import generateSessionIdHash from 'app/utils/crypto';
 
 const getQuestionById = async (questionId, user) => {
   if (!questionId || typeof questionId !== 'number' || parseInt(questionId, 10) < 1) {
@@ -44,6 +44,7 @@ const getQuestionById = async (questionId, user) => {
           },
         },
         created_by: true,
+        assigned_to: { select: { full_name: true } },
         Department: true,
       },
     });

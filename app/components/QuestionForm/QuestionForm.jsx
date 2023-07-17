@@ -6,6 +6,8 @@ import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
 import { RiArrowRightSFill } from 'react-icons/ri';
+import { requireEmployeeAssigned } from 'app/config/flags.json';
+
 import {
   DEFAULT_LOCATION,
   ANONYMOUS_USER,
@@ -22,15 +24,15 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-  ANON_QUESTION_REQUIRES_ASSIGNEE,
+  NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE,
 } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';
 import Switch from 'app/components/Switch';
 import InputAuthor from 'app/components/InputAuthor';
 import InputCounter from 'app/components/InputCounter';
 import SubmitWithModal from 'app/components/SubmitWithModal';
-import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
-import { validTextLength } from 'app/utils/input';
+import { deleteNoMarkupFormatHTML } from 'app/utils/strings/stringOperations';
+import { validTextLength } from 'app/utils/strings/input';
 import QuestionInputText from 'app/components/QuestionInputText';
 import useUser from 'app/utils/hooks/useUser';
 import DropdownMenu from 'app/components/DropdownMenu';
@@ -90,13 +92,14 @@ function QuestionForm({
         });
       }
     };
-    fetchEmployees();
+    if (requireEmployeeAssigned) fetchEmployees();
   }, [state.assignedDepartment]);
 
   useEffect(() => {
     setState({
       ...state,
-      employeesByDepartment: fetcher.data,
+      employeesByDepartment: (fetcher.data !== undefined && fetcher.data.employees !== undefined)
+        ? fetcher.data.employees : [],
     });
   }, [fetcher.data]);
 
@@ -228,7 +231,6 @@ function QuestionForm({
     const {
       assignedDepartment,
       inputValue,
-      isAnonymous,
       assignedEmployee,
     } = state;
 
@@ -246,14 +248,14 @@ function QuestionForm({
       tooltipMessage = NO_DEPARTMENT_SELECTED_TOOLTIP_MESSAGE;
     }
 
+    if (requireEmployeeAssigned && !assignedEmployee) {
+      askBtbEnabled = false;
+      tooltipMessage = NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE;
+    }
+
     if (locations.length === 0) {
       askBtbEnabled = false;
       tooltipMessage = NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE;
-    }
-
-    if (isAnonymous && !assignedEmployee) {
-      askBtbEnabled = false;
-      tooltipMessage = ANON_QUESTION_REQUIRES_ASSIGNEE;
     }
 
     return {
@@ -286,6 +288,10 @@ function QuestionForm({
     state.assignedDepartment.department_id,
   );
 
+  const renderEmployeeAssignedDropdown = () => requireEmployeeAssigned
+    && state.assignedDepartment.department_id !== -1
+      && <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} />;
+
   return (
     <Styled.InputForm className="clearfix">
       <form onSubmit={onSubmit} id="question-submit-form">
@@ -304,8 +310,7 @@ function QuestionForm({
               location={state.fullLocation}
             >
               <DropdownMenu name="Deparment" type="Build" handler={handleDepartmentSelectChange} selectedOption={null} options={departments} />
-              {state.assignedDepartment.department_id !== -1
-                && <DropdownMenu name="People" type="People" handler={selectEmployeeHandler} selectedOption={null} options={state.employeesByDepartment} />}
+              { renderEmployeeAssignedDropdown() }
               <DropdownMenu name="Location" type="Location" handler={onLocationChange} selectedOption={null} options={locations} />
             </Styled.Options>
           </Styled.InputTopWrapper>

@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
 import {
   commentVoteExistsSchema,
   commentVoteSchema,
-} from 'app/utils/backend/validators/commentVote';
+} from 'app/utils/validators/commentVote';
 import { db } from 'app/utils/db.server';
 
 const transformValue = (value) => {

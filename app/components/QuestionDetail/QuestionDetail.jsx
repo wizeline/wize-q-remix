@@ -11,8 +11,8 @@ import {
   shouldRenderAdminButtons,
   renderAdminButtons,
   renderAnswer,
-} from 'app/utils/questionUtils';
-import { addS } from 'app/utils/stringOperations';
+} from 'app/utils/questions/questionUtils';
+import { addS } from 'app/utils/strings/stringOperations';
 import { PRIMARY_BUTTON, LSPIN_SMALL } from 'app/utils/constants';
 import Button from 'app/components/Atoms/Button';
 import CounterButton from 'app/components/CounterButton';
@@ -287,7 +287,6 @@ function QuestionDetails(props) {
               isWritingCommentMobile={writingCommentOnMobile}
               setWritingCommentOnMobile={setWritingCommentOnMobile}
               questionId={parseInt(questionId, 10)}
-              is_public={question.is_public}
             />
 
           </Styled.QuestionDetailFooter>
@@ -333,7 +332,6 @@ QuestionDetails.propTypes = {
     numDisklike: PropTypes.number.isRequired,
     hasLike: PropTypes.bool.isRequired,
     hasDislike: PropTypes.bool.isRequired,
-    is_public: PropTypes.bool,
   }),
 };
 

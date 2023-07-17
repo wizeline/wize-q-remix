@@ -67,7 +67,6 @@ export const STATUS_ACCESS_VALUE = DEFAULT_ACCESS_VALUE;
 
 export const DEPARTMENT_OPTIONS = [
   { department_id: -1, name: 'All' },
-  { department_id: 0, name: 'Not Assigned' },
 ];
 
 export const DEPARTMENT_LABEL = 'Department';
@@ -119,11 +118,6 @@ export const ENDPOINT_DEPARTMENTS = '/api/departments';
 export const ENDPOINT_VOTE = '/api/vote';
 export const ENDPOINT_CONTACT = '/api/contact';
 export const ENDPOINT_LOCATIONS = '/api/locations';
-
-export const ROUTES = {
-  about: '/about',
-  contact: 'http://wizeq.wizeline.com/contact/',
-};
 
 export const ANONYMOUS_USER = {
   username: 'Anonymous',
@@ -269,7 +263,6 @@ export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
-export const ANON_QUESTION_REQUIRES_ASSIGNEE = 'Select an assigned employee';
 
 // Sockets & Reactivity
 export const FAKE_SOCKET = {
@@ -297,7 +290,7 @@ export const EMPLOYEE_PLACEHOLDER = 'Select a collaborator';
 export const DEPARTMENT_PLACEHOLDER = 'Select a department';
 export const NO_DEPARTMENT_SELECTED_ID = -1;
 export const NO_EMPLOYEE_SELECTED_ID = -1;
-export const NOT_ASSIGNED_DEPARTMENT_ID = 0;
+export const NOT_ASSIGNED_DEPARTMENT_ID = 1;
 
 // Buttons Categories
 export const PRIMARY_BUTTON = 'primary_button';
@@ -318,25 +311,12 @@ export const DEFAULT_TOAST_CONFIG = {
   progress: undefined,
 };
 
-export const QUESTION_CREATED_TOAST_CONFIG = {
-  position: 'top-right',
-  autoClose: false,
-  hideProgressBar: false,
-  closeOnClick: false,
-  pauseOnHover: true,
-  draggable: false,
-  progress: undefined,
-};
-
 // Things to Keep in Mind
 export const RECOMMENDATIONS_QUESTION = [
   'Strive for constructive open communication. Avoid vagueness.',
   'Do not demean or degrade others because of their gender, race, age, religion, etc.',
   'Avoid posting questions that include sexually explicit comments, hate speech, prejudicial remarks, and profanity.',
   'Do not mock other members, their comments, profiles, threads, or experiences. Remember, what is funny for you may be offensive to others.',
-  'For anonymous questions, you have to select a specific employee according to the department selected.',
-  'Anonymous questions will not appear on the home page until an admin has published it.',
-  'Although the question has not been published, you can the link of your question to followup on answers.',
 ];
 
 // Recurring error messages
@@ -347,4 +327,19 @@ export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vot
 export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';
 export const DELETE_COMMENT_ERROR_MESSAGE = 'Error trying to delete the comment';
 export const ENABLE_DISABLE_ERROR_MESSAGE = 'Error trying to enable/disable this question';
-export const PUBLISH_QUESTION_ERROR_MESSAE = 'The question has not been published';
+
+// Database string limit constant. It should hold about one page worth of text.
+export const MINIMUM_COMMENT_LENGTH = 2;
+export const DATE_FORMAT = 'MM-DD-YYYY';
+export const DATE_TIME_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ';
+export const BASE_NUMBER = 10;
+export const NOTIFICATION_MINUTE_INTERVAL = 3;
+export const MAXIMUM_QUESTION_EXPORT_CSV_DAYS_RANGE = 90;
+export const MAXIMUM_QUESTION_EXPORT_CSV_MONTHS_RANGE = 3;
+export const DEFAULT_LIMIT = 20;
+export const DEFAULT_OFFSET = 0;
+export const MIN_NET_PROMOTER_SCORE = 1;
+export const MAX_NET_PROMOTER_SCORE = 4;
+export const DEFAULT_ERROR_MESSAGE = 'An unknown error has occurred with your request.';
+export const COMMENT_AS_AN_ANSWER = 'This question already has a comment as answer';
+export const DEFAULT_MONTHS = -3;

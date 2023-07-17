@@ -1,0 +1,7 @@
+The following questions assigned to the {{ department_name }} department have not received an answer yet:
+{{#each questions}}
+  <div style="margin-bottom: 60px">
+    {{> questionPreview this}}
+    To answer the question, <a href="{{this.question_url}}"> click here </a>
+  </div>
+{{/each}}

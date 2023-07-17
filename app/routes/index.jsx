@@ -11,12 +11,11 @@ import listDepartments from 'app/controllers/departments/list';
 import listLocations from 'app/controllers/locations/list';
 import listQuestions from 'app/controllers/questions/list';
 import { PAGE_QUESTIONS_LIMIT } from 'app/utils/constants';
-import dateRangeConversion from 'app/utils/dateRangeConversion';
+import dateRangeConversion from 'app/utils/dates/dateRangeConversion';
 import modifyPinStatus from 'app/controllers/questions/modifyPinStatus';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
-import voteQuestion from 'app/controllers/questionVotes/voteQuestion';
+import voteQuestion from 'app/controllers/profile/questionVotes/voteQuestion';
 import ACTIONS from 'app/utils/actions';
-import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 export const loader = async ({ request }) => {
   await requireAuth(request);
@@ -42,7 +41,7 @@ export const loader = async ({ request }) => {
   });
 
   const locations = await listLocations();
-  const departments = await listDepartments();
+  const { departments } = await listDepartments();
 
   return json({
     questions,
@@ -72,10 +71,6 @@ export const action = async ({ request }) => {
       questionId = parseInt(formData.get('questionId'), 10);
       const enabledValue = formData.get('enabledValue') !== 'false';
       response = await modifyEnabledValue(questionId, enabledValue);
-      break;
-    case ACTIONS.PUBLISH_QUESTION:
-      questionId = parseInt(formData.get('questionId'), 10);
-      response = await publishQuestion(questionId);
       break;
     default:
       break;

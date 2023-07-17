@@ -60,6 +60,10 @@ variable "slack_webhook_url" {
   type = string
 }
 
+variable "slack_webhook_url_admin" {
+  type = string
+}
+
 variable "slack_wizeq_domain" {
   type = string
 }
@@ -89,6 +93,10 @@ variable "email_auth_user" {
 }
 
 variable "email_auth_password" {
+  type = string
+}
+
+variable "api_key" {
   type = string
 }
 

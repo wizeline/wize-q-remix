@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLoaderData } from '@remix-run/react';
 import * as Styled from 'app/components/QuestionCommentList/QuestionCommentList.styled';
-import reorderHighlightedComments from 'app/utils/commentUtils';
+import reorderHighlightedComments from 'app/utils/comments/commentUtils';
 import QuestionComment from 'app/components/QuestionComment';
 import SortQuestionCommentsDropdown from 'app/components/SortQuestionCommentsDropdown';
 

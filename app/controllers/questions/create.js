@@ -1,16 +1,21 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import generateSessionIdHash from 'app/utils/backend/crypto';
-import slack from 'app/utils/backend/slackNotifications';
-import { stripNewLines, truncate } from 'app/utils/backend/stringUtils';
-import sanitizeHTML from 'app/utils/backend/sanitizer';
-import { createQuestionSchema } from 'app/utils/backend/validators/question';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import generateSessionIdHash from 'app/utils/crypto';
+import slack from 'app/utils/slack/slackNotifications';
+import { stripNewLines, truncate } from 'app/utils/strings/stringUtils';
+import sanitizeHTML from 'app/utils/strings/sanitizer';
+import { createQuestionSchema } from 'app/utils/validators/question';
 import { db } from 'app/utils/db.server';
-import { SLACK_QUESTION_LIMIT } from 'app/utils/backend/slackConstants';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
-import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
-import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { SLACK_QUESTION_LIMIT } from 'app/utils/slack/slackConstants';
+import { EMAILS } from 'app/utils/emails/emailConstants';
+import { getQuestionDetailUrl } from 'app/utils/urls/urlUtils';
+import { sendEmail } from 'app/utils/emails/emailHandler';
+import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation } from 'app/config/flags.json';
+import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
-const createQuestion = async (body) => {
+const createQuestion = async (
+  body,
+  config = { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation },
+) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
     return {
@@ -29,10 +34,8 @@ const createQuestion = async (body) => {
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
-      is_public: !((value.is_anonymous && value.is_anonymous === true)),
     },
   });
-  let successMessage;
 
   if (value.is_anonymous) {
     const sessionHash = generateSessionIdHash(accessToken, created.question_id);
@@ -45,39 +48,60 @@ const createQuestion = async (body) => {
         user_hash: sessionHash,
       },
     });
+  }
 
-    const userAssigned = await db.users.findUnique({
-      where: {
-        employee_id: created.assigned_to_employee_id,
-      },
-    });
-    const questionDetailUrl = getQuestionDetailUrl(created.question_id);
-    successMessage = {
-      message: 'The anonymous question has been created succesfully!\n\nPlease save the attached link for followup on answers: ',
-      questionUrl: questionDetailUrl,
-    };
-    await sendEmail({
-      to: userAssigned.email,
-      subject: EMAILS.anonymousQuestionAssigned.subject,
-      template: EMAILS.anonymousQuestionAssigned.template,
-      context: {
-        name: userAssigned.full_name,
-        question_url: getQuestionDetailUrl(created.question_id),
-        question_text: created.question,
-      },
-    });
-  } else {
+  if (config.sendSlackOnQuestionCreation) {
     await slack.createQuestionNotification({
       questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
       questionId: created.question_id,
     });
-    successMessage = {
-      message: 'The question has been created succesfully!',
-    };
+  }
+
+  if (config.sendEmailToManagerOnQuestionCreation) {
+    let departmentManager;
+
+    if (created.assigned_department) {
+      departmentManager = (await db.Departments.findUnique(({
+        where: {
+          department_id: created.assigned_department,
+        },
+        include: { ManagerDepartmet: true, AlternateManager: true },
+      })));
+    }
+    const { ManagerDepartmet, AlternateManager } = departmentManager;
+
+    const destinationEmail = ManagerDepartmet ? ManagerDepartmet.email : defaultManagerEmail;
+    const destinationName = ManagerDepartmet ? ManagerDepartmet.full_name : defaultManagerName;
+
+    const mailList = [destinationEmail];
+    const nameList = [destinationName];
+
+    const destinationEmailSub = AlternateManager ? AlternateManager.email : undefined;
+    const destinationNameSub = AlternateManager ? AlternateManager.full_name : undefined;
+
+    if (destinationEmailSub) {
+      mailList.push(destinationEmailSub);
+      nameList.push(destinationNameSub);
+    }
+
+    const emailProperties = value.is_anonymous
+      ? EMAILS.anonymousQuestionAssigned
+      : EMAILS.publicQuestionAssigned;
+
+    await sendEmail({
+      to: mailList.join(','),
+      subject: emailProperties.subject,
+      template: emailProperties.template,
+      context: {
+        name: nameList.join(' | '),
+        question_url: getQuestionDetailUrl(created.question_id),
+        question_text: created.question,
+      },
+    });
   }
 
   return {
-    successMessage,
+    successMessage: 'The question has been created succesfully!',
     question: created,
   };
 };

@@ -6,10 +6,7 @@ export const loader = async (data) => {
     return [];
   }
   const employees = await listEmployees(params.id);
-  return employees.map((employee) => ({
-    name: employee.full_name,
-    id: employee.employee_id,
-  }));
+  return { employees };
 };
 
 export default loader;

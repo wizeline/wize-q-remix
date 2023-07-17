@@ -7,7 +7,7 @@ import {
 } from 'app/utils/constants';
 import * as Styled from 'app/components/CommentInput/CommentInput.styled';
 import Button from 'app/components/Atoms/Button';
-import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
+import { deleteNoMarkupFormatHTML } from 'app/utils/strings/stringOperations';
 import CommentInputAuthor from 'app/components/CommentInput/CommentInputAuthor';
 import CommentInputText from 'app/components/CommentInput/CommentInputText';
 import useUser from 'app/utils/hooks/useUser';
@@ -149,7 +149,6 @@ function CommentInput(props) {
           <CommentInputAuthor
             profilePicture={profilePicture}
             selectPostingAs={selectPostingAs}
-            is_public={props.is_public}
           />
           <CommentInputText
             ref={CommentInputTextRef}
@@ -168,14 +167,12 @@ CommentInput.propTypes = {
   questionId: PropTypes.number,
   isWritingCommentMobile: PropTypes.bool,
   setWritingCommentOnMobile: PropTypes.func,
-  is_public: PropTypes.bool,
 };
 
 CommentInput.defaultProps = {
   questionId: null,
   isWritingCommentMobile: false,
   setWritingCommentOnMobile: () => {},
-  is_public: false,
 };
 
 export default CommentInput;

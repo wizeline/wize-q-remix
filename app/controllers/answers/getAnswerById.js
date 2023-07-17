@@ -1,5 +1,4 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import { INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
+import { DEFAULT_ERROR_MESSAGE, INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
 
 const getAnswerById = async (answerId, user) => {

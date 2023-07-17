@@ -1,8 +1,8 @@
-import { EMAIL_SUBJECT_PREFIX } from 'app/utils/backend/emails/emailConstants';
-import { sendEmail } from 'app/utils/backend/emails/emailHandler';
-import { instantiateTransporter } from 'app/utils/backend/emails/emailTransporter';
+import { EMAIL_SUBJECT_PREFIX } from 'app/utils/emails/emailConstants';
+import { sendEmail } from 'app/utils/emails/emailHandler';
+import { instantiateTransporter } from 'app/utils/emails/emailTransporter';
 
-jest.mock('app/utils/backend/emails/emailTransporter');
+jest.mock('app/utils/emails/emailTransporter');
 
 const transporterSendCall = jest.fn();
 

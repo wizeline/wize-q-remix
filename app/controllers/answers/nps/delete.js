@@ -1,5 +1,5 @@
-import { deleteNPSSchema } from 'app/utils/backend/validators/nps';
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { deleteNPSSchema } from 'app/utils/validators/nps';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
 
 const deleteNPS = async (params) => {

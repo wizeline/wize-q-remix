@@ -1,7 +1,7 @@
 import { db } from 'app/utils/db.server';
 import listQuestions from 'app/controllers/questions/list';
-import { DEFAULT_LIMIT } from 'app/utils/backend/constants';
-import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/filterConstants';
+import { DEFAULT_LIMIT } from 'app/utils/constants';
+import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/filterConstants';
 
 describe('listQuestions', () => {
   const dbListSpy = jest.spyOn(db.Questions, 'findMany');
@@ -283,10 +283,10 @@ describe('listQuestions', () => {
     });
 
     it('returns questions with no deparment set', () => {
-      expect(response.length).toEqual(5);
+      expect(response.length).toEqual(6);
 
       response.forEach((question) => {
-        expect(question.assigned_department).toEqual(null);
+        expect(question.assigned_department).toEqual(NOT_ASSIGNED_DEPARTMENT_ID);
       });
     });
   });

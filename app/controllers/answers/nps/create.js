@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import generateSessionIdHash from 'app/utils/backend/crypto';
-import isEmptyObject from 'app/utils/backend/objectUtils';
-import { createNPSSchema } from 'app/utils/backend/validators/nps';
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import generateSessionIdHash from 'app/utils/crypto';
+import isEmptyObject from 'app/utils/objectUtils';
+import { createNPSSchema } from 'app/utils/validators/nps';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
 
 const createNPS = async (params) => {

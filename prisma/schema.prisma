@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
@@ -16,17 +16,17 @@ model Answers {
   answer_id               Int       @id @default(autoincrement())
   answer_text             String    @db.VarChar(3000)
   answered_by_picture     String?   @db.VarChar(255)
-  answer_date             DateTime  @db.DateTime(0)
+  answer_date             DateTime  @db.Timestamp()
   answered_by_employee_id Int
   answered_question_id    Int
-  createdAt               DateTime  @default(now()) @db.DateTime(0)
-  updatedAt               DateTime  @default(now()) @updatedAt @db.DateTime(0)
+  createdAt               DateTime  @default(now()) @db.Timestamp()
+  updatedAt               DateTime  @default(now()) @updatedAt @db.Timestamp()
   num_scores              Int?      @default(0)
-  average_score           Float?    @default(0) @db.Float
+  average_score           Float?    @default(0) @db.Real
   Nps                     Nps[]
-  Question                Questions @relation(fields: [answered_question_id], references: [question_id])
+  Question                Questions @relation(fields: [answered_question_id], references: [question_id], map: "answered_question_id")
 
-  AnsweredBy users @relation(fields: [answered_by_employee_id], references: [employee_id])
+  AnsweredBy users @relation(fields: [answered_by_employee_id], references: [employee_id], map: "answered_by_employee_id")
 
   @@index([answered_by_employee_id], map: "Answers_answered_by_employee_id_fkey")
   @@index([answered_question_id], map: "Answers_answered_question_id_fkey")
@@ -45,15 +45,15 @@ model CommentVote {
 model Comments {
   id          Int           @id @default(autoincrement())
   comment     String?       @db.VarChar(3000)
-  createdAt   DateTime      @default(now()) @db.DateTime(0)
+  createdAt   DateTime      @default(now()) @db.Timestamp()
   questionId  Int
   sessionHash String?       @db.VarChar(255)
   userName    String?       @db.VarChar(255)
   userEmail   String?       @db.VarChar(255)
-  updatedAt   DateTime?     @default(now()) @updatedAt @db.DateTime(0)
+  updatedAt   DateTime?     @default(now()) @updatedAt @db.Timestamp()
   approvedBy  Int?
-  Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Comments_approved_by_employeeId")
-  User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "Comments_created_by_employeeId")
+  Approver    users?        @relation("Comments_approvedByTousers", fields: [approvedBy], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "Approver")
+  User        users?        @relation("Comments_userEmailTousers", fields: [userEmail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "User")
   Questions   Questions     @relation(fields: [questionId], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_1")
   CommentVote CommentVote[]
 
@@ -68,7 +68,7 @@ model Departments {
   is_active                            Boolean   @default(true)
   manager_employee_id                  Int?
   alternate_manager_id                 Int?
-  last_manager_email_notification_date DateTime? @db.DateTime(0)
+  last_manager_email_notification_date DateTime? @db.Timestamp()
 
   ManagerDepartmet users?      @relation("Manager", fields: [manager_employee_id], references: [employee_id])
   AlternateManager users?      @relation("SubManager", fields: [alternate_manager_id], references: [employee_id])
@@ -101,13 +101,13 @@ model EmployeesDepartments {
   email         String @db.VarChar(255)
   department_id Int
   employee_id   Int?
-  users         users? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id_foreign_idx")
+  users         users? @relation(fields: [employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "employee_id")
 
   @@index([employee_id], map: "employee_id_foreign_idx")
 }
 
 model Locations {
-  name      String      @unique(map: "name") @db.VarChar(255)
+  name      String      @unique @db.VarChar(255)
   code      String      @id @db.VarChar(255)
   Questions Questions[]
 }
@@ -134,10 +134,10 @@ model Questions {
   question                     String         @db.VarChar(500)
   user_hash                    String         @default("") @db.VarChar(255)
   is_anonymous                 Boolean
-  createdAt                    DateTime       @default(now()) @db.DateTime(0)
-  updatedAt                    DateTime       @default(now()) @updatedAt @db.DateTime(0)
+  createdAt                    DateTime       @default(now()) @db.Timestamp()
+  updatedAt                    DateTime       @default(now()) @updatedAt @db.Timestamp()
   location                     String?        @default("ALL") @db.VarChar(255)
-  last_email_notification_date DateTime?      @db.DateTime(0)
+  last_email_notification_date DateTime?      @db.Timestamp()
   assigned_department          Int?
   created_by_employee_id       Int?
   assigned_to_employee_id      Int?
@@ -146,14 +146,14 @@ model Questions {
   is_pinned                    Boolean        @default(false)
   is_enabled                   Boolean        @default(true)
   Locations                    Locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "Questions_ibfk_1")
-  assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to_employee_id_foreign_idx")
-  created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by_employee_id_foreign_idx")
+  assigned_to                  users?         @relation("AssignedQuestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to")
+  created_by                   users?         @relation("CreatedQuestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by")
   Comments                     Comments[]
   DraftAnswers                 DraftAnswers[]
   Sentiments                   Sentiments[]
   Votes                        Votes[]
   Answers                      Answers[]
-  Department                   Departments?   @relation(fields: [assigned_department], references: [department_id])
+  Department                   Departments?   @relation(fields: [assigned_department], references: [department_id], map:"Department")
 
   @@index([assigned_to_employee_id], map: "assigned_to_employee_id_foreign_idx")
   @@index([created_by_employee_id], map: "created_by_employee_id_foreign_idx")

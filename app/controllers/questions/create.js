@@ -17,6 +17,7 @@ const createQuestion = async (
   config = { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation },
 ) => {
   const { error, value } = createQuestionSchema.validate(body);
+  console.log('BODY VALIDATED');
   if (error) {
     return {
       errors: [

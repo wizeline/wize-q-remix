@@ -20,36 +20,56 @@ const listComments = async (params) => {
     };
   }
 
-  const fetchComments = await db.$queryRaw`
-SELECT c.id,
-c.comment,
-c.createdAt,
-(SELECT CASE WHEN ISNULL(updatedAt) THEN createdAt WHEN updatedAt > createdAt THEN updatedAt ELSE createdAt END) as recent_activity,
-c.questionId, 
-c.sessionHash,
-c.userName,
-c.userEmail,
-c.approvedBy,
-(SELECT IFNULL(SUM(CommentVote.value), 0) FROM CommentVote WHERE CommentVote.comment_id = c.id) as votes,
-(SELECT IF (EXISTS(SELECT * FROM CommentVote WHERE CommentVote.comment_id = c.id AND CommentVote.user = ${userId} AND CommentVote.value = 1), true, false)) as has_upvoted, 
-(SELECT IF (EXISTS(SELECT * FROM CommentVote WHERE CommentVote.comment_id = c.id AND CommentVote.user = ${userId} AND CommentVote.value = -1), true, false)) as has_downvoted, 
-User.employee_id as 'UserEmployee_id',
-User.full_name as 'UserFull_name',
-User.is_admin as 'UserIs_admin',
-User.profile_picture as 'UserProfile_picture',
-User.job_title as 'UserJob_title',
-Approver.employee_id as 'ApproverEmployee_id',
-Approver.full_name as 'ApproverFull_name',
-Approver.is_admin as 'ApproverIs_admin',
-Approver.profile_picture as 'ApproverProfile_picture',
-Approver.job_title as 'ApproverJob_title'
-FROM Comments  as c 
-LEFT JOIN users as User
-ON c.userEmail = User.email
-LEFT JOIN users as Approver
-ON c.approvedBy = Approver.employee_id
-WHERE c.questionId = ${questionId}
-${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY approvedBy DESC, recent_activity DESC`}`;
+  const fetchComments = await db.$queryRaw`SELECT
+  cmts.id,
+  cmts.comment,
+  cmts."createdAt",
+  (SELECT
+     CASE
+       WHEN cmts."updatedAt" IS NULL THEN cmts."createdAt"
+       WHEN cmts."updatedAt" > cmts."createdAt" THEN cmts."updatedAt"
+       ELSE cmts."createdAt"
+     END) AS recent_activity,
+  cmts."questionId",
+  cmts."sessionHash",
+  cmts."userName",
+  cmts."userEmail",
+  cmts."approvedBy",
+  (SELECT
+     COALESCE(SUM("CommentVote".value), 0)
+   FROM "CommentVote"
+   WHERE "CommentVote".comment_id = cmts.id) AS votes,
+  (SELECT
+     CASE
+       WHEN EXISTS(SELECT * FROM "CommentVote" WHERE "CommentVote".comment_id = cmts.id AND "CommentVote".user = ${userId} AND "CommentVote".value = 1) THEN true
+       ELSE false
+     END) AS has_upvoted,
+  (SELECT
+     CASE
+       WHEN EXISTS(SELECT * FROM "CommentVote" WHERE "CommentVote".comment_id = cmts.id AND "CommentVote".user = ${userId} AND "CommentVote".value = -1) THEN true
+       ELSE false
+     END) AS has_downvoted,
+  "User".employee_id AS "UserEmployee_id",
+  "User".full_name AS "UserFull_name",
+  "User".is_admin AS "UserIs_admin",
+  "User".profile_picture AS "UserProfile_picture",
+  "User".job_title AS "UserJob_title",
+  Approver.employee_id AS "ApproverEmployee_id",
+  Approver.full_name AS "ApproverFull_name",
+  Approver.is_admin AS "ApproverIs_admin",
+  Approver.profile_picture AS "ApproverProfile_picture",
+  Approver.job_title AS "ApproverJob_title"
+FROM
+  "Comments" AS cmts
+LEFT JOIN
+  "users" AS "User" ON cmts."userEmail" = "User".email
+LEFT JOIN
+  "users" AS Approver ON cmts."approvedBy" = Approver.employee_id
+WHERE
+  cmts."questionId" = ${questionId}
+  ${sortBy === 'votes' ? Prisma.sql`ORDER BY cmts."approvedBy" DESC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY cmts."approvedBy" DESC, recent_activity DESC`}
+  
+`;
 
   const comments = fetchComments.map((comment) => {
     comment.canEdit = canEditComment(comment, userEmail, sessionToken);

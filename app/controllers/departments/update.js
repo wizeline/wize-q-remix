@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { db } from 'app/utils/db.server';
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
 
 const updateDepartement = async (params) => {
   const {

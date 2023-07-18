@@ -124,11 +124,11 @@
     "id": 12,
     "comment": "Another Comment update test",
     "createdAt": "2022-10-01 13:45:12",
-    "questionId": 2,
+    "questionId": 8,
     "sessionHash": "85e8a1623e1c7e2c34b4e5ee8fd365a6",
     "userName": "Ignacio Cañipa Ariñez",
     "userEmail": null,
     "updatedAt": null,
-    "approvedBy": null
+    "approvedBy": 1
   }
 ]

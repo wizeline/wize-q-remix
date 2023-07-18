@@ -4,9 +4,9 @@
 /* eslint-disable camelcase */
 import {
   DEFAULT_LIMIT, DEFAULT_OFFSET, COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD, DEFAULT_MONTHS,
-} from 'app/utils/backend/constants';
-import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/backend/filterConstants';
-import createDateRange from 'app/utils/backend/dateUtils';
+} from 'app/utils/constants';
+import { ALL_DEPARTMENTS, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/filterConstants';
+import createDateRange from 'app/utils/dates/dateUtils';
 import { db } from 'app/utils/db.server';
 
 const getOrderBy = (order) => {
@@ -79,7 +79,7 @@ const buildWhereDepartment = (department) => {
 
   if (department === NOT_ASSIGNED_DEPARTMENT_ID) {
     return {
-      assigned_department: null,
+      assigned_department: NOT_ASSIGNED_DEPARTMENT_ID,
     };
   }
 

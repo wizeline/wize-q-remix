@@ -24,7 +24,6 @@ import {
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
-  NO_EMPLOYEE_SELECTED_ID,
   NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE,
 } from 'app/utils/constants';
 import * as Styled from 'app/components/QuestionForm/QuestionForm.Styled';
@@ -32,8 +31,8 @@ import Switch from 'app/components/Switch';
 import InputAuthor from 'app/components/InputAuthor';
 import InputCounter from 'app/components/InputCounter';
 import SubmitWithModal from 'app/components/SubmitWithModal';
-import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
-import { validTextLength } from 'app/utils/input';
+import { deleteNoMarkupFormatHTML } from 'app/utils/strings/stringOperations';
+import { validTextLength } from 'app/utils/strings/input';
 import QuestionInputText from 'app/components/QuestionInputText';
 import useUser from 'app/utils/hooks/useUser';
 import DropdownMenu from 'app/components/DropdownMenu';
@@ -93,7 +92,7 @@ function QuestionForm({
         });
       }
     };
-    fetchEmployees();
+    if (requireEmployeeAssigned) fetchEmployees();
   }, [state.assignedDepartment]);
 
   useEffect(() => {

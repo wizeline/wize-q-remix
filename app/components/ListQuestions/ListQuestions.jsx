@@ -6,7 +6,7 @@ import Slogan from 'app/components/Slogan';
 import QuestionCard from 'app/components/QuestionCard';
 import useUser from 'app/utils/hooks/useUser';
 import GoToTopButton from 'app/components/GoToTopButton';
-import markdownFormatQuestion from 'app/utils/markdownFormatQuestions';
+import markdownFormatQuestion from 'app/utils/questions/markdownFormatQuestions';
 import InfiniteScrollList from 'app/components/Atoms/InfiniteScrollList';
 import Filters from 'app/components/Filters';
 import ACTIONS from 'app/utils/actions';

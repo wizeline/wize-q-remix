@@ -7,8 +7,8 @@ import {
   MINIMUM_WIDTH_TO_SHOW_MARKDOWN,
   MIN_TEXTAREA_ROWS,
   MINIMUN_WINDOW_WIDTH,
-} from 'app/utils//constants';
-import { shouldShowMarkdownSuggestions } from 'app/utils//input';
+} from 'app/utils/constants';
+import { shouldShowMarkdownSuggestions } from 'app/utils/strings/input';
 import Input from 'app/components/Atoms/Input';
 import InputCounter from 'app/components/InputCounter';
 import * as Styled from 'app/components/CommentInput/CommentInput.styled';

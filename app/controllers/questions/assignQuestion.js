@@ -1,11 +1,10 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import { assignQuestionSchema } from 'app/utils/backend/validators/question';
-import { QUESTION_NOT_FOUND_ERROR_MESSAGE } from 'app/utils/constants';
+import { DEFAULT_ERROR_MESSAGE, QUESTION_NOT_FOUND_ERROR_MESSAGE } from 'app/utils/constants';
+import { assignQuestionSchema } from 'app/utils/validators/question';
 import { db } from 'app/utils/db.server';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
-import { getQuestionDetailUrl } from 'app/utils/backend/urlUtils';
-import { sendEmail } from 'app/utils/backend/emails/emailHandler';
+import { EMAILS } from 'app/utils/emails/emailConstants';
+import { getQuestionDetailUrl } from 'app/utils/urls/urlUtils';
+import { sendEmail } from 'app/utils/emails/emailHandler';
 import { sendEmailOnQuestionReassigned } from 'app/config/flags.json';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 

@@ -22,11 +22,11 @@ import {
   SECONDARY_BUTTON,
   CLOSE_BUTTON,
 } from 'app/utils/constants';
-import { deleteNoMarkupFormatHTML } from 'app/utils/stringOperations';
-import { getTimeDiff } from 'app/utils/timeOperations';
+import { deleteNoMarkupFormatHTML } from 'app/utils/strings/stringOperations';
+import { getTimeDiff } from 'app/utils/dates/timeOperations';
 import QuestionMarkdown from 'app/components/QuestionMarkdown/QuestionMarkdown';
 import * as Styled from 'app/components/Modals/AnswerModal/AnswerModal.Styled';
-import { validTextLength } from 'app/utils/input';
+import { validTextLength } from 'app/utils/strings/input';
 
 function AnswerModal(props) {
   AnswerModal.propTypes = {

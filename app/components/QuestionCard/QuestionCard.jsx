@@ -8,12 +8,12 @@ import likeIconVoted from 'app/images/ic_like_pressed.svg';
 import commentIcon from 'app/images/ic_comment_non-selected.svg';
 import {
   renderAnswer,
-} from 'app/utils/questionUtils';
+} from 'app/utils/questions/questionUtils';
 
 import * as Styled from 'app/components/QuestionCard/QuestionCard.Styled';
 import QuestionRow from 'app/components/QuestionRow';
 import CounterButton from 'app/components/CounterButton';
-import reorderHighlightedComments from 'app/utils/commentUtils';
+import reorderHighlightedComments from 'app/utils/comments/commentUtils';
 import AnswerRow from 'app/components/AnswerRow';
 
 function QuestionCard(props) {

@@ -1,9 +1,9 @@
 import randomAccessToken from 'tests/utils';
 import createQuestion from 'app/controllers/questions/create';
 import { db } from 'app/utils/db.server';
-import slack from 'app/utils/backend/slackNotifications';
-import emailHandler from 'app/utils/backend/emails/emailHandler';
-import { EMAILS } from 'app/utils/backend/emails/emailConstants';
+import slack from 'app/utils/slack/slackNotifications';
+import emailHandler from 'app/utils/emails/emailHandler';
+import { EMAILS } from 'app/utils/emails/emailConstants';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
 describe('createQuestion', () => {

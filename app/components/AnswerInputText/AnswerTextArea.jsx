@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MarkdownFormattingNote from 'app/components/MarkdownFormattingNote/MarkdownFormattingNote';
-import { shouldShowMarkdownSuggestions } from 'app/utils/input';
+import { shouldShowMarkdownSuggestions } from 'app/utils/strings/input';
 import {
   MAXIMUM_ANSWER_LENGTH,
   MINIMUM_ANSWER_LENGTH,

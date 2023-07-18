@@ -6,7 +6,7 @@ import {
   QUESTION_NOT_FOUND_ERROR_MESSAGE,
 } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
-import getFormattedDate from 'app/utils/dateFormat';
+import getFormattedDate from 'app/utils/dates/dateFormat';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 
 describe('questions controller', () => {

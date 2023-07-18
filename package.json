@@ -16,9 +16,7 @@
     "start": "cross-env NODE_ENV=production node ./server.js",
     "test:integration": "dotenv -e .env.test.integration -- ./scripts/integration-test.sh",
     "test:integration:watch": "dotenv -e .env.test.integration -- npx jest --runInBand --watchAll --testPathPattern=tests/integration/*",
-    "test:unit": "./scripts/unit-test.sh",
-    "test:cypress:run": "dotenv -e .env.test.integration -- cross-env start-server-and-test dev http://localhost:3000 \"npx cypress run --project tests\"",
-    "test:cypress:open": "dotenv -e .env.test.integration -- start-server-and-test dev http://localhost:3000 \"npx cypress open --project tests\""
+    "test:unit": "./scripts/unit-test.sh"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.19.1",
@@ -27,7 +25,6 @@
     "@remix-run/express": "^1.6.8",
     "@remix-run/node": "^1.6.8",
     "@remix-run/react": "^1.6.8",
-    "bootstrap": "^5.2.0",
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.2",
@@ -46,7 +43,6 @@
     "md5": "^2.3.0",
     "moment": "^2.29.4",
     "morgan": "^1.10.0",
-    "mysql2": "^2.3.3",
     "nodemailer": "^6.9.0",
     "nodemailer-express-handlebars": "^6.0.0",
     "prop-types": "^15.8.1",
@@ -62,28 +58,19 @@
     "remark-gfm": "^3.0.1",
     "remix-auth": "^3.3.0",
     "remix-auth-auth0": "^1.4.0",
-    "remix-auth-google": "^1.1.0",
-    "remix-auth-oauth2": "^1.3.0",
     "remix-utils": "^3.3.0",
-    "sequelize": "^6.21.4",
-    "sequelize-cli": "^6.4.1",
     "slack-notify": "^2.0.3",
     "styled-components": "^5.3.5",
     "xss": "^1.0.14"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.3",
-    "@cypress/webpack-preprocessor": "^5.15.0",
     "@remix-run/dev": "^1.6.8",
     "@remix-run/eslint-config": "^1.6.8",
     "babel-jest": "^29.1.0",
-    "cypress": "^10.11.0",
-    "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
     "nodemon": "^2.0.19",
     "npm-run-all": "^4.1.5",
     "prisma": "^4.4.0",
-    "start-server-and-test": "^1.14.0",
     "typescript": "^4.8.4"
   },
   "engines": {

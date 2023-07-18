@@ -1,5 +1,5 @@
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import { profileQuestionsAnsweredSchema } from 'app/utils/backend/validators/profile';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import { profileQuestionsAnsweredSchema } from 'app/utils/validators/profile';
 import { db } from 'app/utils/db.server';
 
 const questionsAnswered = async (query) => {

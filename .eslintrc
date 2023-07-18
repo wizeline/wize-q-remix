@@ -2,7 +2,7 @@
   "parser": "@babel/eslint-parser",
   "extends": [
     "airbnb",
-    "plugin:cypress/recommended"
+    "@remix-run/eslint-config"
   ],
   "plugins": [
       "react",
@@ -30,7 +30,8 @@
 
   },
   "env": {
-    "jest": true
+    "jest": true,
+    "browser": true
   },
   "overrides": [
     {

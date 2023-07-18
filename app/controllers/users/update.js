@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
-import { DEFAULT_ERROR_MESSAGE } from 'app/utils/backend/constants';
-import updateUserSchema from 'app/utils/backend/validators/admin';
+import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
+import updateUserSchema from 'app/utils/validators/admin';
 import { db } from 'app/utils/db.server';
 
 const updateUser = async (query) => {

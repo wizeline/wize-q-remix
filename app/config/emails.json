@@ -1,4 +1,6 @@
 {
   "defaultManagerEmail": "wizeq@wizeline.com",
-  "defaultManagerName": "Wizeliner"
+  "defaultManagerName": "Wizeliner",
+  "managerEmailFrequencyHours": 24,
+  "scheduledMinutesOffset": 5
 }

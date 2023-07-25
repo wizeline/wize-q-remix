@@ -1,0 +1,5 @@
+LOAD DATABASE
+     FROM mysql://root:wizeq_password@mysql:3306/wizeqprod
+     INTO postgresql://postgres:root@localhost:5432/wizeqprod
+
+ WITH data only;

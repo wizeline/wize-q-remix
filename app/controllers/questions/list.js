@@ -127,7 +127,7 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
     const { initialDate, lastDate } = createDateRange(new Date(), numMonths);
     return {
       OR: [{
-        createdAt: {
+        createdat: {
           lte: new Date(lastDate),
           gte: new Date(initialDate),
         },
@@ -195,7 +195,7 @@ const listQuestions = async (params) => {
     limit, offset, orderBy, status, location, department, dateRange, search, user,
   } = params;
 
-  const fetchedQuestions = await db.Questions.findMany({
+  const fetchedQuestions = await db.questions.findMany({
     where: buildWhere({
       status,
       location,
@@ -210,27 +210,27 @@ const listQuestions = async (params) => {
     include: {
       _count: {
         select: {
-          Comments: true,
-          Votes: true,
+          comments: true,
+          votes: true,
         },
       },
-      Votes: true,
-      Answers: {
+      votes: true,
+      answers: {
         include: {
-          Nps: true,
-          AnsweredBy: true,
+          nps: true,
+          answeredBy: true,
         },
       },
-      Comments: {
+      comments: {
         include: {
-          CommentVote: true,
-          Approver: true,
-          User: true,
+          commentVote: true,
+          approver: true,
+          user: true,
         },
       },
       created_by: true,
       assigned_to: { select: { full_name: true } },
-      Department: true,
+      departments: true,
     },
   });
 

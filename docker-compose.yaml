@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  postgres:
+      image: postgres:latest
+      container_name: postgres
+      ports:
+        - '5431:5432'
+      restart: unless-stopped
+      env_file: ./.env
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: wizeq_password
+        POSTGRES_DB: wizeq
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -15,6 +27,7 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
+      - ./config/mysql/my.cnf:/etc/my.cnf
   integration-tests-prisma:
     image: mysql:8.0
     container_name: integration-tests-prisma
@@ -33,4 +46,4 @@ services:
 volumes: 
   db:
   test-db:
-
+  db_data:

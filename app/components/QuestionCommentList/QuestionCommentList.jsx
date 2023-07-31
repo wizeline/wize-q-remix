@@ -42,7 +42,7 @@ function QuestionCommentList(props) {
        // onSubmitSuccess={handleDeleteCommentSuccess}
         commentData={comment}
         isAdmin={isAdmin}
-        hasCommentAsAnswer={comments.some((_comment) => _comment.approvedBy !== null)}
+        hasCommentAsAnswer={comments.some((_comment) => _comment.approvedby !== null)}
         hasAnswer={hasAnswer}
         isCommunityAnswer={comment.id === communityAnswerCommentId}
       />

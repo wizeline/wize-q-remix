@@ -33,7 +33,7 @@ const addEmployeeToDepartment = async (parms) => {
   }
 
   try {
-    const relationCreated = await db.EmployeesDepartments.create({
+    const relationCreated = await db.employeesdepartments.create({
       data: {
         department_id: departmentId,
         employee_id: employeeId,

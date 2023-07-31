@@ -14,6 +14,7 @@ const createAnswer = async (body) => {
   const { error, value } = createAnswerSchema.validate(body);
 
   if (error) {
+console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.message },
     };
@@ -21,17 +22,17 @@ const createAnswer = async (body) => {
 
   const { answered_by_employee_id, answered_question_id, ...rest } = value;
 
-  const answer = await db.Answers.create({
+  const answer = await db.answers.create({
     data: {
       ...rest,
       answer_text: sanitizeHTML(value.answer_text),
       answer_date: moment.utc().format(DATE_TIME_FORMAT),
-      AnsweredBy: {
+      answeredby: {
         connect: {
           employee_id: answered_by_employee_id,
         },
       },
-      Question: {
+      question: {
         connect: {
           question_id: answered_question_id,
         },
@@ -39,7 +40,7 @@ const createAnswer = async (body) => {
     },
   });
 
-  const relatedQuestion = await db.Questions.findUnique({
+  const relatedQuestion = await db.questions.findUnique({
     where: {
       question_id: answer.answered_question_id,
     },

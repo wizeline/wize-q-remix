@@ -8,6 +8,7 @@ const questionCommented = async (query) => {
   const { userEmail } = value;
 
   if (error) {
+console.log('error - ', error);
     return { error: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 
@@ -15,7 +16,7 @@ const questionCommented = async (query) => {
     const validEmail = await findUser(userEmail);
 
     if (validEmail) {
-      const ids = await db.Comments.findMany({
+      const ids = await db.comments.findMany({
         where: {
           userEmail,
         },
@@ -26,7 +27,7 @@ const questionCommented = async (query) => {
 
       const values = ids.map(({ questionId }) => questionId);
 
-      const questions = await db.Questions.findMany({
+      const questions = await db.questions.findMany({
         where: {
           question_id: {
             in: values,

@@ -46,9 +46,9 @@ function AnswerModal(props) {
   const [searchParams] = useSearchParams();
 
   const initialState = {
-    Answer: props.question.Answer ? props.question.Answer : '',
+    Answer: props.question.answer ? props.question.answer : '',
     isAnswering: false,
-    sanitizedInput: props.question.Answer ? deleteNoMarkupFormatHTML(props.question.Answer.answer_text) : '',
+    sanitizedInput: props.question.answer ? deleteNoMarkupFormatHTML(props.question.answer.answer_text) : '',
   };
 
   const [answerData, setAnswerData] = useState(initialState);
@@ -82,7 +82,7 @@ function AnswerModal(props) {
       return;
     }
 
-    const action = question.Answer
+    const action = question.answer
       ? ACTIONS.UPDATE_QUESTION_ANSWER
       : ACTIONS.CREATE_QUESTION_ANSWER;
 
@@ -90,7 +90,7 @@ function AnswerModal(props) {
     data.set('action', action);
 
     if (question.Answer) {
-      data.set('answerId', question.Answer.answer_id);
+      data.set('answerId', question.answer.answer_id);
     } else {
       data.set('employee_id', profile.employee_id);
       data.set('questionId', question.question_id);
@@ -111,7 +111,7 @@ function AnswerModal(props) {
   };
 
   const renderSecondaryButton = () => {
-    if (props.question.Answer) {
+    if (props.question.answer) {
       return (
         <Button
           type="button"
@@ -126,9 +126,9 @@ function AnswerModal(props) {
     return null;
   };
 
-  const renderAnswerSubtitle = ({ question, question: { Answer } }) => {
-    if (Answer) {
-      return editAnswerInfo(Answer.AnsweredBy.full_name, getTimeDiff(Answer.answered_at));
+  const renderAnswerSubtitle = ({ question, question: { answer } }) => {
+    if (answer) {
+      return editAnswerInfo(answer.answeredby.full_name, getTimeDiff(answer.answered_at));
     }
     return addAnswerInfo(getQuestionAuthor(question), getTimeDiff(question.createdAt));
   };
@@ -137,7 +137,7 @@ function AnswerModal(props) {
     question,
     question: { question_id },
   } = props;
-  const { Answer } = question;
+  const { answer } = question;
   const sanitizedInputLength = answerData.sanitizedInput.length;
 
   return (
@@ -150,7 +150,7 @@ function AnswerModal(props) {
           />
           <Styled.ModalHeader>
             <Styled.ModalTitle>
-              {Answer ? editAnswerMessage(question_id) : addAnswerMessage(question_id)}
+              {answer ? editAnswerMessage(question_id) : addAnswerMessage(question_id)}
             </Styled.ModalTitle>
             <QuestionMarkdown source={question.question} />
             <Styled.ModalSubtitle>{renderAnswerSubtitle(props)}</Styled.ModalSubtitle>
@@ -159,7 +159,7 @@ function AnswerModal(props) {
             <div className="row">
               <div className="col-md-12">
                 <AnswerInputText
-                  inputValue={Answer ? Answer.answer : ''}
+                  inputValue={answer ? answer.answer : ''}
                   onInputChange={onAnswerChange}
                 />
               </div>
@@ -178,7 +178,7 @@ function AnswerModal(props) {
                 MAXIMUM_ANSWER_LENGTH,
               )}
             >
-              {props.question.Answer ? UPDATE_ANSWER : SUBMIT_ANSWER}
+              {props.question.answer ? UPDATE_ANSWER : SUBMIT_ANSWER}
             </Button>
           </Styled.ModalFooter>
         </Styled.ModalDialog>

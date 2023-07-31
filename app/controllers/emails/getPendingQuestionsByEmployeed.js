@@ -10,7 +10,7 @@ const getPendingQuestionsByEmployeed = async (employees) => {
     const currentDate = new Date();
     const previousDate = subtractOriginalDate(currentDate, managerEmailFrequencyHours);
     const { initialDate, lastDate } = createDateRange(currentDate, DEFAULT_MONTHS);
-    const pendingQuestions = await db.Questions.findMany({
+    const pendingQuestions = await db.questions.findMany({
       where: {
         OR: [
           {

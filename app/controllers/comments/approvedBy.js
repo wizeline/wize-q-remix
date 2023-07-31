@@ -7,6 +7,7 @@ const approvedByComment = async (params) => {
   const { error, value } = approvedByCommentSchema.validate(params);
 
   if (error) {
+console.log('error - ', error);
     return {
       errors: [
         {
@@ -18,18 +19,18 @@ const approvedByComment = async (params) => {
   }
 
   const {
-    questionId, commentId, employeeId, checked,
+    questionid, commentid, employeeid, checked,
   } = value;
-  const fetchComments = await db.Comments.findMany({
+  const fetchComments = await db.comments.findMany({
     where: {
       AND: [{
-        questionId,
+        questionid,
       }, {
         id: {
-          not: commentId,
+          not: commentid,
         },
       }, {
-        approvedBy: {
+        approvedby: {
           not: null,
         },
       }],
@@ -48,9 +49,9 @@ const approvedByComment = async (params) => {
     };
   }
 
-  const commentUpdated = await db.Comments.update({
-    where: { id: commentId },
-    data: { approvedBy: checked ? employeeId : null },
+  const commentUpdated = await db.comments.update({
+    where: { id: commentid },
+    data: { approvedby: checked ? employeeid : null },
   });
 
   if (isEmptyObject(commentUpdated)) {

@@ -6,13 +6,14 @@ const deleteNPS = async (params) => {
   const { error, value } = deleteNPSSchema.validate(params);
 
   if (error) {
+console.log('error - ', error);
     return {
       errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }],
     };
   }
   const { id, user } = value;
   try {
-    await db.Nps.delete({
+    await db.nps.delete({
       where: {
         answer_id_user: {
           answer_id: id,

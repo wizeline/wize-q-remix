@@ -6,7 +6,7 @@ import * as commentsUtils from 'app/utils/comments/comments';
 import { db } from 'app/utils/db.server';
 
 describe('delete comment controller', () => {
-  const dbDeleteManyCommentSpy = jest.spyOn(db.Comments, 'deleteMany');
+  const dbDeleteManyCommentSpy = jest.spyOn(db.comments, 'deleteMany');
 
   afterEach(() => {
     dbDeleteManyCommentSpy.mockClear();

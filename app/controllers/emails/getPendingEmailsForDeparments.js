@@ -13,6 +13,7 @@ const getPendingEmailsForDepartments = async (departments) => {
       const { error, pendingQuestions } = await getPendingQuestionsForDepartment(department);
 
       if (error) {
+console.log('error - ', error);
         return null;
       }
 

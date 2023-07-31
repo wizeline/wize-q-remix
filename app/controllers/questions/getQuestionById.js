@@ -27,74 +27,74 @@ const getQuestionById = async (questionId, user) => {
   }
 
   try {
-    const unmappedQuestion = await db.Questions.findUnique({
+    const unmappedQuestion = await db.questions.findUnique({
       where: { question_id: questionId },
       include: {
         _count: {
           select: {
-            Comments: true,
-            Votes: true,
+            comments: true,
+            votes: true,
           },
         },
-        Votes: true,
-        Answers: {
+        votes: true,
+        answers: {
           include: {
-            Nps: true,
-            AnsweredBy: true,
+            nps: true,
+            answeredby: true,
           },
         },
         created_by: true,
         assigned_to: { select: { full_name: true } },
-        Department: true,
+        department: true,
       },
     });
     const hasUserData = user && user.id;
-    const hasAnswer = unmappedQuestion.Answers.length > 0;
+    const hasAnswer = unmappedQuestion.answers.length > 0;
 
     let canUndoNps = false;
-    if (unmappedQuestion.Answers.length > 0) {
+    if (unmappedQuestion.answers.length > 0) {
       const npsSessionHash = generateSessionIdHash(
         user.id,
-        unmappedQuestion.Answers[0].answer_id,
+        unmappedQuestion.answers[0].answer_id,
       );
-      canUndoNps = unmappedQuestion.Answers[0].Nps.some(
+      canUndoNps = unmappedQuestion.answers[0].nps.some(
         (nps) => nps.session_hash === npsSessionHash,
       );
     }
 
-    const Answer = unmappedQuestion.Answers.length < 1
+    const Answer = unmappedQuestion.answers.length < 1
       ? null
       : {
-        ...unmappedQuestion.Answers[0],
+        ...unmappedQuestion.answers[0],
         canUndoNps,
         hasScored: (hasUserData
           && hasAnswer
-          && unmappedQuestion.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
+          && unmappedQuestion.answers[0].nps.some((nps) => nps.user === user.id)) ?? false,
       };
 
     let can_edit;
     // eslint-disable-next-line array-callback-return, consistent-return
-    const numLikes = unmappedQuestion.Votes.filter((vote) => {
+    const numLikes = unmappedQuestion.votes.filter((vote) => {
       if (vote.is_upvote || vote.is_upvote === null) {
         return { ...vote };
       }
     }).length;
 
     // eslint-disable-next-line array-callback-return, consistent-return
-    const numDisklike = unmappedQuestion.Votes.filter((vote) => {
+    const numDisklike = unmappedQuestion.votes.filter((vote) => {
       if (!vote.is_upvote && vote.is_upvote !== null) {
         return { ...vote };
       }
     }).length;
 
     const hasLike = (hasUserData
-      && unmappedQuestion.Votes.some(
+      && unmappedQuestion.votes.some(
         (vote) => (vote.is_upvote || vote.is_upvote === null) && vote.user === user.id,
       )
     ) ?? false;
 
     const hasDislike = (hasUserData
-        && unmappedQuestion.Votes.some(
+        && unmappedQuestion.votes.some(
           (vote) => (!vote.is_upvote && vote.is_upvote !== null) && vote.user === user.id,
         )
     ) ?? false;
@@ -103,9 +103,9 @@ const getQuestionById = async (questionId, user) => {
 
     const mappedQuestion = {
       ...unmappedQuestion,
-      hasVoted: unmappedQuestion.Votes.some((vote) => vote.user === user.id) ?? false,
-      num_votes: unmappedQuestion._count.Votes,
-      numComments: unmappedQuestion._count.Comments,
+      hasVoted: unmappedQuestion.votes.some((vote) => vote.user === user.id) ?? false,
+      num_votes: unmappedQuestion._count.votes,
+      numComments: unmappedQuestion._count.comments,
       Answer,
       can_edit,
       numLikes,
@@ -118,6 +118,7 @@ const getQuestionById = async (questionId, user) => {
       question: mappedQuestion,
     };
   } catch (error) {
+    console.log('error getQuestionById ', error);
     return {
       error: {
         message: QUESTION_NOT_FOUND_ERROR_MESSAGE,

@@ -8,6 +8,7 @@ const getQuestionsCreated = async (query) => {
   const { employee_id } = value;
 
   if (error) {
+console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
@@ -20,7 +21,7 @@ const getQuestionsCreated = async (query) => {
       },
     });
 
-    return await db.Questions.findMany({
+    return await db.questions.findMany({
       where: {
         created_by_employee_id: validUser.employee_id,
       },

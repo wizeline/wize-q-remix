@@ -59,9 +59,9 @@ function renderAnswer(renderAnswerProps) {
   } = renderAnswerProps;
 
   let Answer;
-  if (question.Answers.length > 0) {
+  if (question.answers.length > 0) {
     // eslint-disable-next-line prefer-destructuring
-    Answer = question.Answers[0];
+    Answer = question.answers[0];
   }
 
   if (!Answer) {
@@ -80,12 +80,12 @@ function renderAnswer(renderAnswerProps) {
       isQuestionModalOpen={isQuestionModalOpen}
       questionId={question.question_id}
       isFromList={isFromList}
-      user={Answer.AnsweredBy}
+      user={Answer.answeredby}
       isAnswer
       isCommunityAnswer={false}
       isCommentApproved={false}
     >
-      { isAdmin && Answer.AnsweredBy.email === currentUserEmail && (
+      { isAdmin && Answer.answeredby.email === currentUserEmail && (
         <AnswerAdminOptions
           isPreview={isPreview}
           isDisabled={!actionsEnabled}

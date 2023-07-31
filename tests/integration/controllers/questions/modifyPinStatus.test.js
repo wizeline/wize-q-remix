@@ -11,7 +11,7 @@ import getFormattedDate from 'app/utils/dates/dateFormat';
 
 describe('questions controller', () => {
   describe('Modify pin status of a question (modifyPinStatus)', () => {
-    const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
+    const dbUpdateSpy = jest.spyOn(db.questions, 'update');
 
     it('returns error when provided no parameters', async () => {
       const response = await modifyPinStatus();

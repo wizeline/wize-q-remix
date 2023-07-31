@@ -9,6 +9,7 @@ const createNPS = async (params) => {
   const { error, value } = createNPSSchema.validate(params);
 
   if (error) {
+console.log('error - ', error);
     return {
       errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }],
     };
@@ -17,7 +18,7 @@ const createNPS = async (params) => {
   try {
     const { score, answer_id, user } = value;
 
-    const npmCreated = await db.Nps.create({
+    const npmCreated = await db.nps.create({
       data: {
         answer_id,
         user: user.id,

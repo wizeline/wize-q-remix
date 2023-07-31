@@ -24,7 +24,7 @@ const initTestDb = async () => {
   });
 
   // Create users
-  await db.Departments.createMany({
+  await db.departments.createMany({
     data: departmentsFixture.map((department) => ({
       ...department,
       is_active: department.is_active !== 0,
@@ -33,13 +33,13 @@ const initTestDb = async () => {
   });
 
   // Create locations
-  await db.Locations.createMany({
+  await db.locations.createMany({
     data: locationsFixture,
     skipDuplicates: true,
   });
 
   // Create questions
-  await db.Questions.createMany({
+  await db.questions.createMany({
     data: questionsFixture.map((question) => {
       const initialDate = new Date().setMonth(new Date().getMonth() - 1); // one month before today.
       question.createdAt = question.createdAt === undefined ? initialDate : question.createdAt;
@@ -57,7 +57,7 @@ const initTestDb = async () => {
   });
 
   // Create comments
-  await db.Comments.createMany({
+  await db.comments.createMany({
     data: commentsFixture.map((comment) => ({
       ...comment,
       createdAt: new Date(comment.createdAt),
@@ -67,7 +67,7 @@ const initTestDb = async () => {
   });
 
   // Create answers
-  await db.Answers.createMany({
+  await db.answers.createMany({
     data: answersFixture.map((answer) => ({
       ...answer,
       createdAt: new Date(answer.createdAt),
@@ -78,19 +78,19 @@ const initTestDb = async () => {
   });
 
   // Create votes
-  await db.Votes.createMany({
+  await db.votes.createMany({
     data: votesFixture,
     skipDuplicates: true,
   });
 
   // Create nps
-  await db.Nps.createMany({
+  await db.nps.createMany({
     data: npsFixture,
     skipDuplicates: true,
   });
 
   // Create CommentVotes
-  await db.CommentVote.createMany({
+  await db.commentvote.createMany({
     data: commentVotes,
     skipDuplicates: true,
   });

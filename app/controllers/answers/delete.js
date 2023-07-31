@@ -8,19 +8,20 @@ const deleteAnswer = async (query) => {
   const { answer_id } = value;
 
   if (error) {
+console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
   }
 
   // Delete all Nps that have respective answer_id (FK)
-  await db.Nps.deleteMany({
+  await db.nps.deleteMany({
     where: {
       answer_id,
     },
   });
 
-  await db.Answers.delete({
+  await db.answers.delete({
     where: {
       answer_id,
     },

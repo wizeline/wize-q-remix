@@ -5,7 +5,7 @@ const { db } = require('app/utils/db.server');
 const getPendingQuestionsForDepartment = async (department, pastMonths = DEFAULT_MONTHS) => {
   try {
     const { initialDate, lastDate } = createDateRange(new Date(), pastMonths);
-    const pendingQuestions = await db.Questions.findMany({
+    const pendingQuestions = await db.questions.findMany({
       where: {
         assigned_to_employee_id: null,
         assigned_department: department.department_id,

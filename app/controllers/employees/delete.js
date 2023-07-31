@@ -11,7 +11,7 @@ const removeEmployeeToDepartment = async (params) => {
       },
     };
   }
-  const relationRemoved = await db.EmployeesDepartments.deleteMany({
+  const relationRemoved = await db.employeesdepartments.deleteMany({
     where: {
       department_id: departmentId,
       employee_id: employeeId,

@@ -18,6 +18,7 @@ const createQuestion = async (
 ) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
+console.log('error - ', error);
     return {
       errors: [
         {
@@ -30,7 +31,7 @@ const createQuestion = async (
 
   const { accessToken, ...rest } = value;
 
-  let created = await db.Questions.create({
+  let created = await db.questions.create({
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
@@ -38,14 +39,14 @@ const createQuestion = async (
   });
 
   if (value.is_anonymous) {
-    const sessionHash = generateSessionIdHash(accessToken, created.question_id);
+    const sessionhash = generateSessionIdHash(accessToken, created.question_id);
 
     created = await db.Questions.update({
       where: {
         question_id: created.question_id,
       },
       data: {
-        user_hash: sessionHash,
+        user_hash: sessionhash,
       },
     });
   }

@@ -30,24 +30,24 @@ const voteQuestion = async (questionId, user, isUpVote) => {
   }
 
   try {
-    const targetQuestion = await db.Questions.findUniqueOrThrow({
+    const targetQuestion = await db.questions.findUniqueOrThrow({
       where: { question_id: questionId },
       include: {
         _count: {
           select: {
-            Votes: true,
+            votes: true,
           },
         },
       },
     });
 
-    const voteByUser = await db.Votes.findFirst({
+    const voteByUser = await db.votes.findFirst({
       where: {
         question_id: questionId, user: user.id,
       },
     });
     if (voteByUser === null) {
-      const newVote = await db.Votes.create({
+      const newVote = await db.votes.create({
         data: {
           question_id: targetQuestion.question_id,
           user: user.id,
@@ -58,18 +58,18 @@ const voteQuestion = async (questionId, user, isUpVote) => {
       return {
         response: {
           vote: newVote,
-          upVoteCount: targetQuestion._count.Votes + 1,
+          upVoteCount: targetQuestion._count.votes + 1,
         },
       };
     }
 
     try {
-      const deletedVote = await db.Votes.delete({ where: { id: voteByUser.id } });
+      const deletedVote = await db.votes.delete({ where: { id: voteByUser.id } });
       return {
         response: {
           voteSuccessfullyDeleted: true,
           deletedVote,
-          upVoteCount: targetQuestion._count.Votes - 1,
+          upVoteCount: targetQuestion._count.votes - 1,
         },
       };
     } catch (error) {
@@ -81,6 +81,7 @@ const voteQuestion = async (questionId, user, isUpVote) => {
       };
     }
   } catch (error) {
+    console.log('error ', error);
     return {
       error: {
         message: QUESTION_NOT_FOUND_ERROR_MESSAGE,

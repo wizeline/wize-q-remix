@@ -12,7 +12,7 @@ const sendEmployesReminder = async () => {
 
   const { initialDate, lastDate } = createDateRange(currentDate, DEFAULT_MONTHS);
   try {
-    const employees = await db.Questions.findMany({
+    const employees = await db.questions.findMany({
       where: {
         createdAt: {
           lte: new Date(lastDate),
@@ -40,6 +40,7 @@ const sendEmployesReminder = async () => {
     const { error, questions } = await getPendingQuestionsByEmployeed(employees);
 
     if (error) {
+console.log('error - ', error);
       return { emailsQueue: [] };
     }
 

@@ -12,7 +12,7 @@ const sendManagerReminder = async (
   const previousDate = subtractOriginalDate(originalDate, emailFrequency);
 
   try {
-    const departments = await db.Departments.findMany({
+    const departments = await db.departments.findMany({
       where: {
         is_active: true,
         OR: [

@@ -4,13 +4,13 @@ const tearDownDb = async () => {
   await db.$connect();
 
   // Delete in reverse order
-  await db.Nps.deleteMany();
-  await db.Votes.deleteMany();
-  await db.Answers.deleteMany();
-  await db.Comments.deleteMany();
-  await db.Questions.deleteMany();
-  await db.Locations.deleteMany();
-  await db.Departments.deleteMany();
+  await db.nps.deleteMany();
+  await db.votes.deleteMany();
+  await db.answers.deleteMany();
+  await db.comments.deleteMany();
+  await db.questions.deleteMany();
+  await db.locations.deleteMany();
+  await db.departments.deleteMany();
   await db.users.deleteMany();
 
   await db.$disconnect();

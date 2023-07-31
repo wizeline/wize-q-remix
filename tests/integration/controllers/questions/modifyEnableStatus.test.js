@@ -11,7 +11,7 @@ import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 
 describe('questions controller', () => {
   describe('Modify is_enabled status of a question ', () => {
-    const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
+    const dbUpdateSpy = jest.spyOn(db.questions, 'update');
 
     test('returns error when provided no parameters', async () => {
       const response = await modifyEnabledValue();

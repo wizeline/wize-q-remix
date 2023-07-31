@@ -5,7 +5,7 @@ import { db } from 'app/utils/db.server';
 jest.mock('app/utils/dates/dateUtils', () => jest.fn());
 
 describe('getPendingQuestionsForDeparment', () => {
-  const dbQuestionListSpy = jest.spyOn(db.Questions, 'findMany');
+  const dbQuestionListSpy = jest.spyOn(db.questions, 'findMany');
 
   let results;
 

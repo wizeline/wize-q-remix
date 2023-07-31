@@ -32,7 +32,7 @@ const getOrderBy = (order) => {
         is_pinned: 'desc',
       },
       {
-        Comments: {
+        comments: {
           _count: 'desc',
         },
       },
@@ -47,14 +47,14 @@ const buildWhereStatus = (status) => {
   switch (status) {
     case 'answered':
       filter = {
-        Answers: {
+        answers: {
           some: {},
         },
       };
       break;
     case 'not_answered':
       filter = {
-        Answers: {
+        answers: {
           none: {},
         },
       };
@@ -89,7 +89,7 @@ const buildWhereDepartment = (department) => {
 const buildWhereDateRange = (dateRange) => {
   if (dateRange && dateRange.startDate && dateRange.endDate) {
     return {
-      createdAt: {
+      createdat: {
         lte: new Date(dateRange.endDate),
         gte: new Date(dateRange.startDate),
       },
@@ -110,7 +110,7 @@ const buildWhereSearch = (search) => {
         },
       },
       {
-        Answers: {
+        answers: {
           some: {
             answer_text: {
               contains: search,
@@ -218,51 +218,52 @@ const listQuestions = async (params) => {
       answers: {
         include: {
           nps: true,
-          answeredBy: true,
+          answeredby: true,
         },
       },
       comments: {
         include: {
-          commentVote: true,
+          commentvote: true,
           approver: true,
           user: true,
         },
       },
       created_by: true,
       assigned_to: { select: { full_name: true } },
-      departments: true,
+      department: true,
     },
   });
 
   const hasUserData = user && user.id;
 
   let questions = fetchedQuestions.map((question) => {
-    const hasAnswer = question.Answers.length > 0;
+
+    const hasAnswer = question.answers.length > 0;
 
     let can_edit;
 
     // eslint-disable-next-line array-callback-return, consistent-return
-    const numLikes = question.Votes.filter((vote) => {
+    const numLikes = question.votes.filter((vote) => {
       if (vote.is_upvote || vote.is_upvote === null) {
         return { ...vote };
       }
     }).length;
 
     // eslint-disable-next-line array-callback-return, consistent-return
-    const numDisklike = question.Votes.filter((vote) => {
+    const numDisklike = question.votes.filter((vote) => {
       if (!vote.is_upvote && vote.is_upvote !== null) {
         return { ...vote };
       }
     }).length;
 
     const hasLike = (hasUserData
-    && question.Votes.some(
+    && question.votes.some(
       (vote) => (vote.is_upvote || vote.is_upvote === null) && vote.user === user.id,
     )
     ) ?? false;
 
     const hasDislike = (hasUserData
-      && question.Votes.some(
+      && question.votes.some(
         (vote) => (!vote.is_upvote && vote.is_upvote !== null) && vote.user === user.id,
       )
     ) ?? false;
@@ -272,9 +273,9 @@ const listQuestions = async (params) => {
     } else {
       // TODO: Check for anonymous comments
     }
-    const hasCommentApproved = question.Comments.some((comment) => comment.approvedBy !== null);
-    const CommentsComplete = question.Comments.map((comment) => {
-      const value = comment.CommentVote.reduce((prev, current) => prev + current.value, 0);
+    const hasCommentApproved = question.comments.some((comment) => comment.approvedby !== null);
+    const CommentsComplete = question.comments.map((comment) => {
+      const value = comment.commentvote.reduce((prev, current) => prev + current.value, 0);
 
       return {
         ...comment,
@@ -282,19 +283,19 @@ const listQuestions = async (params) => {
       };
     });
     const hasCommunityAnswer = CommentsComplete.some((comment) => comment.votes >= COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD);
-    delete question.Comments;
+    delete question.comments;
 
     return {
       ...question,
-      hasVoted: (hasUserData && question.Votes.some((vote) => vote.user === user.id)) ?? false,
+      hasVoted: (hasUserData && question.votes.some((vote) => vote.user === user.id)) ?? false,
       hasScored: (hasUserData
-        && hasAnswer && question.Answers[0].Nps.some((nps) => nps.user === user.id)) ?? false,
-      numComments: question._count.Comments,
+        && hasAnswer && question.answers[0].nps.some((nps) => nps.user === user.id)) ?? false,
+      numComments: question._count.comments,
       numVotes: numLikes - numDisklike,
       can_edit,
       hasCommentApproved,
       hasCommunityAnswer,
-      Comments: CommentsComplete,
+      comments: CommentsComplete,
       numLikes,
       numDisklike,
       hasLike,

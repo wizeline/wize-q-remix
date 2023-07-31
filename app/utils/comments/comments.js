@@ -11,15 +11,15 @@ export function generateMinMaxDates() {
 }
 
 export function canEditComment(comment, userEmail, sessionToken) {
-  const commentNotAnoymous = comment.userEmail;
+  const commentNotAnoymous = comment.useremail;
   if (commentNotAnoymous) {
-    const isCommentFromUser = userEmail === comment.userEmail;
+    const isCommentFromUser = userEmail === comment.useremail;
     return isCommentFromUser;
   }
 
   const { minDate, maxDate } = generateMinMaxDates();
-  const sessionHash = generateSessionIdHash(sessionToken, comment.id);
+  const sessionhash = generateSessionIdHash(sessionToken, comment.id);
   const isValidDateRangeForEdit = moment(comment.createdAt).isBetween(minDate, maxDate);
-  const isValidSessionHash = comment.sessionHash === sessionHash;
+  const isValidSessionHash = comment.sessionhash === sessionhash;
   return isValidSessionHash && isValidDateRangeForEdit;
 }

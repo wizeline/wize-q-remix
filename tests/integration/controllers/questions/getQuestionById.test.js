@@ -3,7 +3,7 @@ import { db } from 'app/utils/db.server';
 
 describe('questions controller', () => {
   describe('get question by id', () => {
-    const dbFindUniqueSpy = jest.spyOn(db.Questions, 'findUnique');
+    const dbFindUniqueSpy = jest.spyOn(db.questions, 'findUnique');
 
     it('returns an error when provided invalid id', async () => {
       const response = await getQuestionById('test', { id: 'google-oauth2|108653070533260305238' });

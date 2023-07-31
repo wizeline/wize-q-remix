@@ -7,11 +7,12 @@ const nps = async (query) => {
   const { id, score } = value;
 
   if (error) {
+console.log('error - ', error);
     return { errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 
   try {
-    const scored = await db.Nps.update({
+    const scored = await db.nps.update({
       where: { id },
       data: {
         score,

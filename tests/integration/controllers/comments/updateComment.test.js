@@ -4,7 +4,7 @@ import randomAccessToken from 'tests/utils';
 import { db } from 'app/utils/db.server';
 
 describe('update comment controller', () => {
-  const dbUpdateManyCommentSpy = jest.spyOn(db.Comments, 'updateMany');
+  const dbUpdateManyCommentSpy = jest.spyOn(db.comments, 'updateMany');
 
   it('returns an error when provided invalid comment content', async () => {
     const updateCommentBody = {

@@ -12,12 +12,13 @@ const updateAnswer = async (query) => {
   const { answer_id, answer_text } = value;
 
   if (error) {
+console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
   }
 
-  const updatedAnswer = await db.Answers.update({
+  const updatedAnswer = await db.answers.update({
     where: {
       answer_id,
     },

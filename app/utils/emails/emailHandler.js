@@ -6,6 +6,7 @@ const { sendEmailSchema } = require('app/utils/validators/email');
 const sendEmail = async (message) => {
   const { error } = sendEmailSchema.validate(message);
   if (error) {
+console.log('error - ', error);
     throw Error(error);
   }
   const transporter = instantiateTransporter();

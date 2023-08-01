@@ -26,7 +26,7 @@ const sendManagerReminder = async (
           },
         ],
       },
-      include: { ManagerDepartmet: true, AlternateManager: true },
+      include: { managerdepartmet: true, alternatemanager: true },
     });
 
     if (!departments) {
@@ -40,7 +40,7 @@ const sendManagerReminder = async (
       await sendEmail(email);
     });
 
-    await db.Departments.updateMany({
+    await db.departments.updateMany({
       where: {
         department_id: {
           in: departments.map((dep) => dep.department_id),

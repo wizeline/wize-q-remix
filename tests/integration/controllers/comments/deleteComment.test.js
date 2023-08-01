@@ -14,9 +14,9 @@ describe('delete comment controller', () => {
 
   it('returns an error when accessToken is not provided', async () => {
     const deleteCommentBody = {
-      commentId: 1001,
+      commentid: 1001,
       accessToken: null,
-      userEmail: 'miguel.cardona@wizeline.com',
+      useremail: 'miguel.cardona@wizeline.com',
     };
 
     const deleteCommentResponse = await deleteComment(deleteCommentBody);
@@ -29,9 +29,9 @@ describe('delete comment controller', () => {
 
   it('returns an error when provided user email does not match with the comment author', async () => {
     const deleteCommentBody = {
-      commentId: 11,
+      commentid: 11,
       accessToken: randomAccessToken(),
-      userEmail: 'not.matching@wizeline.com',
+      useremail: 'not.matching@wizeline.com',
     };
 
     const deleteCommentResponse = await deleteComment(deleteCommentBody);
@@ -44,7 +44,7 @@ describe('delete comment controller', () => {
 
   it('returns an error when session hash matches but createdAt is out of range', async () => {
     const deleteCommentBody = {
-      commentId: 12,
+      commentid: 12,
       accessToken: '8b1a5ca556d49fc46c169b2c94a058065d566f01bb208519cffd2d7419f4ff8cb4d63a060019e86354708c55766a60a2449edff151bb34681d4012699ebc3b22',
     };
 
@@ -59,18 +59,18 @@ describe('delete comment controller', () => {
   it('deletes the comment when author email matches', async () => {
     const createCommentBody = {
       comment: 'Test delete comment controller',
-      questionId: 10,
+      questionid: 10,
       user: {
         accessToken: randomAccessToken(),
-        userEmail: 'eduardo.garibo@wizeline.com',
-        userName: 'Eduardo Mendoza Garibo',
+        useremail: 'eduardo.garibo@wizeline.com',
+        username: 'Eduardo Mendoza Garibo',
       },
     };
 
     const deleteCommentBody = {
-      commentId: null,
+      commentid: null,
       accessToken: randomAccessToken(),
-      userEmail: 'eduardo.garibo@wizeline.com',
+      useremail: 'eduardo.garibo@wizeline.com',
     };
 
     const createCommentResponse = await createComment(createCommentBody);
@@ -79,7 +79,7 @@ describe('delete comment controller', () => {
     expect(createCommentResponse.comment.id).toBeDefined();
     expect(typeof createCommentResponse.comment.id).toBe('number');
 
-    deleteCommentBody.commentId = createCommentResponse.comment.id;
+    deleteCommentBody.commentid = createCommentResponse.comment.id;
 
     const deleteCommentResponse = await deleteComment(deleteCommentBody);
     expect(deleteCommentResponse).toBeDefined();
@@ -97,7 +97,7 @@ describe('delete comment controller', () => {
 
     const createCommentBody = {
       comment: 'Test delete comment controller',
-      questionId: 10,
+      questionid: 10,
       user: {
         accessToken,
       },
@@ -105,7 +105,7 @@ describe('delete comment controller', () => {
     };
 
     const deleteCommentBody = {
-      commentId: null,
+      commentid: null,
       accessToken,
     };
 
@@ -115,7 +115,7 @@ describe('delete comment controller', () => {
     expect(createCommentResponse.comment.id).toBeDefined();
     expect(typeof createCommentResponse.comment.id).toBe('number');
 
-    deleteCommentBody.commentId = createCommentResponse.comment.id;
+    deleteCommentBody.commentid = createCommentResponse.comment.id;
 
     const deleteCommentResponse = await deleteComment(deleteCommentBody);
 

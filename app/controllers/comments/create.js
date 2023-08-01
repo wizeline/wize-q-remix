@@ -10,7 +10,6 @@ const createComment = async (data) => {
   const { error, value } = createCommentSchema.validate(data);
 
   if (error) {
-console.log('error - ', error);
     return {
       error: {
         message: DEFAULT_ERROR_MESSAGE,

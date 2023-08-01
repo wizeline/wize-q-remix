@@ -34,12 +34,12 @@ describe('getPendingQuestionsForDeparment', () => {
 
     expect(dbQuestionListSpy).toHaveBeenCalledWith({
       where: {
-        createdAt: {
+        createdat: {
           gte: new Date(initialDate),
           lte: new Date(lastDate),
         },
-        Answers: expect.any(Object),
-        Comments: expect.any(Object),
+        answers: expect.any(Object),
+        comments: expect.any(Object),
         assigned_department: 1,
         assigned_to_employee_id: null,
       },

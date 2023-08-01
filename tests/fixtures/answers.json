@@ -6,8 +6,8 @@
     "answer_date": "2021-03-25 16:35:43",
     "answered_by_employee_id": 1,
     "answered_question_id": 2,
-    "createdAt": "2021-03-25 16:35:43",
-    "updatedAt": "2021-03-25 16:35:43",
+    "createdat": "2021-03-25 16:35:43",
+    "updatedat": "2021-03-25 16:35:43",
     "num_scores": 11,
     "average_score": 0
   },
@@ -18,8 +18,8 @@
     "answer_date": "2022-02-22 16:01:40",
     "answered_by_employee_id": 2,
     "answered_question_id": 3,
-    "createdAt": "2022-02-22 16:01:40",
-    "updatedAt": "2022-02-22 16:01:40",
+    "createdat": "2022-02-22 16:01:40",
+    "updatedat": "2022-02-22 16:01:40",
     "num_scores": 0,
     "average_score": 0
   },
@@ -30,8 +30,8 @@
     "answer_date": "2022-03-01 21:51:52",
     "answered_by_employee_id": 2,
     "answered_question_id": 6,
-    "createdAt": "2022-03-01 21:51:52",
-    "updatedAt": "2022-03-01 21:51:52",
+    "createdat": "2022-03-01 21:51:52",
+    "updatedat": "2022-03-01 21:51:52",
     "num_scores": 2,
     "average_score": 0
   }

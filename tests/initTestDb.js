@@ -42,15 +42,15 @@ const initTestDb = async () => {
   await db.questions.createMany({
     data: questionsFixture.map((question) => {
       const initialDate = new Date().setMonth(new Date().getMonth() - 1); // one month before today.
-      question.createdAt = question.createdAt === undefined ? initialDate : question.createdAt;
-      question.updatedAt = question.updatedAt === undefined ? new Date() : question.updatedAt;
+      question.createdat = question.createdat === undefined ? initialDate : question.createdat;
+      question.updatedat = question.updatedat === undefined ? new Date() : question.updatedat;
       return {
         ...question,
         is_anonymous: question.is_anonymous !== 0,
         is_pinned: question.is_pinned !== 0,
         last_email_notification_date: new Date(question.last_email_notification_date),
-        createdAt: new Date(question.createdAt),
-        updatedAt: new Date(question.updatedAt),
+        createdat: new Date(question.createdat),
+        updatedat: new Date(question.updatedat),
       };
     }),
     skipDuplicates: true,
@@ -60,8 +60,8 @@ const initTestDb = async () => {
   await db.comments.createMany({
     data: commentsFixture.map((comment) => ({
       ...comment,
-      createdAt: new Date(comment.createdAt),
-      updatedAt: new Date(comment.updatedAt),
+      createdat: new Date(comment.createdat),
+      updatedat: new Date(comment.updatedat),
     })),
     skipDuplicates: true,
   });
@@ -70,8 +70,8 @@ const initTestDb = async () => {
   await db.answers.createMany({
     data: answersFixture.map((answer) => ({
       ...answer,
-      createdAt: new Date(answer.createdAt),
-      updatedAt: new Date(answer.updatedAt),
+      createdat: new Date(answer.createdat),
+      updatedat: new Date(answer.updatedat),
       answer_date: new Date(answer.answer_date),
     })),
     skipDuplicates: true,

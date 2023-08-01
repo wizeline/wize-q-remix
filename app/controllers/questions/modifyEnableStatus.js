@@ -13,7 +13,6 @@ const modifyEnabledValue = async (questionId, enabledValue) => {
   });
 
   if (error) {
-console.log('error - ', error);
     return {
       error: {
         message: ENABLE_DISABLE_ERROR_MESSAGE,

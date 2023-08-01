@@ -9,14 +9,14 @@ const getPendingQuestionsForDepartment = async (department, pastMonths = DEFAULT
       where: {
         assigned_to_employee_id: null,
         assigned_department: department.department_id,
-        Answers: { none: {} },
-        createdAt: {
+        answers: { none: {} },
+        createdat: {
           lte: new Date(lastDate),
           gte: new Date(initialDate),
         },
-        Comments: {
+        comments: {
           every: {
-            approvedBy: null,
+            approvedby: null,
           },
         },
       },

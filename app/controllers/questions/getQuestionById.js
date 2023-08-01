@@ -62,7 +62,7 @@ const getQuestionById = async (questionId, user) => {
       );
     }
 
-    const Answer = unmappedQuestion.answers.length < 1
+    const answer = unmappedQuestion.answers.length < 1
       ? null
       : {
         ...unmappedQuestion.answers[0],
@@ -106,7 +106,7 @@ const getQuestionById = async (questionId, user) => {
       hasVoted: unmappedQuestion.votes.some((vote) => vote.user === user.id) ?? false,
       num_votes: unmappedQuestion._count.votes,
       numComments: unmappedQuestion._count.comments,
-      Answer,
+      answer,
       can_edit,
       numLikes,
       numDisklike,
@@ -118,7 +118,6 @@ const getQuestionById = async (questionId, user) => {
       question: mappedQuestion,
     };
   } catch (error) {
-    console.log('error getQuestionById ', error);
     return {
       error: {
         message: QUESTION_NOT_FOUND_ERROR_MESSAGE,

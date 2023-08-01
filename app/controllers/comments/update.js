@@ -12,7 +12,6 @@ const updateComment = async (body) => {
   const { error, value } = updateCommentSchema.validate(body);
 
   if (error) {
-console.log('error - ', error);
     return {
       errors: [
         {

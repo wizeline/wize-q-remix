@@ -237,7 +237,6 @@ const listQuestions = async (params) => {
   const hasUserData = user && user.id;
 
   let questions = fetchedQuestions.map((question) => {
-
     const hasAnswer = question.answers.length > 0;
 
     let can_edit;

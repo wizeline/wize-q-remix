@@ -8,7 +8,6 @@ const updateUser = async (query) => {
   const { employee_id, is_admin, job_title } = value;
 
   if (error) {
-console.log('error - ', error);
     return {
       errors: [
         {

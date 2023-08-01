@@ -7,7 +7,6 @@ const questionsAnswered = async (query) => {
   const { employee_id: employeeId } = value;
 
   if (error) {
-console.log('error - ', error);
     return { error: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 
@@ -29,7 +28,7 @@ console.log('error - ', error);
 
     const questions = await db.questions.findMany({
       where: {
-        Answers: {
+        answers: {
           some: {
             answered_by_employee_id: employeeId,
           },

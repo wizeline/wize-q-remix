@@ -6,20 +6,20 @@ jest.mock('app/controllers/emails/getPendingQuestionsForDepartment');
 describe('getPendingEmailsForDeparments', () => {
   const mockValidDepartments = [
     {
-      AlternateManager: {
+      alternatemanager: {
         email: 'alternate@mail.com',
       },
-      ManagerDepartmet: {
+      managerdepartmet: {
         email: 'manager@mail.com',
       },
     },
     {
-      AlternateManager: {
+      alternatemanager: {
         email: 'alternate@mail.com',
       },
     },
     {
-      ManagerDepartmet: {
+      managerdepartmet: {
         email: 'manager@mail.com',
       },
     },
@@ -46,26 +46,26 @@ describe('getPendingEmailsForDeparments', () => {
       [
         ...mockValidDepartments,
         {
-          ManagerDepartmet: {
+          managerdepartmet: {
             email: undefined,
           },
         },
         {
-          AlternateManager: {
+          alternatemanager: {
             email: undefined,
           },
         },
         {
-          AlternateManager: {
+          alternatemanager: {
             email: undefined,
           },
-          ManagerDepartmet: {
+          managerdepartmet: {
             email: undefined,
           },
         },
         {
-          AlternateManager: undefined,
-          ManagerDepartmet: undefined,
+          alternatemanager: undefined,
+          managerdepartmet: undefined,
         },
       ],
     );

@@ -8,7 +8,6 @@ const getQuestionsCreated = async (query) => {
   const { employee_id } = value;
 
   if (error) {
-console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };

@@ -6,7 +6,6 @@ const deleteNPS = async (params) => {
   const { error, value } = deleteNPSSchema.validate(params);
 
   if (error) {
-console.log('error - ', error);
     return {
       errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }],
     };

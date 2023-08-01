@@ -13,10 +13,9 @@ const assignQuestion = async (
   config = { sendEmailOnQuestionReassigned },
 ) => {
   const { error, value } = assignQuestionSchema.validate(query);
-  const { question_id, assigned_department, assigned_to_employee_id } = value; 
+  const { question_id, assigned_department, assigned_to_employee_id } = value;
 
   if (error) {
-console.log('error - ', error);
     return { errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 

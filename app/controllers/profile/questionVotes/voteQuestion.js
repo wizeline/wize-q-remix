@@ -81,7 +81,6 @@ const voteQuestion = async (questionId, user, isUpVote) => {
       };
     }
   } catch (error) {
-    console.log('error ', error);
     return {
       error: {
         message: QUESTION_NOT_FOUND_ERROR_MESSAGE,

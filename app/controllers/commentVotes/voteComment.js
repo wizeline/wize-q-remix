@@ -23,7 +23,6 @@ const findCommentVote = async (query) => {
   const { comment_id, user } = value;
 
   if (error) {
-console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
@@ -44,7 +43,6 @@ const upsertCommentVote = async (query) => {
   const { comment_id, user, value: newValue } = value;
 
   if (error) {
-console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };

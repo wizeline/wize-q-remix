@@ -7,7 +7,6 @@ const approvedByComment = async (params) => {
   const { error, value } = approvedByCommentSchema.validate(params);
 
   if (error) {
-console.log('error - ', error);
     return {
       errors: [
         {

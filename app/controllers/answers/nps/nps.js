@@ -7,7 +7,6 @@ const nps = async (query) => {
   const { id, score } = value;
 
   if (error) {
-console.log('error - ', error);
     return { errors: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 

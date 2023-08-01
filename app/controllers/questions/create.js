@@ -18,7 +18,6 @@ const createQuestion = async (
 ) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
-console.log('error - ', error);
     return {
       errors: [
         {
@@ -62,23 +61,23 @@ console.log('error - ', error);
     let departmentManager;
 
     if (created.assigned_department) {
-      departmentManager = (await db.Departments.findUnique(({
+      departmentManager = (await db.departments.findUnique(({
         where: {
           department_id: created.assigned_department,
         },
-        include: { ManagerDepartmet: true, AlternateManager: true },
+        include: { managerdepartmet: true, alternatemanager: true },
       })));
     }
-    const { ManagerDepartmet, AlternateManager } = departmentManager;
+    const { managerdepartmet, alternatemanager } = departmentManager;
 
-    const destinationEmail = ManagerDepartmet ? ManagerDepartmet.email : defaultManagerEmail;
-    const destinationName = ManagerDepartmet ? ManagerDepartmet.full_name : defaultManagerName;
+    const destinationEmail = managerdepartmet ? managerdepartmet.email : defaultManagerEmail;
+    const destinationName = managerdepartmet ? managerdepartmet.full_name : defaultManagerName;
 
     const mailList = [destinationEmail];
     const nameList = [destinationName];
 
-    const destinationEmailSub = AlternateManager ? AlternateManager.email : undefined;
-    const destinationNameSub = AlternateManager ? AlternateManager.full_name : undefined;
+    const destinationEmailSub = alternatemanager ? alternatemanager.email : undefined;
+    const destinationNameSub = alternatemanager ? alternatemanager.full_name : undefined;
 
     if (destinationEmailSub) {
       mailList.push(destinationEmailSub);

@@ -68,10 +68,8 @@ LEFT JOIN
   "users" AS Approver ON cmts."approvedby" = Approver.employee_id
 WHERE
   cmts."questionid" = ${questionId}
-  ${sortBy === 'votes' ? Prisma.sql`ORDER BY cmts."approvedby" DESC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY cmts."approvedby" DESC, recent_activity DESC`}
-  
+ ${sortBy === 'votes' ? Prisma.sql`ORDER BY cmts.approvedby ASC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY cmts.approvedby ASC, recent_activity DESC`}
 `;
-
   const comments = fetchComments.map((comment) => {
     comment.canEdit = canEditComment(comment, userEmail, sessionToken);
     delete comment.sessionhash;
@@ -92,8 +90,6 @@ WHERE
       job_title: comment.ApproverJob_title,
     };
     comment.Approver = Approver;
-    // comment.has_downvoted = comment.has_downvoted === 1;
-    // comment.has_upvoted = comment.has_upvoted === 1;
 
     delete comment.UserEmployee_id;
     delete comment.UserFull_name;
@@ -108,6 +104,7 @@ WHERE
 
     return comment;
   });
+
   return { comments };
 };
 

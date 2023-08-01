@@ -12,7 +12,6 @@ const updateAnswer = async (query) => {
   const { answer_id, answer_text } = value;
 
   if (error) {
-console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.details },
     };
@@ -25,7 +24,7 @@ console.log('error - ', error);
     data: {
       answer_text,
       answer_date: moment.utc().format(DATE_TIME_FORMAT),
-      updatedAt: moment.utc().format(DATE_TIME_FORMAT),
+      updatedat: moment.utc().format(DATE_TIME_FORMAT),
     },
   });
 

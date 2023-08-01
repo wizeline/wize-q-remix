@@ -40,7 +40,6 @@ const sendEmployesReminder = async () => {
     const { error, questions } = await getPendingQuestionsByEmployeed(employees);
 
     if (error) {
-console.log('error - ', error);
       return { emailsQueue: [] };
     }
 

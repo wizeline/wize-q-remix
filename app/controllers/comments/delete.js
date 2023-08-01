@@ -12,7 +12,6 @@ const deleteComment = async (body) => {
   const { error, value } = deleteCommentSchema.validate(body);
 
   if (error) {
-console.log('error - ', error);
     return {
       errors: [
         {

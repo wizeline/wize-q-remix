@@ -13,7 +13,6 @@ const modifyPinStatus = async (questionId, newPinStatus) => {
   });
 
   if (error) {
-console.log('error - ', error);
     return {
       error: {
         message: PIN_QUESTION_ERROR_MESSAGE,

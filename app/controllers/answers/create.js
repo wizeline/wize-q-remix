@@ -14,7 +14,6 @@ const createAnswer = async (body) => {
   const { error, value } = createAnswerSchema.validate(body);
 
   if (error) {
-console.log('error - ', error);
     return {
       error: { message: DEFAULT_ERROR_MESSAGE, detail: error.message },
     };

@@ -29,7 +29,7 @@ describe('updateAnswer', () => {
     await expect(updateAnswer(payload)).rejects.toThrowError();
   });
 
-  it('return the current date in the updatedAt field when updating an answer', async () => {
+  it('return the current date in the updatedat field when updating an answer', async () => {
     const payload = {
       answer_id: 1,
       answer_text: 'New answer text',
@@ -38,7 +38,7 @@ describe('updateAnswer', () => {
     const response = await updateAnswer(payload);
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
-    expect(getFormattedDate(response.updatedAnswer.updatedAt))
+    expect(getFormattedDate(response.updatedAnswer.updatedat))
       .toEqual(getFormattedDate(new Date()));
   });
 });

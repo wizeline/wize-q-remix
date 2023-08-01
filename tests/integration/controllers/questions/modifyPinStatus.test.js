@@ -83,7 +83,7 @@ describe('questions controller', () => {
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
     });
 
-    it('return the current date in the updatedAt field when updating a question', async () => {
+    it('return the current date in the updatedat field when updating a question', async () => {
       const response = await modifyPinStatus(1, true);
       expect(response.error).toBeUndefined();
       expect(response.successMessage).toBeDefined();
@@ -91,7 +91,7 @@ describe('questions controller', () => {
       expect(response.successMessage).toContain('The question has been pinned');
       expect(response.question.is_pinned).toBeDefined();
       expect(response.question.is_pinned).toBe(true);
-      expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));
+      expect(getFormattedDate(response.question.updatedat)).toEqual(getFormattedDate(new Date()));
     });
   });
 });

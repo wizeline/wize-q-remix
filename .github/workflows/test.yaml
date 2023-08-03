@@ -32,15 +32,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - uses: mirromutth/mysql-action@v1.1
-      with:
-        host port: 3307
-        container port: 3307
-        character set server: 'utf8mb4'
-        collation server: 'utf8mb4_unicode_ci'
-        mysql version: '8.0'
-        mysql database: 'wizeq'
-        mysql root password: wizeq_password
     - name: Install dependencies
       run: npm ci
     - name: Run unit tests

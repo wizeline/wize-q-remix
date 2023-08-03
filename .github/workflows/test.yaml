@@ -18,7 +18,7 @@ jobs:
           POSTGRES_PASSWORD: wizeq_password
           POSTGRES_USER: postgres 
         ports:
-          - 5432:5432
+          - 5431:5431
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

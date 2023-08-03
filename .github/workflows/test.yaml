@@ -16,7 +16,6 @@ jobs:
         env:
           POSTGRES_DB: wizeq 
           POSTGRES_PASSWORD: wizeq_password
-          POSTGRES_PORT: 5433
           POSTGRES_USER: postgres 
         ports:
           - 5433:5433

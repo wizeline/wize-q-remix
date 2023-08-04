@@ -61,6 +61,11 @@ variable "db_tier" {
   type = string
 }
 
+variable "db_engine" {
+  type = string
+  default = "mysql"
+}
+
 # variable "db_name" {
 #   type = string
 # }

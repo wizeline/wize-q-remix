@@ -1,6 +1,5 @@
 [
   {
-    "question_id": 1,
     "question": "**How to create expensify ticket**",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -16,7 +15,6 @@
     "is_pinned": 1
   },
   {
-    "question_id": 2,
     "question": "*Testing* _in_ `DEV`.",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -32,7 +30,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 3,
     "question": "How do I enroll in a myacademy course?",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -46,7 +43,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 4,
     "question": "what's the meaning of life, the universe, and everything?",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -60,7 +56,6 @@
     "is_pinned": 1
   },
   {
-    "question_id": 5,
     "question": "2 + 2 = fish ?",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -74,7 +69,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 6,
     "question": "This is a test, please ignore it, who am I?",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -88,7 +82,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 7,
     "question": "Is Luis Carbajal ok?",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -102,7 +95,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 8,
     "question": "What do we do if stackoverflow goes down? =P",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -116,7 +108,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 9,
     "question": "this is a test question",
     "user_hash": " ",
     "is_anonymous": 0,
@@ -130,7 +121,6 @@
     "is_pinned": 0
   },
   {
-    "question_id": 10,
     "question": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop p",
     "user_hash": " ",
     "is_anonymous": 1,

@@ -3,28 +3,24 @@
     "answer_id": 3,
     "user": "google-oauth2|111766391199351256706",
     "score": 1,
-    "session_hash": "5ed9612966bf6da58d15611b874f3dcd",
-    "id": 1
+    "session_hash": "5ed9612966bf6da58d15611b874f3dcd"
   },
   {
     "answer_id": 3,
     "user": "google-oauth2|104883293456238733099",
     "score": 3,
-    "session_hash": "20e699c32849d45f4fc5d593d9841907",
-    "id": 5
+    "session_hash": "20e699c32849d45f4fc5d593d9841907"
   },
   {
     "answer_id": 1,
     "user": "google-oauth2|104883293456238733099",
     "score": 3,
-    "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7",
-    "id": 7
+    "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7"
   },
   {
     "answer_id": 1,
     "user": "google-oauth2|108653070533260305238",
     "score": 3,
-    "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7",
-    "id": 8
+    "session_hash": "1b80c31aec9ce968ef0b83db5aadd0c7"
   }
 ]

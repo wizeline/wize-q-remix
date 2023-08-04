@@ -1,6 +1,5 @@
 [
   {
-    "id": 1,
     "comment": "Checking comments",
     "createdat": "2021-03-24 23:30:15",
     "questionid": 1,
@@ -11,7 +10,6 @@
     "approvedby": null
   },
   {
-    "id": 2,
     "comment": "This is a test comment.",
     "createdat": "2021-03-24 23:43:23",
     "questionid": 2,
@@ -22,7 +20,6 @@
     "approvedby": null
   },
   {
-    "id": 3,
     "comment": "42",
     "createdat": "2021-03-25 16:30:17",
     "questionid": 4,
@@ -33,7 +30,6 @@
     "approvedby": null
   },
   {
-    "id": 4,
     "comment": "He's not.",
     "createdat": "2021-03-25 16:42:54",
     "questionid": 7,
@@ -44,7 +40,6 @@
     "approvedby": null
   },
   {
-    "id": 5,
     "comment": "snow man",
     "createdat": "2021-03-25 16:45:46",
     "questionid": 4,
@@ -55,7 +50,6 @@
     "approvedby": null
   },
   {
-    "id": 6,
     "comment": "new comments",
     "createdat": "2022-02-10 19:35:12",
     "questionid": 9,
@@ -66,7 +60,6 @@
     "approvedby": null
   },
   {
-    "id": 7,
     "comment": "new comments",
     "createdat": "2022-02-10 19:35:26",
     "questionid": 9,
@@ -77,7 +70,6 @@
     "approvedby": 1
   },
   {
-    "id": 8,
     "comment": "New commmit",
     "createdat": "2022-02-15 17:15:45",
     "questionid": 10,
@@ -88,7 +80,6 @@
     "approvedby": null
   },
   {
-    "id": 9,
     "comment": "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old",
     "createdat": "2022-02-18 17:17:30",
     "questionid": 10,
@@ -99,7 +90,6 @@
     "approvedby": null
   },
   {
-    "id": 10,
     "comment": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour",
     "createdat": "2022-02-15 17:17:40",
     "questionid": 10,
@@ -110,7 +100,6 @@
     "approvedby": null
   },
   {
-    "id": 11,
     "comment": "Comment update test",
     "createdat": "2022-02-15 17:17:40",
     "questionid": 2,
@@ -121,7 +110,6 @@
     "approvedby": null
   },
   {
-    "id": 12,
     "comment": "Another Comment update test",
     "createdat": "2022-10-01 13:45:12",
     "questionid": 8,

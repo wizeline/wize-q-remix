@@ -48,7 +48,7 @@ module "cloud_sql" {
 module "cloud_sql_postgres" {
   source = "./modules/cloud_sql"
 
-  prefix = "${local.prefix}-PG"
+  prefix = "${local.prefix}-pg"
 
   db_tier     = var.db_tier
   sql_version = var.pg_sql_version

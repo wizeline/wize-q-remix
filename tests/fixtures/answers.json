@@ -1,6 +1,5 @@
 [
   {
-    "answer_id": 1,
     "answer_text": "Testing admin answer.",
     "answered_by_picture": null,
     "answer_date": "2021-03-25 16:35:43",
@@ -12,7 +11,6 @@
     "average_score": 0
   },
   {
-    "answer_id": 2,
     "answer_text": "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form",
     "answered_by_picture": null,
     "answer_date": "2022-02-22 16:01:40",
@@ -24,7 +22,6 @@
     "average_score": 0
   },
   {
-    "answer_id": 3,
     "answer_text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     "answered_by_picture": null,
     "answer_date": "2022-03-01 21:51:52",

@@ -100,7 +100,6 @@
     "approvedby": null
   },
   {
-    "id": 11,
     "comment": "Comment update test",
     "createdat": "2022-02-15 17:17:40",
     "questionid": 2,
@@ -111,7 +110,6 @@
     "approvedby": null
   },
   {
-    "id": 12,
     "comment": "Another Comment update test",
     "createdat": "2022-10-01 13:45:12",
     "questionid": 8,

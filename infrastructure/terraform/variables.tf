@@ -53,6 +53,10 @@ variable "sql_version" {
   default = "MYSQL_5_7"
 }
 
+variable "pg_sql_version" {
+  default = "POSTGRES_14"
+}
+
 variable "db_tier" {
   type = string
 }

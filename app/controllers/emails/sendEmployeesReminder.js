@@ -14,11 +14,11 @@ const sendEmployesReminder = async () => {
   try {
     const employees = await db.questions.findMany({
       where: {
-        createdAt: {
+        createdat: {
           lte: new Date(lastDate),
           gte: new Date(initialDate),
         },
-        Answers: { none: {} },
+        answers: { none: {} },
         NOT: [
           {
             assigned_to_employee_id: null,
@@ -91,7 +91,7 @@ const sendEmployesReminder = async () => {
       });
     }
 
-    await db.Questions.updateMany({
+    await db.questions.updateMany({
       where:
       {
         question_id: {

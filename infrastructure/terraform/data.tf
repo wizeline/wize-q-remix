@@ -42,6 +42,22 @@ data "google_secret_manager_secret_version" "Db_user" {
   secret = "${var.secret_prefix}_DB_USER"
 }
 
+data "google_secret_manager_secret_version" "PG_Db_name" {
+  secret = "${var.secret_prefix}_REMIX_POSTGRES_DB_NAME"
+}
+
+data "google_secret_manager_secret_version" "PG_Db_password" {
+  secret = "${var.secret_prefix}_REMIX_POSTGRES_DB_PASSWORD"
+}
+
+data "google_secret_manager_secret_version" "PG_Db_port" {
+  secret = "${var.secret_prefix}_REMIX_POSTGRES_DB_PORT"
+}
+
+data "google_secret_manager_secret_version" "PG_Db_user" {
+  secret = "${var.secret_prefix}_REMIX_POSTGRES_DB_USER"
+}
+
 data "google_secret_manager_secret_version" "Wizeq_url" {
   secret = "${var.secret_prefix}_WIZEQ_URL"
 }

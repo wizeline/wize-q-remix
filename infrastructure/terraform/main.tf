@@ -45,6 +45,21 @@ module "cloud_sql" {
 
 }
 
+module "cloud_sql_postgres" {
+  source = "./modules/cloud_sql"
+
+  prefix = "${local.prefix}-pg"
+
+  db_tier     = var.db_tier
+  sql_version = var.pg_sql_version
+  region      = var.region
+
+  secret_db_user     = data.google_secret_manager_secret_version.PG_Db_user.secret_data
+  secret_db_password = data.google_secret_manager_secret_version.PG_Db_password.secret_data
+  db_name            = data.google_secret_manager_secret_version.PG_Db_name.secret_data
+
+}
+
 module "cloud_scheduler_manager_email_queue" {
   source      = "./modules/cloud_scheduler"
 

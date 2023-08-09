@@ -23,30 +23,30 @@ const updateComment = async (body) => {
   }
 
   const {
-    commentId: id, comment, accessToken, userEmail,
+    commentid: id, comment, accessToken, useremail,
   } = value;
 
-  const sessionHash = generateSessionIdHash(accessToken, id);
+  const sessionhash = generateSessionIdHash(accessToken, id);
   const { minDate, maxDate } = generateMinMaxDates();
 
-  const updateCommentResponse = await db.Comments.updateMany({
+  const updateCommentResponse = await db.comments.updateMany({
     data: { comment },
     where: {
       id,
       OR: [
         {
-          userEmail,
+          useremail,
         },
         {
           AND: [
             {
-              sessionHash,
+              sessionhash,
             },
             {
-              createdAt: { lte: new Date(maxDate) },
+              createdat: { lte: new Date(maxDate) },
             },
             {
-              createdAt: { gte: new Date(minDate) },
+              createdat: { gte: new Date(minDate) },
             },
           ],
         },

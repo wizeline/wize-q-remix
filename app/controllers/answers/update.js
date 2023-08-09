@@ -17,14 +17,14 @@ const updateAnswer = async (query) => {
     };
   }
 
-  const updatedAnswer = await db.Answers.update({
+  const updatedAnswer = await db.answers.update({
     where: {
       answer_id,
     },
     data: {
       answer_text,
       answer_date: moment.utc().format(DATE_TIME_FORMAT),
-      updatedAt: moment.utc().format(DATE_TIME_FORMAT),
+      updatedat: moment.utc().format(DATE_TIME_FORMAT),
     },
   });
 

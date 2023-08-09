@@ -58,16 +58,16 @@ const listDepartments = async (params) => {
   }
   const { limit, offset } = getPagination(Number(page), Number(size));
 
-  const count = await db.Departments.count({
+  const count = await db.departments.count({
     where: {},
   });
   const totalPages = Math.floor(count / limit) + 1;
 
-  const departments = await db.Departments.findMany({
+  const departments = await db.departments.findMany({
     where: buildWhere(search, active),
     take: calLimit(allPages, count, limit),
     skip: calOffset(allPages, offset, limit, totalPages),
-    include: { ManagerDepartmet: true, AlternateManager: true },
+    include: { managerdepartmet: true, alternatemanager: true },
   });
   return { departments, totalPages };
 };

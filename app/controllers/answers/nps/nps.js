@@ -11,7 +11,7 @@ const nps = async (query) => {
   }
 
   try {
-    const scored = await db.Nps.update({
+    const scored = await db.nps.update({
       where: { id },
       data: {
         score,

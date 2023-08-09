@@ -3,7 +3,7 @@ import { db } from 'app/utils/db.server';
 
 describe('questions controller', () => {
   describe('get question by id', () => {
-    const dbFindUniqueSpy = jest.spyOn(db.Questions, 'findUnique');
+    const dbFindUniqueSpy = jest.spyOn(db.questions, 'findUnique');
 
     it('returns an error when provided invalid id', async () => {
       const response = await getQuestionById('test', { id: 'google-oauth2|108653070533260305238' });
@@ -47,12 +47,12 @@ describe('questions controller', () => {
       expect(question.created_by).toBeDefined();
       expect(question.created_by.employee_id).toBe(1);
       expect(question.created_by.full_name).toBe('Patrick Shu');
-      expect(question.Answer).toBeDefined();
-      expect(question.Answer.answer_id).toBe(1);
-      expect(question.Answer.answer_text).toContain('Testing admin answer');
-      expect(question.Answer.hasScored).toBe(true);
-      expect(question.Department).toBeDefined();
-      expect(question.Department.name).toBe('CEO / Exec Staff');
+      expect(question.answers).toBeDefined();
+      expect(question.answer.answer_id).toBe(1);
+      expect(question.answer.answer_text).toContain('Testing admin answer');
+      expect(question.answer.hasScored).toBe(true);
+      expect(question.department).toBeDefined();
+      expect(question.department.name).toBe('CEO / Exec Staff');
       expect(dbFindUniqueSpy).toHaveBeenCalledTimes(2);
     });
   });

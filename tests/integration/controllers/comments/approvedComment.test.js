@@ -3,9 +3,9 @@ import approvedByComment from 'app/controllers/comments/approvedBy';
 describe('approve comment controller', () => {
   it('approve a comment as an answer', async () => {
     const params = {
-      questionId: 10,
-      commentId: 10,
-      employeeId: 1,
+      questionid: 10,
+      commentid: 10,
+      employeeid: 1,
       checked: true,
     };
     const response = await approvedByComment(params);
@@ -15,9 +15,9 @@ describe('approve comment controller', () => {
 
   it('unmark a comment approved', async () => {
     const params = {
-      questionId: 10,
-      commentId: 10,
-      employeeId: 1,
+      questionid: 10,
+      commentid: 10,
+      employeeid: 1,
       checked: true,
     };
     const response = await approvedByComment(params);
@@ -32,9 +32,9 @@ describe('approve comment controller', () => {
 
   it('error when question has a comment approved as an answer', async () => {
     const params = {
-      questionId: 9,
-      commentId: 6,
-      employeeId: 1,
+      questionid: 9,
+      commentid: 6,
+      employeeid: 1,
       checked: true,
     };
     const response = await approvedByComment(params);

@@ -40,7 +40,7 @@ function QuestionCard(props) {
     isAnswer: true,
   };
 
-  const hasAnswer = question.Answers.length > 0;
+  const hasAnswer = question.answers.length > 0;
   const navigate = useNavigate();
 
   const renderButtons = () => {
@@ -80,16 +80,16 @@ function QuestionCard(props) {
   // eslint-disable-next-line consistent-return
   const renderCommentAnswer = () => {
     if ((!question.hasCommentApproved && !question.hasCommunityAnswer)
-       || question.Answers.length > 0) {
+       || question.answers.length > 0) {
       return null;
     }
 
     let commentAsAnswer = {};
     if (question.hasCommentApproved) {
-      commentAsAnswer = question.Comments.find((comment) => comment.approvedBy !== null);
+      commentAsAnswer = question.comments.find((comment) => comment.approvedby !== null);
     } else if (question.hasCommunityAnswer) {
-      const [communityAnswerCommentId] = reorderHighlightedComments(question.Comments);
-      commentAsAnswer = question.Comments.find(
+      const [communityAnswerCommentId] = reorderHighlightedComments(question.comments);
+      commentAsAnswer = question.comments.find(
         (comment) => comment.id === communityAnswerCommentId,
       );
     }
@@ -98,16 +98,16 @@ function QuestionCard(props) {
       return (
         <AnswerRow
           answer_text={commentAsAnswer.comment}
-          user={commentAsAnswer.User}
-          answered_at={commentAsAnswer.createdAt}
+          user={commentAsAnswer.user}
+          answered_at={commentAsAnswer.createdat}
           searchTerm={renderAnswerProps.searchTerm}
           isPreview={renderAnswerProps.isPreview}
           isFromList={renderAnswerProps.isFromList}
           questionId={question.question_id}
-          isAnswer={question.Answers.length > 0}
+          isAnswer={question.answers.length > 0}
           isCommunityAnswer={question.hasCommunityAnswer}
           isCommentApproved={question.hasCommentApproved}
-          approver={commentAsAnswer.Approver}
+          approver={commentAsAnswer.approver}
         />
       );
     }

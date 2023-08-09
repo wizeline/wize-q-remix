@@ -20,7 +20,7 @@ const assignQuestion = async (
   }
 
   try {
-    const assignedQuestion = await db.Questions.update({
+    const assignedQuestion = await db.questions.update({
       where: { question_id },
       data: {
         assigned_department,

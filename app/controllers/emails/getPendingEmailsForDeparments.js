@@ -20,21 +20,19 @@ const getPendingEmailsForDepartments = async (departments) => {
         return null;
       }
 
-      const hasManagerEmail = department.ManagerDepartmet && department.ManagerDepartmet.email;
-      const hasAlternateManagerEmail = department.AlternateManager
-        && department.AlternateManager.email;
-
-      if (!hasManagerEmail && !hasAlternateManagerEmail) {
-        return null;
-      }
+      const hasManagerEmail = department.managerdepartmet && department.managerdepartmet.email;
+      const hasAlternateManagerEmail = department.alternatemanager
+        && department.alternatemanager.email;
 
       const destination = [];
       if (hasManagerEmail) {
-        destination.push(department.ManagerDepartmet.email);
+        destination.push(department.managerdepartmet.email);
       }
       if (hasAlternateManagerEmail) {
-        destination.push(department.AlternateManager.email);
+        destination.push(department.alternatemanager.email);
       }
+
+      if (destination.length === 0) return null;
 
       const newEmail = {
         to: destination.join(','),
@@ -50,6 +48,7 @@ const getPendingEmailsForDepartments = async (departments) => {
           ),
         },
       };
+
       return newEmail;
     });
 

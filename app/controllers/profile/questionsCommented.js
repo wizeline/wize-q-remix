@@ -5,28 +5,28 @@ import { findUser } from 'app/controllers/users/find';
 
 const questionCommented = async (query) => {
   const { error, value } = questionCommentedSchema.validate(query);
-  const { userEmail } = value;
+  const { useremail } = value;
 
   if (error) {
     return { error: [{ message: DEFAULT_ERROR_MESSAGE, detail: error.details }] };
   }
 
   try {
-    const validEmail = await findUser(userEmail);
+    const validEmail = await findUser(useremail);
 
     if (validEmail) {
-      const ids = await db.Comments.findMany({
+      const ids = await db.comments.findMany({
         where: {
-          userEmail,
+          useremail,
         },
         select: {
-          questionId: true,
+          questionid: true,
         },
       });
 
-      const values = ids.map(({ questionId }) => questionId);
+      const values = ids.map(({ questionid }) => questionid);
 
-      const questions = await db.Questions.findMany({
+      const questions = await db.questions.findMany({
         where: {
           question_id: {
             in: values,
@@ -40,15 +40,15 @@ const questionCommented = async (query) => {
     }
     return {
       error: {
-        message: `The user: ${userEmail} was not found`,
-        detail: `The user: ${userEmail} was not found`,
+        message: `The user: ${useremail} was not found`,
+        detail: `The user: ${useremail} was not found`,
       },
     };
   } catch (_error) {
     return {
       error: {
-        message: `The user: ${userEmail} was not found`,
-        detail: `The user: ${userEmail} was not found`,
+        message: `The user: ${useremail} was not found`,
+        detail: `The user: ${useremail} was not found`,
       },
     };
   }

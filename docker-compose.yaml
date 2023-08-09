@@ -1,6 +1,30 @@
 version: "3.8"
 
 services:
+  postgres:
+      image: postgres:latest
+      container_name: postgres
+      ports:
+        - '5431:5432'
+      restart: unless-stopped
+      env_file: ./.env
+      volumes:
+        - db_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_PASSWORD: wizeq_password
+        POSTGRES_DB: wizeq
+  integration-tests-prisma:
+      image: postgres:latest
+      container_name: integration-tests-prisma
+      ports:
+      - '5433:5432'
+      environment:
+        POSTGRES_PASSWORD: wizeq_password
+        POSTGRES_DB: wizeq
+      restart: unless-stopped
+      env_file: ./.env
+      volumes:
+        - test-db:/var/lib/postgresql/data
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -15,22 +39,7 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
-  integration-tests-prisma:
-    image: mysql:8.0
-    container_name: integration-tests-prisma
-    platform: linux/amd64
-    restart: unless-stopped
-    env_file: ./.env
-    environment:
-      - MYSQL_ROOT_PASSWORD=wizeq_password
-      - MYSQL_DATABASE=wizeq
-      - MYSQL_TCP_PORT=3307
-    ports:
-      - 3307:3307
-    volumes:
-      - test-db:/var/lib/mysql
-
 volumes: 
   db:
   test-db:
-
+  db_data:

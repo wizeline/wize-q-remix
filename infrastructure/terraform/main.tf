@@ -17,7 +17,7 @@ module "cloud_run" {
   slack_webhook_url   = data.google_secret_manager_secret_version.Slack_webhook_url.secret_data
   slack_webhook_url_admin = data.google_secret_manager_secret_version.Slack_webhook_url_admin.secret_data
   slack_wizeq_domain  = data.google_secret_manager_secret_version.Slack_wizeq_domain.secret_data
-  db_url              = "mysql://${data.google_secret_manager_secret_version.Db_user.secret_data}:${data.google_secret_manager_secret_version.Db_password.secret_data}@${module.cloud_sql.db_host}/${data.google_secret_manager_secret_version.Db_name.secret_data}"
+  db_url              = "${var.db_engine}://${data.google_secret_manager_secret_version.PG_Db_user.secret_data}:${data.google_secret_manager_secret_version.PG_Db_password.secret_data}@${module.cloud_sql_postgres.db_host}/${data.google_secret_manager_secret_version.PG_Db_name.secret_data}?schema=wizeq"
   base_url            = data.google_secret_manager_secret_version.Wizeq_url.secret_data
   session_secret      = data.google_secret_manager_secret_version.Session_secret.secret_data
   email_host          = data.google_secret_manager_secret_version.Email_host.secret_data

@@ -3,7 +3,7 @@ import { db } from 'app/utils/db.server';
 import slack from 'app/utils/slack/slackNotifications';
 
 describe('createAnswer', () => {
-  const dbCreateSpy = jest.spyOn(db.Answers, 'create');
+  const dbCreateSpy = jest.spyOn(db.answers, 'create');
   const slackSpy = jest.spyOn(slack, 'createAnswerNotification').mockImplementation();
 
   it('creates valid answer', async () => {

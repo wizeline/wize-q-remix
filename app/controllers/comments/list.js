@@ -20,40 +20,59 @@ const listComments = async (params) => {
     };
   }
 
-  const fetchComments = await db.$queryRaw`
-SELECT c.id,
-c.comment,
-c.createdAt,
-(SELECT CASE WHEN ISNULL(updatedAt) THEN createdAt WHEN updatedAt > createdAt THEN updatedAt ELSE createdAt END) as recent_activity,
-c.questionId, 
-c.sessionHash,
-c.userName,
-c.userEmail,
-c.approvedBy,
-(SELECT IFNULL(SUM(CommentVote.value), 0) FROM CommentVote WHERE CommentVote.comment_id = c.id) as votes,
-(SELECT IF (EXISTS(SELECT * FROM CommentVote WHERE CommentVote.comment_id = c.id AND CommentVote.user = ${userId} AND CommentVote.value = 1), true, false)) as has_upvoted, 
-(SELECT IF (EXISTS(SELECT * FROM CommentVote WHERE CommentVote.comment_id = c.id AND CommentVote.user = ${userId} AND CommentVote.value = -1), true, false)) as has_downvoted, 
-User.employee_id as 'UserEmployee_id',
-User.full_name as 'UserFull_name',
-User.is_admin as 'UserIs_admin',
-User.profile_picture as 'UserProfile_picture',
-User.job_title as 'UserJob_title',
-Approver.employee_id as 'ApproverEmployee_id',
-Approver.full_name as 'ApproverFull_name',
-Approver.is_admin as 'ApproverIs_admin',
-Approver.profile_picture as 'ApproverProfile_picture',
-Approver.job_title as 'ApproverJob_title'
-FROM Comments  as c 
-LEFT JOIN users as User
-ON c.userEmail = User.email
-LEFT JOIN users as Approver
-ON c.approvedBy = Approver.employee_id
-WHERE c.questionId = ${questionId}
-${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY approvedBy DESC, recent_activity DESC`}`;
-
+  const fetchComments = await db.$queryRaw`SELECT
+  cmts.id,
+  cmts.comment,
+  cmts."updatedat",
+  cmts."createdat",
+  (SELECT
+     CASE
+       WHEN cmts."updatedat" IS NULL THEN cmts."createdat"
+       WHEN cmts."updatedat" > cmts."createdat" THEN cmts."updatedat"
+       ELSE cmts."createdat"
+     END) AS recent_activity,
+  cmts."questionid",
+  cmts."sessionhash",
+  cmts."username",
+  cmts."useremail",
+  cmts."approvedby",
+  (SELECT
+     COALESCE(SUM("commentvote".value), 0)
+   FROM "commentvote"
+   WHERE "commentvote".comment_id = cmts.id) AS votes,
+  (SELECT
+     CASE
+       WHEN EXISTS(SELECT * FROM "commentvote" WHERE "commentvote".comment_id = cmts.id AND "commentvote".user = ${userId} AND "commentvote".value = 1) THEN true
+       ELSE false
+     END) AS has_upvoted,
+  (SELECT
+     CASE
+       WHEN EXISTS(SELECT * FROM "commentvote" WHERE "commentvote".comment_id = cmts.id AND "commentvote".user = ${userId} AND "commentvote".value = -1) THEN true
+       ELSE false
+     END) AS has_downvoted,
+  "User".employee_id AS "UserEmployee_id",
+  "User".full_name AS "UserFull_name",
+  "User".is_admin AS "UserIs_admin",
+  "User".profile_picture AS "UserProfile_picture",
+  "User".job_title AS "UserJob_title",
+  Approver.employee_id AS "ApproverEmployee_id",
+  Approver.full_name AS "ApproverFull_name",
+  Approver.is_admin AS "ApproverIs_admin",
+  Approver.profile_picture AS "ApproverProfile_picture",
+  Approver.job_title AS "ApproverJob_title"
+FROM
+  "comments" AS cmts
+LEFT JOIN
+  "users" AS "User" ON cmts."useremail" = "User".email
+LEFT JOIN
+  "users" AS Approver ON cmts."approvedby" = Approver.employee_id
+WHERE
+  cmts."questionid" = ${questionId}
+ ${sortBy === 'votes' ? Prisma.sql`ORDER BY cmts.approvedby ASC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY cmts.approvedby ASC, recent_activity DESC`}
+`;
   const comments = fetchComments.map((comment) => {
     comment.canEdit = canEditComment(comment, userEmail, sessionToken);
-    delete comment.sessionHash;
+    delete comment.sessionhash;
 
     const User = {
       employee_id: comment.UserEmployee_id,
@@ -71,8 +90,6 @@ ${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_a
       job_title: comment.ApproverJob_title,
     };
     comment.Approver = Approver;
-    comment.has_downvoted = comment.has_downvoted === 1;
-    comment.has_upvoted = comment.has_upvoted === 1;
 
     delete comment.UserEmployee_id;
     delete comment.UserFull_name;
@@ -87,6 +104,7 @@ ${sortBy === 'votes' ? Prisma.sql`ORDER BY approvedBy DESC, votes DESC, recent_a
 
     return comment;
   });
+
   return { comments };
 };
 

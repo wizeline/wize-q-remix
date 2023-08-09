@@ -8,13 +8,13 @@ const COMMENT_VALIDATION = Joi.string()
   .required();
 
 const createCommentSchema = Joi.object().keys({
-  questionId: JOI_ID_VALIDATION,
+  questionid: JOI_ID_VALIDATION,
   comment: COMMENT_VALIDATION,
   isAnonymous: Joi.boolean(),
   user: Joi.object({
     accessToken: Joi.string().required(),
-    userEmail: JOI_EMAIL_VALIDATION,
-    userName: Joi.string(),
+    useremail: JOI_EMAIL_VALIDATION,
+    username: Joi.string(),
   }),
 });
 

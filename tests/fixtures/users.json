@@ -1,6 +1,5 @@
 [
   {
-    "employee_id": 1,
     "full_name": "Patrick Shu",
     "email": "patrick.shu@wizeline.com",
     "is_admin": 0,
@@ -8,7 +7,6 @@
     "job_title": null
   },
   {
-    "employee_id": 2,
     "full_name": "John Doe",
     "email": "john.doe@wizeline.com",
     "is_admin": 1,
@@ -16,7 +14,6 @@
     "job_title": "Software Engineer"
   },
   {
-    "employee_id": 3,
     "full_name": "Will Smith",
     "email": "will.smith@wizeline.com",
     "is_admin": 0,
@@ -24,7 +21,6 @@
     "job_title": "Chief Technology Officer"
   },
   {
-    "employee_id": 4,
     "full_name": "Eduardo Mendoza Garibo",
     "email": "eduardo.garibo@wizeline.com",
     "is_admin": 0,
@@ -32,7 +28,6 @@
     "job_title": null
   },
   {
-    "employee_id": 5,
     "full_name": "Oscar Sosa",
     "email": "oscar.sosa@wizeline.com",
     "is_admin": 0,
@@ -40,7 +35,6 @@
     "job_title": null
   },
   {
-    "employee_id": 6,
     "full_name": "Luis Carbajal",
     "email": "luis.carbajal@wizeline.com",
     "is_admin": 0,
@@ -48,7 +42,6 @@
     "job_title": null
   },
   {
-    "employee_id": 7,
     "full_name": "Denisse Damian Roffe",
     "email": "denisse.damian@wizeline.com",
     "is_admin": 1,
@@ -56,7 +49,6 @@
     "job_title": null
   },
   {
-    "employee_id": 8,
     "full_name": "Miguel Cardona Chamorro",
     "email": "miguel.cardona@wizeline.com",
     "is_admin": 0,
@@ -64,7 +56,6 @@
     "job_title": "Software Engineer"
   },
   {
-    "employee_id": 9,
     "full_name": "Ignacio Cañipa Ariñez",
     "email": "ignacio.canipa@wizeline.com",
     "is_admin": 1,

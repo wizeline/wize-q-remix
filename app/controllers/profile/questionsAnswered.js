@@ -26,9 +26,9 @@ const questionsAnswered = async (query) => {
       };
     }
 
-    const questions = await db.Questions.findMany({
+    const questions = await db.questions.findMany({
       where: {
-        Answers: {
+        answers: {
           some: {
             answered_by_employee_id: employeeId,
           },

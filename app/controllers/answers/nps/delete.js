@@ -12,7 +12,7 @@ const deleteNPS = async (params) => {
   }
   const { id, user } = value;
   try {
-    await db.Nps.delete({
+    await db.nps.delete({
       where: {
         answer_id_user: {
           answer_id: id,

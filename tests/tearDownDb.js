@@ -4,14 +4,29 @@ const tearDownDb = async () => {
   await db.$connect();
 
   // Delete in reverse order
-  await db.Nps.deleteMany();
-  await db.Votes.deleteMany();
-  await db.Answers.deleteMany();
-  await db.Comments.deleteMany();
-  await db.Questions.deleteMany();
-  await db.Locations.deleteMany();
-  await db.Departments.deleteMany();
+  await db.nps.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "nps_id_seq" RESTART WITH 1;`;
+
+  await db.votes.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "votes_id_seq" RESTART WITH 1;`;
+
+  await db.answers.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "answers_answer_id_seq" RESTART WITH 1;`;
+
+  await db.comments.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "comments_id_seq" RESTART WITH 1;`;
+
+  await db.questions.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "questions_question_id_seq" RESTART WITH 1;`;
+
+  await db.locations.deleteMany();
+  // await db.$queryRaw`ALTER SEQUENCE "locations_id_seq" RESTART WITH 1;`;
+
+  await db.departments.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "departments_department_id_seq" RESTART WITH 1;`;
+
   await db.users.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "users_employee_id_seq" RESTART WITH 1;`;
 
   await db.$disconnect();
 };

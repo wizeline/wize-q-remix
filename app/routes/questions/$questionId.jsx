@@ -152,10 +152,10 @@ export const action = async ({ request }) => {
       response = await upsertCommentVote({ comment_id, value: vote, user: user.id });
       break;
     case ACTIONS.DELETE_COMMENT:
-      const commentId = parseInt(formData.get('comment_id'), 10);
+      const commentid = parseInt(formData.get('comment_id'), 10);
       const { accessToken } = user;
-      const userEmail = user.email;
-      response = await deleteComment({ commentId, accessToken, userEmail });
+      const useremail = user.email;
+      response = await deleteComment({ commentid, accessToken, useremail });
       break;
     case ACTIONS.SCORE_ANSWER:
       answer_id = parseInt(formData.get('answer_id'), 10);
@@ -170,7 +170,7 @@ export const action = async ({ request }) => {
       break;
     case ACTIONS.APPROVED_COMMENT:
       const params = JSON.parse(formData.get('params'));
-      params.employeeId = user.employee_id;
+      params.employeeid = user.employee_id;
       response = await approvedByComment(params);
       break;
     default:
@@ -203,7 +203,7 @@ function QuestionDetailPage() {
         </Button>
         <QuestionDetailInfo
           location={question.location}
-          department={question.Department}
+          department={question.department}
           employeeName={question.assigned_to?.full_name}
         />
       </Styled.BackToHomeQuestion>

@@ -30,7 +30,7 @@ const createQuestion = async (
 
   const { accessToken, ...rest } = value;
 
-  let created = await db.Questions.create({
+  let created = await db.questions.create({
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
@@ -38,14 +38,14 @@ const createQuestion = async (
   });
 
   if (value.is_anonymous) {
-    const sessionHash = generateSessionIdHash(accessToken, created.question_id);
+    const sessionhash = generateSessionIdHash(accessToken, created.question_id);
 
     created = await db.Questions.update({
       where: {
         question_id: created.question_id,
       },
       data: {
-        user_hash: sessionHash,
+        user_hash: sessionhash,
       },
     });
   }
@@ -61,23 +61,23 @@ const createQuestion = async (
     let departmentManager;
 
     if (created.assigned_department) {
-      departmentManager = (await db.Departments.findUnique(({
+      departmentManager = (await db.departments.findUnique(({
         where: {
           department_id: created.assigned_department,
         },
-        include: { ManagerDepartmet: true, AlternateManager: true },
+        include: { managerdepartmet: true, alternatemanager: true },
       })));
     }
-    const { ManagerDepartmet, AlternateManager } = departmentManager;
+    const { managerdepartmet, alternatemanager } = departmentManager;
 
-    const destinationEmail = ManagerDepartmet ? ManagerDepartmet.email : defaultManagerEmail;
-    const destinationName = ManagerDepartmet ? ManagerDepartmet.full_name : defaultManagerName;
+    const destinationEmail = managerdepartmet ? managerdepartmet.email : defaultManagerEmail;
+    const destinationName = managerdepartmet ? managerdepartmet.full_name : defaultManagerName;
 
     const mailList = [destinationEmail];
     const nameList = [destinationName];
 
-    const destinationEmailSub = AlternateManager ? AlternateManager.email : undefined;
-    const destinationNameSub = AlternateManager ? AlternateManager.full_name : undefined;
+    const destinationEmailSub = alternatemanager ? alternatemanager.email : undefined;
+    const destinationNameSub = alternatemanager ? alternatemanager.full_name : undefined;
 
     if (destinationEmailSub) {
       mailList.push(destinationEmailSub);

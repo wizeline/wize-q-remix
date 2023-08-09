@@ -5,7 +5,7 @@ import { db } from 'app/utils/db.server';
 jest.mock('app/utils/dates/dateUtils', () => jest.fn());
 
 describe('getPendingQuestionsForDeparment', () => {
-  const dbQuestionListSpy = jest.spyOn(db.Questions, 'findMany');
+  const dbQuestionListSpy = jest.spyOn(db.questions, 'findMany');
 
   let results;
 
@@ -34,12 +34,12 @@ describe('getPendingQuestionsForDeparment', () => {
 
     expect(dbQuestionListSpy).toHaveBeenCalledWith({
       where: {
-        createdAt: {
+        createdat: {
           gte: new Date(initialDate),
           lte: new Date(lastDate),
         },
-        Answers: expect.any(Object),
-        Comments: expect.any(Object),
+        answers: expect.any(Object),
+        comments: expect.any(Object),
         assigned_department: 1,
         assigned_to_employee_id: null,
       },

@@ -20,7 +20,7 @@ const getQuestionsCreated = async (query) => {
       },
     });
 
-    return await db.Questions.findMany({
+    return await db.questions.findMany({
       where: {
         created_by_employee_id: validUser.employee_id,
       },

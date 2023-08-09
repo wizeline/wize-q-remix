@@ -2,9 +2,9 @@ import upsertCommentVote from 'app/controllers/commentVotes/voteComment';
 import { db } from 'app/utils/db.server';
 
 describe('commentVotes', () => {
-  const dbFindFirstCommentVoteSpy = jest.spyOn(db.CommentVote, 'findFirst');
-  const dbUpdateCommentVoteSpy = jest.spyOn(db.CommentVote, 'update');
-  const dbCreateCommentVoteSpy = jest.spyOn(db.CommentVote, 'create');
+  const dbFindFirstCommentVoteSpy = jest.spyOn(db.commentvote, 'findFirst');
+  const dbUpdateCommentVoteSpy = jest.spyOn(db.commentvote, 'update');
+  const dbCreateCommentVoteSpy = jest.spyOn(db.commentvote, 'create');
 
   it('creates vote', async () => {
     const payload = {

@@ -7,9 +7,9 @@ import { db } from 'app/utils/db.server';
 
 describe('question votes controller', () => {
   describe('vote question', () => {
-    const dbFindUniqueQuestionOrThrowSpy = jest.spyOn(db.Questions, 'findUniqueOrThrow');
-    const dbCreateVoteSpy = jest.spyOn(db.Votes, 'create');
-    const dbDeleteVoteSpy = jest.spyOn(db.Votes, 'delete');
+    const dbFindUniqueQuestionOrThrowSpy = jest.spyOn(db.questions, 'findUniqueOrThrow');
+    const dbCreateVoteSpy = jest.spyOn(db.votes, 'create');
+    const dbDeleteVoteSpy = jest.spyOn(db.votes, 'delete');
 
     it('returns an error when provided invalid id', async () => {
       const response = await voteQuestion('test', { id: 'google-oauth2|108653070533260305238' });

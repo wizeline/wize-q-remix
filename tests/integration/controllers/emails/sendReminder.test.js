@@ -8,8 +8,8 @@ jest.mock('app/controllers/emails/getPendingEmailsForDeparments');
 jest.mock('app/utils/emails/emailHandler');
 
 describe('sendReminder', () => {
-  const dbDepartmentsListSpy = jest.spyOn(db.Departments, 'findMany');
-  const dbDepartmentsUpdateSpy = jest.spyOn(db.Departments, 'updateMany');
+  const dbDepartmentsListSpy = jest.spyOn(db.departments, 'findMany');
+  const dbDepartmentsUpdateSpy = jest.spyOn(db.departments, 'updateMany');
 
   const mockEmails = [
     {

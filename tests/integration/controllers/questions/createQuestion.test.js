@@ -7,8 +7,8 @@ import { EMAILS } from 'app/utils/emails/emailConstants';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
 describe('createQuestion', () => {
-  const dbCreateSpy = jest.spyOn(db.Questions, 'create');
-  const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
+  const dbCreateSpy = jest.spyOn(db.questions, 'create');
+  const dbUpdateSpy = jest.spyOn(db.questions, 'update');
   const slackSpy = jest.spyOn(slack, 'createQuestionNotification').mockImplementation();
   const emailHandlerSpy = jest.spyOn(emailHandler, 'sendEmail').mockImplementation();
 

@@ -18,7 +18,7 @@ const createComment = async (data) => {
     };
   }
 
-  if (!value.isAnonymous && !value.user.userEmail) {
+  if (!value.isAnonymous && !value.user.useremail) {
     return {
       error: {
         message: INVALID_PARAMS_FOR_OPERATION_ERROR_MESSAGE,
@@ -28,37 +28,37 @@ const createComment = async (data) => {
   }
 
   const commentData = {
-    Questions: {
+    questions: {
       connect: {
-        question_id: value.questionId,
+        question_id: value.questionid,
       },
     },
     comment: value.comment,
   };
 
   if (!value.isAnonymous) {
-    commentData.User = {
+    commentData.user = {
       connect: {
-        email: value.user.userEmail,
+        email: value.user.useremail,
       },
     };
-    commentData.userName = value.user.userName;
+    commentData.username = value.user.username;
   }
 
-  const created = await db.Comments.create({
+  const created = await db.comments.create({
     data: commentData,
   });
 
   let commentResponse = created;
 
   if (value.isAnonymous) {
-    const sessionHash = generateSessionIdHash(value.user.accessToken, created.id);
-    const updated = await db.Comments.update({
+    const sessionhash = generateSessionIdHash(value.user.accessToken, created.id);
+    const updated = await db.comments.update({
       where: {
         id: created.id,
       },
       data: {
-        sessionHash,
+        sessionhash,
       },
     });
     commentResponse = updated;

@@ -11,7 +11,7 @@ import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 
 describe('questions controller', () => {
   describe('Modify is_enabled status of a question ', () => {
-    const dbUpdateSpy = jest.spyOn(db.Questions, 'update');
+    const dbUpdateSpy = jest.spyOn(db.questions, 'update');
 
     test('returns error when provided no parameters', async () => {
       const response = await modifyEnabledValue();
@@ -81,14 +81,14 @@ describe('questions controller', () => {
       expect(dbUpdateSpy).toHaveBeenCalledTimes(2);
     });
 
-    test('return the current date in the updatedAt field when updating a question', async () => {
+    test('return the current date in the updatedat field when updating a question', async () => {
       const response = await modifyEnabledValue(1, true);
       expect(response.error).toBeUndefined();
       expect(response.successMessage).toBeDefined();
       expect(response.question).toBeDefined();
       expect(response.question.is_enabled).toBeDefined();
       expect(response.question.is_enabled).toBe(true);
-      expect(getFormattedDate(response.question.updatedAt)).toEqual(getFormattedDate(new Date()));
+      expect(getFormattedDate(response.question.updatedat)).toEqual(getFormattedDate(new Date()));
     });
   });
 });

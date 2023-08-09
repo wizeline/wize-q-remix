@@ -71,11 +71,11 @@ function CommentInput(props) {
     }
     const commentToSubmit = {
       comment: sanitizedInput,
-      questionId,
+      questionid: questionId,
       user: {
         accessToken: profile.accessToken,
-        userEmail: profile.email,
-        userName: profile.full_name,
+        useremail: profile.email,
+        username: profile.full_name,
       },
       isAnonymous: comment.isAnonymous,
     };

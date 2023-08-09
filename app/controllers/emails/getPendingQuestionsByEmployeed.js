@@ -10,7 +10,7 @@ const getPendingQuestionsByEmployeed = async (employees) => {
     const currentDate = new Date();
     const previousDate = subtractOriginalDate(currentDate, managerEmailFrequencyHours);
     const { initialDate, lastDate } = createDateRange(currentDate, DEFAULT_MONTHS);
-    const pendingQuestions = await db.Questions.findMany({
+    const pendingQuestions = await db.questions.findMany({
       where: {
         OR: [
           {
@@ -22,17 +22,17 @@ const getPendingQuestionsByEmployeed = async (employees) => {
             },
           },
         ],
-        createdAt: {
+        createdat: {
           lte: new Date(lastDate),
           gte: new Date(initialDate),
         },
         assigned_to_employee_id: {
           in: employees.map((employee) => employee.assigned_to_employee_id),
         },
-        Answers: { none: {} },
-        Comments: {
+        answers: { none: {} },
+        comments: {
           every: {
-            approvedBy: null,
+            approvedby: null,
           },
         },
       },

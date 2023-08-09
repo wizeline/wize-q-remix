@@ -22,28 +22,28 @@ const deleteComment = async (body) => {
     };
   }
 
-  const { commentId: id, accessToken, userEmail } = value;
+  const { commentid: id, accessToken, useremail } = value;
 
-  const sessionHash = generateSessionIdHash(accessToken, id);
+  const sessionhash = generateSessionIdHash(accessToken, id);
   const { minDate, maxDate } = generateMinMaxDates();
 
-  const deleteCommentResponse = await db.Comments.deleteMany({
+  const deleteCommentResponse = await db.comments.deleteMany({
     where: {
       id,
       OR: [
         {
-          userEmail,
+          useremail,
         },
         {
           AND: [
             {
-              sessionHash,
+              sessionhash,
             },
             {
-              createdAt: { lte: new Date(maxDate) },
+              createdat: { lte: new Date(maxDate) },
             },
             {
-              createdAt: { gte: new Date(minDate) },
+              createdat: { gte: new Date(minDate) },
             },
           ],
         },

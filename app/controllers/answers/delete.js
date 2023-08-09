@@ -14,13 +14,13 @@ const deleteAnswer = async (query) => {
   }
 
   // Delete all Nps that have respective answer_id (FK)
-  await db.Nps.deleteMany({
+  await db.nps.deleteMany({
     where: {
       answer_id,
     },
   });
 
-  await db.Answers.delete({
+  await db.answers.delete({
     where: {
       answer_id,
     },

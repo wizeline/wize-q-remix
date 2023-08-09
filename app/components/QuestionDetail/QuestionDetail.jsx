@@ -183,7 +183,7 @@ function QuestionDetails(props) {
   };
 
   const renderNPS = (answer) => answer
-  && answer.AnsweredBy.email !== currentUserEmail
+  && answer.answeredby.email !== currentUserEmail
   && (
   <div>
     <NetPromoterScoreRow

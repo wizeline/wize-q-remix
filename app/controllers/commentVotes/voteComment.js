@@ -28,7 +28,7 @@ const findCommentVote = async (query) => {
     };
   }
 
-  const commentVote = await db.CommentVote.findFirst({
+  const commentVote = await db.commentvote.findFirst({
     where: {
       comment_id,
       user,
@@ -62,7 +62,7 @@ const upsertCommentVote = async (query) => {
       temp = newValue;
     }
 
-    const commentVote = await db.CommentVote.update({
+    const commentVote = await db.commentvote.update({
       where: {
         id: foundCommentVote.id,
       },
@@ -76,7 +76,7 @@ const upsertCommentVote = async (query) => {
     };
   }
 
-  const commentVote = await db.CommentVote.create({
+  const commentVote = await db.commentvote.create({
     data: {
       user,
       comment_id,

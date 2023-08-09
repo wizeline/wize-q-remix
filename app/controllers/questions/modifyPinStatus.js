@@ -22,7 +22,7 @@ const modifyPinStatus = async (questionId, newPinStatus) => {
   }
 
   try {
-    const updatedQuestion = await db.Questions.update({
+    const updatedQuestion = await db.questions.update({
       where: { question_id: value.questionId },
       data: { is_pinned: value.newPinStatus },
     });

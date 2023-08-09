@@ -4,7 +4,7 @@ import { DEFAULT_LIMIT } from 'app/utils/constants';
 import { NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/filterConstants';
 
 describe('listQuestions', () => {
-  const dbListSpy = jest.spyOn(db.Questions, 'findMany');
+  const dbListSpy = jest.spyOn(db.questions, 'findMany');
 
   describe('on basic list call', () => {
     let response;

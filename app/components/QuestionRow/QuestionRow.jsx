@@ -117,7 +117,7 @@ function QuestionRow(props) {
               <CircleIcon />
               <Styled.QuestionRowDate>
                 <em>{isUpdated && ' (edited)'}</em>
-                {getDateData(question.createdAt)}
+                {getDateData(question.createdat)}
               </Styled.QuestionRowDate>
             </DateContainer>
           </QuestionResponderInfo>
@@ -172,9 +172,9 @@ function QuestionRow(props) {
               && (
                 <>
                   <Label text={renderLocation(question.location, locations)} type="Location" />
-                  {question.Department
-                   && question.Department.department_id !== NOT_ASSIGNED_DEPARTMENT_ID
-                   && <Label text={renderDepartment(question.Department)} type="Department" />}
+                  {question.department
+                   && question.department.department_id !== NOT_ASSIGNED_DEPARTMENT_ID
+                   && <Label text={renderDepartment(question.department)} type="Department" />}
                   {question.assigned_to && <Label text={question.assigned_to.full_name} type="Employee" />}
                 </>
               )
@@ -211,7 +211,7 @@ QuestionRow.propTypes = {
       job_title: PropTypes.string,
       profile_picture: PropTypes.string,
     }),
-    createdAt: PropTypes.string.isRequired,
+    createdat: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,

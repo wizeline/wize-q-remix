@@ -63,7 +63,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     data.set('action', ACTIONS.VOTE_COMMENT);
     data.set('comment_id', comment_id);
     data.set('value', value);
-    let url = `/questions/${commentData.questionId}`;
+    let url = `/questions/${commentData.questionid}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
 
@@ -104,8 +104,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   function markAsAnswer(check) {
     const data = new FormData();
     data.set('action', ACTIONS.APPROVED_COMMENT);
-    data.set('params', JSON.stringify({ questionId: commentData.questionId, commentId: commentData.id, checked: check }));
-    let url = `/questions/${commentData.questionId}`;
+    data.set('params', JSON.stringify({ questionid: commentData.questionid, commentid: commentData.id, checked: check }));
+    let url = `/questions/${commentData.questionid}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     submit(data, { method: 'post', action: url, replace: true });
@@ -113,10 +113,10 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
 
   const onSubmit = () => {
     const newCommentData = {
-      commentId: commentData.id,
+      commentid: commentData.id,
       comment: updatedComment,
       accessToken: profile.accessToken,
-      userEmail: profile.email,
+      useremail: profile.email,
     };
 
     setUpdatedComment('');
@@ -126,7 +126,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     const data = new FormData();
     data.set('action', ACTIONS.UPDATE_COMMENT);
     data.set('newCommentData', JSON.stringify(newCommentData));
-    let url = `/questions/${commentData.questionId}`;
+    let url = `/questions/${commentData.questionid}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     submit(data, { method: 'post', action: url, replace: true });
@@ -150,7 +150,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     const data = new FormData();
     data.set('action', ACTIONS.DELETE_COMMENT);
     data.set('comment_id', commentData.id);
-    let url = `/questions/${commentData.questionId}`;
+    let url = `/questions/${commentData.questionid}`;
     const urlSearchParam = searchParams.get('order');
     url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
     submit(data, { method: 'delete', action: url, replace: true });
@@ -205,14 +205,14 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   );
 
   const renderButtonOption = () => {
-    if (props.hasCommentAsAnswer && commentData.approvedBy !== null) {
+    if (props.hasCommentAsAnswer && commentData.approvedby !== null) {
       return <BsCheckCircle color="green" size="20px" />;
     }
     return <BsCheckCircle color="var(--color-dark-25)" size="20px" />;
   };
 
   const renderNotAdminOption = () => {
-    if (props.hasCommentAsAnswer && commentData.approvedBy !== null) {
+    if (props.hasCommentAsAnswer && commentData.approvedby !== null) {
       return <BsCheckCircle color="green" size="20px" />;
     }
     return null;
@@ -234,7 +234,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   };
 
   const {
-    comment, createdAt, updatedAt, User, canEdit,
+    comment, createdat, updatedat, User, canEdit,
   } = commentData;
 
   const renderCommunityAnswerLabel = () => props.isCommunityAnswer && <Label type="Answer" text={COMMUNITY_ANSWER_TAG_TEXT} />;
@@ -271,7 +271,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
           count=""
           onClick={downVoteF}
         />
-        {(commentData.approvedBy !== null) && renderApproverNameLabel()}
+        {(commentData.approvedby !== null) && renderApproverNameLabel()}
         {renderCommunityAnswerLabel()}
       </Styled.QuestionCommentButtons>
       <Styled.QuestionCommentWrapper
@@ -281,7 +281,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
         <Styled.QuestionCommentMetadata>
           <QuestionerResponderInfo
             createdBy={User}
-            isUpdated={updatedAt !== null}
+            isUpdated={updatedat !== null}
             userImgSize="medium"
           >
             <DateContainer isComment hasJobTitle={User.job_title}>
@@ -290,8 +290,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
                 isAdmin={props.isAdmin}
                 hadApprover={commentData.approvedBy}
               >
-                {updatedAt && <em>edited</em>}
-                {getTimeDiff(updatedAt || createdAt)}
+                {updatedat !== createdat && <em> edited</em>}
+                {getTimeDiff(updatedat || createdat)}
               </Styled.QuestionCommentDate>
             </DateContainer>
           </QuestionerResponderInfo>
@@ -301,7 +301,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
                   ? (
                     <Styled.CommentAsAnswerToolTip
                       onClick={() => { markAsAnswer(!isAnswer); }}
-                      disabled={props.hasCommentAsAnswer && commentData.approvedBy === null}
+                      disabled={props.hasCommentAsAnswer && commentData.approvedby === null}
                     >
                       {renderButtonOption()}
                       {renderAdminToolTips()}
@@ -388,8 +388,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
 QuestionComment.propTypes = {
   commentData: PropTypes.shape({
     comment: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
-    updatedAt: PropTypes.string,
+    createdat: PropTypes.string.isRequired,
+    updatedat: PropTypes.string,
     id: PropTypes.number.isRequired,
     User: PropTypes.shape({
       email: PropTypes.string.isRequired,
@@ -403,7 +403,7 @@ QuestionComment.propTypes = {
       profile_picture: PropTypes.string.isRequired,
     }),
     canEdit: PropTypes.bool.isRequired,
-    questionId: PropTypes.number.isRequired,
+    questionid: PropTypes.number.isRequired,
     approvedBy: PropTypes.bool,
     has_upvoted: PropTypes.bool.isRequired,
     has_downvoted: PropTypes.bool.isRequired,

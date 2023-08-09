@@ -21,7 +21,7 @@ const getAnswerById = async (answerId, user) => {
   }
 
   try {
-    const answer = await db.Answers.findUniqueOrThrow({
+    const answer = await db.answers.findUniqueOrThrow({
       where: { answer_id: answerId },
     });
 

@@ -3,7 +3,7 @@ import { db } from 'app/utils/db.server';
 
 describe('answers controller', () => {
   describe('getAnswerById', () => {
-    const dbFindUniqueSpy = jest.spyOn(db.Answers, 'findUniqueOrThrow');
+    const dbFindUniqueSpy = jest.spyOn(db.answers, 'findUniqueOrThrow');
 
     it('returns an error when provided invalid id', async () => {
       const response = await getAnswerById('test', {

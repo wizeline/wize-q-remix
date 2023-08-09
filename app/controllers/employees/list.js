@@ -2,7 +2,7 @@ import { db } from 'app/utils/db.server';
 
 const listEmployees = async (id) => {
   const idValue = parseInt(id, 10);
-  const relations = await db.EmployeesDepartments.findMany({
+  const relations = await db.employeesdepartments.findMany({
     where: {
       department_id: idValue,
       NOT: [

@@ -3,7 +3,7 @@ import questionCommented from 'app/controllers/profile/questionsCommented';
 describe('get questions commented', () => {
   it('get questions commentes succesfully', async () => {
     const payload = {
-      userEmail: 'miguel.cardona@wizeline.com',
+      useremail: 'miguel.cardona@wizeline.com',
     };
 
     const response = await questionCommented(payload);
@@ -13,13 +13,13 @@ describe('get questions commented', () => {
 
   it('returns an error when the User is not found', async () => {
     const errPayload = {
-      userEmail: 'error@wizeline.com',
+      useremail: 'error@wizeline.com',
     };
 
     const response = await questionCommented(errPayload);
     expect(response).toBeDefined();
     expect(response.error).toBeDefined();
-    expect(response.error.message).toBe(`The user: ${errPayload.userEmail} was not found`);
-    expect(response.error.detail).toBe(`The user: ${errPayload.userEmail} was not found`);
+    expect(response.error.message).toBe(`The user: ${errPayload.useremail} was not found`);
+    expect(response.error.detail).toBe(`The user: ${errPayload.useremail} was not found`);
   });
 });

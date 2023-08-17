@@ -89,7 +89,7 @@ function AnswerModal(props) {
     const data = new FormData(submitAnswerForm.current);
     data.set('action', action);
 
-    if (question.Answer) {
+    if (question.answer) {
       data.set('answerId', question.answer.answer_id);
     } else {
       data.set('employee_id', profile.employee_id);
@@ -130,7 +130,7 @@ function AnswerModal(props) {
     if (answer) {
       return editAnswerInfo(answer.answeredby.full_name, getTimeDiff(answer.answered_at));
     }
-    return addAnswerInfo(getQuestionAuthor(question), getTimeDiff(question.createdAt));
+    return addAnswerInfo(getQuestionAuthor(question), getTimeDiff(question.createdat));
   };
 
   const {

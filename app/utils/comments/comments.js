@@ -19,7 +19,7 @@ export function canEditComment(comment, userEmail, sessionToken) {
 
   const { minDate, maxDate } = generateMinMaxDates();
   const sessionhash = generateSessionIdHash(sessionToken, comment.id);
-  const isValidDateRangeForEdit = moment(comment.createdAt).isBetween(minDate, maxDate);
+  const isValidDateRangeForEdit = moment(comment.createdat).isBetween(minDate, maxDate);
   const isValidSessionHash = comment.sessionhash === sessionhash;
   return isValidSessionHash && isValidDateRangeForEdit;
 }

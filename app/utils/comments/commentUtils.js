@@ -27,15 +27,15 @@ function reorderHighlightedComments(comments) {
   });
 
   const recentActivitySortingFunction = (a, b) => {
-    const createdFirst = a.createdAt ? a.createdAt : new Date().toISOString();
-    const createdSecond = b.createdAt ? b.createdAt : new Date().toISOString();
+    const createdFirst = a.createdat ? a.createdat : new Date().toISOString();
+    const createdSecond = b.createdat ? b.createdat : new Date().toISOString();
     let firstComparingTimestamp = createdFirst;
     let secondComparingTimestamp = createdSecond;
-    if (a.updatedAt !== null && a.updatedAt !== undefined && a.updatedAt > createdFirst) {
-      firstComparingTimestamp = a.updatedAt;
+    if (a.updatedat !== null && a.updatedat !== undefined && a.updatedat > createdFirst) {
+      firstComparingTimestamp = a.updatedat;
     }
-    if (b.updatedAt !== null && b.updatedAt !== undefined && b.updatedAt > createdSecond) {
-      secondComparingTimestamp = b.updatedAt;
+    if (b.updatedat !== null && b.updatedat !== undefined && b.updatedat > createdSecond) {
+      secondComparingTimestamp = b.updatedat;
     }
     if (secondComparingTimestamp > firstComparingTimestamp) {
       return 1;
@@ -48,21 +48,21 @@ function reorderHighlightedComments(comments) {
   const selectedCommunityAnswerComment = maxVotesComments.length > 1
     ? (maxVotesComments.sort(recentActivitySortingFunction))[0]
     : maxVotesComments[0];
-  const approvedByAdminCommentInList = comments.some((comm) => comm.approvedBy);
+  const approvedbyAdminCommentInList = comments.some((comm) => comm.approvedby);
 
-  if (comments.length < 3 && approvedByAdminCommentInList) {
+  if (comments.length < 3 && approvedbyAdminCommentInList) {
     return [selectedCommunityAnswerComment.id, comments];
   }
   const commentsWithoutCommunityAnswer = comments.filter(
     (comm) => comm.id !== selectedCommunityAnswerComment.id,
   );
-  if (approvedByAdminCommentInList && selectedCommunityAnswerComment.approvedBy) {
+  if (approvedbyAdminCommentInList && selectedCommunityAnswerComment.approvedby) {
     return [selectedCommunityAnswerComment.id, comments];
-  } if (approvedByAdminCommentInList && !selectedCommunityAnswerComment.approvedBy) {
+  } if (approvedbyAdminCommentInList && !selectedCommunityAnswerComment.approvedby) {
     const reorderedComments = [...commentsWithoutCommunityAnswer];
     reorderedComments.splice(1, 0, selectedCommunityAnswerComment);
     return [selectedCommunityAnswerComment.id, reorderedComments];
-  } if (!approvedByAdminCommentInList) {
+  } if (!approvedbyAdminCommentInList) {
     const reorderedComments = [...commentsWithoutCommunityAnswer];
     reorderedComments.unshift(selectedCommunityAnswerComment);
     return [selectedCommunityAnswerComment.id, reorderedComments];

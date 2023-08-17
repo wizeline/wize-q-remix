@@ -84,7 +84,7 @@ function QuestionDetails(props) {
     return (
       <Styled.CounterButtonsWrapper
         isAdmin={isAdmin}
-        hasAnswer={question.Answer}
+        hasAnswer={question.answer}
       >
         <CounterButton
           selected={question.hasLike}
@@ -229,7 +229,7 @@ function QuestionDetails(props) {
                   <QuestionRow question={question} isFromList={false} />
                   <QuestionCardActions
                     hasDetail
-                    hasAnswer={question.Answer}
+                    hasAnswer={question.answer}
                     isQuestionModalOpen
                   >
                     {renderQuestionButtons()}
@@ -245,7 +245,7 @@ function QuestionDetails(props) {
                 </QuestionCardBorder>
               </QuestionCardWrapper>
               {renderAnswer({
-                Answer: question.Answer,
+                Answer: question.answer,
                 isAdmin,
                 currentUserEmail,
                 onAnswerClick: () => {
@@ -259,13 +259,13 @@ function QuestionDetails(props) {
                 isFromList: false,
               })}
             </QuestionCardContainer>
-            {renderNPS(question.Answer)}
+            {renderNPS(question.answer)}
           </Styled.QuestionDetailHeader>
           <Styled.QuestionDetailBody>
             <QuestionCommentList
               questionId={parseInt(questionId, 10)}
               isAdmin={isAdmin}
-              hasAnswer={question.Answer !== null}
+              hasAnswer={question.answer !== null}
             >
               {renderNumCommentsRow()}
             </QuestionCommentList>
@@ -315,11 +315,11 @@ QuestionDetails.propTypes = {
       job_title: PropTypes.string,
       profile_picture: PropTypes.string,
     }),
-    createdAt: PropTypes.string.isRequired,
+    createdat: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
-    Answer: PropTypes.shape({
+    answer: PropTypes.shape({
       answer: PropTypes.string,
       answer_id: PropTypes.number.isRequired,
       answered_at: PropTypes.string,

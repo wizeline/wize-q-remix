@@ -20,14 +20,14 @@ function QuestionCard(props) {
   const {
     question,
     currentUserEmail,
-    question: { Answers },
+    question: { answers },
     onVoteClick,
     searchTerm,
     processingFormSubmission,
   } = props;
 
   const renderAnswerProps = {
-    Answers,
+    answers,
     isAdmin: false,
     currentUserEmail,
     onAnswerClick: () => {},
@@ -39,7 +39,6 @@ function QuestionCard(props) {
     questionId: question.question_id,
     isAnswer: true,
   };
-
   const hasAnswer = question.answers.length > 0;
   const navigate = useNavigate();
 
@@ -147,16 +146,16 @@ QuestionCard.propTypes = {
       job_title: PropTypes.string,
       profile_picture: PropTypes.string,
     }),
-    Answers: PropTypes.arrayOf(
+    answers: PropTypes.arrayOf(
       PropTypes.shape(),
     ),
-    createdAt: PropTypes.string.isRequired,
+    createdat: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     numComments: PropTypes.number.isRequired,
     hasVoted: PropTypes.bool.isRequired,
     hasCommentApproved: PropTypes.bool.isRequired,
     hasCommunityAnswer: PropTypes.bool.isRequired,
-    Comments: PropTypes.arrayOf(
+    comments: PropTypes.arrayOf(
       PropTypes.shape(),
     ),
     numLikes: PropTypes.number.isRequired,

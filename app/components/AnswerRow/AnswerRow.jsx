@@ -99,7 +99,7 @@ AnswerRow.propTypes = {
     profile_picture: PropTypes.string.isRequired,
     job_title: PropTypes.string,
   }).isRequired,
-  createdAt: PropTypes.string.isRequired,
+  createdat: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   searchTerm: PropTypes.string,
   isPreview: PropTypes.bool,

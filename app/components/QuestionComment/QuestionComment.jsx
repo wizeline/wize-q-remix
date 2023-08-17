@@ -227,7 +227,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   const renderAdminToolTips = () => {
     if (!props.hasAnswer && !props.hasCommentAsAnswer) {
       return renderToolTip('Click to approve the comment as an answer');
-    } if (commentData.approvedBy !== null) {
+    } if (commentData.approvedby !== null) {
       return renderToolTip('Click to unmark the comment as an answer');
     }
     return null;
@@ -245,7 +245,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
 
   return (
     <Styled.QuestionCommentContainer
-      hadApprover={commentData.approvedBy}
+      hadApprover={commentData.approvedby}
       isDeleting={isDeleting}
       isEditing={isEditing}
       isCommunityAnswer={props.isCommunityAnswer}
@@ -288,7 +288,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               <CircleIcon />
               <Styled.QuestionCommentDate
                 isAdmin={props.isAdmin}
-                hadApprover={commentData.approvedBy}
+                hadApprover={commentData.approvedby}
               >
                 {updatedat !== createdat && <em> edited</em>}
                 {getTimeDiff(updatedat || createdat)}
@@ -404,7 +404,7 @@ QuestionComment.propTypes = {
     }),
     canEdit: PropTypes.bool.isRequired,
     questionid: PropTypes.number.isRequired,
-    approvedBy: PropTypes.bool,
+    approvedby: PropTypes.bool,
     has_upvoted: PropTypes.bool.isRequired,
     has_downvoted: PropTypes.bool.isRequired,
     votes: PropTypes.number.isRequired,

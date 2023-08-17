@@ -30,7 +30,7 @@ function DeleteAnswerModal({
 
     const data = new FormData(deleteAnswerForm.current);
     data.set('action', ACTIONS.DELETE_ANSWER);
-    data.set('answerId', question.Answer.answer_id);
+    data.set('answerId', question.answer.answer_id);
 
     onClose();
     let url = `/questions/${question.question_id}`;

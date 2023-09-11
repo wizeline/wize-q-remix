@@ -53,8 +53,7 @@ model comments {
   updatedat   DateTime?     @default(now()) @updatedAt @db.Timestamptz(6)
   approvedby  Int?
   tag_id      Int?
-  taggedby    Int?
-  tagger      users?        @relation("comments_taggedbytousers", fields: [taggedby], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "tagger")
+  taggedby    String?
   approver    users?        @relation("comments_approvedbytousers", fields: [approvedby], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "approver")
   user        users?        @relation("comments_useremailtousers", fields: [useremail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "user")
   questions   questions     @relation(fields: [questionid], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_1")
@@ -194,7 +193,6 @@ model users {
   commentscreated      comments[]             @relation("comments_useremailtousers")
   managerdepartments   departments[]          @relation("manager")
   alternatemanager     departments[]          @relation("submanager")
-  commentstagged      comments[]              @relation("comments_taggedbytousers")
 
   @@index([email], map: "users_email")
 }

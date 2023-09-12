@@ -54,6 +54,8 @@ model comments {
   useremail   String?       @db.VarChar(255)
   updatedat   DateTime?     @default(now()) @updatedAt @db.Timestamptz(6)
   approvedby  Int?
+  tag_id      Int?
+  taggedby    String?
   approver    users?        @relation("comments_approvedbytousers", fields: [approvedby], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "approver")
   user        users?        @relation("comments_useremailtousers", fields: [useremail], references: [email], onDelete: NoAction, onUpdate: NoAction, map: "user")
   questions   questions     @relation(fields: [questionid], references: [question_id], onDelete: Cascade, onUpdate: NoAction, map: "comments_ibfk_1")
@@ -125,12 +127,6 @@ model nps {
   @@unique([answer_id, user], map: "unique_mail_with_answer")
 }
 
-model questiontags {
-  id          Int @id @default(autoincrement())
-  question_id Int
-  tag_id      Int
-}
-
 model questions {
   question_id                  Int            @id @default(autoincrement())
   question                     String         @db.VarChar(500)
@@ -182,11 +178,6 @@ model sentiments {
   @@index([sentiment_question_id], map: "sentiment_question_id")
 }
 
-model tags {
-  tag_id Int    @id @default(autoincrement())
-  name   String @unique(map: "name") @db.VarChar(255)
-}
-
 model votes {
   id          Int        @id @default(autoincrement())
   question_id Int?
@@ -219,4 +210,9 @@ model users {
 
 model sequelizemeta {
   name String @id @unique @db.VarChar(255)
+}
+
+model commenttags {
+  tag_id   Int    @id @default(autoincrement())
+  tag_text String @db.VarChar(255)
 }

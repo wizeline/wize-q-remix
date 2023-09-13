@@ -14,7 +14,7 @@ services:
         POSTGRES_PASSWORD: wizeq_password
         POSTGRES_DB: wizeq
   integration-tests-prisma:
-      image: postgres:latest
+      image: ankane/pgvector
       container_name: integration-tests-prisma
       ports:
       - '5433:5432'

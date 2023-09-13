@@ -12,7 +12,7 @@ jobs:
         node-version: [14.x]
     services:
       postgres:
-        image: postgres:latest
+        image: ankane/pgvector
         env:
           POSTGRES_DB: wizeq 
           POSTGRES_PASSWORD: wizeq_password

@@ -38,3 +38,9 @@ export const approvedByCommentSchema = Joi.object().keys({
 export const questionCommentedSchema = Joi.object().keys({
   useremail: EMAIL_VALIDATION,
 });
+
+export const tagCommentSchema = Joi.object().keys({
+  commentId: JOI_ID_VALIDATION.required(),
+  tagId: SIMPLE_INTEGER_VALIDATION.allow(null),
+  taggedBy: Joi.string().allow(null),
+});

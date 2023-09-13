@@ -10,6 +10,7 @@ import answersFixture from './fixtures/answers.json';
 import votesFixture from './fixtures/votes.json';
 import npsFixture from './fixtures/nps.json';
 import commentVotes from './fixtures/commentVotes.json';
+import tags from './fixtures/tags.json';
 
 const initTestDb = async () => {
   await db.$connect();
@@ -92,6 +93,12 @@ const initTestDb = async () => {
   // Create CommentVotes
   await db.commentvote.createMany({
     data: commentVotes,
+    skipDuplicates: true,
+  });
+
+  // Create tags
+  await db.commenttags.createMany({
+    data: tags,
     skipDuplicates: true,
   });
 };

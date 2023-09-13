@@ -118,5 +118,26 @@
     "useremail": null,
     "updatedat": null,
     "approvedby": 1
+  },
+  {
+    "comment": "Rude comment ",
+    "createdat": "2022-10-01 13:45:12",
+    "questionid": 8,
+    "sessionhash": "85e8a1623e1c7e2c34b4e5ee8fd365a6",
+    "username": "Ignacio Cañipa Ariñez",
+    "useremail": null,
+    "updatedat": null,
+    "approvedby": null
+  },
+  {
+    "comment": "Text Example - Remove ",
+    "createdat": "2022-10-01 13:45:12",
+    "questionid": 8,
+    "sessionhash": "85e8a1623e1c7e2c34b4e5ee8fd365a6",
+    "username": "Ignacio Cañipa Ariñez",
+    "useremail": null,
+    "updatedat": null,
+    "approvedby": null, 
+    "tag_id": 1
   }
 ]

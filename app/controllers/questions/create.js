@@ -40,7 +40,7 @@ const createQuestion = async (
   if (value.is_anonymous) {
     const sessionhash = generateSessionIdHash(accessToken, created.question_id);
 
-    created = await db.Questions.update({
+    created = await db.questions.update({
       where: {
         question_id: created.question_id,
       },

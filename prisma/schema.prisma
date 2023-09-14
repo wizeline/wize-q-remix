@@ -1,10 +1,12 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [pgvector(map: "vector", schema: "wizeq")]
 }
 
 model admins {
@@ -150,11 +152,20 @@ model questions {
   votes                        votes[]
   answers                      answers[]
   department                   departments?   @relation(fields: [assigned_department], references: [department_id], map: "department")
+  embeddings                   embeddings[]
+  last_embedded_date           DateTime?      @db.Timestamptz(6)
 
   @@index([assigned_to_employee_id], map: "assigned_to_employee_id_foreign_idx")
   @@index([created_by_employee_id], map: "created_by_employee_id_foreign_idx")
   @@index([location], map: "location")
   @@index([assigned_department], map: "questions_assigned_department_fkey")
+}
+
+model embeddings {
+  id          Int                         @id @default(autoincrement())
+  embedding   Unsupported("vector(768)")?
+  question_id Int                         @unique
+  question    questions                   @relation(fields: [question_id], references: [question_id], onDelete: Cascade)
 }
 
 model sentiments {

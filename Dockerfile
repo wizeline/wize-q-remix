@@ -1,4 +1,4 @@
-FROM node:14.18.2
+FROM node:16.14.2
 WORKDIR /usr/server/app
 
 ADD package.json package-lock.json ./

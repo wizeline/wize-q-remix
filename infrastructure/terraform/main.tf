@@ -30,21 +30,6 @@ module "cloud_run" {
   // db_connection_name = module.cloud_sql.db_connection_name
 }
 
-module "cloud_sql" {
-  source = "./modules/cloud_sql"
-
-  prefix = local.prefix
-
-  db_tier     = var.db_tier
-  sql_version = var.sql_version
-  region      = var.region
-
-  secret_db_user     = data.google_secret_manager_secret_version.Db_user.secret_data
-  secret_db_password = data.google_secret_manager_secret_version.Db_password.secret_data
-  db_name            = data.google_secret_manager_secret_version.Db_name.secret_data
-
-}
-
 module "cloud_sql_postgres" {
   source = "./modules/cloud_sql"
 

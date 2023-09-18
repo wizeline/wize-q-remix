@@ -13,6 +13,9 @@ const tearDownDb = async () => {
   await db.answers.deleteMany();
   await db.$queryRaw`ALTER SEQUENCE "answers_answer_id_seq" RESTART WITH 1;`;
 
+  await db.commenttags.deleteMany();
+  await db.$queryRaw`ALTER SEQUENCE "commenttags_tag_id_seq" RESTART WITH 1;`;
+
   await db.comments.deleteMany();
   await db.$queryRaw`ALTER SEQUENCE "comments_id_seq" RESTART WITH 1;`;
 

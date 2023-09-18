@@ -343,3 +343,4 @@ export const MAX_NET_PROMOTER_SCORE = 4;
 export const DEFAULT_ERROR_MESSAGE = 'An unknown error has occurred with your request.';
 export const COMMENT_AS_AN_ANSWER = 'This question already has a comment as answer';
 export const DEFAULT_MONTHS = -3;
+export const DEFAULT_TAGS_LIMIT = 5;

@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { db } from 'app/utils/db.server';
 import { commentTagsCreatedSchema } from 'app/utils/validators/comments';
 import { DEFAULT_ERROR_MESSAGE } from 'app/utils/constants';
@@ -14,10 +13,10 @@ const createTag = async (params) => {
     };
   }
   try {
-    const { tag_text } = value;
+    const { tagText } = value;
     const tag = await db.commenttags.create({
       data: {
-        tag_text,
+        tag_text: tagText,
       },
     });
     return {

@@ -46,5 +46,5 @@ export const tagCommentSchema = Joi.object().keys({
 });
 
 export const commentTagsCreatedSchema = Joi.object().keys({
-  tag_text: JOI_SIMPLE_STRING_VALIDATION,
+  tagText: JOI_SIMPLE_STRING_VALIDATION,
 });

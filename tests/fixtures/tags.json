@@ -1,3 +1,9 @@
 [{
   "tag_text" : "Violate guidelines"
+},
+{
+  "tag_text": "Rude Comment"
+}, 
+{
+  "tag_text":"Another tag for a comment"
 }]

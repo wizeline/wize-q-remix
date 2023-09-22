@@ -33,6 +33,7 @@ import assignQuestion from 'app/controllers/questions/assignQuestion';
 import listDepartments from 'app/controllers/departments/list';
 import deleteNPS from 'app/controllers/answers/nps/delete';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
+import taggingComment from 'app/controllers/comments/tags/tagging.js';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -172,6 +173,14 @@ export const action = async ({ request }) => {
       const params = JSON.parse(formData.get('params'));
       params.employeeid = user.employee_id;
       response = await approvedByComment(params);
+      break;
+    case ACTIONS.TAGGING_COMMENT:
+      const { tagId, commentId } = JSON.parse(formData.get('data'));
+      response = await taggingComment({
+        tagId,
+        commentId,
+        taggedBy: tagId ? user.employee_id.toString() : null,
+      });
       break;
     default:
       break;

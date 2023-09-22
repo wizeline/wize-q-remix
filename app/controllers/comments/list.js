@@ -59,13 +59,17 @@ const listComments = async (params) => {
   Approver.full_name AS "ApproverFull_name",
   Approver.is_admin AS "ApproverIs_admin",
   Approver.profile_picture AS "ApproverProfile_picture",
-  Approver.job_title AS "ApproverJob_title"
+  Approver.job_title AS "ApproverJob_title",
+  tag.tag_id as "tagId", 
+  tag.tag_text as "tagText" 
 FROM
   "comments" AS cmts
 LEFT JOIN
   "users" AS "User" ON cmts."useremail" = "User".email
 LEFT JOIN
   "users" AS Approver ON cmts."approvedby" = Approver.employee_id
+LEFT JOIN 
+  "commenttags" AS tag ON cmts.tag_id = tag.tag_id 
 WHERE
   cmts."questionid" = ${questionId}
  ${sortBy === 'votes' ? Prisma.sql`ORDER BY cmts.approvedby ASC, votes DESC, recent_activity DESC` : Prisma.sql`ORDER BY cmts.approvedby ASC, recent_activity DESC`}

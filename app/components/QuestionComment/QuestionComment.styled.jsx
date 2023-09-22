@@ -256,3 +256,10 @@ export const ApproverName = styled.span`
   font-size: 12px;
   color: var(--color-green);
 `;
+
+export const Tag = styled.div`
+  border: 1px solid #B4B4B4;
+  padding: 8px;
+  border-radius: 8px;
+  color: #B4B4B4;
+`;

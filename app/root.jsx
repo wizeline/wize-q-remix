@@ -20,6 +20,7 @@ import { commitSession, getAuthenticatedUser, getSession } from 'app/session.ser
 import AppNavbar from 'app/components/AppNavbar';
 import listQuestions from 'app/controllers/questions/list';
 import listUsers from 'app/controllers/users/list';
+import listTags from 'app/controllers/comments/tags/list';
 
 const titleSuffix = process.env.NODE_ENV === 'development' ? ' - Local' : '';
 
@@ -46,6 +47,8 @@ export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const search = url.searchParams.get('search');
   const userSearch = url.searchParams.get('userSearch');
+  const searchTag = url.searchParams.get('searchtag');
+  const tagId = url.searchParams.get('tagId');
 
   let searchResults = [];
 
@@ -56,6 +59,7 @@ export const loader = async ({ request }) => {
       search,
     });
   }
+  const tagslist = await listTags({ searchTerm: searchTag, offset: 0, id: tagId });
 
   const globalSuccess = session.get('globalSuccess') || null;
 
@@ -65,6 +69,7 @@ export const loader = async ({ request }) => {
       globalSuccess,
       searchResults,
       searchUsers: userSearch ? (await listUsers({ search: userSearch, size: 5 })).users : [],
+      tagslist,
     },
     {
       headers: {

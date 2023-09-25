@@ -11,7 +11,7 @@ function Label({ text, type, approvedBy }) {
       {approvedBy && (
       <Styled.ApproverName>
         by
-        <strong>{approvedBy}</strong>
+        <strong>{` ${approvedBy}`}</strong>
       </Styled.ApproverName>
       )}
     </Styled.LabelContainer>

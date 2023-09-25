@@ -30,10 +30,13 @@ import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
 import CommentInputText from 'app/components/CommentInput/CommentInputText';
 import ACTIONS from 'app/utils/actions';
 import useUser from 'app/utils/hooks/useUser';
+import { FaTags } from 'react-icons/fa';
+import TagModal from '../Modals/TagsModal/TagModal';
 
 function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   const submit = useSubmit();
   const profile = useUser();
+  const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [commentHasChanged, setCommentHasChanged] = useState(false);
@@ -233,8 +236,14 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
     return null;
   };
 
+  const renderTagsOption = () => (
+    <div>
+      <FaTags color="green" size="20px" />
+    </div>
+  );
+
   const {
-    comment, createdat, updatedat, User, canEdit,
+    comment, createdat, updatedat, User, canEdit, tagText, tagId,
   } = commentData;
 
   const renderCommunityAnswerLabel = () => props.isCommunityAnswer && <Label type="Answer" text={COMMUNITY_ANSWER_TAG_TEXT} />;
@@ -242,6 +251,20 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   const renderApproverNameLabel = () => (
     <Label type="Answer" text="Approved" approvedBy={commentData.Approver.full_name} />
   );
+
+  const onSelectTag = (id) => {
+    const data = {
+      tagId: id,
+      commentId: commentData.id,
+    };
+    const formData = new FormData();
+    formData.set('action', ACTIONS.TAGGING_COMMENT);
+    formData.set('data', JSON.stringify(data));
+    let url = `/questions/${commentData.questionid}`;
+    const urlSearchParam = searchParams.get('order');
+    url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    submit(formData, { method: 'post', action: url, replace: true });
+  };
 
   return (
     <Styled.QuestionCommentContainer
@@ -296,28 +319,35 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             </DateContainer>
           </QuestionerResponderInfo>
           <Styled.QuestionCommentOptionsWrapper>
-            {
-                (props.isAdmin && !props.hasAnswer)
-                  ? (
-                    <Styled.CommentAsAnswerToolTip
-                      onClick={() => { markAsAnswer(!isAnswer); }}
-                      disabled={props.hasCommentAsAnswer && commentData.approvedby === null}
-                    >
-                      {renderButtonOption()}
-                      {renderAdminToolTips()}
-                    </Styled.CommentAsAnswerToolTip>
-                  )
-                  : (
-                    <Styled.CommentAsAnswerToolTip>
-                      {renderNotAdminOption()}
-                      {commentData.Approver !== null && renderToolTip('Approved as answer')}
-                    </Styled.CommentAsAnswerToolTip>
-                  )
-}
+            {tagId && <Styled.Tag>{tagText}</Styled.Tag>}
+            {props.isAdmin && !props.hasAnswer ? (
+              <Styled.CommentAsAnswerToolTip
+                onClick={() => {
+                  markAsAnswer(!isAnswer);
+                }}
+                disabled={
+                  props.hasCommentAsAnswer && commentData.approvedby === null
+                }
+              >
+                {renderButtonOption()}
+                {renderAdminToolTips()}
+              </Styled.CommentAsAnswerToolTip>
+            ) : (
+              <Styled.CommentAsAnswerToolTip>
+                {renderNotAdminOption()}
+                {commentData.Approver !== null
+                  && renderToolTip('Approved as answer')}
+              </Styled.CommentAsAnswerToolTip>
+            )}
+            {props.isAdmin && (
+            <Styled.CommentAsAnswerToolTip onClick={() => setShowModal(true)}>
+              {renderTagsOption()}
+            </Styled.CommentAsAnswerToolTip>
+            )}
             {canEdit && (
-            <Styled.QuestionCommentOptions>
-              {renderCommentOptions()}
-            </Styled.QuestionCommentOptions>
+              <Styled.QuestionCommentOptions>
+                {renderCommentOptions()}
+              </Styled.QuestionCommentOptions>
             )}
           </Styled.QuestionCommentOptionsWrapper>
         </Styled.QuestionCommentMetadata>
@@ -380,6 +410,14 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
           )}
         </Styled.QuestionCommentText>
       </Styled.QuestionCommentWrapper>
+      {showModal && (
+      <TagModal
+        onClose={() => { setShowModal(false); }}
+        selectTag={onSelectTag}
+        tag={{ id: tagId, text: tagText }}
+        removeTag={() => onSelectTag(null)}
+      />
+      )}
     </Styled.QuestionCommentContainer>
 
   );
@@ -391,6 +429,8 @@ QuestionComment.propTypes = {
     createdat: PropTypes.string.isRequired,
     updatedat: PropTypes.string,
     id: PropTypes.number.isRequired,
+    tagId: PropTypes.number,
+    tagText: PropTypes.string,
     User: PropTypes.shape({
       email: PropTypes.string.isRequired,
       full_name: PropTypes.string.isRequired,

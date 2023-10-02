@@ -18,6 +18,7 @@ const ACTIONS = {
   ADD_EMPLOYEE_TO_DEPARTMENT: 'add_employee_to_department',
   REMOVE_EMPLOYEE_TO_DEPARTMENT: 'remove_employee_to_department',
   TAGGING_COMMENT: 'tagging_a_comment',
+  CREATE_TAG: 'create_tag',
 };
 
 export default ACTIONS;

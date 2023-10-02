@@ -1,0 +1,10 @@
+
+<svg width="102px" height="83px" viewBox="0 0 102 83" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polyline id="Path" stroke="#080808" stroke-width="3" transform="translate(38.328753, 43.708508) rotate(30.000000) translate(-38.328753, -43.708508) " points="85.5500319 50.0723486 85.6715833 58.2809178 12.8016097 56.697121 -9.01407633 34.5302113 -2.41531738 29.1360988"></polyline>
+        <circle id="Oval" stroke="#080808" stroke-width="3" cx="77" cy="54" r="18.5"></circle>
+        <path d="M92.7640416,53.8085364 L92.751771,54.3647782 M72.8953645,51.9724733 L70.0630045,51.2813853 L22.5168027,51.2596604 L0.701116678,29.0927506 L22.5168027,11.2596604 L94.7710089,11.2596604 L93.4742029,21.6160669" id="Shape" stroke="#080808" stroke-width="3" transform="translate(47.736063, 32.923159) rotate(30.000000) translate(-47.736063, -32.923159) "></path>
+        <path d="M78.4642309,44.5023974 L78.4642309,52.4992884 L86.5,52.4992884 L86.5,55.4796985 L78.5415243,55.4796985 L78.5415243,63.5169588 L75.5091326,63.5169588 L75.5091326,55.4796985 L67.5,55.4796985 L67.5,52.4992884 L75.5091326,52.4992884 L75.5091326,44.5023974 L78.4642309,44.5023974 Z" id="Rectangle" stroke="#080808" stroke-width="5"></path>
+        <circle id="Oval" stroke="#080808" stroke-width="5" cx="26" cy="16" r="2.5"></circle>
+    </g>
+</svg>

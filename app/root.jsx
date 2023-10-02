@@ -21,6 +21,7 @@ import AppNavbar from 'app/components/AppNavbar';
 import listQuestions from 'app/controllers/questions/list';
 import listUsers from 'app/controllers/users/list';
 import listTags from 'app/controllers/comments/tags/list';
+import { DEFAULT_TAGS_LIMIT } from './utils/constants';
 
 const titleSuffix = process.env.NODE_ENV === 'development' ? ' - Local' : '';
 
@@ -59,7 +60,13 @@ export const loader = async ({ request }) => {
       search,
     });
   }
-  const tagslist = await listTags({ searchTerm: searchTag, offset: 0, id: tagId });
+  const tagslist = await listTags({
+    searchTerm: searchTag,
+    limit: DEFAULT_TAGS_LIMIT,
+    offset: 0,
+    id: tagId,
+    page: 0,
+  });
 
   const globalSuccess = session.get('globalSuccess') || null;
 

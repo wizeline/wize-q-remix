@@ -137,7 +137,7 @@ function AdminDepartments({
           </thead>
           <tbody>
             {departments.map((deparment) => (
-              <Styled.RowTable>
+              <Styled.RowTable key={`${deparment.name}`}>
                 <td>{deparment.name}</td>
                 <td>
                   {' '}

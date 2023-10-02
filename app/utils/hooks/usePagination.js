@@ -43,7 +43,7 @@ export function usePagination({
     }
 
     const start = leftSiblingIndex > 1 ? leftSiblingIndex : 2;
-    const middleRange = range(start, rigthSiblingIndex + 1);
+    const middleRange = range(start, totalPageCount);
     return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
   }, [currentPage, totalPages]);
   return pagintationRange;

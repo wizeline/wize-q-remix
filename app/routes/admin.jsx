@@ -16,6 +16,9 @@ import ACTIONS from 'app/utils/actions';
 import updateDepartement from 'app/controllers/departments/update';
 import addEmployeeToDepartment from 'app/controllers/employees/add';
 import removeEmployeeToDepartment from 'app/controllers/employees/delete';
+import AdminTags from 'app/components/AdminTags';
+import listTags from 'app/controllers/comments/tags/list';
+import createTag from 'app/controllers/comments/tags/create';
 
 export const loader = async ({ request }) => {
   await requireAdminAuth(request);
@@ -39,6 +42,12 @@ export const loader = async ({ request }) => {
     allPages: false,
   });
 
+  const { tags, totalPages: totalPagesTags } = await listTags({
+    searchTerm: search,
+    page: currentPage,
+    limit: size,
+  });
+
   return {
     ...data,
     currentPage: Number(currentPage),
@@ -46,6 +55,8 @@ export const loader = async ({ request }) => {
     departments,
     totalPagesDepartment,
     tabActive,
+    tags,
+    totalPagesTags,
   };
 };
 
@@ -82,6 +93,10 @@ export const action = async ({ request }) => {
       values = JSON.parse(formData.get('values'));
       result = await removeEmployeeToDepartment(values);
       break;
+    case ACTIONS.CREATE_TAG:
+      values = formData.get('tagText');
+      result = await createTag({ tagText: values });
+      break;
     default:
       break;
   }
@@ -90,7 +105,15 @@ export const action = async ({ request }) => {
 
 function Admin() {
   const {
-    users, totalPages, currentPage, size, departments, totalPagesDepartment, tabActive,
+    users,
+    totalPages,
+    currentPage,
+    size,
+    departments,
+    totalPagesDepartment,
+    tabActive,
+    tags,
+    totalPagesTags,
   } = useLoaderData();
   const [, setSearchParams] = useSearchParams();
 
@@ -103,7 +126,7 @@ function Admin() {
     />
   );
 
-  const renderExample = () => (
+  const renderDepartments = () => (
     <AdminDepartments
       departments={departments}
       currentPage={currentPage}
@@ -112,14 +135,29 @@ function Admin() {
     />
   );
 
-  const Tabs = [{
-    id: 'Roles',
-    element: renderTableAdmins(),
-  },
-  {
-    id: 'Departments',
-    element: renderExample(),
-  }];
+  const renderTags = () => (
+    <AdminTags
+      tags={tags}
+      currentPage={currentPage}
+      totalPages={totalPagesTags}
+      size={size}
+    />
+  );
+
+  const Tabs = [
+    {
+      id: 'Roles',
+      element: renderTableAdmins(),
+    },
+    {
+      id: 'Departments',
+      element: renderDepartments(),
+    },
+    {
+      id: 'Tags',
+      element: renderTags(),
+    },
+  ];
   const onSelectHandler = (key) => {
     setSearchParams({ tab: key });
   };

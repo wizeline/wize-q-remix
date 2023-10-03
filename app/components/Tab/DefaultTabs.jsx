@@ -5,6 +5,7 @@ import { Tab, Tabs } from 'react-bootstrap';
 function DefaultTabs({ activeTab, TabsElements, onSelect }) {
   return (
     <Tabs
+      style={{ padding: '0px 16px' }}
       defaultActiveKey={activeTab}
       id="uncontrolled"
       fill
@@ -14,6 +15,7 @@ function DefaultTabs({ activeTab, TabsElements, onSelect }) {
         <Tab
           eventKey={id}
           title={id}
+          key={element}
         >
           {' '}
           {element}

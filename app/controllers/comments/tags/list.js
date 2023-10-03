@@ -1,3 +1,4 @@
+import { getPagination } from 'app/controllers/users/list';
 import { DEFAULT_TAGS_LIMIT } from 'app/utils/constants';
 import { db } from 'app/utils/db.server';
 
@@ -31,12 +32,16 @@ const buildWhere = (searchTerm, id) => {
 
 const listTags = async (params) => {
   const {
-    searchTerm, limit, offset, id,
+    searchTerm, limit, id, page,
   } = params;
+  const { offset } = getPagination(Number(page || 0), Number(limit));
+  const count = await db.commenttags.count({ where: buildWhere(searchTerm, parseInt(id, 10)) });
+  const totalPages = Math.floor(count / limit) + 1;
+
   const tags = await db.commenttags.findMany({
     where: buildWhere(searchTerm, parseInt(id, 10)),
-    take: limit || DEFAULT_TAGS_LIMIT,
-    skip: offset || 0,
+    take: parseInt(limit, 10) || DEFAULT_TAGS_LIMIT,
+    skip: (offset / limit) > totalPages ? 0 : offset,
   });
 
   let tagByID;
@@ -45,7 +50,7 @@ const listTags = async (params) => {
       where: { tag_id: parseInt(id, 10) },
     });
   }
-  return { tags: [tagByID, ...tags].filter((tag) => tag !== undefined) };
+  return { totalPages, tags: [tagByID, ...tags].filter((tag) => tag !== undefined) };
 };
 
 export default listTags;

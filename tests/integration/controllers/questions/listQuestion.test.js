@@ -213,7 +213,11 @@ describe('listQuestions', () => {
     });
 
     it('returns questions that have been answered', () => {
-      expect(response.length).toEqual(2);
+      expect(response.length).toEqual(4);
+    });
+
+    it('returns a question with a comment approved by an admin', () => {
+      expect(response[1].question_id).toEqual(8);
     });
   });
 
@@ -235,7 +239,7 @@ describe('listQuestions', () => {
     });
 
     it('returns questions that have not been answered', () => {
-      expect(response.length).toEqual(6);
+      expect(response.length).toEqual(4);
     });
   });
 

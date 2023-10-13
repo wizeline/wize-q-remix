@@ -25,6 +25,7 @@ import {
   LOCATION_ACCESS_VALUE,
   TEXT_BUTTON,
   DEFAULT_LOCATION_OPT,
+  SHOW_ONLY_OFFICIAL_ANSWER,
 } from 'app/utils/constants';
 import Button from 'app/components/Atoms/Button';
 import CustomDropdown from 'app/components/CustomDropdown';
@@ -233,6 +234,7 @@ function Filters(props) {
     selectedValue: selectedStatus.value,
     isHihlighted: selectedStatus !== DEFAULT_STATUS_OPT,
     accessValueName: STATUS_ACCESS_VALUE,
+    higlihNote: SHOW_ONLY_OFFICIAL_ANSWER,
   };
 
   return (

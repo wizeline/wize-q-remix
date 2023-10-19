@@ -76,6 +76,10 @@ resource "google_cloud_run_service" "app" {
           name = "API_KEY"
           value = var.api_key
         }
+        env {
+          name = "OPENAI_API_KEY"
+          value = var.openai_api_key
+        }
       }
 
     }

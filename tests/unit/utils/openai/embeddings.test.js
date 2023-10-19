@@ -4,9 +4,9 @@ const { requestEmbedding } = require('app/utils/openai');
 describe('requestEmbedding', () => {
   const prompts = ['Prompt 1', 'Prompt 2'];
 
-  it('returns undefined when openai instance is not defined', async () => {
+  it('returns empty object when openai instance is not defined', async () => {
     const results = await requestEmbedding(undefined, prompts);
-    expect(results).toBeUndefined();
+    expect(results).toEqual({});
   });
 
   it('calls openai with prompts and established model', async () => {

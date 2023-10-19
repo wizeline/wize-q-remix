@@ -6,7 +6,6 @@ const upsertQuestionEmbedding = async (questionId, answer) => {
   const { data } = await requestEmbedding(openai, [answer]);
   const embeddings = data?.map((obj) => obj.embedding);
   const embedding = (embeddings && embeddings.length > 0) ? embeddings[0] : null;
-  console.log(embedding);
 
   if (!embedding) {
     return undefined;

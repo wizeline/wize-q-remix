@@ -4,5 +4,6 @@
   "sendSlackOnQuestionCreation": true,
   "sendEmailOnQuestionReassigned": true,
   "sendManagersEmailReminder": true,
-  "sendEmployeesEmailReminder": true
+  "sendEmployeesEmailReminder": true,
+  "requestEmbeddingOnAnswer": true
 }

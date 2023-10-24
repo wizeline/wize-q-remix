@@ -6,10 +6,16 @@ import {
 } from 'app/utils/constants';
 import { updateAnswerSchema } from 'app/utils/validators/answer';
 import { db } from 'app/utils/db.server';
+import { requestEmbeddingOnAnswer } from 'app/config/flags.json';
+import upsertQuestionEmbedding from '../embeddings/create';
 
-const updateAnswer = async (query) => {
+const updateAnswer = async (query, config = {}) => {
   const { error, value } = updateAnswerSchema.validate(query);
   const { answer_id, answer_text } = value;
+  let allowEmbedding = requestEmbeddingOnAnswer;
+  if (config && config.allowEmbedding !== undefined) {
+    allowEmbedding = config.allowEmbedding;
+  }
 
   if (error) {
     return {
@@ -27,6 +33,11 @@ const updateAnswer = async (query) => {
       updatedat: moment.utc().format(DATE_TIME_FORMAT),
     },
   });
+
+  if (allowEmbedding) {
+  // Purposely we do not await so it is run on the background optimistically
+    upsertQuestionEmbedding(updatedAnswer.question_id, updatedAnswer.answer_text);
+  }
 
   return {
     successMessage: 'The answer has been updated succesfully.',

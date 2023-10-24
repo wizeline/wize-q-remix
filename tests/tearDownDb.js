@@ -31,6 +31,9 @@ const tearDownDb = async () => {
   await db.users.deleteMany();
   await db.$queryRaw`ALTER SEQUENCE "users_employee_id_seq" RESTART WITH 1;`;
 
+  await db.embeddings.deleteMany();
+  // await db.$queryRaw`ALTER SEQUENCE "embeddedings_id_seq" RESTART WITH 1;`;
+
   await db.$disconnect();
 };
 

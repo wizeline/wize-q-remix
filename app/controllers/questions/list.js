@@ -47,15 +47,33 @@ const buildWhereStatus = (status) => {
   switch (status) {
     case 'answered':
       filter = {
-        answers: {
-          some: {},
-        },
+        OR: [
+          {
+            answers: {
+              some: {},
+            },
+          },
+          {
+            comments: {
+              some: {
+                approvedby: {
+                  not: null,
+                },
+              },
+            },
+          },
+        ],
       };
       break;
     case 'not_answered':
       filter = {
         answers: {
           none: {},
+        },
+        comments: {
+          every: {
+            approvedby: null,
+          },
         },
       };
       break;
@@ -151,13 +169,15 @@ const buildWhere = ({
   status, search, location, department, dateRange, isAdmin,
 }) => {
   const where = {
-    ...buildWhereStatus(status),
-    ...buildWhereLocation(location),
-    ...buildWhereDepartment(department),
-    ...buildWhereDateRange(dateRange),
-    ...buildWhereSearch(search),
-    ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search),
-    ...buildWhereIsAdminSearch(isAdmin),
+    AND: [
+      { ...buildWhereStatus(status) },
+      { ...buildWhereLocation(location) },
+      { ...buildWhereDepartment(department) },
+      { ...buildWhereDateRange(dateRange) },
+      { ...buildWhereSearch(search) },
+      { ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search) },
+      { ...buildWhereIsAdminSearch(isAdmin) },
+    ],
   };
   return where;
 };
@@ -223,9 +243,24 @@ const listQuestions = async (params) => {
       },
       comments: {
         include: {
+          _count: {
+            select: {
+              commentvote: true,
+            },
+          },
           commentvote: true,
           approver: true,
           user: true,
+        },
+        where: {
+          OR: [
+            { commentvote: { some: {} } },
+            {
+              approvedby: {
+                not: null,
+              },
+            },
+          ],
         },
       },
       created_by: true,
@@ -273,15 +308,11 @@ const listQuestions = async (params) => {
       // TODO: Check for anonymous comments
     }
     const hasCommentApproved = question.comments.some((comment) => comment.approvedby !== null);
-    const CommentsComplete = question.comments.map((comment) => {
-      const value = comment.commentvote.reduce((prev, current) => prev + current.value, 0);
-
-      return {
-        ...comment,
-        votes: value,
-      };
-    });
-    const hasCommunityAnswer = CommentsComplete.some((comment) => comment.votes >= COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD);
+    const CommentsComplete = question.comments.map((comment) => ({
+      ...comment,
+      votes: comment._count.commentvote,
+    }));
+    const hasCommunityAnswer = CommentsComplete.some((comment) => comment._count.commentvote >= COMMUNITY_ANSWER_COMMENT_VOTES_THRESHOLD);
     delete question.comments;
 
     return {

@@ -263,6 +263,7 @@ export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
+export const SHOW_ONLY_OFFICIAL_ANSWER = '"Answered" option filters only admins answers (official and comment approved)';
 
 // Sockets & Reactivity
 export const FAKE_SOCKET = {

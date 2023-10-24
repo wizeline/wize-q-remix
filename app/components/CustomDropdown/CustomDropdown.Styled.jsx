@@ -111,3 +111,8 @@ export const CMenuItem = styled(MenuItem)`
     }
   }
 `;
+
+export const CDNote = styled.p`
+  font-size: 12px;
+  color:gray;
+`;

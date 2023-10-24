@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AiOutlineWarning } from 'react-icons/ai';
 import * as Styled from './CustomDropdown.Styled';
 
 function CustomDropdown(props) {
@@ -43,6 +44,12 @@ function CustomDropdown(props) {
       <Styled.CDropdown.Menu className={props.menuClass}>
         {props.elements.length > 0
           && renderElements(props.elements)}
+        { props.higlihNote && (
+        <Styled.CDNote>
+          <AiOutlineWarning />
+          {props.higlihNote}
+        </Styled.CDNote>
+        )}
       </Styled.CDropdown.Menu>
     </Styled.CDropdown>
   );
@@ -64,6 +71,7 @@ CustomDropdown.propTypes = {
   showSelected: PropTypes.bool,
   accessValueName: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  higlihNote: PropTypes.string,
 };
 
 CustomDropdown.defaultProps = {
@@ -76,6 +84,7 @@ CustomDropdown.defaultProps = {
   isHighlighted: false,
   showSelected: true,
   disabled: false,
+  higlihNote: null,
 };
 
 export default CustomDropdown;

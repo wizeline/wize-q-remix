@@ -3,7 +3,7 @@ import { instantiateOpenAi, requestEmbedding } from 'app/utils/openai';
 
 const upsertQuestionEmbedding = async (questionId, answer) => {
   const openai = instantiateOpenAi();
-  const { data } = await requestEmbedding(openai, [answer]);
+  const { data } = (await requestEmbedding(openai, [answer])) || {};
   const embeddings = data?.map((obj) => obj.embedding);
   const embedding = (embeddings && embeddings.length > 0) ? embeddings[0] : null;
 

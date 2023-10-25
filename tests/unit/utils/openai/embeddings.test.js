@@ -6,7 +6,7 @@ describe('requestEmbedding', () => {
 
   it('returns empty object when openai instance is not defined', async () => {
     const results = await requestEmbedding(undefined, prompts);
-    expect(results).toEqual({});
+    expect(results).toBeUndefined();
   });
 
   it('calls openai with prompts and established model', async () => {

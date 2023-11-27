@@ -31,6 +31,7 @@ import CommentInputText from 'app/components/CommentInput/CommentInputText';
 import ACTIONS from 'app/utils/actions';
 import useUser from 'app/utils/hooks/useUser';
 import { FaTags } from 'react-icons/fa';
+import { taggingComments } from 'app/config/flags.json';
 import TagModal from '../Modals/TagsModal/TagModal';
 
 function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
@@ -237,9 +238,12 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   };
 
   const renderTagsOption = () => (
-    <div>
-      <FaTags color="green" size="20px" />
-    </div>
+    taggingComments
+        && (
+        <div>
+          <FaTags color="green" size="20px" />
+        </div>
+        )
   );
 
   const {
@@ -319,7 +323,7 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
             </DateContainer>
           </QuestionerResponderInfo>
           <Styled.QuestionCommentOptionsWrapper>
-            {tagId && <Styled.Tag>{tagText}</Styled.Tag>}
+            {(taggingComments && tagId) && <Styled.Tag>{tagText}</Styled.Tag>}
             {props.isAdmin && !props.hasAnswer ? (
               <Styled.CommentAsAnswerToolTip
                 onClick={() => {

@@ -100,6 +100,10 @@ variable "api_key" {
   type = string
 }
 
+variable "openai_api_key" {
+  type = string
+}
+
 # variable "db_connection_name" {
 #   type = string
 # }

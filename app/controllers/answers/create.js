@@ -9,8 +9,15 @@ import sanitizeHTML from 'app/utils/strings/sanitizer';
 import { db } from 'app/utils/db.server';
 import slack from 'app/utils/slack/slackNotifications';
 import { stripNewLines } from 'app/utils/strings/stringUtils';
+import { requestEmbeddingOnAnswer } from 'app/config/flags.json';
+import upsertQuestionEmbedding from '../embeddings/create';
 
-const createAnswer = async (body) => {
+const createAnswer = async (body, config = {}) => {
+  let allowEmbedding = requestEmbeddingOnAnswer;
+  if (config && config.allowEmbedding !== undefined) {
+    allowEmbedding = config.allowEmbedding;
+  }
+
   const { error, value } = createAnswerSchema.validate(body);
 
   if (error) {
@@ -50,6 +57,11 @@ const createAnswer = async (body) => {
     questionBody: stripNewLines(relatedQuestion.question),
     answerBody: answer.answer_text,
   });
+
+  if (allowEmbedding) {
+  // Purposely we do not await so it is run on the background optimistically
+    upsertQuestionEmbedding(relatedQuestion.answered_question_id, answer.answer_text);
+  }
 
   return {
     successMessage: 'The answer was submitted successfully.',

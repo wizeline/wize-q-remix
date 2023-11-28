@@ -88,3 +88,7 @@ data "google_secret_manager_secret_version" "Email_service" {
 data "google_secret_manager_secret_version" "Api_key" {
   secret = "${var.secret_prefix}_REMIX_API_KEY"
 }
+
+data "google_secret_manager_secret_version" "Openai_api_key" {
+  secret = "${var.secret_prefix}_REMIX_OPENAI_API_KEY"
+}

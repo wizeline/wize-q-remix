@@ -26,6 +26,7 @@ module "cloud_run" {
   email_auth_password = data.google_secret_manager_secret_version.Email_auth_password.secret_data
   email_service       = data.google_secret_manager_secret_version.Email_service.secret_data
   api_key             = data.google_secret_manager_secret_version.Api_key.secret_data
+  openai_api_key      = data.google_secret_manager_secret_version.Openai_api_key.secret_data
   // db_host            = module.cloud_sql.db_host
   // db_connection_name = module.cloud_sql.db_connection_name
 }

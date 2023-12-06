@@ -360,8 +360,8 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
         </Styled.QuestionCommentMetadata>
         <Styled.QuestionCommentText isEditing={isEditing}>
           {!isEditing ? (
-            <Styled.QuestionCommentIsTagged isTagged={!seeComment}>
-              { tagId && (
+            <Styled.QuestionCommentIsTagged isTagged={taggingComments && !seeComment}>
+              { (taggingComments && tagId) && (
               <Styled.ButtonSeeComment
                 onMouseDown={() => setSeeComment(true)}
                 onMouseUp={() => setSeeComment(false)}

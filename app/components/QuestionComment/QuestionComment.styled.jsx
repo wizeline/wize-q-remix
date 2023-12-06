@@ -94,6 +94,21 @@ export const QuestionCommentMarkdown = styled(Markdown)`
   }
 `;
 
+export const QuestionCommentIsTagged = styled.div`
+  display: flex;
+
+  ${(props) => (props.isTagged && `
+       p { filter: blur(3px);
+        -webkit-filter: blur(3px);
+       }
+    `)};  
+`;
+
+export const ButtonSeeComment = styled.button`
+ background: transparent;
+ border: none;
+`;
+
 export const QuestionCommentOptionsWrapper = styled.div`
   align-items: center;
   display: flex;
@@ -258,8 +273,8 @@ export const ApproverName = styled.span`
 `;
 
 export const Tag = styled.div`
-  border: 1px solid #B4B4B4;
+  border: 1px solid #cc3300;
   padding: 8px;
   border-radius: 8px;
-  color: #B4B4B4;
+  color: #cc3300;
 `;

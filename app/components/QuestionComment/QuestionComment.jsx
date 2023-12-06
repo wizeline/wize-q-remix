@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable react/no-children-prop */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   BsThreeDotsVertical, BsCheckCircle, BsArrowDownCircle, BsArrowUpCircle,
 } from 'react-icons/bs';
@@ -30,7 +30,7 @@ import MarkdownLinkRenderer from 'app/components/MarkdownLinkRenderer';
 import CommentInputText from 'app/components/CommentInput/CommentInputText';
 import ACTIONS from 'app/utils/actions';
 import useUser from 'app/utils/hooks/useUser';
-import { FaTags } from 'react-icons/fa';
+import { FaTags, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { taggingComments } from 'app/config/flags.json';
 import TagModal from '../Modals/TagsModal/TagModal';
 
@@ -55,6 +55,9 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
   );
   const [searchParams] = useSearchParams();
   const isAnswer = props.hasCommentAsAnswer;
+  const [seeComment, setSeeComment] = useState(commentData.tagId === null);
+
+  useEffect(() => { setSeeComment(commentData.tagId === null); }, [commentData.tagId]);
 
   const {
     state: showCommentOptionsState,
@@ -357,10 +360,20 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
         </Styled.QuestionCommentMetadata>
         <Styled.QuestionCommentText isEditing={isEditing}>
           {!isEditing ? (
-            <Styled.QuestionCommentMarkdown
-              children={comment}
-              components={{ link: MarkdownLinkRenderer }}
-            />
+            <Styled.QuestionCommentIsTagged isTagged={!seeComment}>
+              { tagId && (
+              <Styled.ButtonSeeComment
+                onMouseDown={() => setSeeComment(true)}
+                onMouseUp={() => setSeeComment(false)}
+              >
+                {seeComment ? <FaEyeSlash /> : <FaEye />}
+              </Styled.ButtonSeeComment>
+              )}
+              <Styled.QuestionCommentMarkdown
+                children={comment}
+                components={{ link: MarkdownLinkRenderer }}
+              />
+            </Styled.QuestionCommentIsTagged>
           ) : (
             <Styled.QuestionCommentEdit>
               <CommentInputText

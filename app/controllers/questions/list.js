@@ -175,7 +175,7 @@ const buildWhere = ({
       { ...buildWhereDepartment(department) },
       { ...buildWhereDateRange(dateRange) },
       { ...buildWhereSearch(search) },
-      // { ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search) },
+      { ...buildWhereLastXMonths(DEFAULT_MONTHS, dateRange, search) },
       { ...buildWhereIsAdminSearch(isAdmin) },
     ],
   };

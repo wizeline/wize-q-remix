@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
 import { RiArrowRightSFill } from 'react-icons/ri';
-import { requireEmployeeAssigned } from 'app/config/flags.json';
+import { requireEmployeeAssigned, postAnonymousQuestions } from 'app/config/flags.json';
 
 import {
   DEFAULT_LOCATION,
@@ -321,6 +321,7 @@ function QuestionForm({
             onInputChange={onInputChange}
             submitElement={(
               <Styled.Submit disabled={askBtnClass}>
+                { postAnonymousQuestions && (
                 <p style={{ float: 'left' }}>
                   <span>Ask anonymously</span>
                   <Switch
@@ -328,6 +329,7 @@ function QuestionForm({
                     onChange={onAnonymousChange}
                   />
                 </p>
+                )}
                 <InputCounter
                   currentLength={getQuestionLength(state.inputValue)}
                   maxLength={MAXIMUM_QUESTION_LENGTH}

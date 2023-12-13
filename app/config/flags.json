@@ -6,5 +6,6 @@
   "sendManagersEmailReminder": true,
   "sendEmployeesEmailReminder": true,
   "requestEmbeddingOnAnswer": true,
+  "taggingComments": true,
   "postAnonymousQuestions": false
 }

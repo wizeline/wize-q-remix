@@ -28,8 +28,6 @@ function QuestionCommentList(props) {
   const { isAdmin, hasAnswer } = props;
   const [, setState] = useState(initialState);
 
-  // const handleDeleteCommentSuccess = () => fetchComments();
-
   const renderCommentsList = (_comments) => {
     const [
       communityAnswerCommentId,
@@ -39,7 +37,6 @@ function QuestionCommentList(props) {
       <QuestionComment
         {...comment}
         key={comment.id}
-       // onSubmitSuccess={handleDeleteCommentSuccess}
         commentData={comment}
         isAdmin={isAdmin}
         hasCommentAsAnswer={comments.some((_comment) => _comment.approvedby !== null)}

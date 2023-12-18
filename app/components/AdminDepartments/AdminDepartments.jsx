@@ -8,7 +8,7 @@ import { usePagination, DOTS } from 'app/utils/hooks/usePagination';
 import { TbEdit, TbUsers } from 'react-icons/tb';
 
 function AdminDepartments({
-  departments, currentPage, totalPages, isLoading, size,
+  departments, currentPage, totalPages, size,
 }) {
   const quantityRef = useRef();
   const [showModal, setShowModal] = useState(false);
@@ -167,30 +167,28 @@ function AdminDepartments({
           </tbody>
         </Styled.DepartmentTable>
 
-        {!isLoading && (
-          <Styled.PaginationContainer>
-            <div>
-              Page
-              {' '}
-              {currentPage}
-              {' '}
-              of
-              {' '}
-              {totalPages}
-            </div>
+        <Styled.PaginationContainer>
+          <div>
+            Page
+            {' '}
+            {currentPage}
+            {' '}
+            of
+            {' '}
+            {totalPages}
+          </div>
 
-            <Styled.TablePagination boundarylinks="true">
-              {currentPage > 1 && (
-                <Styled.TablePagination.Prev onClick={prevPageHandler} />
-              )}
-              {paginationItems}
+          <Styled.TablePagination boundarylinks="true">
+            {currentPage > 1 && (
+            <Styled.TablePagination.Prev onClick={prevPageHandler} />
+            )}
+            {paginationItems}
 
-              {currentPage < totalPages && (
-                <Styled.TablePagination.Next onClick={nextPageHandler} />
-              )}
-            </Styled.TablePagination>
-          </Styled.PaginationContainer>
-        )}
+            {currentPage < totalPages && (
+            <Styled.TablePagination.Next onClick={nextPageHandler} />
+            )}
+          </Styled.TablePagination>
+        </Styled.PaginationContainer>
 
         {renderModal()}
       </Styled.TableContainer>
@@ -202,7 +200,6 @@ AdminDepartments.propTypes = {
   departments: PropTypes.arrayOf(PropTypes.shape()),
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   size: PropTypes.number.isRequired,
 };
 

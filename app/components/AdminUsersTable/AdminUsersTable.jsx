@@ -1,16 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import logomarkX1 from 'app/images/logomark_medium.png';
 import { useActionData, useSearchParams } from '@remix-run/react';
 import { usePagination, DOTS } from 'app/utils/hooks/usePagination';
 import Button from 'app/components/Atoms/Button/Button';
-import Loader from 'app/components/Loader';
-import { PRIMARY_BUTTON, LSPIN_MEDIUM } from 'app/utils/constants';
+import { PRIMARY_BUTTON } from 'app/utils/constants';
 import * as Styled from 'app/components/AdminUsersTable/AdminUsersTable.Styled';
 import EditUserModal from 'app/components/Modals/EditUserModal/EditUserModal';
 
 function AdminUsersTable({
-  users, currentPage, totalPages, isLoading, size,
+  users, currentPage, totalPages, size,
 }) {
   const [modal, setModal] = useState(false);
   const [currentUser, setCurrenUser] = useState({});
@@ -101,7 +99,7 @@ function AdminUsersTable({
     });
   };
 
-  if (!users.length && !isLoading) {
+  if (!users.length) {
     return (
       <Styled.Alert>
         <span className="message">There are no results to show</span>
@@ -120,69 +118,58 @@ function AdminUsersTable({
           <option value="20">20</option>
           <option value="25">25</option>
         </select>
-        {isLoading ? (
+        <Styled.UserTable>
+          {renderHeader()}
+          <tbody>
+            {users.map((user) => (
+              <Styled.RowTable key={user.employee_id}>
+                <td>
+                  <div>
+                    <img src={user.profile_picture} alt="" />
+                    {user.full_name}
+                  </div>
+                </td>
+                <td className="table-desktop-view">{user.email}</td>
+                <td className="table-desktop-view">{user.job_title}</td>
+                <td className="table-desktop-view">
+                  Employee
+                  {user.is_admin && ', Admin'}
+                </td>
+                <td>
+                  <Button
+                    category={PRIMARY_BUTTON}
+                    onClick={() => handleModal(user)}
+                    className="row-btn"
+                  >
+                    Edit roles
+                  </Button>
+                </td>
+              </Styled.RowTable>
+            ))}
+          </tbody>
+        </Styled.UserTable>
+        <Styled.PaginationContainer>
           <div>
-            <Styled.UserTable>
-              {renderHeader()}
-            </Styled.UserTable>
-            <Loader src={logomarkX1} size={LSPIN_MEDIUM} />
+            Page
+            {' '}
+            {currentPage}
+            {' '}
+            of
+            {' '}
+            {totalPages}
           </div>
-        ) : (
-          <Styled.UserTable>
-            {renderHeader()}
-            <tbody>
-              {users.map((user) => (
-                <Styled.RowTable key={user.employee_id}>
-                  <td>
-                    <div>
-                      <img src={user.profile_picture} alt="" />
-                      {user.full_name}
-                    </div>
-                  </td>
-                  <td className="table-desktop-view">{user.email}</td>
-                  <td className="table-desktop-view">{user.job_title}</td>
-                  <td className="table-desktop-view">
-                    Employee
-                    {user.is_admin && ', Admin'}
-                  </td>
-                  <td>
-                    <Button
-                      category={PRIMARY_BUTTON}
-                      onClick={() => handleModal(user)}
-                      className="row-btn"
-                    >
-                      Edit roles
-                    </Button>
-                  </td>
-                </Styled.RowTable>
-              ))}
-            </tbody>
-          </Styled.UserTable>
-        )}
-        {!isLoading && (
-          <Styled.PaginationContainer>
-            <div>
-              Page
-              {' '}
-              {currentPage}
-              {' '}
-              of
-              {' '}
-              {totalPages}
-            </div>
 
-            <Styled.TablePagination boundarylinks="true">
-              {currentPage > 1 && (
-                <Styled.TablePagination.Prev onClick={prevPageHandler} />
-              )}
-              {paginationItems}
+          <Styled.TablePagination boundarylinks="true">
+            {currentPage > 1 && (
+            <Styled.TablePagination.Prev onClick={prevPageHandler} />
+            )}
+            {paginationItems}
 
-              {currentPage < totalPages && (
-                <Styled.TablePagination.Next onClick={nextPageHandler} />
-              )}
-            </Styled.TablePagination>
-          </Styled.PaginationContainer>
-        )}
+            {currentPage < totalPages && (
+            <Styled.TablePagination.Next onClick={nextPageHandler} />
+            )}
+          </Styled.TablePagination>
+        </Styled.PaginationContainer>
         { modal ? (
           <EditUserModal
             user={currentUser}
@@ -200,7 +187,6 @@ AdminUsersTable.propTypes = {
   ),
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
   size: PropTypes.number.isRequired,
 };
 

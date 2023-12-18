@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { CLOSE_BUTTON } from 'app/utils/constants';
 import * as Styled from 'app/components/Atoms/Button/Button.Styled';
+import { MdClose } from 'react-icons/md';
 
 function Button({
   id,
@@ -45,7 +46,7 @@ Button.propTypes = {
   value: PropTypes.string,
   form: PropTypes.string,
   disabled: PropTypes.bool,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.array, PropTypes.objectOf(MdClose)]),
 };
 
 Button.defaultProps = {
@@ -57,7 +58,7 @@ Button.defaultProps = {
   value: '',
   form: null,
   disabled: false,
-  children: '',
+  children: undefined,
 };
 
 export default Button;

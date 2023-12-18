@@ -94,7 +94,6 @@ function AnswerRow({
 AnswerRow.propTypes = {
   answer_text: PropTypes.string.isRequired,
   user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
     job_title: PropTypes.string,
@@ -110,7 +109,6 @@ AnswerRow.propTypes = {
   isCommunityAnswer: PropTypes.bool.isRequired,
   isCommentApproved: PropTypes.bool.isRequired,
   approver: PropTypes.shape({
-    email: PropTypes.string.isRequired,
     full_name: PropTypes.string.isRequired,
     profile_picture: PropTypes.string.isRequired,
     job_title: PropTypes.string,
@@ -124,7 +122,7 @@ AnswerRow.defaultProps = {
   isPreview: false,
   isQuestionModalOpen: false,
   isFromList: true,
-  approver: {},
+  approver: undefined,
   answer_date: '',
   answered_at: '',
 };

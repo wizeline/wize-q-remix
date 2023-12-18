@@ -42,7 +42,7 @@ function EditUserModal({ user, onClose }) {
               </S.TableRow>
               <S.TableRow>
                 <li>Job Title</li>
-                <li><input name="job_title" type="text" value={uJobTitle} onChange={(e) => { setUJobTitle(e.target.value); }} /></li>
+                <li><input name="job_title" type="text" value={uJobTitle ?? ''} onChange={(e) => { setUJobTitle(e.target.value); }} /></li>
               </S.TableRow>
               <S.TableRow>
                 <li>Role Title</li>

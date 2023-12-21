@@ -2,10 +2,11 @@
   "requireEmployeeAssigned": false,
   "sendEmailToManagerOnQuestionCreation": true,
   "sendSlackOnQuestionCreation": true,
+	"sendSlackOnAnswerCreation": true,
   "sendEmailOnQuestionReassigned": true,
   "sendManagersEmailReminder": true,
   "sendEmployeesEmailReminder": true,
   "requestEmbeddingOnAnswer": true,
   "taggingComments": true,
-  "postAnonymousQuestions": false
+  "postAnonymousQuestions": true 
 }

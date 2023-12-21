@@ -143,6 +143,7 @@ model questions {
   num_votes                    Int?           @default(0)
   is_pinned                    Boolean        @default(false)
   is_enabled                   Boolean        @default(true)
+  is_public                    Boolean        @default(true)
   locations                    locations?     @relation(fields: [location], references: [code], onDelete: NoAction, onUpdate: NoAction, map: "questions_ibfk_1")
   assigned_to                  users?         @relation("assignedquestion", fields: [assigned_to_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "assigned_to")
   created_by                   users?         @relation("createdquestion", fields: [created_by_employee_id], references: [employee_id], onDelete: NoAction, onUpdate: NoAction, map: "created_by")

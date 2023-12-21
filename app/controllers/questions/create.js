@@ -34,6 +34,7 @@ const createQuestion = async (
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
+      is_public: !value.is_anonymous,
     },
   });
 
@@ -51,9 +52,10 @@ const createQuestion = async (
   }
 
   if (config.sendSlackOnQuestionCreation) {
-    await slack.createQuestionNotification({
+    slack.createQuestionNotification({
       questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
       questionId: created.question_id,
+      is_public: created.is_public,
     });
   }
 

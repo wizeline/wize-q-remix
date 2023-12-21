@@ -34,6 +34,7 @@ import listDepartments from 'app/controllers/departments/list';
 import deleteNPS from 'app/controllers/answers/nps/delete';
 import modifyEnabledValue from 'app/controllers/questions/modifyEnableStatus';
 import taggingComment from 'app/controllers/comments/tags/tagging.js';
+import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
@@ -181,6 +182,10 @@ export const action = async ({ request }) => {
         commentId,
         taggedBy: tagId ? user.employee_id.toString() : null,
       });
+      break;
+    case ACTIONS.PUBLISH_QUESTION:
+      questionId = parseInt(formData.get('questionId'), 10);
+      response = await publishQuestion(questionId);
       break;
     default:
       break;

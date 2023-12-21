@@ -17,6 +17,15 @@ describe('createQuestion', () => {
     emailHandlerSpy.mockClear();
   });
 
+  const sampleQuestion = {
+    question: '_This_ is a **sample** ~~question~~',
+    created_by_employee_id: 1,
+    accessToken: randomAccessToken(),
+    is_anonymous: false,
+    assigned_department: 3,
+    location: 'BNK',
+  };
+
   const sampleAnonQuestion = {
     question: '_This_ is a **sample** ~~question~~',
     created_by_employee_id: 1,
@@ -46,20 +55,12 @@ describe('createQuestion', () => {
   });
 
   it('creates question with valid data as user', async () => {
-    const question = {
-      question: '_This_ is a **sample** ~~question~~',
-      created_by_employee_id: 1,
-      accessToken: randomAccessToken(),
-      is_anonymous: false,
-      assigned_department: 3,
-      location: 'BNK',
-    };
-
-    const response = await createQuestion(question);
+    const response = await createQuestion(sampleQuestion);
 
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
     expect(response.question).toBeDefined();
+    expect(response.question.is_public).toBe(true);
     expect(response.question.user_hash).toBe('');
 
     expect(dbCreateSpy).toHaveBeenCalled();
@@ -72,19 +73,35 @@ describe('createQuestion', () => {
     expect(response).toBeDefined();
     expect(response.successMessage).toBeDefined();
     expect(response.question).toBeDefined();
+    expect(response.question.is_public).toBe(false);
     expect(response.question.user_hash).not.toBe('');
 
     expect(dbCreateSpy).toHaveBeenCalled();
     expect(dbUpdateSpy).toHaveBeenCalled();
   });
 
-  it('sends slack notification on question created if flag is active', async () => {
+  it('sends slack notification to admin slack on anon question created if flag is active', async () => {
     const response = await createQuestion(
       sampleAnonQuestion,
       { sendSlackOnQuestionCreation: true },
     );
     expect(response).toBeDefined();
     expect(slackSpy).toHaveBeenCalledTimes(1);
+    expect(slackSpy).toHaveBeenCalledWith(expect.objectContaining({
+      is_public: false,
+    }));
+  });
+
+  it('sends slack notification to slack on question created if flag is active', async () => {
+    const response = await createQuestion(
+      sampleQuestion,
+      { sendSlackOnQuestionCreation: true },
+    );
+    expect(response).toBeDefined();
+    expect(slackSpy).toHaveBeenCalledTimes(1);
+    expect(slackSpy).toHaveBeenCalledWith(expect.objectContaining({
+      is_public: true,
+    }));
   });
 
   it('does not send slack notification on question created if flag is not active', async () => {

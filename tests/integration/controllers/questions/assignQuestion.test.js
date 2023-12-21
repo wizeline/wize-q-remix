@@ -45,7 +45,7 @@ describe('assignQuestion', () => {
 
   it('returns an error when the question is not found', async () => {
     const errPayload = {
-      question_id: 11,
+      question_id: 999999,
       assigned_department: 4,
       assigned_to_employee_id: 4,
     };

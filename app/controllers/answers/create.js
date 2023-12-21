@@ -9,10 +9,12 @@ import sanitizeHTML from 'app/utils/strings/sanitizer';
 import { db } from 'app/utils/db.server';
 import slack from 'app/utils/slack/slackNotifications';
 import { stripNewLines } from 'app/utils/strings/stringUtils';
-import { requestEmbeddingOnAnswer } from 'app/config/flags.json';
+import { requestEmbeddingOnAnswer, sendSlackOnAnswerCreation } from 'app/config/flags.json';
 import upsertQuestionEmbedding from '../embeddings/create';
 
-const createAnswer = async (body, config = {}) => {
+const createAnswer = async (body, config = {
+  sendSlackOnAnswerCreation,
+}) => {
   let allowEmbedding = requestEmbeddingOnAnswer;
   if (config && config.allowEmbedding !== undefined) {
     allowEmbedding = config.allowEmbedding;
@@ -52,11 +54,13 @@ const createAnswer = async (body, config = {}) => {
     },
   });
 
-  await slack.createAnswerNotification({
-    questionId: relatedQuestion.question_id,
-    questionBody: stripNewLines(relatedQuestion.question),
-    answerBody: answer.answer_text,
-  });
+  if (config.sendSlackOnAnswerCreation && relatedQuestion.is_public) {
+    slack.createAnswerNotification({
+      questionId: relatedQuestion.question_id,
+      questionBody: stripNewLines(relatedQuestion.question),
+      answerBody: answer.answer_text,
+    });
+  }
 
   if (allowEmbedding) {
   // Purposely we do not await so it is run on the background optimistically

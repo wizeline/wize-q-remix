@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
 import { useRef } from 'react';
+import { MdLockOpen } from 'react-icons/md';
 import { formatCollapsingText } from 'app/utils/strings/stringOperations';
 import { renderDepartment, hasJobTitle } from 'app/utils/questions/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';
@@ -14,8 +15,7 @@ import { getDateData } from 'app/utils/dates/timeOperations';
 import ACTIONS from 'app/utils/actions';
 import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 import Switch from 'app/components/Switch';
-import { MdLockOpen } from 'react-icons/md';
-import Button from '../Atoms/Button';
+import Button from 'app/components/Atoms/Button';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {

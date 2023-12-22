@@ -328,6 +328,7 @@ export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vot
 export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';
 export const DELETE_COMMENT_ERROR_MESSAGE = 'Error trying to delete the comment';
 export const ENABLE_DISABLE_ERROR_MESSAGE = 'Error trying to enable/disable this question';
+export const PUBLISH_QUESTION_ERROR_MESSAGE = 'Error trying to publish the question.';
 
 // Database string limit constant. It should hold about one page worth of text.
 export const MINIMUM_COMMENT_LENGTH = 2;

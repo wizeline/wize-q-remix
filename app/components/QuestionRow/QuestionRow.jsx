@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useLoaderData, useSubmit, useSearchParams } from '@remix-run/react';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
+import { MdLockOpen } from 'react-icons/md';
 import { formatCollapsingText } from 'app/utils/strings/stringOperations';
 import { renderDepartment, hasJobTitle } from 'app/utils/questions/questionUtils';
 import { COLLAPSED_QUESTION_MIN_LENGTH, NOT_ASSIGNED_DEPARTMENT_ID } from 'app/utils/constants';
@@ -14,6 +15,7 @@ import { getDateData } from 'app/utils/dates/timeOperations';
 import ACTIONS from 'app/utils/actions';
 import { CircleIcon, DateContainer } from 'app/components/QuestionResponderInfo/QuestionResponderInfo.Styled';
 import Switch from 'app/components/Switch';
+import Button from 'app/components/Atoms/Button';
 
 const renderLocation = (location, locations) => {
   if (locations.length === 0) {
@@ -40,6 +42,8 @@ function QuestionRow(props) {
   const isUpdated = false;
   const pinForm = useRef();
   const enabledForm = useRef();
+  const publishForm = useRef();
+
   const submit = useSubmit();
 
   const [searchParams] = useSearchParams();
@@ -59,6 +63,26 @@ function QuestionRow(props) {
     data.set('action', ACTIONS.ENABLED_ACTION);
     data.set('questionId', question.question_id);
     data.set('enabledValue', !question.is_enabled);
+
+    submit(data, { method: 'post', action: url, replace: true });
+  };
+
+  const publishQuestion = () => {
+    let url = '/?index';
+    const { question_id: id } = question;
+
+    if (!isFromList) {
+      url = `/questions/${id}`;
+      const urlSearchParam = searchParams.get('order');
+      url = urlSearchParam !== null ? `${url}?order=${urlSearchParam}` : url;
+    } else {
+      searchParams.forEach((value, key) => {
+        url += value ? `&${key}=${value}` : '';
+      });
+    }
+    const data = new FormData(publishForm.current);
+    data.set('action', ACTIONS.PUBLISH_QUESTION);
+    data.set('questionId', id);
 
     submit(data, { method: 'post', action: url, replace: true });
   };
@@ -146,7 +170,20 @@ function QuestionRow(props) {
                 onChange={handleStatusClick}
               />
             </Styled.DisableControls>
+          )}
+          {(!question.is_public && question.is_enabled) && (
+          <Styled.DisableControls>
+            <Styled.ButtonTooltipMessage>
+              Click to publish this question.
+            </Styled.ButtonTooltipMessage>
+            <Button
+              id={`question-publish-${question.question_id}`}
+              onClick={publishQuestion}
+            >
+              <MdLockOpen color="var(--toastify-color-progress-success)" size="2em" />
+            </Button>
 
+          </Styled.DisableControls>
           )}
         </Styled.RightWrapper>
 
@@ -224,6 +261,7 @@ QuestionRow.propTypes = {
       canUndoNps: PropTypes.bool,
     }),
     mostUpvoted: PropTypes.bool,
+    is_public: PropTypes.bool,
   }).isRequired,
   isQuestionModalOpen: PropTypes.bool.isRequired,
   hasAnswer: PropTypes.bool,

@@ -157,12 +157,13 @@ const buildWhereLastXMonths = (numMonths, dateRange, search) => {
   }
   return {};
 };
+
 const buildWhereIsAdminSearch = (isAdmin) => {
   if (isAdmin) {
     return {};
   }
 
-  return { is_enabled: true };
+  return { is_enabled: true, is_public: true };
 };
 
 const buildWhere = ({

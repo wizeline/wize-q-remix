@@ -20,7 +20,7 @@ const slack = slackNotify(process.env.SLACK_WEBHOOK_URL);
 const slackAdmins = slackNotify(process.env.SLACK_WEBHOOK_URL_ADMIN);
 
 async function send(options) {
-  const { icon_emoji, attachments } = options;
+  const { icon_emoji, attachments, is_public } = options;
 
   const defaults = {
     icon_emoji,
@@ -36,7 +36,7 @@ async function send(options) {
       },
     ],
   };
-  if (process.env.SLACK_WEBHOOK_URL) await slack.send(defaults);
+  if (process.env.SLACK_WEBHOOK_URL && is_public) await slack.send(defaults);
   if (process.env.SLACK_WEBHOOK_URL_ADMIN) await slackAdmins.send(defaults);
 }
 
@@ -88,7 +88,7 @@ async function createAnswerNotification({ questionId, questionBody, answerBody }
   await send(options);
 }
 
-async function createQuestionNotification({ questionBody, questionId }) {
+async function createQuestionNotification({ questionBody, questionId, is_public }) {
   const url = buildUrl(questionId);
 
   let footerBody = SLACK_QUESTION_DETAILS;
@@ -114,6 +114,7 @@ async function createQuestionNotification({ questionBody, questionId }) {
       color: SLACK_QUESTION_COLOR,
       pretext: SLACK_QUESTION_HEADER,
     },
+    is_public,
   };
 
   await send(options);

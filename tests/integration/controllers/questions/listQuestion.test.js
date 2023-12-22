@@ -448,5 +448,35 @@ describe('listQuestions', () => {
     it('shows can_edit atrribute as true on questions that provided user has voted', () => {
       expect(response.some((question) => question.can_edit === true)).toBeTruthy();
     });
+
+    it('shows only public questions', () => {
+      expect(response.every((question) => question.is_public === true)).toBeTruthy();
+    });
+  });
+
+  describe('on list call with provided admin user shows private questions', () => {
+    let response;
+
+    beforeAll(async () => {
+      response = await listQuestions({
+        user: {
+          id: 'google-oauth2|111766391199351256706',
+          email: 'patrick.shu@wizeline.com',
+          is_admin: true,
+        },
+      });
+    });
+
+    it('calls database', () => {
+      expect(dbListSpy).toHaveBeenCalled();
+    });
+
+    it('returns results defined', () => {
+      expect(response).toBeDefined();
+    });
+
+    it('is_public atrribute as false in some questions', () => {
+      expect(response.some((question) => question.is_public === false)).toBeTruthy();
+    });
   });
 });

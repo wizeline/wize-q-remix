@@ -8,5 +8,6 @@
   "sendEmployeesEmailReminder": true,
   "requestEmbeddingOnAnswer": true,
   "taggingComments": true,
-  "postAnonymousQuestions": true 
+  "postAnonymousQuestions": true,
+	"privateAnonQuestions": true
 }

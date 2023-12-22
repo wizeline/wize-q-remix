@@ -9,12 +9,16 @@ import { SLACK_QUESTION_LIMIT } from 'app/utils/slack/slackConstants';
 import { EMAILS } from 'app/utils/emails/emailConstants';
 import { getQuestionDetailUrl } from 'app/utils/urls/urlUtils';
 import { sendEmail } from 'app/utils/emails/emailHandler';
-import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation } from 'app/config/flags.json';
+import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation, privateAnonQuestions } from 'app/config/flags.json';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
 const createQuestion = async (
   body,
-  config = { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation },
+  config = {
+    sendEmailToManagerOnQuestionCreation,
+    sendSlackOnQuestionCreation,
+    privateAnonQuestions,
+  },
 ) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
@@ -29,12 +33,19 @@ const createQuestion = async (
   }
 
   const { accessToken, ...rest } = value;
+  let isPublic;
+
+  if (privateAnonQuestions) {
+    isPublic = !value.is_anonymous;
+  } else {
+    isPublic = true;
+  }
 
   let created = await db.questions.create({
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
-      is_public: !value.is_anonymous,
+      is_public: isPublic,
     },
   });
 

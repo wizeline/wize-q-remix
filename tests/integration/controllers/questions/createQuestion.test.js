@@ -80,6 +80,15 @@ describe('createQuestion', () => {
     expect(dbUpdateSpy).toHaveBeenCalled();
   });
 
+  it('sets is_public to true if flag is not active', async () => {
+    const response = await createQuestion(sampleQuestion, { privateAnonQuestions: true });
+
+    expect(response).toBeDefined();
+    expect(response.successMessage).toBeDefined();
+    expect(response.question).toBeDefined();
+    expect(response.question.is_public).toBe(true);
+  });
+
   it('sends slack notification to admin slack on anon question created if flag is active', async () => {
     const response = await createQuestion(
       sampleAnonQuestion,
@@ -96,6 +105,7 @@ describe('createQuestion', () => {
     const response = await createQuestion(
       sampleQuestion,
       { sendSlackOnQuestionCreation: true },
+      { privateAnonQuestions: true },
     );
     expect(response).toBeDefined();
     expect(slackSpy).toHaveBeenCalledTimes(1);

@@ -48,9 +48,17 @@ const createQuestion = async (
       is_public: isPublic,
     },
   });
+  let successMessage;
 
   if (value.is_anonymous) {
     const sessionhash = generateSessionIdHash(accessToken, created.question_id);
+
+    const questionDetailUrl = getQuestionDetailUrl(created.question_id);
+
+    successMessage = {
+      message: 'The anonymous question has been created succesfully!\n\nPlease save the attached link for followup on answers: ',
+      questionUrl: questionDetailUrl,
+    };
 
     created = await db.questions.update({
       where: {
@@ -60,6 +68,10 @@ const createQuestion = async (
         user_hash: sessionhash,
       },
     });
+  } else {
+    successMessage = {
+      message: 'The question has been created succesfully!',
+    };
   }
 
   if (config.sendSlackOnQuestionCreation) {
@@ -114,7 +126,7 @@ const createQuestion = async (
   }
 
   return {
-    successMessage: 'The question has been created succesfully!',
+    successMessage,
     question: created,
   };
 };

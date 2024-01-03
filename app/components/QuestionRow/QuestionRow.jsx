@@ -171,7 +171,7 @@ function QuestionRow(props) {
               />
             </Styled.DisableControls>
           )}
-          {(!question.is_public && question.is_enabled) && (
+          {((profile.is_admin && !question.is_public) && question.is_enabled) && (
           <Styled.DisableControls>
             <Styled.ButtonTooltipMessage>
               Click to publish this question.

@@ -312,6 +312,16 @@ export const DEFAULT_TOAST_CONFIG = {
   progress: undefined,
 };
 
+export const QUESTION_CREATED_TOAST_CONFIG = {
+  position: 'top-right',
+  autoClose: false,
+  hideProgressBar: false,
+  closeOnClick: false,
+  pauseOnHover: true,
+  draggable: false,
+  progress: undefined,
+};
+
 // Things to Keep in Mind
 export const RECOMMENDATIONS_QUESTION = [
   'Strive for constructive open communication. Avoid vagueness.',

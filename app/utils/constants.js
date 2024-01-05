@@ -359,3 +359,6 @@ export const DEFAULT_TAGS_LIMIT = 5;
 
 // OPENAI
 export const EMBEDDINGS_MODEL = 'text-embedding-ada-002';
+
+// MESSAGES
+export const COPIED_LINK_MESSAGE = 'The link was copied succesfully';

@@ -6,6 +6,7 @@ import {
   CLOSE_BUTTON,
   SECONDARY_BUTTON,
   PRIMARY_BUTTON,
+  COPIED_LINK_MESSAGE,
 } from 'app/utils/constants';
 import { useRef, useState } from 'react';
 
@@ -61,7 +62,13 @@ function AlertAnonQuestions({
           </s.LinkContainer>
         </s.ModalBody>
         <s.ModalFooter>
-          { showCopyMessage && <p style={{ color: 'green' }}> The link copied succesfully  </p>}
+          { showCopyMessage && (
+          <p style={{ color: 'green' }}>
+            {' '}
+            {COPIED_LINK_MESSAGE}
+            {' '}
+          </p>
+          )}
           <Button type="button" category={SECONDARY_BUTTON} onClick={onClose}>
             Cancel
           </Button>

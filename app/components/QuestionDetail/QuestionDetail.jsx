@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSubmit, useTransition, useSearchParams } from '@remix-run/react';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -31,6 +31,7 @@ import Loader from 'app/components/Loader';
 import logomark from 'app/images/logomark_small.png';
 import useUser from 'app/utils/hooks/useUser';
 import ACTIONS from 'app/utils/actions';
+import AlertAnonQuestions from '../Modals/AlertAnonQuestions';
 
 function QuestionDetails(props) {
   const submit = useSubmit();
@@ -40,12 +41,13 @@ function QuestionDetails(props) {
   const isAdmin = profile.is_admin;
   const currentUserEmail = profile.email;
 
-  const { question } = props;
+  const { question, newQuestionAlert } = props;
 
   const initialState = {
     showAnswerModal: false,
     showAssignAnswerModal: false,
     showDeleteAnswerModal: false,
+    showAlertAnonQuestion: newQuestionAlert.isNewQuestion,
   };
 
   const [state, setState] = useState(initialState);
@@ -146,6 +148,10 @@ function QuestionDetails(props) {
     setState({ ...state, showDeleteAnswerModal: false });
   };
 
+  const handleAlertAnonQuestion = () => {
+    setState({ ...state, showAlertAnonQuestion: false });
+  };
+
   const answerModal = state.showAnswerModal ? (
     <AnswerModal
       question={question}
@@ -159,6 +165,10 @@ function QuestionDetails(props) {
       question={question}
       onClose={handleDeleteAnswerModalClose}
     />
+  ) : null;
+
+  const showAnonQuestionAlert = (state.showAlertAnonQuestion && newQuestionAlert.data !== null) ? (
+    <AlertAnonQuestions onClose={handleAlertAnonQuestion} data={newQuestionAlert.data} />
   ) : null;
 
   const scoreAnswer = (score, answer_id) => {
@@ -297,6 +307,7 @@ function QuestionDetails(props) {
       {answerModal}
       {deleteAnswerModal}
       {assignAnswerModal}
+      {showAnonQuestionAlert}
     </Styled.Container>
   );
 }
@@ -333,10 +344,18 @@ QuestionDetails.propTypes = {
     hasLike: PropTypes.bool.isRequired,
     hasDislike: PropTypes.bool.isRequired,
   }),
+  newQuestionAlert: PropTypes.shape({
+    isNewQuestion: PropTypes.bool,
+    data: PropTypes.shape(),
+  }),
 };
 
 QuestionDetails.defaultProps = {
   question: null,
+  newQuestionAlert: {
+    isNewQuestion: false,
+    data: null,
+  },
 };
 
 export default QuestionDetails;

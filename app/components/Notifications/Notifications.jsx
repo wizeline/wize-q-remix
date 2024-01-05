@@ -20,10 +20,9 @@ function Notifications() {
     if (globalSuccess) {
       const { message, questionUrl } = globalSuccess;
       if (questionUrl) {
-        toast.success(successAnonMessage(message, questionUrl), QUESTION_CREATED_TOAST_CONFIG);
-      } else {
-        toast.success(message, DEFAULT_TOAST_CONFIG);
+        return;
       }
+      toast.success(message, DEFAULT_TOAST_CONFIG);
     }
     if (!data) return;
 

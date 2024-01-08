@@ -56,7 +56,7 @@ const createQuestion = async (
     const questionDetailUrl = getQuestionDetailUrl(created.question_id);
 
     successMessage = {
-      message: 'The anonymous question has been created succesfully!\n\nPlease save the attached link for followup on answers: ',
+      message: 'Your anonymous question has been successfully created. Please save the link below to track responses to your post: ',
       questionUrl: questionDetailUrl,
     };
 

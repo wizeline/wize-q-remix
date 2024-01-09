@@ -27,6 +27,8 @@ export const IDENTITY_MESSAGE = 'You are about to post a question';
 export const CONTINUE_MESSAGE = 'Do you want to continue?';
 export const CONTACT_WARNING = 'Please enter all fields';
 export const HTML_CODE_WARNING = 'Your input contains some HTML code without the correct Markdown format, so it will be removed if submitted. If you want to keep the HTML code please encapsulate it like `<html>markup</html>`';
+export const ANONYMOUS_QUESTION_WARNING = `You are about to post an anonymous question.
+This question will be posted privately and will only be visible to leadership and the site's moderators.`;
 
 export const PAGE_QUESTIONS_LIMIT = 20;
 export const PAGE_COMMENTS_LIMIT = 100;
@@ -284,7 +286,7 @@ export const MIN_QUESTION_PREVIEW_LENGTH = 13;
 export const QUESTION_BEING_PROCESSED = 'Your question is being processed';
 export const DEPARTMENT_WARNING = 'You need to select a department';
 export const EMPLOYEE_WARNING = 'You need to select a collaborator';
-export const DEFAULT_LOCATION_MESSAGE = 'As you have not selected a location for your question, it will be posted to all locations.';
+export const DEFAULT_LOCATION_MESSAGE = 'This question is not tagged to any specific location. Are you sure?';
 export const ALL_LOCATIONS_MESSAGE = 'This question will be posted to all locations. Are you sure?';
 export const LOCATION_WARNING = 'This question will be posted to: ';
 export const EMPLOYEE_PLACEHOLDER = 'Select a collaborator';

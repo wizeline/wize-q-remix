@@ -7,6 +7,7 @@ import {
   SECONDARY_BUTTON,
   DANGER_BUTTON,
   CLOSE_BUTTON,
+  ANONYMOUS_QUESTION_WARNING,
 } from 'app/utils/constants';
 import useUser from 'app/utils/hooks/useUser';
 import Button from 'app/components/Atoms/Button';
@@ -24,7 +25,7 @@ function SubmitWithModal(props) {
   };
 
   const renderIdentityWarning = () => {
-    let identityMessage = IDENTITY_MESSAGE;
+    let identityMessage = isAnonymous ? ANONYMOUS_QUESTION_WARNING : IDENTITY_MESSAGE;
     let usernameTag = '';
 
     if (!isAnonymous) {

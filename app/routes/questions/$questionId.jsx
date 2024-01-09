@@ -5,10 +5,12 @@ import React from 'react';
 import { useLoaderData } from '@remix-run/react';
 import { MdArrowBackIosNew } from 'react-icons/md';
 import { BsCircleFill } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { json, redirect } from '@remix-run/node';
 import * as Styled from 'app/styles/QuestionDetails.Styled';
-import { requireAuth, getAuthenticatedUser } from 'app/session.server';
+import {
+  requireAuth, getAuthenticatedUser, getSession, commitSession,
+} from 'app/session.server';
 import Button from 'app/components/Atoms/Button';
 import QuestionDetail from 'app/components/QuestionDetail';
 import QuestionDetailInfo from 'app/components/QuestionDetailInfo';
@@ -38,7 +40,7 @@ import publishQuestion from 'app/controllers/questions/publishQuestion';
 
 const replacer = (key, value) => (typeof value === 'bigint' ? value.toString() : value);
 
-const jsonCustom = (data, init = {}) => {
+const jsonCustom = async (data, session, init = {}) => {
   const responseInit = typeof init === 'number' ? {
     status: init,
   } : init;
@@ -47,6 +49,7 @@ const jsonCustom = (data, init = {}) => {
   if (!headers.has('Content-Type')) {
     headers.set('Content-Type', 'application/json; charset=utf-8');
   }
+  headers.set('Set-Cookie', await commitSession(session));
 
   return new Response(JSON.stringify(data, replacer), {
     ...responseInit,
@@ -59,6 +62,13 @@ export const loader = async ({ request, params }) => {
   const user = await getAuthenticatedUser(request);
   const url = new URL(request.url);
   const order = url.searchParams.get('order');
+  const session = await getSession(request);
+  const newQuestion = session.get('newQuestion') || false;
+  const nonQuestionAlert = session.get('globalSuccess') || null;
+  const newQuestionAlert = {
+    isNewQuestion: newQuestion,
+    data: nonQuestionAlert,
+  };
 
   const { questionId } = params;
   const { question } = await getQuestionById(parseInt(questionId, 10), user);
@@ -79,12 +89,16 @@ export const loader = async ({ request, params }) => {
   };
   const { comments } = await listComments(parametros);
 
-  return jsonCustom({
-    question,
-    locations,
-    departments,
-    comments,
-  });
+  return jsonCustom(
+    {
+      question,
+      locations,
+      departments,
+      comments,
+      newQuestionAlert,
+    },
+    session,
+  );
 };
 
 export const action = async ({ request }) => {
@@ -194,7 +208,7 @@ export const action = async ({ request }) => {
 };
 
 function QuestionDetailPage() {
-  const { question } = useLoaderData();
+  const { question, newQuestionAlert } = useLoaderData();
   const navigate = useNavigate();
 
   const renderBulletPoint = () => {
@@ -205,7 +219,7 @@ function QuestionDetailPage() {
 
   return (
     <Styled.Container>
-      <Notifications />
+      {!newQuestionAlert.isNewQuestion && <Notifications />}
       <Styled.BackToHomeQuestion>
         <Button onClick={() => { navigate('/'); }}>
           <strong>
@@ -222,7 +236,7 @@ function QuestionDetailPage() {
         />
       </Styled.BackToHomeQuestion>
       <Styled.QuestionDetail>
-        <QuestionDetail question={question} />
+        <QuestionDetail question={question} newQuestionAlert={newQuestionAlert} />
       </Styled.QuestionDetail>
       <Styled.QuestionRecommendations>
         <Styled.RecommendationsContainer>

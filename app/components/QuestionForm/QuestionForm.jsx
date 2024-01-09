@@ -20,7 +20,6 @@ import {
   NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE,
   NONE_LOCATION,
   DEFAULT_LOCATION_MESSAGE,
-  ALL_LOCATIONS_MESSAGE,
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
@@ -150,10 +149,8 @@ function QuestionForm({
       isAsking: true,
     });
 
-    if (location === NONE_LOCATION) {
+    if (location === NONE_LOCATION || location === DEFAULT_LOCATION) {
       warningsToShow.push(DEFAULT_LOCATION_MESSAGE);
-    } else if (location === DEFAULT_LOCATION) {
-      warningsToShow.push(ALL_LOCATIONS_MESSAGE);
     } else {
       const prelocation = locations.find(
         (loc) => loc.code === location,

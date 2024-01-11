@@ -157,7 +157,7 @@ function About() {
           {' '}
           Wizeline Questions is an internal project and
           everyone can contribute. Come aboard and meet the team at
-          <a href="https://wizeline.slack.com/archives/C031D9DP7C2" target="_blank" rel="noopener noreferrer">#wize-q-2022</a>
+          <a href="https://wizeline.slack.com/archives/C031D9DP7C2" target="_blank" rel="noopener noreferrer"> #wize-q-2022</a>
           . You can take a
           look at our
           <a href="https://github.com/wizeline/wize-q-remix"> source code</a>

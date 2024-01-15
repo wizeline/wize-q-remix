@@ -137,8 +137,8 @@ function About() {
               <li>
                 {' '}
                 Do not post sensitive or confidential information about
-                individuals, projects, or about Wizeline.
-
+                Wizeline or Wizeline´s customers, Wizeliners, other individuals,
+                third parties or projects.
               </li>
               <li>
                 {' '}

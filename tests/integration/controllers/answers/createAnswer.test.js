@@ -60,7 +60,7 @@ describe('createAnswer', () => {
   it('does not send slack if question is not public', async () => {
     findUniqueSpy.mockResolvedValue({
       question_id: 123,
-      question_text: 'Example question',
+      question: 'Example question',
       is_public: false,
     });
 

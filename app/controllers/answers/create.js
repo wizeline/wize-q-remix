@@ -54,11 +54,12 @@ const createAnswer = async (body, config = {
     },
   });
 
-  if (config.sendSlackOnAnswerCreation && relatedQuestion.is_public) {
+  if (config.sendSlackOnAnswerCreation) {
     slack.createAnswerNotification({
       questionId: relatedQuestion.question_id,
       questionBody: stripNewLines(relatedQuestion.question),
       answerBody: answer.answer_text,
+      is_public: relatedQuestion.is_public,
     });
   }
 

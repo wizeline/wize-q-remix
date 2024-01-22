@@ -45,7 +45,9 @@ function buildUrl(questionId) {
   return `https://${domain}/questions/${questionId}`;
 }
 
-async function createAnswerNotification({ questionId, questionBody, answerBody }) {
+async function createAnswerNotification({
+  questionId, questionBody, answerBody, is_public,
+}) {
   const url = buildUrl(questionId);
   const limit = SLACK_MAX_MESSAGE_SIZE_IN_BYTES;
 
@@ -83,6 +85,7 @@ async function createAnswerNotification({ questionId, questionBody, answerBody }
       color: SLACK_ANSWER_COLOR,
       pretext: SLACK_ANSWER_HEADER,
     },
+    is_public,
   };
 
   await send(options);

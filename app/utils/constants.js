@@ -7,7 +7,7 @@
 // Database string limit constant. It should hold about one page worth of text.
 export const MAXIMUM_ANSWER_LENGTH = 3000;
 export const MAXIMUM_COMMENT_LENGTH = 3000;
-export const MAXIMUM_QUESTION_LENGTH = 500;
+export const MAXIMUM_QUESTION_LENGTH = 25000;
 export const MINIMUM_QUESTION_LENGTH = 14;
 export const MINIMUM_ANSWER_LENGTH = 14;
 
@@ -263,6 +263,7 @@ export const DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE = 'You can not modify an alre
 export const NO_DEPARTMENT_SELECTED_TOOLTIP_MESSAGE = 'Select a department';
 export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
+export const MAX_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = `Your question exceeds the maximum character limit of ${MAXIMUM_QUESTION_LENGTH}`;
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
 export const SHOW_ONLY_OFFICIAL_ANSWER = '"Answered" option filters only admins answers (official and comment approved)';

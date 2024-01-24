@@ -129,7 +129,7 @@ model nps {
 
 model questions {
   question_id                  Int            @id @default(autoincrement())
-  question                     String         @db.VarChar(500)
+  question                     String         @db.VarChar
   user_hash                    String         @default("") @db.VarChar(255)
   is_anonymous                 Boolean
   createdat                    DateTime       @default(now()) @db.Timestamptz(6)

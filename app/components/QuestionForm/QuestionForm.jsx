@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { ContentState, convertFromRaw, EditorState } from 'draft-js';
 import { markdownToDraft } from 'markdown-draft-js';
 import { RiArrowRightSFill } from 'react-icons/ri';
-import { requireEmployeeAssigned } from 'app/config/flags.json';
+import { requireEmployeeAssigned, postAnonymousQuestions } from 'app/config/flags.json';
 
 import {
   DEFAULT_LOCATION,
@@ -16,11 +16,11 @@ import {
   MAXIMUM_QUESTION_LENGTH,
   NO_DEPARTMENT_SELECTED_TOOLTIP_MESSAGE,
   MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE,
+  MAX_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE,
   DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP,
   NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE,
   NONE_LOCATION,
   DEFAULT_LOCATION_MESSAGE,
-  ALL_LOCATIONS_MESSAGE,
   LOCATION_WARNING,
   NO_DEPARTMENT_SELECTED_ID,
   NOT_ASSIGNED_DEPARTMENT_ID,
@@ -150,10 +150,8 @@ function QuestionForm({
       isAsking: true,
     });
 
-    if (location === NONE_LOCATION) {
+    if (location === NONE_LOCATION || location === DEFAULT_LOCATION) {
       warningsToShow.push(DEFAULT_LOCATION_MESSAGE);
-    } else if (location === DEFAULT_LOCATION) {
-      warningsToShow.push(ALL_LOCATIONS_MESSAGE);
     } else {
       const prelocation = locations.find(
         (loc) => loc.code === location,
@@ -240,7 +238,8 @@ function QuestionForm({
     let tooltipMessage = '';
     if (!validTextLength(sanitizedInput.length, MINIMUM_QUESTION_LENGTH, MAXIMUM_QUESTION_LENGTH)) {
       askBtbEnabled = false;
-      tooltipMessage = MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE;
+      tooltipMessage = sanitizedInput.length > MAXIMUM_QUESTION_LENGTH
+        ? MAX_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE : MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE;
     }
 
     if (assignedDepartment.department_id === NO_DEPARTMENT_SELECTED_ID) {
@@ -321,6 +320,7 @@ function QuestionForm({
             onInputChange={onInputChange}
             submitElement={(
               <Styled.Submit disabled={askBtnClass}>
+                { postAnonymousQuestions && (
                 <p style={{ float: 'left' }}>
                   <span>Ask anonymously</span>
                   <Switch
@@ -328,6 +328,7 @@ function QuestionForm({
                     onChange={onAnonymousChange}
                   />
                 </p>
+                )}
                 <InputCounter
                   currentLength={getQuestionLength(state.inputValue)}
                   maxLength={MAXIMUM_QUESTION_LENGTH}

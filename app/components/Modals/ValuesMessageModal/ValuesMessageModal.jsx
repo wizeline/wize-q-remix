@@ -26,46 +26,42 @@ function ValuesMessageModal({ show, onClose }) {
               {' '}
               !
             </styled.ModalTitle>
-            <styled.ModalSubtitle>
-              Welcome to Wize Q!
-            </styled.ModalSubtitle>
           </styled.ModalHeader>
           <styled.ModalBody>
             <p>
-              We want to share a few simple guidelines before you start.
-              Remember that Wize Q is a space for asking questions and providing answers that
-              are helpful to our community.
+              Welcome to Wize Q.
+              This is a space for asking questions and providing answers
+              that are helpful to our community. Before you get started,
+              please remember to practice our values when using the platform
             </p>
-            <p>Please practice our values when using Wize Q: </p>
             <styled.ValuesInformation>
               <p>
                 {renderBulletPoint('var(--color-primary)')}
                 <styled.ValueText color="var(--color-primary)">Ownership</styled.ValueText>
-                – See if you can find the answer to your question before posting on Wize Q.
-                And if you know the answer to a question or how to find it,
-                be sure to reply — anyone can!
+                <br />
+                - Before posting, check if the answer is already available in other channels.
+                Additionally, if you know the answer to a question from another Wizeliner,
+                be sure to respond.
               </p>
               <p>
                 {renderBulletPoint('var(--color-secondary)')}
                 <styled.ValueText color="var(--color-secondary)">Innovation</styled.ValueText>
-                – When someone shares a concern or challenge,
-                let’s be innovative — propose a solution or offer support!
+                <br />
+                - If someone shares a concern or challenge, try to propose a solution!
               </p>
               <p>
                 {renderBulletPoint('#E5C8A6')}
                 <styled.ValueText color="#E5C8A6">Community</styled.ValueText>
-                – Remember to treat everyone with dignity and respect.
-                Assume others have good intentions. Always be honest and constructive.
-                Let’s make Wizeline a community where everyone can thrive.
+                <br />
+                - Treat everyone with dignity and respect,
+                be honest and constructive, and always assume others have good intentions.
               </p>
             </styled.ValuesInformation>
             <p>
-              Consider that other channels:
-              (ticketing portal, Slack, your TPLs or people partner)
-              might be more effective for finding the right answer quickly.
+              For more detailed guidelines, please see  Wize Q’s home page.
             </p>
             <p>Thanks for being a valuable contributor to our community! </p>
-            <p>The Wize Q Team</p>
+            <strong><p>The Wize Q Team</p></strong>
           </styled.ModalBody>
           <styled.ModalFooter>
             <Button

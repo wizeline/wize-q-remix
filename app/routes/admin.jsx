@@ -19,6 +19,7 @@ import removeEmployeeToDepartment from 'app/controllers/employees/delete';
 import AdminTags from 'app/components/AdminTags';
 import listTags from 'app/controllers/comments/tags/list';
 import createTag from 'app/controllers/comments/tags/create';
+import { taggingComments } from 'app/config/flags.json';
 
 export const loader = async ({ request }) => {
   await requireAdminAuth(request);
@@ -153,7 +154,7 @@ function Admin() {
       id: 'Departments',
       element: renderDepartments(),
     },
-    {
+    taggingComments && {
       id: 'Tags',
       element: renderTags(),
     },

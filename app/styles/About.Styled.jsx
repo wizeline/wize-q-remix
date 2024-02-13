@@ -49,7 +49,7 @@ export const AboutBody = styled.div`
   p {
     color: ${colorDark50};
     letter-spacing: 0.6px;
-    margin: 40px 40px 18px 18px;
+    margin: 10px 10px 18px 18px;
     padding: 8px 10px;
     text-align: justify;
   }
@@ -63,8 +63,7 @@ export const AboutBody = styled.div`
   }
 
   span ul li {
-    padding-top: 10px;
-    width: 60%;
+    width: 100%;
 
     @media (max-width: 767px) {
       width: 100%;
@@ -222,4 +221,8 @@ export const AboutFooter = styled.div`
       margin-bottom: 20px;
     }
   }
+`;
+
+export const ListContainer = styled.div`
+ text-align: justify;
 `;

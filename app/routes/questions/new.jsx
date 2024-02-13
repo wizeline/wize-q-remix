@@ -4,8 +4,7 @@ import { json, redirect } from '@remix-run/node';
 import { useLoaderData, useSubmit } from '@remix-run/react';
 import * as Styled from 'app/styles/CreateQuestion.Styled';
 import Slogan from 'app/components/Slogan';
-import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH } from 'app/utils/constants';
-import { RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
+import { MAXIMUM_QUESTION_LENGTH, MINIMUM_ANSWER_LENGTH, RECOMMENDATIONS_QUESTION } from 'app/utils/constants';
 import QuestionForm from 'app/components/QuestionForm';
 import listLocations from 'app/controllers/locations/list';
 import {
@@ -51,6 +50,7 @@ export const action = async ({ request }) => {
     const session = await getSession(request);
     const { question, successMessage } = response;
     session.flash('globalSuccess', successMessage);
+    session.set('newQuestion', successMessage.questionUrl);
     const destination = `/questions/${question.question_id}`;
 
     return redirect(destination, {

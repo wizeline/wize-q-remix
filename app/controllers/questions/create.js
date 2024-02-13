@@ -9,12 +9,16 @@ import { SLACK_QUESTION_LIMIT } from 'app/utils/slack/slackConstants';
 import { EMAILS } from 'app/utils/emails/emailConstants';
 import { getQuestionDetailUrl } from 'app/utils/urls/urlUtils';
 import { sendEmail } from 'app/utils/emails/emailHandler';
-import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation } from 'app/config/flags.json';
+import { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation, privateAnonQuestions } from 'app/config/flags.json';
 import { defaultManagerEmail, defaultManagerName } from 'app/config/emails.json';
 
 const createQuestion = async (
   body,
-  config = { sendEmailToManagerOnQuestionCreation, sendSlackOnQuestionCreation },
+  config = {
+    sendEmailToManagerOnQuestionCreation,
+    sendSlackOnQuestionCreation,
+    privateAnonQuestions,
+  },
 ) => {
   const { error, value } = createQuestionSchema.validate(body);
   if (error) {
@@ -29,16 +33,32 @@ const createQuestion = async (
   }
 
   const { accessToken, ...rest } = value;
+  let isPublic;
+
+  if (privateAnonQuestions) {
+    isPublic = !value.is_anonymous;
+  } else {
+    isPublic = true;
+  }
 
   let created = await db.questions.create({
     data: {
       ...rest,
       question: sanitizeHTML(value.question),
+      is_public: isPublic,
     },
   });
+  let successMessage;
 
   if (value.is_anonymous) {
     const sessionhash = generateSessionIdHash(accessToken, created.question_id);
+
+    const questionDetailUrl = getQuestionDetailUrl(created.question_id);
+
+    successMessage = {
+      message: 'Your anonymous question has been successfully created. Please save the link below to track responses to your post: ',
+      questionUrl: questionDetailUrl,
+    };
 
     created = await db.questions.update({
       where: {
@@ -48,12 +68,17 @@ const createQuestion = async (
         user_hash: sessionhash,
       },
     });
+  } else {
+    successMessage = {
+      message: 'The question has been created succesfully!',
+    };
   }
 
   if (config.sendSlackOnQuestionCreation) {
-    await slack.createQuestionNotification({
+    slack.createQuestionNotification({
       questionBody: stripNewLines(truncate(value.question), SLACK_QUESTION_LIMIT),
       questionId: created.question_id,
+      is_public: created.is_public,
     });
   }
 
@@ -101,7 +126,7 @@ const createQuestion = async (
   }
 
   return {
-    successMessage: 'The question has been created succesfully!',
+    successMessage,
     question: created,
   };
 };

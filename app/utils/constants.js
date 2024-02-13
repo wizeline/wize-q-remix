@@ -7,7 +7,7 @@
 // Database string limit constant. It should hold about one page worth of text.
 export const MAXIMUM_ANSWER_LENGTH = 3000;
 export const MAXIMUM_COMMENT_LENGTH = 3000;
-export const MAXIMUM_QUESTION_LENGTH = 500;
+export const MAXIMUM_QUESTION_LENGTH = 25000;
 export const MINIMUM_QUESTION_LENGTH = 14;
 export const MINIMUM_ANSWER_LENGTH = 14;
 
@@ -27,6 +27,8 @@ export const IDENTITY_MESSAGE = 'You are about to post a question';
 export const CONTINUE_MESSAGE = 'Do you want to continue?';
 export const CONTACT_WARNING = 'Please enter all fields';
 export const HTML_CODE_WARNING = 'Your input contains some HTML code without the correct Markdown format, so it will be removed if submitted. If you want to keep the HTML code please encapsulate it like `<html>markup</html>`';
+export const ANONYMOUS_QUESTION_WARNING = `You are about to post an anonymous question.
+This question will be posted privately and will only be visible to leadership and the site's moderators.`;
 
 export const PAGE_QUESTIONS_LIMIT = 20;
 export const PAGE_COMMENTS_LIMIT = 100;
@@ -261,6 +263,7 @@ export const DISABLED_ANSWER_ICONS_TOOLTIP_MESSAGE = 'You can not modify an alre
 export const NO_DEPARTMENT_SELECTED_TOOLTIP_MESSAGE = 'Select a department';
 export const NO_COLLABORATOR_SELECTED_TOOLTIP_MESSAGE = 'Select a collaborator';
 export const MIN_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = inputPlaceholder(MINIMUM_QUESTION_LENGTH);
+export const MAX_CHARS_QUESTION_INPUT_TOOLTIP_MESSAGE = `Your question exceeds the maximum character limit of ${MAXIMUM_QUESTION_LENGTH}`;
 export const DEFAULT_MESSAGE_END_QUESTION_INPUT_TOOLTIP = 'to ask a question.';
 export const NO_LOCATIONS_AVAILABLE_TOOLTIP_MESSAGE = 'There are no locations';
 export const SHOW_ONLY_OFFICIAL_ANSWER = '"Answered" option filters only admins answers (official and comment approved)';
@@ -284,7 +287,7 @@ export const MIN_QUESTION_PREVIEW_LENGTH = 13;
 export const QUESTION_BEING_PROCESSED = 'Your question is being processed';
 export const DEPARTMENT_WARNING = 'You need to select a department';
 export const EMPLOYEE_WARNING = 'You need to select a collaborator';
-export const DEFAULT_LOCATION_MESSAGE = 'As you have not selected a location for your question, it will be posted to all locations.';
+export const DEFAULT_LOCATION_MESSAGE = 'This question is not tagged to any specific location. Are you sure?';
 export const ALL_LOCATIONS_MESSAGE = 'This question will be posted to all locations. Are you sure?';
 export const LOCATION_WARNING = 'This question will be posted to: ';
 export const EMPLOYEE_PLACEHOLDER = 'Select a collaborator';
@@ -312,6 +315,16 @@ export const DEFAULT_TOAST_CONFIG = {
   progress: undefined,
 };
 
+export const QUESTION_CREATED_TOAST_CONFIG = {
+  position: 'top-right',
+  autoClose: false,
+  hideProgressBar: false,
+  closeOnClick: false,
+  pauseOnHover: true,
+  draggable: false,
+  progress: undefined,
+};
+
 // Things to Keep in Mind
 export const RECOMMENDATIONS_QUESTION = [
   'Strive for constructive open communication. Avoid vagueness.',
@@ -328,6 +341,7 @@ export const INVALIDATE_VOTE_ERROR_MESSAGE = 'Error trying to invalidate the vot
 export const UPDATE_COMMENT_ERROR_MESSAGE = 'Error trying to update the comment';
 export const DELETE_COMMENT_ERROR_MESSAGE = 'Error trying to delete the comment';
 export const ENABLE_DISABLE_ERROR_MESSAGE = 'Error trying to enable/disable this question';
+export const PUBLISH_QUESTION_ERROR_MESSAGE = 'Error trying to publish the question.';
 
 // Database string limit constant. It should hold about one page worth of text.
 export const MINIMUM_COMMENT_LENGTH = 2;
@@ -348,3 +362,6 @@ export const DEFAULT_TAGS_LIMIT = 5;
 
 // OPENAI
 export const EMBEDDINGS_MODEL = 'text-embedding-ada-002';
+
+// MESSAGES
+export const COPIED_LINK_MESSAGE = 'The link was copied succesfully';

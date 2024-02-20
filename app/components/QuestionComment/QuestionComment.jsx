@@ -370,14 +370,14 @@ function QuestionComment({ commentData, onSubmitSuccess, ...props }) {
               </Styled.ButtonSeeComment>
               )}
               <Styled.QuestionCommentMarkdown
-                children={comment}
+                children={comment.replace(String.fromCharCode(10), '\n\n')}
                 components={{ link: MarkdownLinkRenderer }}
               />
             </Styled.QuestionCommentIsTagged>
           ) : (
             <Styled.QuestionCommentEdit>
               <CommentInputText
-                inputValue={comment}
+                inputValue={comment.replace(String.fromCharCode(10), '\n\n')}
                 placeholder={COMMENT_EDIT_PLACEHOLDER}
                 onInputChange={handleCommentUpdate}
               />

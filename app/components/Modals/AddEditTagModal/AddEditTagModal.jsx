@@ -38,8 +38,8 @@ function AddEditTagModal({ onClose }) {
           </styled.ModalHeader>
           <styled.ModalBody>
             <Input
+              id="new-tag"
               type="text"
-              value={value}
               onChange={(e) => { setError(undefined); setValue(e.target.value); }}
               placeholder="Add a new tag"
             />

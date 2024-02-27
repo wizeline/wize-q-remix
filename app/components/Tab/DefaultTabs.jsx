@@ -8,14 +8,13 @@ function DefaultTabs({ activeTab, TabsElements, onSelect }) {
       style={{ padding: '0px 16px' }}
       defaultActiveKey={activeTab}
       id="uncontrolled"
-      fill
       onSelect={onSelect}
     >
       {TabsElements.map(({ id, element }) => (
         <Tab
           eventKey={id}
           title={id}
-          key={element}
+          key={id}
         >
           {' '}
           {element}

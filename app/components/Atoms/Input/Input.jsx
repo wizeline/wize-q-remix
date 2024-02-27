@@ -33,7 +33,6 @@ export default Input;
 Input.propTypes = {
   id: PropTypes.string.isRequired,
   type: PropTypes.string,
-  inputParams: {}.isRequired,
   classContainer: PropTypes.string,
   classInput: PropTypes.string,
   inputLeftElement: PropTypes.element,
@@ -49,7 +48,7 @@ Input.defaultProps = {
   type: 'text',
   inputLeftElement: null,
   inputRightElement: null,
-  classLeftElement: '',
-  classRightElement: '',
+  classLeftElement: null,
+  classRightElement: null,
   rows: 1,
 };

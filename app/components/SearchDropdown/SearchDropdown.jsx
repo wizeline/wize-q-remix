@@ -19,7 +19,7 @@ function SearchDropdown({
       { (showDropdown && data) && (
       <S.DropdownSearch>
         {data.map((user) => (
-          <div onClick={() => { onDropdownClick(user); }}>
+          <div key={user[keyValue]} onClick={() => { onDropdownClick(user); }}>
             {user[keyValue]}
           </div>
         ))}
@@ -32,7 +32,7 @@ function SearchDropdown({
 SearchDropdown.propTypes = {
   inputId: PropTypes.string.isRequired,
   defaultValue: PropTypes.string,
-  data: PropTypes.arrayOf(),
+  data: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.any)),
   onChange: PropTypes.func.isRequired,
   showDropdown: PropTypes.bool.isRequired,
   onDropdownClick: PropTypes.func.isRequired,

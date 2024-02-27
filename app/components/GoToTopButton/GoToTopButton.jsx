@@ -25,7 +25,7 @@ function GoToTopButton() {
   return (
     <Styled.Button
       id="go-to-top-button"
-      display={show}
+      display={show ? 'flex' : 'none'}
       onClick={goToTop}
     >
       <ArrowIcon />

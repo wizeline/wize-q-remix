@@ -6,7 +6,7 @@ import AddEditTagModal from '../Modals/AddEditTagModal';
 import * as styled from './AdminTags.styled';
 
 function AdminTags({
-  tags, currentPage, totalPages, size, isLoading,
+  tags, currentPage, totalPages, size,
 }) {
   const quantityRef = useRef();
   const [showModal, setShowModal] = useState(false);
@@ -74,9 +74,10 @@ function AdminTags({
         <select
           ref={quantityRef}
           onChange={(e) => { setValues(e.target.value); }}
+          defaultValue={10}
         >
           <option value="5">5</option>
-          <option value="10" selected>10</option>
+          <option value="10">10</option>
           <option value="15">15</option>
           <option value="20">20</option>
           <option value="25">25</option>
@@ -102,31 +103,28 @@ function AdminTags({
             ))}
           </tbody>
         </styled.TagTable>
+        <styled.PaginationContainer>
+          <div>
+            Page
+            {' '}
+            {currentPage}
+            {' '}
+            of
+            {' '}
+            {totalPages}
+          </div>
 
-        {!isLoading && (
-          <styled.PaginationContainer>
-            <div>
-              Page
-              {' '}
-              {currentPage}
-              {' '}
-              of
-              {' '}
-              {totalPages}
-            </div>
+          <styled.TablePagination boundarylinks="true">
+            {currentPage > 1 && (
+            <styled.TablePagination.Prev onClick={prevPageHandler} />
+            )}
+            {paginationItems}
 
-            <styled.TablePagination boundarylinks="true">
-              {currentPage > 1 && (
-                <styled.TablePagination.Prev onClick={prevPageHandler} />
-              )}
-              {paginationItems}
-
-              {currentPage < totalPages && (
-                <styled.TablePagination.Next onClick={nextPageHandler} />
-              )}
-            </styled.TablePagination>
-          </styled.PaginationContainer>
-        )}
+            {currentPage < totalPages && (
+            <styled.TablePagination.Next onClick={nextPageHandler} />
+            )}
+          </styled.TablePagination>
+        </styled.PaginationContainer>
       </styled.TabContainer>
       {showModal && <AddEditTagModal onClose={() => setShowModal(false)} />}
     </div>
@@ -140,7 +138,6 @@ AdminTags.propTypes = {
   currentPage: PropTypes.number.isRequired,
   totalPages: PropTypes.number.isRequired,
   size: PropTypes.number.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 };
 
 export default AdminTags;

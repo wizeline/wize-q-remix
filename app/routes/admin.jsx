@@ -123,7 +123,7 @@ function Admin() {
       users={users}
       currentPage={currentPage}
       totalPages={totalPages}
-      size={size}
+      size={Number(size)}
     />
   );
 
@@ -132,7 +132,7 @@ function Admin() {
       departments={departments}
       currentPage={currentPage}
       totalPages={totalPagesDepartment}
-      size={size}
+      size={Number(size)}
     />
   );
 
@@ -141,7 +141,7 @@ function Admin() {
       tags={tags}
       currentPage={currentPage}
       totalPages={totalPagesTags}
-      size={size}
+      size={Number(size)}
     />
   );
 

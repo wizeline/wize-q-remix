@@ -56,7 +56,7 @@ function CustomDropdown(props) {
 }
 
 CustomDropdown.propTypes = {
-  elements: PropTypes.arrayOf().isRequired,
+  elements: PropTypes.arrayOf(PropTypes.shape()).isRequired,
   text: PropTypes.string,
   label: PropTypes.string.isRequired,
   dropdownClass: PropTypes.string,

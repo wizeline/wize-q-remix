@@ -33,8 +33,7 @@ const initialState = {
   isSubmitted: false,
 };
 
-const Contact = (props) => {
-  
+function Contact(props) {
   const { full_name: name, email } = useUser();
 
   const [state, setState] = useState(initialState);
@@ -73,12 +72,10 @@ const Contact = (props) => {
   );
 
   const onInputChange = (event) => {
-    setState((prevState) => {
-      return {
-        ...prevState,
-        [event.target.name]: event.target.value,
-      }
-    })
+    setState((prevState) => ({
+      ...prevState,
+      [event.target.name]: event.target.value,
+    }));
   };
 
   const handleEmailSent = () => {
@@ -100,7 +97,7 @@ const Contact = (props) => {
   const onSubmitWithSuccess = () => {
     const emailBody = createEmailContent();
     props.sendContact(emailBody);
-    
+
     handleEmailSent();
   };
 
@@ -143,7 +140,10 @@ const Contact = (props) => {
       <Styled.ContactForm onSubmit={onSubmit}>
         <Styled.ContactFormP>
           Hi
-          <strong> {firstName}</strong>
+          <strong>
+            {' '}
+            {firstName}
+          </strong>
           !
           <br />
           Send us a message!
@@ -201,11 +201,16 @@ const Contact = (props) => {
       <Footer />
     </Styled.ContactCardDiv>
   );
-};
+}
 
 Contact.propTypes = {
-  sendContact: PropTypes.func.isRequired,
-  warningAlert: PropTypes.func.isRequired,
+  sendContact: PropTypes.func,
+  warningAlert: PropTypes.func,
+};
+
+Contact.defaultProps = {
+  sendContact: () => {},
+  warningAlert: () => {},
 };
 
 export default Contact;

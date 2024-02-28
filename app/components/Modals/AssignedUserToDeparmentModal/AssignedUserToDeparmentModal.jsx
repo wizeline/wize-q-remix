@@ -133,7 +133,7 @@ function AssignedUserToDeparmentModal({ department, onClose }) {
                   </S.TableRow>
                 </S.TableRow>
                 {employeesyDepartment.map(({ id, name: full_name }) => (
-                  <S.TableRow>
+                  <S.TableRow key={id}>
                     <li>
                       {full_name}
                       {isManager(id) && ' - manager '}

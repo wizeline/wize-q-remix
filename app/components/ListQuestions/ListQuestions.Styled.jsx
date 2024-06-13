@@ -26,6 +26,7 @@ export const CenterWrapper = styled.div`
   flex: 2;
   display: flex;
   justify-content: center;
+  width: 100%;  
 `;
 
 export const RightWrapper = styled.div`
